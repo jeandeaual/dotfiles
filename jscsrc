@@ -1,0 +1,6 @@
+{
+    "preset": "node-style-guide",
+    "validateIndentation": 4,
+    "requireLineFeedAtFileEnd": true,
+    "requireTrailingComma": false
+}

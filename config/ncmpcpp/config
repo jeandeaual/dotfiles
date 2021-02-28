@@ -1,0 +1,29 @@
+# Set it in order to make tag editor and renaming files work properly
+#mpd_music_dir = "/media/data"
+
+#mpd_connection_timeout = "5"
+
+#mpd_crossfade_time = "5"
+
+mpd_host = "localhost"
+mpd_port = "6600"
+
+# Use Album Artist instead of Artist in the left column of the media library
+media_library_left_column = "A"
+
+autocenter_mode = "yes"
+
+# Needed for the visualizer.
+# It needs to correspond to one of mpd's fifo output.
+#
+# Example (to put in mpd.conf):
+# audio_output {
+#       type "fifo"
+#       name "fifo: ncmpcpp visualizer"
+#       path "~/.mpd/mpd.fifo"
+#       format "44100:16:2"
+# }}
+visualizer_fifo_path = "/home/alexis/.mpd/mpd.fifo"
+visualizer_sync_interval = "30"
+visualizer_in_stereo = "yes"
+visualizer_type = "spectrum" (spectrum/wave)

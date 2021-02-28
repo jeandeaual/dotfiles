@@ -1,0 +1,137 @@
+directory: ~/Music/Beets
+plugins:
+  # Built-in plugins
+  - badfiles
+  - duplicates
+  - info
+  - inline
+  - play
+  # - plex
+  - spotify
+  # - thumbnails
+  - web
+  # Third-party plugins
+  - extrafiles
+paths:
+    default: Albums/$if_albumartist/$if_year$album$if_albumtype$format_details%aunique{}/$disc_and_track $title
+    format:dsd: DSD/$if_albumartist/$if_year$album$if_albumtype$format_details%aunique{}/$disc_and_track $title
+    singleton: Tracks/$if_albumartist/$title
+    comp: Compilations/$album$if_albumtype$format_details%aunique{}/$disc_and_track $title - $artist
+    albumtype:audiobook: Audiobook/$album$format_details%aunique{}/$disc_and_track $title
+    albumtype:spokenword: Drama CD/$if_albumartist/$album$format_details%aunique{}/$disc_and_track $title
+import:
+    autotag: no
+    write: no
+    copy: yes
+    move: no
+    timid: yes
+    resume: ask
+    incremental: no
+    # quiet_fallback: skip
+    default_action: asis
+    # log: /tmp/beets.log
+ui:
+    color: yes
+id3v23: yes
+original_date: no
+per_disc_numbering: yes
+# files matching these patterns are deleted from source after import
+clutter: ['Thumbs.DB', '.DS_Store', '*.m3u', '.pls']
+item_fields:
+    disc_and_track: f'{disc:1}-{track:02}' if disctotal > 1 else f'{track:02}'
+    format_details: |
+        # format_str = ' ';
+        # if format in ['FLAC', 'ALAC']:
+        #     if bitdepth != 16 or samplerate != 44100:
+        #         format_str += f'[{format} {bitdepth}bit-{samplerate/1000:.3g}kHz]'
+        #     else:
+        #         format_str += f'[{format}]'
+        # elif format == 'OGG':
+        #     format_str += '[Vorbis]'
+        # elif format.startswith('DSD'):
+        #     if samplerate == 2822400:
+        #         format_str += '[DSD64]'
+        #     elif samplerate == 5644800:
+        #         format_str += '[DSD128]'
+        #     elif samplerate == 11289600:
+        #         format_str += '[DSD256]'
+        #     elif samplerate == 22579200:
+        #         format_str += '[DSD512]'
+        #     else:
+        #         format_str += '[DSD]'
+        # else:
+        #     format_str += f'[{format}]'
+        # if channels == 6:
+        #     format_str += ' [5.1]'
+        # elif channels == 1:
+        #     format_str += ' [Mono]'
+        # elif channels != 2:
+        #     format_str += f' [{channels}]'
+        if media.endswith('Vinyl') or media.endswith('Flexi-disc'):
+            format_str += ' [Vinyl]'
+        elif media not in ['CD', 'Enhanced CD', 'HQCD', 'SHM-CD', 'Digital Media']:
+            format_str += f' [{media}]'
+        if catalognum:
+            format_str += f' {{{catalognum}}}'
+        return format_str
+    if_albumtype: |
+        # ID3 fields have their values separated by a / by default
+        types = albumtype.split('/')
+        format_str = ''
+        for release_type in types:
+            if release_type in ['', 'album', 'broadcast', 'other', 'compilation']:
+                continue
+            if release_type == 'ep':
+                format_str += ' [EP]'
+            else:
+                format_str += f' [{release_type.title()}]'
+        return format_str
+    if_albumartist: |
+        if albumartist:
+            return albumartist
+        return artist
+    # if_differentartist: |
+    #     if albumartist and artist != albumartist:
+    #         return ' - ' + artist
+    #     return ''
+    if_year: |
+        if original_year:
+            return f'{original_year} - '
+        if year:
+            return f'{year} - '
+        return ''
+replace:
+    '[\\/]': _
+    '^\.': _
+    '[\x00-\x1f]': _
+    '[<>:"\?\*\|]': ''
+    '\.$': _
+    '\s+$': ''
+    '^\s+': ''
+    '^-': _
+# Plugin configurations
+# plex:
+#     host: localhost
+#     port: 32400
+#     token: token
+spotify:
+    mode: list
+    show_failures: on
+    tiebreak: popularity
+web:
+    host: 0.0.0.0
+    port: 8337
+extrafiles:
+    patterns:
+        artworkdir:
+          - '[sS]cans/'
+          - '[aA]rtwork/'
+        lyrics:
+          - '*.lrc'
+          - '*.txt'
+        cue:
+          - '*.cue'
+        booklets:
+          - '*.pdf'
+    paths:
+        artworkdir: $albumpath/artwork

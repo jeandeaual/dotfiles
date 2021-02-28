@@ -1,0 +1,33 @@
+# Continue on download errors, for example to skip unavailable videos in a playlist
+--ignore-errors
+
+# Prefer free video formats unless a specific one is requested
+--prefer-free-formats
+
+# Write metadata to the video file
+--add-metadata
+
+# Write all thumbnail image formats to disk
+--write-all-thumbnails
+
+# Embed thumbnail in the audio as cover art
+# Only supported with MP3 files
+# --embed-thumbnail
+
+# Embed subtitles in the video (only for mp4, webm and mkv videos)
+--embed-subs
+
+# Download all the available subtitles of the video
+--all-subs
+
+# Write video metadata to a .info.json file
+# --write-info-json
+
+# Output filename template
+# Don't put the video ID in the output filename
+--output '%(title)s.%(ext)s'
+
+# Use the specified external downloader.
+# Currently supports aria2c,avconv,axel,curl,ffmpeg,httpie,wget
+--external-downloader aria2c
+--external-downloader-args "--continue --max-connection-per-server=16 --min-split-size=1M --split=16"

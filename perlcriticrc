@@ -1,0 +1,8 @@
+severity = 2
+top = 5
+exclude = Editor::RequireEmacsFileVariables Miscellanea::RequireRcsKeywords Modules::RequireVersionVar
+
+[ControlStructures::ProhibitPostfixControls]
+severity = 4
+allow = if unless
+theme = iffy

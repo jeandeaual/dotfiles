@@ -1,0 +1,21 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# Set the default window size
+set window-height 1024
+set window-width 768
+
+# Open document in fit-width mode by default
+set adjust-open width
+
+# One page per row by default
+set pages-per-row 1
+
+# Stop at page boundries
+set scroll-page-aware true
+
+# Zoom settings
+set zoom-min 10
+
+# Copy to the clipboard by default
+set selection-clipboard clipboard

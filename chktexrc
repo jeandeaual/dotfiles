@@ -1,0 +1,7 @@
+# Exclude these environments from syntax checking
+VerbEnvir
+{
+    verbatim comment listing verbatimtab rawhtml errexam picture texdraw
+    filecontents pgfpicture tikzpicture minted
+    luacode luacode*
+}
