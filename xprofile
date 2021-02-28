@@ -1,0 +1,6 @@
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+# Swap Ctrl and Caps Lock
+# setxkbmap -option ctrl:swapcaps

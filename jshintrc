@@ -1,0 +1,30 @@
+{
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "esversion": 6,
+  "forin": true,
+  "freeze": true,
+  "globals": {
+    "define": false
+  },
+  "maxcomplexity": 15,
+  "maxdepth": 4,
+  "maxerr": 100,
+  "noarg": true,
+  "nocomma": true,
+  "nonbsp": true,
+  "nonew": true,
+  "singleGroups": true,
+  "undef": true,
+  "unused": "vars",
+  "browser": true,
+  "devel": true,
+  "jasmine": true,
+  "jquery": true,
+  "mocha": true,
+  "module": true,
+  "node": true,
+  "worker": true
+}

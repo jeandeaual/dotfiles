@@ -1,0 +1,38 @@
+# EditorConfig
+# http://EditorConfig.org
+
+# Don't search any further up the directory tree
+root = true
+
+# Baseline
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Git configuration
+[.gitconfig*]
+indent_style = tab
+
+# JetBrains DotPeek configuration
+[*.DotSettings]
+indent_style = tab
+insert_final_newline = false
+
+# JetBrains IDE configuration
+[jetbrains/**/*.xml]
+indent_size = 2
+insert_final_newline = false
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
+
+# Shell scripts
+[{*.sh,.bashrc,.zshrc}]
+max_line_length = 79
+keep_padding = true             # shfmt: -kp
+space_redirects = true          # shfmt: -sr
+switch_case_indent = true       # shfmt: -ci

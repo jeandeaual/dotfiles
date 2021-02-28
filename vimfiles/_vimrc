@@ -1,0 +1,1168 @@
+" Variables {{{1
+"------------------------------------------------------------------------------
+
+" Skip initialization for vi or vim-tiny
+if !1 | finish | endif
+
+scriptencoding utf-8
+
+let s:is_win = has("win16") || has("win32") || has("win64")
+
+" Plugins {{{1
+"------------------------------------------------------------------------------
+filetype off
+
+if &compatible
+  set nocompatible
+endif
+
+if has('nvim')
+  if s:is_win
+    let s:vim_dir = expand('~/AppData/Local/nvim')
+  else
+    " TODO: Use $XDG_CONFIG_HOME to store the configuration
+    " Issue: expand('$XDG_CONFIG_HOME') doesn't seems to work in Neovim
+    let s:vim_dir = expand('~/.config/nvim')
+  endif
+else
+  if s:is_win
+    let s:vim_dir = expand('~/vimfiles')
+  else
+    let s:vim_dir = expand('~/.vim')
+  endif
+endif
+
+let s:dein_dir = s:vim_dir . '/dein'
+let s:cache_dir = expand('~/.cache')
+let s:dein_dir = s:cache_dir . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    echo 'Installing dein...'
+    echo ''
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  "execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+  execute 'set runtimepath^=' . s:dein_repo_dir
+endif
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  call dein#load_toml(s:vim_dir . '/plugins.toml', {'lazy': 0})
+  call dein#load_toml(s:vim_dir . '/plugins_lazy.toml', {'lazy': 1})
+
+  " LilyPond
+  let s:lilypond_win_dir =
+    \ 'C:\Program Files (x86)\LilyPond\usr\share\lilypond\current\vim'
+  let s:lilypond_mac_dir =
+    \ '/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim'
+  let s:lilypond_unix_local =
+    \ '/usr/local/lilypond/usr/share/lilypond/current/vim'
+  if s:is_win && isdirectory(s:lilypond_win_dir)
+    let &runtimepath .= ',' . s:lilypond_win_dir
+  elseif isdirectory(s:lilypond_mac_dir)
+    let &runtimepath .= ',' . s:lilypond_mac_dir
+  elseif isdirectory(s:lilypond_unix_local)
+    let &runtimepath .= ',' . s:lilypond_unix_local
+  elseif !filereadable('/usr/share/vim/vimfiles/ftdetect/lilypond.vim')
+    call dein#add('gisraptor/vim-lilypond-integrator')
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+
+if dein#check_install()
+  call dein#install()
+  if has('nvim')
+    call dein#remote_plugins()
+  endif
+endif
+
+" Swap/backup/undo files {{{1
+"------------------------------------------------------------------------------
+
+" Save your backups to a less annoying place than the current directory.
+" If you have .vim-backup in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+" Note: nvim has sane defaults
+if !has('nvim')
+  if s:is_win
+    if isdirectory($HOME . '\vimfiles\backup') == 0
+      silent !mkdir "\%USERPROFILE\%\vimfiles\backup"
+    endif
+  else
+    if isdirectory($HOME . '/.vim/backup') == 0
+      silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+    endif
+  endif
+  set backupdir-=.
+  set backupdir+=.
+  set backupdir-=~/
+  if s:is_win
+    set backupdir^=~/vimfiles/backup/
+  else
+    set backupdir^=~/.vim/backup/
+  endif
+  set backupdir^=./.vim-backup/
+  set backup
+endif
+
+" Prevent backups from overwriting each other. The naming is weird,
+" since I'm using the 'backupext' variable to append the path.
+" So the file '/home/docwhat/.vimrc' becomes '.vimrc%home%docwhat~'
+if has('autocmd')
+  autocmd BufWritePre * nested
+      \ let &backupext = substitute(expand('%:p:h'), '/', '%', 'g') . '~'
+endif
+
+if has('mac') || has('macunix')
+  set backupskip+=/private/tmp/*
+endif
+
+" Save your swp files to a less annoying place than the current directory.
+" If you have .vim-swap in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+" Note: nvim has sane defaults
+if !has('nvim')
+  if s:is_win
+    if isdirectory($HOME . '\vimfiles\swap') == 0
+      silent !mkdir "\%USERPROFILE\%\vimfiles\swap"
+    endif
+  else
+    if isdirectory($HOME . '/.vim/swap') == 0
+      silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+    endif
+  endif
+  set directory=./.vim-swap//
+  if s:is_win
+    set directory+=~/vimfiles/swap//
+  else
+    set directory+=~/.vim/swap//
+  endif
+  set directory+=~/tmp//
+  set directory+=.
+endif
+
+" Note: nvim has sane defaults
+if !has('nvim') && has('persistent_undo')
+  " undofile - This allows you to use undos after exiting and restarting
+  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " :help undo-persistence
+  " This is only present in 7.3+
+  if s:is_win
+    if isdirectory($HOME . '\vimfiles\undo') == 0
+      silent !mkdir "\%USERPROFILE\%\vimfiles\undo"
+    endif
+  else
+    if isdirectory($HOME . '/.vim/undo') == 0
+      silent !mkdir -p ~/.vim/undo >/dev/null 2>&1
+    endif
+  endif
+  set undodir=./.vim-undo//
+  if s:is_win
+    set undodir+=~/vimfiles/undo//
+  else
+    set undodir+=~/.vim/undo//
+  endif
+  set undofile
+endif
+
+" Share clipboard between instances
+if has('nvim')
+  augroup sharedclipboard
+    au!
+    autocmd FocusLost * wshada
+    autocmd FocusGained * sleep 1 | rshada
+  augroup END
+elseif v:version >= 800
+  augroup sharedclipboard
+    au!
+    autocmd FocusLost * wviminfo
+    autocmd FocusGained * sleep 1 | rviminfo
+  augroup END
+end
+
+" Settings {{{1
+"------------------------------------------------------------------------------
+
+" Set the default shell to PowerShell on Windows
+" This needs to be set after the "mkdir" directives, since with PowerShell
+" calling mkdir will invoke the function instead of the executable.
+" Since the arguments are not the same, it won't work like with cmd.exe
+" let s:powershell = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+" if s:is_win && executable(s:powershell)
+"   let &shell = s:powershell . ' -ExecutionPolicy Unrestricted'
+"   set shellcmdflag=-Command
+"   set shellpipe=>
+"   set shellredir=>
+" endif
+
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
+set cindent
+
+if has('multi_byte')
+  if &termencoding == ''
+    let &termencoding = &encoding
+  endif
+  " Set UTF-8 as standard encoding
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  " Detect UTF-8 (with and without BOM)
+  set fileencodings=ucs-bom,utf-8
+  " Detect Japanese files
+  set fileencodings+=iso-2022-jp,euc-jp,sjis,cp932
+  " Detect Chinese files
+  set fileencodings+=gb18030,gb2312,euc-cn,big5,euc-tw
+  " Detect 8-bit encodings
+  set fileencodings+=default,latin1
+endif
+
+" https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
+set nomodeline
+
+" Use Unix as the standard file type
+set fileformat=unix
+set fileformats=unix,dos,mac
+
+" Store lots of cmdline history
+set history=10000
+set scrolloff=3
+set autoindent
+" Show current mode down the bottom
+set showmode
+set hidden
+set visualbell
+if exists('+belloff')
+  set belloff=all
+endif
+set cursorline
+
+" Enable the use of the mouse
+set mouse=a
+
+if !has("nvim") && exists('+mouse') && !has('gui_running')
+  set ttymouse=xterm2
+endif
+
+" This defines what bases Vim will consider for numbers when using the
+" CTRL-A and CTRL-X commands
+set nrformats=hex,alpha
+
+set pastetoggle=<F2>
+
+" Behavior when switching buffer
+set switchbuf=useopen,usetab
+
+" Session options
+set ssop-=options    " do not store global and local values in a session
+set ssop-=folds      " do not store folds
+
+" Set the default crypt method (for the :X command) to Blowfish instead of
+" the default, PkZip
+" This is more secure but requires Vim 7.3+
+" Note: this is not supported by nvim
+if !has('nvim')
+  if v:version > 704 || (v:version == 704 && has('patch401'))
+    set cryptmethod=blowfish2 " best (requires Vim version 7.4.401 or higher)
+  elseif v:version >= 703
+    set cryptmethod=blowfish  " better than the default (zip)
+  endif
+endif
+
+" Vim 8 feature
+if (v:version >= 800 && has('linebreak')) || has('nvim')
+  set breakindent
+endif
+
+" Additional security for password protected files.
+" It disables additional files that Vim may write copies to such as swap files
+" and backups, prevents dangerous shell commands, and prevents Vim from
+" storing a history of commands.
+" Note: nvim doesn't support password protected files
+if has('autocmd') && !has('nvim')
+  autocmd BufReadPost *
+    \ if &key != '' |
+    \   setlocal noswapfile nowritebackup viminfo= nobackup noshelltemp |
+    \   setlocal history=0 secure |
+    \ endif
+endif
+
+" Enable ctrl-n and ctrl-p to scroll through matches
+set wildmenu
+" Make cmdline tab completion similar to bash
+set wildmode=list:longest
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.pyc,*.class,.svn,*.gem
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/**,*/.bundle/*,*/.sass-cache/*
+" Ignore node modules
+set wildignore+=node_modules/*
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+" Linux/MacOSX
+set wildignore+=*/tmp/*,*.so
+" Windows
+set wildignore+=*\\tmp\\*,*.exe,*.dll
+
+
+" Performance
+"------------------------------------------------------------------------------
+
+" See :help slow-terminal
+
+" Optimize for fast terminal connections
+set ttyfast
+
+" Time out on key codes but not mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=100
+
+" See ":help syn-sync"
+autocmd BufEnter * :syntax sync fromstart
+
+" Don't syntax highlight long lines
+set synmaxcol=512
+
+if has('cmdline_info')
+  " Show incomplete commands down the bottom
+  set showcmd
+endif
+
+if has('statusline')
+  set laststatus=2
+
+  " set statusline=%<%f\                            " Filename
+  " set statusline+=%w%h%m%r                        " Options
+  " set statusline+=%4*%{fugitive#statusline()}     " Git
+  " set statusline+=%6*%{SyntasticStatuslineFlag()} " Syntastic
+  " set statusline+=\ [%{strlen(&ft)?&ft:'none'}]   " File type
+  " set statusline+=\ [%{&fileformat}]              " Line-ending type
+  " set statusline+=\ [%{strlen(&fenc)?&fenc:&enc}] " File encoding
+  " set statusline+=%=%-14.(%l/%L,%c%V%)\ %p%%      " File navigation info
+endif
+
+set number
+
+if exists('+relativenumber')
+  set relativenumber
+
+  " Swtich line numbering to absolute when leaving the window
+  function! g:OffRelNumPreserve()
+    let w:preserved_rnu = &relativenumber
+    let w:preserved_nu = &number
+
+    set norelativenumber
+    if w:preserved_rnu || w:preserved_nu
+      set number
+    endif
+  endfunction
+
+  function! g:RestoreRelNum()
+    if exists('w:preserved_rnu')
+      let &relativenumber = w:preserved_rnu
+    endif
+    if exists('w:preserved_nu')
+      let &number = w:preserved_nu
+    endif
+  endfunction
+
+  au WinLeave * call g:OffRelNumPreserve()
+  au WinEnter * call g:RestoreRelNum()
+endif
+
+" Don't show the Vim intro message
+set shortmess=atI
+
+" Remap the leader key from \ to ,
+let g:mapleader = ","
+
+if has('autocmd')
+  autocmd BufNewFile,BufRead gitconfig setlocal filetype=gitconfig
+  autocmd BufNewFile,BufRead .emacs,emacs setlocal filetype=lisp
+  autocmd BufNewFile,BufRead .shrc,shrc,*.bash_completion setlocal filetype=sh
+  autocmd BufNewFile,BufRead guile,*.guile setlocal filetype=scheme
+
+  autocmd BufReadPost * nested
+    \ if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  " Some file types use real tabs
+  autocmd FileType {make,gitconfig} setlocal noexpandtab shiftwidth=4
+endif
+
+" Automatically enable Doxygen syntax highlighting for C, C++, C#, IDL and
+" PHP files
+" See :help doxygen-syntax
+let g:load_doxygen_syntax = 1
+
+" Print the line number when using :hardcopy
+set printoptions=number:y
+
+" Omnicompletion
+"-----------------------------------------------------------------------------
+
+set completeopt=menu,longest
+set omnifunc=syntaxcomplete#Complete " This is overriden by syntax plugins.
+
+if has('autocmd')
+  autocmd FileType python nested
+      \ setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType {ruby,eruby} nested
+      \ setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType css nested
+      \ setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType {html,markdown} nested
+      \ setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript nested
+      \ setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType xml nested
+      \ setlocal omnifunc=xmlcomplete#CompleteTags
+endif
+
+" Search {{{2
+"------------------------------------------------------------------------------
+
+" Always use very-magic mode
+nnoremap / /\v
+vnoremap / /\v
+
+" Ignored the case of normal letters
+set ignorecase
+" Override the 'ignorecase' option if the search pattern contains upper case
+" characters
+set smartcase
+" When on, the ":substitute" flag 'g' is default on
+set gdefault
+" While typing a search command, show where the pattern, as it was typed
+" so far, matches
+set incsearch
+" When a bracket is inserted, briefly jump to the matching one
+set showmatch
+" When there is a previous search pattern, highlight all its matches
+set hlsearch
+
+if has('nvim')
+  " Open up a split to preview the substitutions
+  set inccommand=split
+endif
+
+
+" Text Display {{{2
+"------------------------------------------------------------------------------
+
+set wrap
+set textwidth=79
+set formatoptions=qrnmM
+if exists('+colorcolumn')
+  set colorcolumn=80
+elseif has('autocmd')
+  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+set list
+
+" set listchars in a try catch block in case the terminal can't display
+" multi-byte characters
+try
+  set listchars=tab:▸\ ,trail:·,extends:»,precedes:«,nbsp:+
+catch
+  set listchars=tab:>\ ,trail:~,extends:>,precedes:<,nbsp:+
+endtry
+
+
+" Joining {{{2
+"------------------------------------------------------------------------------
+
+" Delete comment character when joining commented lines
+if v:version > 703 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
+
+" Use only 1 space after "." when joining lines instead of 2
+set nojoinspaces
+
+" }}}2
+
+" Remapping {{{1
+"------------------------------------------------------------------------------
+
+" Treat long lines as break lines (useful when moving around in them)
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Strip all trailing whitespace in the current file
+nnoremap <Leader>W m`:%s/\s\+$//<CR>:let @/=''<CR>``
+
+" Fold tags
+nnoremap <Leader>ft Vatzf
+
+" Re-hardwrap paragraphs of text
+nnoremap <Leader>q gqip
+
+" Reselect the text that was just pasted
+nnoremap <Leader>v V`]
+
+" Open up ~/.vimrc in the current buffer
+nnoremap <Leader>ev :edit $MYVIMRC<CR>
+" Open up ~/.vimrc in a vertically split window
+nnoremap <Leader>vv <C-w>v<C-w>l:e $MYVIMRC<CR>
+" Source the vimrc file
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+
+" Open a new vertical split and switch over to it
+nnoremap <Leader>w <C-w>v<C-w>l
+
+" Change current directory to the directory of the file in the current buffer
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Left netrw explorer toggle
+if exists(':Lexplore')
+  nnoremap <Leader>d :Lexplore<CR>
+else
+  nnoremap <Leader>d :Vexplore<CR>
+endif
+
+" Make Y consistent with the C and D operators
+nnoremap Y y$
+
+" Open new split panes to right and bottom, which feels more natural than Vim's
+" default
+set splitbelow
+set splitright
+
+" Better split window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Create splits using Space + arrow keys
+" Of current tab
+nnoremap <Space><Left>  :topleft  vnew<CR>
+nnoremap <Space><Right> :botright vnew<CR>
+nnoremap <Space><Up>    :topleft  new<CR>
+nnoremap <Space><Down>  :botright new<CR>
+" Of current buffer (viewport)
+nnoremap <Leader><Left>  :leftabove  vnew<CR>
+nnoremap <Leader><Right> :rightbelow vnew<CR>
+nnoremap <Leader><Up>    :leftabove  new<CR>
+nnoremap <Leader><Down>  :rightbelow new<CR>
+
+" Keep the current visual block selection active after changing indent with
+" < or >
+" Usually the visual block selection is lost after you shift it
+vmap > >gv
+vmap < <gv
+
+" Re-indent and highlight one-line XML
+nnoremap <S-F1> :%s/>\s*</>\r</g<CR>:set ft=xml<CR>gg=G
+
+" Custom commands {{{1
+"------------------------------------------------------------------------------
+
+function! WordFrequency() range
+  let all = split(join(getline(a:firstline, a:lastline)), '[^[:alpha:]]\+')
+  let frequencies = {}
+  for word in all
+    let frequencies[word] = get(frequencies, word, 0) + 1
+  endfor
+  new
+  setlocal buftype=nofile bufhidden=hide noswapfile tabstop=20
+  for [key, value] in items(frequencies)
+    call append('$', key . "\t" . value)
+  endfor
+  sort i
+endfunction
+command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
+
+function! LinesOfCode()
+  echo system('cloc --quiet ' . bufname('%'))
+endfunction
+
+" Prepend the line number to each line
+command! PrependLineNumber %s/^/\=line(".") . ". "/g
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(':DiffOrig')
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+      \ | wincmd p | diffthis
+endif
+
+if &diff
+  " Ignore whitespace in diff mode
+  set diffopt+=iwhite
+endif
+
+" In case I forgot to sudo
+cmap w!! %!sudo tee > /dev/null %
+
+iabbrev xdate <C-R>=strftime("%Y-%m-%d")<CR>
+iabbrev xxdate <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+
+" Copy the currently open filename in the system clipboard
+nnoremap <Leader>fn :let @+=expand("%:p")<CR>
+
+" GUI Settings {{{1
+"------------------------------------------------------------------------------
+
+" Colorscheme
+set background=dark
+
+if has('gui_running')
+  " Remove the toolbar
+  set guioptions-=m
+  set guioptions-=T
+  set guitablabel=%M%t
+  " 40 lines of text instead of 24
+  set lines=40
+  set columns=115
+
+  if has('gui_gtk') || has('gui_gnome')
+    " set term=gnome-256color
+    set guifont=Fira\ Code\ 10,Monospace\ Bold\ 10
+  elseif has('gui_mac') || has('gui_macvim')
+    set macligatures
+    set guifont=Fira\ Code:h10,Menlo:h10
+    set transparency=3
+    " Completely close the window when exiting MacVim
+    autocmd VimLeave * macaction terminate:
+  elseif has('gui_win32') || has('gui_win32s')
+    set guifont=Fira\ Code:h10,Consolas:h10
+    " Correctly display wide characters (Chinese, Japanese, etc.) on Windows
+    set guifontwide=MS_Gothic:h10
+    set renderoptions=type:directx
+  endif
+else
+  if $COLORTERM ==# 'gnome-terminal'
+    set term=gnome-256color
+  elseif &term ==# 'xterm' || &term ==# 'screen'
+    " Standard xterm and screen
+    set term=xterm-256color
+  endif
+
+  if &term =~ '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+    set t_ut=
+  endif
+endif
+
+" Filetype specific settings {{{1
+"------------------------------------------------------------------------------
+
+" HTML / XML / Smarty {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_html
+    autocmd!
+    autocmd FileType html,svg,xml,xsd,xsl,xhtml,htmldjango,smarty,tmpl,mjlog
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  augroup END
+endif
+
+" YAML {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_yaml
+    autocmd!
+    autocmd FileType yml,yaml
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd BufNewFile,BufRead glide.lock nested
+        \ setlocal filetype=yaml
+  augroup END
+endif
+
+" Lisp dialects {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_lisp
+    autocmd!
+    autocmd FileType lisp,scheme,clojure
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  augroup END
+endif
+
+" Ruby syntax {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_ruby
+    autocmd!
+    autocmd FileType ruby,eruby nested
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType ruby,eruby nested
+        \ setlocal cinwords=do
+    autocmd FileType ruby,eruby nested
+        \ let g:rubycomplete_buffer_loading=1
+    autocmd FileType ruby,eruby nested
+        \ let g:rubycomplete_rails = 1
+    autocmd FileType ruby,eruby nested
+        \ let g:rubycomplete_classes_in_global=1
+    autocmd BufNewFile,BufRead *.html.erb nested
+        \ setlocal filetype=html.eruby
+    autocmd BufNewFile,BufRead *.js.erb nested
+        \ setlocal filetype=javascript.eruby
+  augroup END
+endif
+
+" XML files {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_qrc
+    autocmd!
+    autocmd BufNewFile,BufRead *.qrc,*.rdf,*.owl,*.scxml nested
+        \ setlocal filetype=xml
+  augroup END
+endif
+
+" Java/C/C++/Objective-C syntax {{{
+"------------------------------------------------------------------------------
+if has('autocmd')
+  autocmd FileType java,c,cpp,objc nested
+      \ setlocal smartindent tabstop=4 shiftwidth=4 softtabstop=4
+endif
+
+" JavaScript syntax {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_javascript
+    autocmd!
+    autocmd FileType javascript nested setlocal smartindent
+    if has('conceal')
+      autocmd FileType json nested setlocal concealcursor= conceallevel=1
+    endif
+    autocmd FileType javascript nested
+        \ setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  augroup END
+endif
+
+" Markdown specific settings {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_markdown
+    autocmd!
+    autocmd BufNewFile,BufRead *.mdwn,*.mkd,*.md,*.markdown nested
+        \ setlocal filetype=markdown textwidth=79
+    autocmd FileType markdown nested
+        \ setlocal tabstop=4 shiftwidth=4 softtabstop=4 spell
+  augroup END
+endif
+
+" Git commit files {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_git
+    autocmd!
+    autocmd FileType gitcommit            nested setlocal spell
+    autocmd VimEnter .git/PULLREQ_EDITMSG nested setlocal filetype=markdown
+    " Instead of reverting the cursor to the last position in the buffer, we
+    " set it to the first line when editing a git commit message
+    autocmd FileType gitcommit
+        \ autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+  augroup END
+endif
+
+" PKGBUILD syntax and indentation {{{2
+"------------------------------------------------------------------------------
+function! SyntasticDisableBuffer()
+  let b:syntastic_skip_checks = 1
+  SyntasticReset
+endfunction
+
+if has('autocmd')
+  autocmd BufRead,BufNewFile PKGBUILD
+      \ setlocal filetype=sh shiftwidth=2 tabstop=2 softtabstop=2 |
+      \ call SyntasticDisableBuffer()
+endif
+
+" Subtitle files syntax {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  autocmd BufRead,BufNewFile *.srt setlocal filetype=srt
+endif
+
+" Vimfiles {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_vim
+    autocmd!
+    autocmd FileType vim
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 |
+        \ setlocal foldmethod=marker foldcolumn=3
+
+    " Disable delimitMate since the quote sign is used for comments
+    autocmd FileType vim let b:loaded_delimitMate = 1
+
+    " Source .vimrc on save
+    " autocmd BufWritePost ~/.vimrc,~/_vimrc source $MYVIMRC
+  augroup END
+endif
+
+
+" Batch and PowerShell {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  " Force Windows line endings
+  autocmd BufRead,BufNewFile {*.bat,*.ps1,*.psd1,*.psm1,*.ps1xml}
+      \ setlocal fileformat=dos
+endif
+
+" HTTP log files {{{2
+"------------------------------------------------------------------------------
+if has('autocmd')
+  autocmd BufRead {*access.log*,access_log*,error_log*}
+      \ setlocal filetype=httplog
+endif
+
+" Latexmk
+"------------------------------------------------------------------------------
+if has('autocmd')
+  augroup filetype_latexmk
+    autocmd!
+    autocmd BufNewFile,BufRead .latexmkrc nested
+        \ setlocal filetype=perl
+  augroup END
+endif
+
+" Explorer mode settings {{{2
+"------------------------------------------------------------------------------
+" Remove the banner on top of the :Explore, Sexplore and Vexplore buffer
+let g:netrw_banner = 0
+
+" Show the directories as trees
+let g:netrw_liststyle = 3
+
+" Right split instead of left split
+let g:netrw_altv = 1
+
+" Open the files in a new tab
+" Possible values:
+"     1 - open files in a new horizontal split
+"     2 - open files in a new vertical split
+"     3 - open files in a new tab
+"     4 - open in previous window
+let g:netrw_browse_split = 4
+
+" Width of the directory explorer, in percent
+let g:netrw_winsize = 20
+
+" Make Vim's current directory track netrw's browsing directory
+let g:netrw_keepdir = 0
+
+
+" Hex mode settings {{{2
+"------------------------------------------------------------------------------
+
+" Command for toggling hex mode
+command -bar Hexmode call ToggleHex()
+
+" Toggle binary file edit mode
+noremap <F6> :Hexmode<CR>
+
+" Helper function to toggle hex mode
+function! ToggleHex()
+  " Hex mode should be considered a read-only operation
+  " save values for modified and read-only for restoration later,
+  " and clear the read-only flag for now
+  let l:modified = &mod
+  let l:oldreadonly = &readonly
+  setlocal noreadonly
+  let l:oldmodifiable = &modifiable
+  setlocal modifiable
+  if !exists('b:hex_editing') || !b:hex_editing
+    " Save old options
+    let b:oldft = &filetype
+    let b:oldbin = &binary
+    " Set new options
+    setlocal binary " make sure it overrides any textwidth, etc.
+    setlocal filetype=xxd
+    " Set status
+    let b:hex_editing = 1
+    " Switch to hex editor
+    %!xxd
+  else
+    " Restore old options
+    let &filetype = b:oldft
+    if !b:oldbin
+      setlocal nobinary
+    endif
+    " Set status
+    let b:hex_editing = 0
+    " Return to normal editing
+    %!xxd -r
+  endif
+  " Restore values for modified and read only state
+  let &mod = l:modified
+  let &readonly = l:oldreadonly
+  let &modifiable = l:oldmodifiable
+endfunction
+
+" autocmds to automatically enter hex mode and handle file writes properly
+if has("autocmd")
+  " vim -b : edit binary using xxd-format!
+  augroup binary
+    autocmd!
+
+    " set binary option for all binary files before reading them
+    autocmd BufReadPre *.bin,*.hex,*.wav,*.mid,*.midi setlocal binary
+
+    " if on a fresh read the buffer variable is already set, it's wrong
+    autocmd BufReadPost *
+          \ if exists('b:hex_editing') && b:hex_editing |
+          \   let b:hex_editing = 0 |
+          \ endif
+
+    " convert to hex on startup for binary files automatically
+    autocmd BufReadPost *
+          \ if &binary | Hexmode | endif
+
+    " When the text is freed, the next time the buffer is made active it will
+    " re-read the text and thus not match the correct mode, we will need to
+    " convert it again if the buffer is again loaded.
+    autocmd BufUnload *
+          \ if getbufvar(expand("<afile>"), 'hex_editing') == 1 |
+          \   call setbufvar(expand("<afile>"), 'hex_editing', 0) |
+          \ endif
+
+    " before writing a file when editing in hex mode, convert back to non-hex
+    autocmd BufWritePre *
+        \ if exists('b:hex_editing') && b:hex_editing && &binary |
+        \   let b:oldro = &l:readonly | setlocal noreadonly |
+        \   let b:oldma = &l:modifiable | setlocal modifiable |
+        \   silent execute "%!xxd -r" |
+        \   let &l:modifiable = b:oldma | let &l:readonly = b:oldro |
+        \   unlet b:oldma | unlet b:oldro |
+        \ endif
+
+    " after writing a binary file, if we're in hex mode, restore hex mode
+    autocmd BufWritePost *
+        \ if exists('b:hex_editing') && b:hex_editing && &binary |
+        \   let b:oldro = &l:readonly | setlocal noreadonly |
+        \   let b:oldma = &l:modifiable | setlocal modifiable |
+        \   silent execute "%!xxd" |
+        \   setlocal nomodified |
+        \   let &l:modifiable = b:oldma | let &l:readonly = b:oldro |
+        \   unlet b:oldma | unlet b:oldro |
+        \ endif
+  augroup END
+endif
+
+
+" Typos, errors, etc. {{{1
+"------------------------------------------------------------------------------
+
+" Exit insert mode by pressing jk or kj
+" inoremap jk <ESC>
+" inoremap kj <ESC>
+
+" Disable arrow keys in normal mode and visual mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+vnoremap <up> <nop>
+vnoremap <down> <nop>
+vnoremap <left> <nop>
+vnoremap <right> <nop>
+
+" Don't save files named ":" or ";"
+cnoremap w; w
+cnoremap W; w
+cnoremap x; x
+cnoremap X; x
+cnoremap w: w
+cnoremap W: w
+cnoremap x: x
+cnoremap X: x
+
+" Spell check {{{2
+"------------------------------------------------------------------------------
+function! SetNoSpell()
+  setlocal nospell
+  setlocal spelllang=en
+  setlocal spellfile=
+endfunction
+
+function! SetSpellEnglish()
+  setlocal spell
+  setlocal spelllang=en
+  if s:is_win
+    setlocal spellfile=~/vimfiles/spell/en.utf-8.add
+  else
+    setlocal spellfile=~/.vim/spell/en.utf-8.add
+  endif
+endfunction
+
+function! SetSpellFrench()
+  setlocal spell
+  setlocal spelllang=fr
+  if s:is_win
+    setlocal spellfile=~/vimfiles/spell/fr.utf-8.add
+  else
+    setlocal spellfile=~/.vim/spell/fr.utf-8.add
+  endif
+endfunction
+
+function! SetSpellSpanish()
+  setlocal spell
+  setlocal spelllang=es
+  if s:is_win
+    setlocal spellfile=~/vimfiles/spell/es.utf-8.add
+  else
+    setlocal spellfile=~/.vim/spell/es.utf-8.add
+  endif
+endfunction
+
+function! SetSpellMulti()
+  setlocal spell
+  setlocal spelllang=en,fr,es
+  setlocal spellfile=
+endfunction
+
+nnoremap <F8> :call SetNoSpell()<CR>
+nnoremap <F9> :call SetSpellEnglish()<CR>
+nnoremap <F10> :call SetSpellFrench()<CR>
+nnoremap <F11> :call SetSpellSpanish()<CR>
+nnoremap <F12> :call SetSpellMulti()<CR>
+
+" Custom digraph settings {{{2
+"------------------------------------------------------------------------------
+
+if has('digraphs')
+  " Equal signs
+  digraph ~~ 8776 " ≈
+  digraph =~ 8771 " ≃
+  digraph =. 8786 " ≒
+
+  " Small bullet
+  digraph ** 8729 " ∙
+
+  " Directional quotes
+  digraph \", 8220 " “
+  digraph \". 8221 " ”
+  digraph ', 8216  " ‘
+  digraph '. 8217  " ’
+
+  " Bullet
+  digraph .b 8226 " •
+
+  " Interrobang
+  digraph ?! 8253 " ‽
+
+  " funcapply, for immediately after a function name and before its
+  " arguments
+  digraph fa 8289 " ⁡
+
+  " Lower case superscript letters
+  " (ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ)
+  digraph aS 7491
+  digraph bS 7495
+  digraph cS 7580
+  digraph dS 7496
+  digraph eS 7497
+  digraph fS 7584
+  digraph gS 7501
+  digraph hS 688
+  digraph iS 8305
+  digraph jS 690
+  digraph kS 7503
+  digraph lS 737
+  digraph mS 7504
+  digraph nS 8319
+  digraph oS 7506
+  digraph pS 7510
+  " No superscript “q” in unicode
+  " :digraph qS
+  digraph rS 691
+  digraph sS 738
+  digraph tS 7511
+  digraph uS 7512
+  digraph vS 7515
+  digraph wS 695
+  digraph xS 739
+  digraph yS 696
+  digraph zS 7611
+
+  " Pinyin
+  digraph v- 470 " ǖ
+  digraph v' 472 " ǘ
+  digraph v< 474 " ǚ
+  digraph v` 476 " ǜ
+  digraph V- 469 " Ǖ
+  digraph V' 471 " Ǘ
+  digraph V< 473 " Ǚ
+  digraph V` 475 " Ǜ
+
+  " Mahjong tiles
+  digraph 1m 126983 " 🀇
+  digraph 2m 126984 " 🀈
+  digraph 3m 126985 " 🀉
+  digraph 4m 126986 " 🀊
+  digraph 5m 126987 " 🀋
+  digraph 6m 126988 " 🀌
+  digraph 7m 126989 " 🀍
+  digraph 8m 126990 " 🀎
+  digraph 9m 126991 " 🀏
+  digraph 1s 126992 " 🀐
+  digraph 2s 126993 " 🀑
+  digraph 3s 126994 " 🀒
+  digraph 4s 126995 " 🀓
+  digraph 5s 126996 " 🀔
+  digraph 6s 126997 " 🀕
+  digraph 7s 126998 " 🀖
+  digraph 8s 126999 " 🀗
+  digraph 9s 127000 " 🀘
+  digraph 1p 127001 " 🀙
+  digraph 2p 127002 " 🀚
+  digraph 3p 127003 " 🀛
+  digraph 4p 127004 " 🀜
+  digraph 5p 127005 " 🀝
+  digraph 6p 127006 " 🀞
+  digraph 7p 127007 " 🀟
+  digraph 8p 127008 " 🀠
+  digraph 9p 127009 " 🀡
+  digraph 1z 126976 " 🀀
+  digraph 2z 126977 " 🀁
+  digraph 3z 126978 " 🀂
+  digraph 4z 126979 " 🀃
+  digraph 5z 126982 " 🀆
+  digraph 6z 126981 " 🀅
+  digraph 7z 126980 " 🀄
+  digraph 1f 127010 " 🀢 (Plum)
+  digraph 2f 127011 " 🀣 (Orchid)
+  digraph 3f 127013 " 🀥 (Chrysanthemum)
+  digraph 4f 127012 " 🀤 (Bamboo)
+  digraph 5f 127014 " 🀦 (Spring)
+  digraph 6f 127015 " 🀧 (Summer)
+  digraph 7f 127016 " 🀨 (Autumn)
+  digraph 8f 127017 " 🀩 (Winter)
+  digraph 9f 127018 " 🀪 (Joker)
+  digraph 0z 127019 " 🀫 (Back)
+
+  " Shogi
+  digraph sw 9750 " ☖ (White Shogi piece)
+  digraph sb 9751 " ☗ (Black Shogi piece)
+endif
+
+" }}}1
+
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif

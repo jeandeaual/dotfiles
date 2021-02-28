@@ -1,0 +1,22 @@
+# GIMP gimprc
+#
+# This is your personal gimprc file.  Any variable defined in this file takes
+# precedence over the value defined in the system-wide gimprc:
+# /etc/gimp/2.0/gimprc
+# Most values can be set within GIMP by changing some options in the
+# Preferences dialog.
+
+# Snap to the canvas edge by default in new image windows.
+(default-snap-to-canvas yes)
+# Snap to the grid by default in new image windows.
+(default-snap-to-grid yes)
+
+# Sets the minimal number of operations that can be undone. More undo levels
+# are kept available until the undo-size limit is reached.
+# Default: 5
+(undo-levels 32)
+# Sets an upper limit to the memory that is used per image to keep operations
+# on the undo stack. Regardless of this setting, at least as many undo-levels
+# as configured can be undone.
+# Default: 64M
+(undo-size 256M)

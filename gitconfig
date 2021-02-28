@@ -1,0 +1,45 @@
+[merge]
+	tool = vimd
+[diff]
+	guitool = gvimdiff
+[pull]
+	ff = only
+[core]
+	autocrlf = false
+	editor = gvim -f
+	filemode = false
+[user]
+	name = Alexis Jeandeau
+	email = alexis.jeandeau@gmail.com
+[alias]
+	co = checkout
+	st = status -sb
+	ci = commit
+	br = branch
+	df = diff
+	dt = difftool
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	who = shortlog -s --
+	sdcommit = !sh -c 'git stash && git svn dcommit && git stash pop'
+	srebase = !sh -c 'git stash && git svn rebase && git stash pop'
+	guik = !sh -c '(nohup gitk --all &) && (nohup git gui &)'
+	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	serve2 = !sh -c 'git daemon --reuseaddr --verbose \"$@\" --base-path=. --export-all ./.git' sh
+[color]
+	ui = true
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[tar "tar.xz"]
+	command = xz -c
+[tar "tar.bz2"]
+	command = bzip2
+; Use the SSH instead of HTTPS for Bitbucket (required for 2FA)
+[url "git@bitbucket.org:"]
+	insteadOf = https://bitbucket.org/
+; Clone and push to AUR using the "aur:" prefix
+[url "https://aur.archlinux.org/"]
+	insteadOf = "aur:"
+[url "ssh://aur@aur.archlinux.org/"]
+	pushInsteadOf = "aur:"

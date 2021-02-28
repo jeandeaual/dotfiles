@@ -1,0 +1,24 @@
+# Display the full debug output
+debug 5
+# If this setting is off, get commands will not overwrite existing files and generate an error instead.
+set xfer:clobber on
+# The commands to be executed before lftp exits.
+set cmd:at-exit "bye"
+# Query for SRV records and use them before gethostbyname. The SRV records are
+# only used if port is not explicitly specified. See RFC2052 for details.
+set dns:SRV-query yes
+# Local character set. It is set from current locale initially.
+set file:charset UTF-8
+# The character set used by fish server in requests, replies and file listings.
+# Default is empty which means the same as local.
+set fish:charset UTF-8
+# Sets the password used for anonymous ftp access authentication. Default is
+# "-name@", where name is the username of the user running the program.
+set ftp:anon-pass ""
+# Sets options which are always appended to LIST command.
+# It can be useful to set this to '-a' if server does not show dot (hidden)
+# files by default. Default is empty.
+set ftp:list-options "-a"
+set ftp:ssl-protect-data on
+set ftp:ssl-protect-list on
+set ssl:verify-certificate on
