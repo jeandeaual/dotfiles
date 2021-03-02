@@ -8,9 +8,6 @@
 	autocrlf = false
 	editor = gvim -f
 	filemode = false
-[user]
-	name = Alexis Jeandeau
-	email = alexis.jeandeau@gmail.com
 [alias]
 	co = checkout
 	st = status -sb
@@ -43,3 +40,6 @@
 	insteadOf = "aur:"
 [url "ssh://aur@aur.archlinux.org/"]
 	pushInsteadOf = "aur:"
+; Machine specific Git configuration
+[includeIf "gitdir:~/.config/git"]
+	path = ~/.config/git/gitconfig
