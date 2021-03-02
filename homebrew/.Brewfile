@@ -8,6 +8,7 @@ brew 'findutils'
 # Install Bash 4
 brew 'bash'
 brew 'zsh'
+brew 'ctags'
 brew 'ack'
 brew 'the_silver_searcher'
 brew 'git'
