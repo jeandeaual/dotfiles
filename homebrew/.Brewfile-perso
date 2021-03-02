@@ -1,0 +1,5 @@
+cask 'dropbox'
+cask 'android-studio'
+cask 'steam'
+
+mas 'GarageBand', id: 682658836
