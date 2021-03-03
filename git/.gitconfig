@@ -41,5 +41,5 @@
 [url "ssh://aur@aur.archlinux.org/"]
 	pushInsteadOf = "aur:"
 ; Machine specific Git configuration
-[includeIf "gitdir:~/.config/git"]
-	path = ~/.config/git/gitconfig
+[include]
+	path = ~/.gitconfig.local
