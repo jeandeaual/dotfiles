@@ -1,4 +1,6 @@
+cask 'discord'
 cask 'dropbox'
+cask 'veracrypt'
 cask 'android-studio'
 cask 'steam'
 
