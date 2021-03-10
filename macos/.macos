@@ -150,7 +150,7 @@ sudo pmset -a displaysleep 10
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
 
-# Set machine sleep to 10 minutes on battery
+# Set machine sleep to 15 minutes on battery
 sudo pmset -b sleep 15
 
 # Set standby delay to 24 hours (default is 1 hour)
@@ -266,11 +266,6 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-# Increase grid spacing for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase the size of icons on the desktop and in other icon views
 #/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
@@ -661,4 +656,6 @@ for app in "Activity Monitor" \
     "iCal"; do
     killall "${app}" &> /dev/null
 done
-echo "Done. Note that some of these changes require a logout or restart to take effect."
+
+echo "Done."
+echo "Note that some of these changes require a logout or restart to take effect."
