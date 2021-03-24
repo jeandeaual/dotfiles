@@ -1,3 +1,5 @@
+# brew 'terraform'
+brew 'tfenv'
 tap 'TylerBrock/saw'
 brew 'saw'
 

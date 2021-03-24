@@ -11,6 +11,7 @@
 [alias]
 	co = checkout
 	st = status -sb
+	cl = clone
 	ci = commit
 	br = branch
 	df = diff
@@ -43,3 +44,8 @@
 ; Machine specific Git configuration
 [include]
 	path = ~/.gitconfig.local
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
