@@ -32,7 +32,6 @@ brew 'python'
 brew 'ruby'
 brew 'node'
 brew 'yarn'
-
 tap 'heroku/brew'
 brew 'heroku'
 
@@ -40,11 +39,16 @@ brew 'heroku'
 tap 'homebrew/cask'
 cask_args appdir: '~/Applications'
 
-cask 'background-music'
 cask 'macvim'
 cask 'emacs'
 cask 'plover'
 cask 'karabiner-elements'
+cask 'bettertouchtool'
+# Necessary to make it work on Big Sur for the time being
+tap 'homebrew/cask-versions'
+cask 'background-music-pre'
+cask 'vlc'
+cask 'plexamp'
 cask 'pock'
 cask 'obs'
 cask 'mongodb-realm-studio'
@@ -62,9 +66,9 @@ cask 'libreoffice'
 cask 'slack'
 cask 'skype'
 cask 'zoom'
-
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
+cask 'homebrew/cask-drivers/hhkb-pro-driver'
 
 brew 'mas'
 
@@ -75,3 +79,5 @@ mas 'Keynote', id: 409203825
 mas 'Microsoft Word', id: 462054704
 mas 'Microsoft Excel', id: 409203825
 mas 'Microsoft PowerPoint', id: 462062816
+mas 'Keka', id: 470158793
+mas 'BetterSnapTool', id: 417375580
