@@ -23,6 +23,7 @@
 	guik = !sh -c '(nohup gitk --all &) && (nohup git gui &)'
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	serve2 = !sh -c 'git daemon --reuseaddr --verbose \"$@\" --base-path=. --export-all ./.git' sh
+	plfs = !git -c filter.lfs.smudge= -c filter.lfs.required=false pull && git lfs pull
 [color]
 	ui = true
 	branch = auto

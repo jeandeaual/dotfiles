@@ -16,6 +16,7 @@ brew 'ripgrep'
 # TODO: Add when Apple Silicon is supported
 # brew 'pandoc'
 brew 'git'
+brew 'git-lfs'
 brew 'git-gui'
 brew 'gnupg'
 brew 'stow'
