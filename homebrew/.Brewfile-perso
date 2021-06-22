@@ -1,8 +1,13 @@
+brew 'arduino-cli'
+
 cask 'discord'
 cask 'dropbox'
 cask 'veracrypt'
+cask 'josm'
 cask 'android-studio'
+cask 'arduino'
 cask 'steam'
+cask 'mumble'
 cask 'quodlibet'
 
 mas 'GarageBand', id: 682658836
