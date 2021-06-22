@@ -1,6 +1,6 @@
 # Source global configuration between bash and zsh
-if [[ -f $HOME/.shrc ]]; then
-    source $HOME/.shrc
+if [[ -f "${HOME}/.shrc" ]]; then
+    source "${HOME}/.shrc"
 fi
 
 # Path to the oh-my-zsh installation.
@@ -28,14 +28,14 @@ HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(git mercurial bundler osx brew gem)
 
-source $ZSH/oh-my-zsh.sh
+source "${ZSH}/oh-my-zsh.sh"
 
 # User configuration
 
-export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:${MANPATH}"
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -n "${SSH_CONNECTION}" ]]; then
   export EDITOR='vim'
 else
   export EDITOR='gvim'
@@ -45,6 +45,7 @@ fi
 export ARCHFLAGS="-arch x86_64"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="${PATH}:${HOME}/.rvm/bin"
 
-[[ -s "/home/alexis/.gvm/scripts/gvm" ]] && source "/home/alexis/.gvm/scripts/gvm"
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+[[ -s "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
