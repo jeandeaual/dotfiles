@@ -6,6 +6,7 @@ earlyoom
 user.js
 {{- if ne .chezmoi.os "darwin" }}
 .Brewfile*
+.macos
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .oh-my-zsh
