@@ -18,7 +18,7 @@ AppData
 {{- if eq .chezmoi.os "darwin" }}
 .XCompose
 {{- end }}
-{{- if (or (eq .chezmoi.os "windows") (eq .chezmoi.os "darwin")) }}
+{{- if or (eq .chezmoi.os "windows") (eq .chezmoi.os "darwin") }}
 # Visual Studio Code data is stored under ~/Library on macOS, ~/AppData on Windows and ~/.config otherwise
 .config/Code
 {{- end }}
