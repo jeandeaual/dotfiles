@@ -7,10 +7,13 @@ user.js
 {{ if ne .chezmoi.os "darwin" }}
 .Brewfile*
 {{ end }}
-{{ if ne .chezmoi.os "darwin" }}
+{{ if eq .chezmoi.os "windows" }}
+.oh-my-zsh
+{{ end }}
+{{ if eq .chezmoi.os "darwin" }}
 .XCompose
 {{ end }}
-{{ if eq .chezmoi.os "linux" }}
+{{ if ne .chezmoi.os "linux" }}
 .Xresources
 .xprofile
 {{ end }}
