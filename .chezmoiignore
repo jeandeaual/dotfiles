@@ -1,0 +1,16 @@
+LICENSE
+README.md
+emacs
+vimfiles
+earlyoom
+user.js
+{{ if ne .chezmoi.os "darwin" }}
+.Brewfile*
+{{ end }}
+{{ if ne .chezmoi.os "darwin" }}
+.XCompose
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+.Xresources
+.xprofile
+{{ end }}
