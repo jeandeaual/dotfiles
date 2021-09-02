@@ -4,16 +4,16 @@ emacs
 vimfiles
 earlyoom
 user.js
-{{ if ne .chezmoi.os "darwin" }}
+{{- if ne .chezmoi.os "darwin" }}
 .Brewfile*
-{{ end }}
-{{ if eq .chezmoi.os "windows" }}
+{{- end }}
+{{- if eq .chezmoi.os "windows" }}
 .oh-my-zsh
-{{ end }}
-{{ if eq .chezmoi.os "darwin" }}
+{{- end }}
+{{- if eq .chezmoi.os "darwin" }}
 .XCompose
-{{ end }}
-{{ if ne .chezmoi.os "linux" }}
+{{- end }}
+{{- if ne .chezmoi.os "linux" }}
 .Xresources
 .xprofile
-{{ end }}
+{{- end }}
