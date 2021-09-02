@@ -1,0 +1,232 @@
+{
+    "editor.fontSize": 12,
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "editor.renderWhitespace": "boundary",
+    "editor.fontLigatures": true,
+    "editor.wordWrap": "on",
+    "editor.mouseWheelZoom": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.tabCompletion": "onlySnippets",
+    "files.associations": {
+        "*.latexmkrc": "perl",
+        "mix.lock": "elixir",
+        "vm.args": "erlang",
+        "sys.config*": "erlang",
+        "*.qrc": "xml",
+        "*.el": "lisp",
+        "*.scxml": "xml",
+        "*.tmLanguage.json": "json-tmlanguage",
+        "*.tmLanguage.yaml": "yaml-tmlanguage",
+        "*.tmc": "cpp",
+        "*.tmh": "cpp"
+    },
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.list.horizontalScrolling": true,
+    "breadcrumbs.enabled": true,
+    "workbench.editor.closeOnFileDelete": true,
+    "search.showLineNumbers": true,
+    "search.smartCase": true,
+    "terminal.integrated.fontSize": 12,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "markdown.preview.fontSize": 12,
+    "markdownlint.config": {
+        "default": true,
+        "MD007": {
+            // 4 space indent for bullet lists
+            "indent": 4
+        },
+        "MD010": {
+            // No hard tabs, except in code blocks
+            "code_blocks": false
+        },
+        // Allow multiple top level headings in the same document
+        "MD025": false
+    },
+    "editor.renderControlCharacters": true,
+    "[elixir]": {
+        "editor.tabSize": 2
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[HTML (Eex)]": {
+        "editor.tabSize": 2
+    },
+    "[LilyPond]": {
+        "editor.tabSize": 2
+    },
+    "[ruby]": {
+        "editor.tabSize": 2
+    },
+    "git.autofetch": true,
+    "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
+    "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
+    "extensions.ignoreRecommendations": false,
+    "vim.leader": ",",
+    "vim.gdefault": true,
+    "zenMode.hideLineNumbers": false,
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "highlight-bad-chars.additionalUnicodeChars": [
+        "\u200E",
+        "\u200F"
+    ],
+    "workbench.activityBar.visible": true,
+    "editor.renderFinalNewline": false,
+    "editor.suggestSelection": "first",
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pycodestyleArgs": ["--ignore=E701"], // Doesn't work with Python typing
+    // "python.linting.pycodestyleArgs": ["--max-line-length", "120"]
+    "python.linting.prospectorEnabled": false,
+    "python.linting.pylamaEnabled": false,
+    "python.linting.banditEnabled": false,
+    "go.buildOnSave": "off",
+    "go.vetOnSave": "off",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        // Disable snippets, as they conflict with completion ranking.
+        "editor.snippetSuggestions": "none"
+    },
+    "[go.mod]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        }
+    },
+    "gopls": {
+        // Add parameter placeholders when completing a function.
+        "usePlaceholders": true,
+
+        // If true, enable additional analyses with staticcheck.
+        // Warning: This will significantly increase memory usage.
+        "staticcheck": false,
+    },
+    "go.delveConfig": {
+        "dlvLoadConfig": {
+            "followPointers": true,
+            "maxVariableRecurse": 1,
+            "maxStringLen": 24800,
+            "maxArrayValues": 64,
+            "maxStructFields": -1
+        }
+    },
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--fast",
+        // Enabled by default
+        "-E deadcode",
+        "-E errcheck",
+        "-E gosimple",
+        "-E govet",
+        "-E ineffassign",
+        "-E staticcheck",
+        "-E structcheck",
+        "-E typecheck",
+        "-E unused",
+        "-E varcheck",
+        // Manually enabled
+        "-E dupl",
+        "-E gocyclo",
+        "-E gofmt",
+        "-E golint",
+        "-E goprintffuncname",
+        "-E lll",
+        "-E misspell",
+        "-E prealloc",
+        "-E unconvert"
+    ],
+    "workbench.tree.renderIndentGuides": "always",
+    "terminal.integrated.rendererType": "experimentalWebgl",
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "python.languageServer": "Pylance",
+    // "vslilypond.compilation.additionalCommandLineArguments": "-dno-point-and-click",
+    "workbench.startupEditor": "newUntitledFile",
+    "C_Cpp.updateChannel": "Insiders",
+    "cmake.configureOnOpen": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+    "terminal.integrated.localEchoExcludePrograms": [
+        "vim",
+        "vi",
+        "nano",
+        "tmux",
+        "emacs",
+        "screen"
+    ],
+    "files.watcherExclude": {
+        "**/vendor/**": true
+    },
+    "svg.preview.mode": "svg",
+    "vslilypond.compilation.compileOnSave": false,
+    "vslilypond.compilation.compileMainFileOnSave": false,
+    "workbench.iconTheme": "vscode-icons",
+    "todo-tree.tree.showScanModeButton": false,
+    "json.maxItemsComputed": 10000,
+    "liveshare.authenticationProvider": "GitHub",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "codesnap.containerPadding": "0em",
+    "codesnap.roundedCorners": true,
+    "codesnap.showWindowControls": false,
+    "codesnap.showWindowTitle": false,
+    "codesnap.showLineNumbers": false,
+    "codesnap.transparentBackground": true,
+    "codesnap.target": "container",
+    "codesnap.shutterAction": "save",
+    "vsixViewer.enableTelemetry": false,
+    "workbench.colorTheme": "Noir",
+    "workbench.editor.untitled.hint": "hidden",
+    // Never auto-close brackets
+    "editor.matchBrackets": "never",
+    "editor.autoClosingBrackets": "never",
+    "arduino.additionalUrls": [
+        "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json",
+        "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+    ],
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "arduino.ignoreBoards": [
+        "Adafruit HUZZAH ESP8266"
+    ],
+    "redhat.telemetry.enabled": false,
+    "editor.inlineSuggest.enabled": true,
+    // "workbench.preferredDarkColorTheme": "Popping and Locking Black Theme",
+    // "workbench.preferredLightColorTheme": "Popping and Locking Black Theme",
+    // "workbench.colorCustomizations": {
+    //     "activityBar.activeBorder": "#14af36",
+    //     "activityBar.activeBackground": "#14af36",
+    //     "editorCursor.background":"#000000",
+    //     "editorCursor.foreground":"#14af36"
+    // },
+    // "editor.tokenColorCustomizations": {
+    //     // "comments": "#696969"
+    //     "comments": "#696969"
+    // }
+}
