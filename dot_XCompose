@@ -333,6 +333,35 @@ include "%L"
 <Multi_key> <n> <y>          : "ʸ" U02B8 # SUPERSCRIPT y
 <Multi_key> <n> <z>          : "ᶻ" U1DBB # SUPERSCRIPT z
 
+# TODO
+# Italic:
+# 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡
+# 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
+
+# Cursive:
+# 𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩
+# 𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃
+
+# Script:
+# 𝒜𝐵𝒞𝒟𝐸𝐹𝒢𝐻𝐼𝒥𝒦𝐿𝑀𝒩𝒪𝒫𝒬𝑅𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵
+# 𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏
+
+# Italic Bold (serif):
+# 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁
+# 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
+
+# Italic Bold (sans):
+# 𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕
+# 𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯
+
+# Gothic:
+# 𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ
+# 𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷
+
+# Gothic Bold:
+# 𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅
+# 𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+
 # Squared latin letters
 <Multi_key> <bracketleft> <A> <bracketright> : "🄰" U1F130 # SQUARED LATIN CAPITAL LETTER A
 <Multi_key> <bracketleft> <a> <bracketright> : "🄰" U1F130 # SQUARED LATIN CAPITAL LETTER A
@@ -386,6 +415,19 @@ include "%L"
 <Multi_key> <bracketleft> <y> <bracketright> : "🅈" U1F148 # SQUARED LATIN CAPITAL LETTER Y
 <Multi_key> <bracketleft> <Z> <bracketright> : "🅉" U1F149 # SQUARED LATIN CAPITAL LETTER Z
 <Multi_key> <bracketleft> <z> <bracketright> : "🅉" U1F149 # SQUARED LATIN CAPITAL LETTER Z
+
+<Multi_key> <6> <e> : "ê" U00EA # LATIN SMALL LETTER E WITH CIRCUMFLEX
+<Multi_key> <e> <6> : "ê" U00EA # LATIN SMALL LETTER E WITH CIRCUMFLEX
+<Multi_key> <6> <E> : "Ê" U00CA # LATIN CAPITAL LETTER E WITH CIRCUMFLEX
+<Multi_key> <E> <6> : "Ê" U00CA # LATIN CAPITAL LETTER E WITH CIRCUMFLEX
+<Multi_key> <6> <a> : "â" U00E2 # LATIN SMALL LETTER A WITH CIRCUMFLEX
+<Multi_key> <a> <6> : "â" U00E2 # LATIN SMALL LETTER A WITH CIRCUMFLEX
+<Multi_key> <6> <A> : "Â" U00C2 # LATIN CAPITAL LETTER A WITH CIRCUMFLEX
+<Multi_key> <A> <6> : "Â" U00C2 # LATIN CAPITAL LETTER A WITH CIRCUMFLEX
+<Multi_key> <6> <o> : "ô" U00F4 # LATIN SMALL LETTER O WITH CIRCUMFLEX
+<Multi_key> <o> <6> : "ô" U00F4 # LATIN SMALL LETTER O WITH CIRCUMFLEX
+<Multi_key> <6> <O> : "Ô" U00D4 # LATIN CAPITAL LETTER O WITH CIRCUMFLEX
+<Multi_key> <O> <6> : "Ô" U00D4 # LATIN CAPITAL LETTER O WITH CIRCUMFLEX
 
 # Macron characters (for romaji)
 <Multi_key> <minus> <A> : "Ā" U0100 # LATIN CAPITAL LETTER A WITH MACRON
@@ -1439,6 +1481,7 @@ include "%L"
 <Multi_key> <Multi_key> <k> <i> <s> <s>     : "💋" U1F48B # KISS MARK
 
 ## Hearts, squares, circles and books
+<Multi_key> <Multi_key> <exclam> <3>                : "❣️" U2763 UFE0F # HEART EXCLAMATION (emoji version of ❣)
 <Multi_key> <Multi_key> <less> <3>                  : "❤️" U2764 UFE0F # HEAVY BLACK HEART (emoji version of ❤)
 <Multi_key> <Multi_key> <r> <h> <e> <a> <r> <t>     : "❤️" U2764 UFE0F # HEAVY BLACK HEART (emoji version of ❤)
 <Multi_key> <Multi_key> <o> <h> <e> <a> <r> <t>     : "🧡" U1F9E1 # ORANGE HEART
@@ -1904,7 +1947,7 @@ include "%L"
 <Multi_key> <Multi_key> <X> <o>                                  : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <x> <O>                                  : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <X> <O>                                  : "😵" U1F635 # DIZZY FACE
-<Multi_key> <Multi_key> <X> <underscore> <X>                     : "😵" U1F635 # DIZZY FACE
+<Multi_key> <Multi_key> <x> <underscore> <x>                     : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <X> <underscore> <X>                     : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <@> <underscore> <@>                     : "😵‍💫" U1F635 U200D U1F4AB # FACE WITH SPIRAL EYES
 <Multi_key> <Multi_key> <@> <o>                                  : "😵‍💫" U1F635 U200D U1F4AB # FACE WITH SPIRAL EYES
@@ -1961,7 +2004,6 @@ include "%L"
 <Multi_key> <Multi_key> <colon> <minus> <bar>                    : "😔" U1F614 # PENSIVE FACE
 <Multi_key> <Multi_key> <greater> <underscore> <less>            : "😣" U1F623 # PERSEVERING FACE
 <Multi_key> <Multi_key> <greater> <less>                         : "😣" U1F623 # PERSEVERING FACE
-# Je le confond souvent avec T_T
 <Multi_key> <Multi_key> <u> <n> <a> <m> <u> <s> <e> <d>          : "😒" U1F612 # UNAMUSED FACE
 <Multi_key> <Multi_key> <m> <e> <h>                              : "😒" U1F612 # UNAMUSED FACE
 <Multi_key> <Multi_key> <m> <o> <u> <a> <i> <s>                  : "😒" U1F612 # UNAMUSED FACE
@@ -2237,6 +2279,8 @@ include "%L"
 
 ## Signs
 <Multi_key> <Multi_key> <backslash> <1> <8>                 : "🔞" U1F51E # NO ONE UNDER EIGHTEEN SYMBOL
+<Multi_key> <Multi_key> <backslash> <n> <s> <f> <w>         : "🔞" U1F51E # NO ONE UNDER EIGHTEEN SYMBOL
+<Multi_key> <Multi_key> <backslash> <N> <S> <F> <W>         : "🔞" U1F51E # NO ONE UNDER EIGHTEEN SYMBOL
 <Multi_key> <Multi_key> <backslash> <b> <i> <c>             : "🚳" U1F6B3 # NO BICYCLES
 <Multi_key> <Multi_key> <backslash> <p> <e> <d>             : "🚷" U1F6B7 # NO PEDESTRIANS
 <Multi_key> <Multi_key> <backslash> <s> <m> <o> <k> <e>     : "🚭" U1F6AD # NO SMOKING SYMBOL
