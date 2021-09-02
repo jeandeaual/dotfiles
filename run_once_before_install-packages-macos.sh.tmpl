@@ -1,11 +1,10 @@
-# Install GNU core utilities (those that come with OS X are outdated)
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
 brew 'coreutils'
-# Install some other useful utilities like `sponge`
 brew 'moreutils'
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew 'findutils'
-# Install Bash 4
 brew 'bash'
 brew 'zsh'
 brew 'starship'
@@ -38,6 +37,14 @@ brew 'yarn'
 brew 'k9s'
 tap 'heroku/brew'
 brew 'heroku'
+{{- if (eq .chezmoi.group "INTRA\\Domain Users") }}
+brew 'tfenv'
+brew 'asdf'
+tap 'TylerBrock/saw'
+brew 'saw'
+{{- else }}
+brew 'arduino-cli'
+{{- end }}
 
 # Install GUI applications
 tap 'homebrew/cask'
@@ -71,10 +78,25 @@ cask 'libreoffice'
 cask 'docker'
 cask 'slack'
 cask 'skype'
-#cask 'zoom'
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
 cask 'homebrew/cask-drivers/hhkb-pro-driver'
+{{- if (eq .chezmoi.group "INTRA\\Domain Users") }}
+cask 'sequel-pro'
+cask 'box-drive'
+cask 'viber'
+{{- else }}
+cask 'discord'
+cask 'dropbox'
+cask 'veracrypt'
+cask 'josm'
+cask 'android-studio'
+cask 'arduino'
+cask 'steam'
+cask 'mumble'
+cask 'quodlibet'
+cask 'zoom'
+{{- end }}
 
 brew 'mas'
 
@@ -87,3 +109,14 @@ mas 'Microsoft Excel', id: 409203825
 mas 'Microsoft PowerPoint', id: 462062816
 mas 'Keka', id: 470158793
 mas 'BetterSnapTool', id: 417375580
+{{- if (eq .chezmoi.group "INTRA\\Domain Users") }}
+{{- else }}
+mas 'GarageBand', id: 682658836
+mas 'LINE', id: 539883307
+mas 'WhatsApp Desktop', id: 1147396723
+mas 'Messenger', id: 1480068668
+mas 'Telegram', id: 747648890
+mas 'ChatSecure Messenger', id: 464200063
+{{- end }}
+EOF
+{{ end -}}

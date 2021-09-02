@@ -7,7 +7,6 @@ earlyoom
 user.js
 {{- if ne .chezmoi.os "darwin" }}
 .Brewfile*
-.macos
 Library
 {{- end }}
 {{- if ne .chezmoi.os "windows" }}

@@ -1,9 +1,0 @@
-# brew 'terraform'
-brew 'tfenv'
-brew 'asdf'
-tap 'TylerBrock/saw'
-brew 'saw'
-
-cask 'sequel-pro'
-cask 'box-drive'
-cask 'viber'
