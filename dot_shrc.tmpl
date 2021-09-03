@@ -27,11 +27,11 @@ alias o='xdg-open'
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-    alias ls='ls -G'
-else
-    alias ls='ls --color=auto --group-directories-first'
-fi
+{{ if eq .chezmoi.os "darwin" -}}
+alias ls='ls -G'
+{{- else -}}
+alias ls='ls --color=auto --group-directories-first'
+{{- end }}
 alias ll='ls -Alh'
 alias du='du -h'
 alias df='df -Th'
@@ -63,12 +63,13 @@ alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type
 alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 # Show a QR code with the clipboard's content
 alias qr='xclip -selection clipboard -o | qrencode --size=10 -o - | feh -'
+{{ if ne .chezmoi.os "darwin" -}}
 # Mimic the OS X commands
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+{{- end }}
 alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done'
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
-alias woolievs='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:WoolieVersus'
 # Mozc aliases
 alias mozc-config='/usr/lib/mozc/mozc_tool --mode=config_dialog'
 alias mozc-pad='/usr/lib/mozc/mozc_tool --mode=hand_writing'
