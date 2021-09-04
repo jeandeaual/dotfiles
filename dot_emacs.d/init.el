@@ -472,30 +472,7 @@
       :ensure t)
     :config
     (setq org-caldav-files '())
-    (setq plstore-cache-passphrase-for-symmetric-encryption t)
-
-    (setq my/inboxes '("~/Dropbox/Notes/Calendar/***REMOVED***"
-                       "~/Dropbox/Notes/Calendar/alexis.jeandeau@gmail.org"))
-
-    ;; Touch the file if it doesn't exist
-    (mapc (lambda (file)
-            (unless (file-exists-p "~/Dropbox/Notes/Calendar/***REMOVED***")
-              (write-region "" nil "~/Dropbox/Notes/Calendar/***REMOVED***")))
-          my/inboxes)
-
-    (setq org-caldav-calendars
-      `((:url google
-         :calendar-id "***REMOVED***"
-         :inbox ,(nth 0 my/inboxes)
-         :icalendar-timezone "Asia/Tokyo"
-         :caldav-oauth2-client-id "***REMOVED***"
-         :caldav-oauth2-client-secret "***REMOVED***")
-        (:url google
-         :calendar-id "alexis.jeandeau@gmail.com"
-         :inbox ,(nth 1 my/inboxes)
-         :icalendar-timezone "Asia/Tokyo"
-         :caldav-oauth2-client-id "***REMOVED***"
-         :caldav-oauth2-client-secret "***REMOVED***"))))
+    (setq plstore-cache-passphrase-for-symmetric-encryption t))
 
   (use-package bongo
     :ensure t
