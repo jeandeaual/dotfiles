@@ -217,6 +217,7 @@
     ],
     "redhat.telemetry.enabled": false,
     "editor.inlineSuggest.enabled": true,
+    "editor.bracketPairColorization.colorize": true,
     // "workbench.preferredDarkColorTheme": "Popping and Locking Black Theme",
     // "workbench.preferredLightColorTheme": "Popping and Locking Black Theme",
     // "workbench.colorCustomizations": {
