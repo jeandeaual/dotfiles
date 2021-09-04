@@ -1,0 +1,30 @@
+name: install
+on:
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+      - '.git*'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+      - '.git*'
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+      env:
+        CODESPACES: true
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Install chezmoi and the dotfiles
+        run: ./install.sh
+      - name: Run chezmoi data
+        run: '"${HOME}/.local/bin/chezmoi" data'
