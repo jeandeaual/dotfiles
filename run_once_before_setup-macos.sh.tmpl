@@ -1,5 +1,7 @@
-{{- if (eq .chezmoi.os "darwin") -}}
+{{- if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
+
+set -euo pipefail
 
 # Originally from https://mths.be/macos
 

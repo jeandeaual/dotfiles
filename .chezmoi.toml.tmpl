@@ -1,10 +1,13 @@
-{{- $codespaces:= env "CODESPACES" | not | not -}}
+{{- $codespaces := env "CODESPACES" | not | not -}}
 sourceDir = "{{ .chezmoi.sourceDir }}"
 
 [data]
     codespaces = {{ $codespaces }}
+    user = "alexis"
+    uid = 1000
+    display = 0
 {{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
     email = "alexis.jeandeau@gmail.com"
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
-    email = "{{ promptString "email" }}"
+    email = {{ promptString "email" | quote }}
 {{- end }}

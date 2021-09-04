@@ -3,8 +3,6 @@ README.md
 Code
 emacs
 vimfiles
-earlyoom
-user.js
 {{- if ne .chezmoi.os "darwin" }}
 .Brewfile*
 Library

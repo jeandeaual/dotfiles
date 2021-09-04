@@ -1,0 +1,25 @@
+{{- if and (eq .chezmoi.os "linux") (not .codespaces) -}}
+#!/bin/bash
+
+set -euo pipefail
+
+for cmd in ack sudo; do
+    command -v "${cmd}" &>/dev/null || {
+        echo "${cmd} not found" 1>&2
+        exit 1
+    }
+done
+
+readonly release_id="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
+if [[ "${release_id}" == "arch" ]]; then
+  filepath=/etc/default/earlyoom
+else
+  filepath=/etc/init.d/earlyoom
+fi
+
+echo "Writing earlyoom configuration to ${filepath}"
+
+sudo bash -c "cat > "${filepath}"" <<EOF
+EARLYOOM_ARGS="-m 5 -r 60 --avoid '(^|/)(init|Xorg|ssh)$' -N 'sudo -u {{ .user }} DISPLAY=:{{ .display }} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{{ .uid }}/bus notify-send'"
+EOF
+{{ end -}}

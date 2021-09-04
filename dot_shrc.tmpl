@@ -1,5 +1,5 @@
 if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-    _release_id=$(awk -F= '/^ID=/{print $2}' /etc/os-release)
+    _release_id="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
 else
     _release_id=""
 fi
