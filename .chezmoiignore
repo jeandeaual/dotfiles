@@ -1,17 +1,19 @@
 LICENSE
 README.md
+install.sh
 Code
-emacs
-vimfiles
-{{- if ne .chezmoi.os "darwin" }}
-.Brewfile*
-Library
-{{- end }}
 {{- if ne .chezmoi.os "windows" }}
 AppData
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
-.oh-my-zsh
+.vim
+.config/nvim
+{{- else }}
+vimfiles
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+.Brewfile*
+Library
 {{- end }}
 {{- if eq .chezmoi.os "darwin" }}
 .XCompose

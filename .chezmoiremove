@@ -1,0 +1,10 @@
+.emacs
+{{- if eq .chezmoi.os "windows" }}
+_vimrc
+_gvimrc
+_exrc
+{{- else }}
+.vimrc
+.gvimrc
+.exrc
+{{- end }}
