@@ -26,7 +26,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
-plugins=(git mercurial bundler osx brew gem)
+plugins=(git mercurial bundler osx brew gem zsh-syntax-highlighting)
 
 source "${ZSH}/oh-my-zsh.sh"
 

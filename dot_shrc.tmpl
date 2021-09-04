@@ -114,6 +114,10 @@ mkcd() {
     mkdir -p -- "$1" && cd -P -- "$1"
 }
 
+chezmoi-cd() {
+    cd "$(chezmoi source-path)"
+}
+
 # Usage:
 # echo "1.2.3" | inc_version 3
 # 1.2.4
