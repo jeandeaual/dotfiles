@@ -20,6 +20,6 @@ fi
 echo "Writing earlyoom configuration to ${filepath}"
 
 sudo bash -c "cat > "${filepath}"" <<EOF
-EARLYOOM_ARGS="-m 5 -r 60 --avoid '(^|/)(init|Xorg|ssh)$' -N 'sudo -u {{ .user }} DISPLAY=:{{ .display }} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{{ .uid }}/bus notify-send'"
+EARLYOOM_ARGS="-m 5 -r 60 --avoid '(^|/)(init|Xorg|ssh)$' -N 'sudo -u {{ .chezmoi.username }} DISPLAY=:{{ .display }} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{{ .uid }}/bus notify-send'"
 EOF
 {{ end -}}

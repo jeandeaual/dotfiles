@@ -1,11 +1,16 @@
 {{- $codespaces := env "CODESPACES" | not | not -}}
 sourceDir = "{{ .chezmoi.sourceDir }}"
+encryption = "gpg"
+
+[gpg]
+    recipient = "alexis.jeandeau@gmail.com"
 
 [data]
     codespaces = {{ $codespaces }}
-    user = "alexis"
+{{- if eq .chezmoi.os "linux" -}}
     uid = 1000
     display = 0
+{{- end }}
 {{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
     email = "alexis.jeandeau@gmail.com"
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
