@@ -26,3 +26,6 @@ Library
 .Xresources
 .xprofile
 {{- end }}
+{{- if .codespaces }}
+encrypted_*
+{{- end }}

@@ -1,9 +1,11 @@
 {{- $codespaces := env "CODESPACES" | not | not -}}
 sourceDir = "{{ .chezmoi.sourceDir }}"
+{{- if not $codespaces }}{{/* Disable encryption on Codespaces */}}
 encryption = "gpg"
 
 [gpg]
     recipient = "alexis.jeandeau@gmail.com"
+{{- end }}
 
 [data]
     codespaces = {{ $codespaces }}
