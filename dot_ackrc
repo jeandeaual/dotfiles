@@ -1,1 +1,5 @@
---type-set=css=.scss
+--ignore-dir=node_modules
+--type-add=css=scss
+--type-add=ruby=.haml,.rselm,.feature,.ru,.lock
+--type-set=coffescript:ext:coffee
+--type-set=coffe:ext:coffee
