@@ -2,6 +2,7 @@ LICENSE
 README.md
 install.sh
 Code
+vim
 {{- if ne .chezmoi.os "windows" }}
 AppData
 {{- end }}
