@@ -1,0 +1,295 @@
+if test "$OSTYPE" = "linux-gnu*"
+    set _release_id (awk -F= '/^ID=/{print $2}' /etc/os-release)
+end
+
+# Disable the default prompt
+set fish_greeting ""
+
+# Environment variables
+set -xU VISUAL gvim
+if set -q SSH_CONNECTION
+  set -xU EDITOR vim
+else
+  set -xU EDITOR gvim
+end
+set -xU SYSTEMD_EDITOR $EDITOR
+set -xU FCEDIT $EDITOR
+set -xU SVN_EDITOR $EDITOR
+set -xU PAGER less
+set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
+set -xU WWW_BROWSER w3m
+set -xU DOWNLOADER wget -S
+if test -d /usr/local/man
+    set -xU MANPATH /usr/local/man $MANPATH
+end
+
+# Aliases
+{{ if eq .chezmoi.os "darwin" -}}
+function o
+    open $argv
+end
+{{- else -}}
+if type -q xdg-open
+    function o
+        xdg-open $argv
+    end
+end
+{{- end }}
+function cp
+    command cp -v $argv
+end
+function mv
+    command mv -v $argv
+end
+function rm
+    command rm -v $argv
+end
+{{ if eq .chezmoi.os "darwin" -}}
+function ls
+    command ls -G $argv
+end
+{{- else -}}
+function ls
+    command ls --color=auto --group-directories-first $argv
+end
+{{- end }}
+function ll
+    ls -Alh $argv
+end
+function du
+    command du -h $argv
+end
+function df
+    command df -Th $argv
+end
+function gzip
+    command gzip -v9N $argv
+end
+function zip
+    command zip -9 -r $argv
+end
+function 7z
+    command 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $argv
+end
+function j
+    jobs -l $argv
+end
+function ports --description="Show which process is using which port"
+    sudo lsof +M -i4 -n -P
+end
+function tmux --description="Force tmux to assume the terminal supports 256 colours"
+    command tmux -2 $argv
+end
+function em
+    emacs $argv
+end
+if type -q emacsclient
+    function emc --description="Open a new Emacs frame"
+        emacsclient -n -c -a "" $argv
+    end
+    function emw --description="Open an Emacs frame in the current TTY"
+        emacsclient -n -w -a "" $argv
+    end
+end
+function dup --description="Find duplicate files under the current file tree by size and MD5 sum"
+    find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
+end
+function wip --description="Get the external IP address"
+    dig -4 +short myip.opendns.com A @resolver1.opendns.com
+    # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
+end
+
+function wip6
+    dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
+    # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
+end
+function rmbin --description="Delete all executables from the current directory"
+    find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;
+end
+{{ if ne .chezmoi.os "darwin" -}}
+function finddesktop --description="Find all the .desktop files installed on the system"
+    find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2> /dev/null
+end
+{{- end }}
+{{ if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") -}}
+{{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}{{/* WSL */}}
+if type -q dbus-send
+    function restartgnome --description="Ask GNOME Shell to restart itself through dbus"
+        dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
+    end
+end
+{{-   end -}}
+{{- end }}
+{{ if ne .chezmoi.os "darwin" -}}
+# Mimic the OS X commands
+function pbcopy
+    xclip -selection clipboard
+end
+function pbpaste
+    xclip -selection clipboard -o
+end
+function qr --description="Show a QR code with the clipboard's content"
+    xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
+end
+function ips
+    for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done
+end
+{{- end }}
+# Mozc aliases
+if type -q /usr/lib/mozc/mozc_tool
+    function mozc-config
+        /usr/lib/mozc/mozc_tool --mode=config_dialog
+    end
+    function mozc-pad
+        /usr/lib/mozc/mozc_tool --mode=hand_writing
+    end
+    function mozc-register
+        /usr/lib/mozc/mozc_tool --mode=word_register_dialog
+    end
+    function mozc-dict
+        /usr/lib/mozc/mozc_tool --mode=dictionary_tool
+    end
+end
+{{ if ne .chezmoi.os "darwin" -}}
+if test "$_release_id" != "arch"
+    # ArchLinux already includes a cal utility with Monday as the start of the week
+    function cal --description="Make cal display Monday as the start of the week"
+        ncal -bM -w $argv
+    end
+end
+{{- end}}
+function zombie --description="List zombie processes"
+    ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid
+end
+function ts --description="Current UNIX timestamp in seconds"
+    date +%s
+end
+function tsms --description="Current UNIX timestamp in milliseconds"
+    date +%s%N | cut -b1-13
+end
+function tsns --description="Current UNIX timestamp in nanoseconds"
+    date +%s%N
+end
+# AWS
+if type -q aws
+    function lambdalist
+        aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
+    end
+end
+# Python
+function activate
+    source ./venv/bin/activate
+end
+function pipenv2requirements
+    jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
+end
+# Go
+if type -q go
+    function gor --description="go build and strip the debugging information (DWARF tables)"
+        go build -ldflags='-s -w' $argv
+    end
+end
+# DBus
+if type -q dbus-send
+    function secretservicepid --description="Get the PID of the currently running DBus Secret Service daemon"
+        dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets
+    end
+    function quodplaytime --description="Display the QuodLibet play time"
+        dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\''
+    end
+end
+# SSH key generation
+if type -q ssh-keygen
+    function ssh-keygen-rsa
+        ssh-keygen -t rsa -b 4096
+    end
+    function ssh-keygen-ed25519
+        ssh-keygen -t ed25519
+    end
+end
+
+# Custom Functions
+function mkcd --argument-names 'dir' --description="Create a directory and enter it"
+    mkdir -p "$dir" && cd "$dir"
+end
+
+function chezmoi-cd --description="Change directory to the chezmoi folder without creating a subshell"
+    if ! type -q chezmoi
+        echo 'chezmoi is not installed' 1>&2
+        return 1
+    end
+
+    cd (chezmoi source-path)
+end
+
+# Usage:
+# echo "1.2.3" | inc_version 3
+# 1.2.4
+# echo "1.2.3" | inc_version 2
+# 1.3.0
+# echo "1.2.3" | inc_version 1
+# 2.0.0
+function inc_version --argument-names 'version' --description="Increment a version number"
+    awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver="$version"
+end
+
+# Usage: write_iso ISO DEVICE
+function write_iso --argument-names 'file' 'device' --description="Write an ISO image to a device"
+    if test ! -n "$file" -a "$file" != "*.iso"
+        echo "The first argument needs to be an ISO file"
+        return 1
+    end
+    if test ! -n "$device" -a "$file" != "/dev/sd*"
+        echo "The second argument needs to be a device"
+        return 1
+    end
+
+    sudo dd if="$file" of="$device" bs=4M conv=fdatasync status=progress
+end
+
+# CentOS only
+# Use Vim with system clipboard support if installed
+if type -q /usr/bin/vimx -a ! type -q /usr/local/bin/vim
+    function vim
+        /usr/bin/vimx $argv
+    end
+end
+
+# Haskell
+if test -d {$HOME}/.cabal/bin
+    set -U fish_user_paths {$HOME}/.cabal/bin $fish_user_paths
+end
+if type -q ghc
+    function ghci-sandbox
+        ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
+    end
+end
+if type -q ghci
+    function ghci-sandbox
+        ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
+    end
+end
+if type -q runhaskell
+    function runhaskell-sandbox
+        runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
+    end
+end
+
+# Go
+set _gopath (go env GOPATH 2>/dev/null)
+if test -n "$_gopath"
+    set -U fish_user_paths {$_gopath}/bin $fish_user_paths
+end
+
+# Rust
+if type -q rustup
+    alias rustbook="rustup docs --book"
+end
+if test -d "{$HOME}/.cargo/bin"
+    set -U fish_user_paths {$HOME}/.cargo/bin $fish_user_paths
+end
+
+# Ruby
+if test -d "{$HOME}/.rvm/bin"
+    set -U fish_user_paths {$HOME}/.rvm/bin $fish_user_paths
+end

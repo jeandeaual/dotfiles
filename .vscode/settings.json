@@ -3,6 +3,8 @@
     // These cannot be workspace relative currently
     // See: https://github.com/Microsoft/vscode/issues/12805
     "files.associations": {
+        // ack
+        "dot_ackrc": "properties",
         // AWS
         "**/dot_aws/config": "properties",
         // Bash
@@ -18,6 +20,8 @@
         "**/feh/themes": "shellscript",
         // Firefox
         "**/Firefox/profiles/user": "gojs",
+        // Fish
+        "*.fish.*": "fish",
         // Gimp
         "dot_gimprc": "scheme",
         // Guile

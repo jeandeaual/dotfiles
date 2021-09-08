@@ -9,21 +9,32 @@ if [[ -f "${HOME}/.shrc.local" ]]; then
 fi
 
 #---- Environment variables ------------#
-export EDITOR='vim'
+export VISUAL='gvim'
+# Preferred editor for local and remote sessions
+if [[ -n "${SSH_CONNECTION}" ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='gvim'
+fi
 export SYSTEMD_EDITOR="${EDITOR}"
 export FCEDIT="${EDITOR}"
+export SVN_EDITOR="${EDITOR}"
 export PAGER='less'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
-
-#---- SVN -----------------#
-export SVN_EDITOR='vim'
-
-#---- accept-line-with-url ---#
 export WWW_BROWSER='w3m'
 export DOWNLOADER='wget -S'
+if [[ -d "/usr/local/man" ]]; then
+    export MANPATH="/usr/local/man${MANPATH:+:${MANPATH}}"
+fi
 
 #---- Aliases ------------#
-alias o='xdg-open'
+{{ if eq .chezmoi.os "darwin" -}}
+alias o='open'
+{{- else -}}
+if command -v xdg-open &> /dev/null; then
+    alias o='xdg-open'
+fi
+{{- end }}
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
@@ -44,10 +55,12 @@ alias ports='sudo lsof +M -i4 -n -P'
 # Force tmux to assume the terminal supports 256 colours
 alias tmux='tmux -2'
 alias em='emacs'
-# Open a new Emacs frame
-alias emc='emacsclient -n -c -a ""'
-# Open an Emacs frame in the current TTY
-alias emw='emacsclient -n -w -a ""'
+if command -v emacsclient &> /dev/null; then
+    # Open a new Emacs frame
+    alias emc='emacsclient -n -c -a ""'
+    # Open an Emacs frame in the current TTY
+    alias emw='emacsclient -n -w -a ""'
+fi
 # Find duplicate files under the current file tree by size and MD5 sum
 alias dup='find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate'
 # Get the external IP address
@@ -57,29 +70,41 @@ alias wip6='dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.
 # alias wip6='dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2'
 # Delete all executables from the current directory
 alias rmbin='find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;'
+{{ if ne .chezmoi.os "darwin" -}}
 # Find all the .desktop files installed on the system
 alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2> /dev/null'
+{{- end }}
+{{ if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") -}}
+{{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}{{/* WSL */}}
 # Ask GNOME Shell to restart itself through dbus
-alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
-# Show a QR code with the clipboard's content
-alias qr='xclip -selection clipboard -o | qrencode --size=10 -o - | feh -'
+if command -v dbus-send &> /dev/null; then
+    alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
+fi
+{{-   end -}}
+{{- end }}
 {{ if ne .chezmoi.os "darwin" -}}
 # Mimic the OS X commands
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
-{{- end }}
+# Show a QR code with the clipboard's content
+alias qr='xclip -selection clipboard -o | qrencode --size=10 -o - | feh -'
 alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done'
+{{- end }}
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
-alias mozc-config='/usr/lib/mozc/mozc_tool --mode=config_dialog'
-alias mozc-pad='/usr/lib/mozc/mozc_tool --mode=hand_writing'
-alias mozc-register='/usr/lib/mozc/mozc_tool --mode=word_register_dialog'
-alias mozc-dict='/usr/lib/mozc/mozc_tool --mode=dictionary_tool'
+if [[ -e /usr/lib/mozc/mozc_tool ]]; then
+    alias mozc-config='/usr/lib/mozc/mozc_tool --mode=config_dialog'
+    alias mozc-pad='/usr/lib/mozc/mozc_tool --mode=hand_writing'
+    alias mozc-register='/usr/lib/mozc/mozc_tool --mode=word_register_dialog'
+    alias mozc-dict='/usr/lib/mozc/mozc_tool --mode=dictionary_tool'
+fi
 # Make cal display Monday as the start of the week
+{{ if ne .chezmoi.os "darwin" -}}
 if [[ "${_release_id}" != "arch" ]]; then
-    # ArchLinux already includes a cal utility with Monday as the start of the wek
+    # ArchLinux already includes a cal utility with Monday as the start of the week
     alias cal='ncal -bM -w'
 fi
+{{- end}}
 # List zombie processes
 alias zombie='ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid'
 # Current UNIX timestamp in seconds
@@ -90,23 +115,29 @@ alias tsms='date +%s%N | cut -b1-13'
 # Current UNIX timestamp in nanoseconds
 alias tsns='date +%s%N'
 # AWS
-alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
-alias listvehicles="aws --output json greengrass list-groups | jq -r '.Groups[].Name' | sed 's/[_-]Group$//'"
-alias activate='source ./venv/bin/activate'
-# Go
-# go build and strip the debugging information (DWARF tables)
-alias gor="go build -ldflags='-s -w'"
-# See https://github.com/golang/go/issues/26492
-# alias gorstatic="go build -ldflags='-s -w -extldflags \"-fno-PIC -static\"' -buildmode pie -tags 'osusergo netgo static_build'"
+if command -v aws &> /dev/null; then
+    alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
+fi
 # Python
+alias activate='source ./venv/bin/activate'
 alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
+# Go
+if command -v go &> /dev/null; then
+    # go build and strip the debugging information (DWARF tables)
+    alias gor="go build -ldflags='-s -w'"
+fi
 # DBus
-# Get the PID of the currently running DBus Secret Service daemon
-alias secretservicepid='dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets'
-alias quodplaytime='dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\'''
+if command -v dbus-send &> /dev/null; then
+    # Get the PID of the currently running DBus Secret Service daemon
+    alias secretservicepid='dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets'
+    # Display the QuodLibet play time
+    alias quodplaytime='dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\'''
+fi
 # SSH key generation
-alias ssh-keygen-rsa='ssh-keygen -t rsa -b 4096'
-alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
+if command -v ssh-keygen &> /dev/null; then
+    alias ssh-keygen-rsa='ssh-keygen -t rsa -b 4096'
+    alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
+fi
 
 #---- Custom Functions ---#
 # Usage: mkcd FOLDER
@@ -115,6 +146,11 @@ mkcd() {
 }
 
 chezmoi-cd() {
+    command -v chezmoi &>/dev/null || {
+        echo 'chezmoi is not installed' 1>&2
+        return 1
+    }
+
     cd "$(chezmoi source-path)"
 }
 
@@ -140,51 +176,7 @@ write_iso() {
         return 1
     fi
 
-    echo "sudo dd if=\"$1\" of=\"$2\" bs=4M conv=fdatasync status=progress"
-
     sudo dd if="$1" of="$2" bs=4M conv=fdatasync status=progress
-}
-
-# Usage: aws_iot_listen AWS_IOT_ENDPOINT [VEHICLE_ID]
-aws_iot_listen() {
-    command -v mosquitto_sub &>/dev/null || {
-        echo 'mosquitto_sub is not installed' 1>&2
-        return 1
-    }
-
-    local -r root_ca="root.ca.pem"
-    local -r cert="gg.cert.pem"
-    local -r key="gg.private.key"
-
-    if [[ ! -f "${root_ca}" ]]; then
-        echo "The root certificate (${root_ca}) is not in the current folder"
-        return 1
-    fi
-    if [[ ! -f "${cert}" ]]; then
-        echo "The certificate (${cert}) is not in the current folder"
-        return 1
-    fi
-    if [[ ! -f "${key}" ]]; then
-        echo "The private key (${key}) is not in the current folder"
-        return 1
-    fi
-
-    if [[ $1 != *-ats.iot.*.amazonaws.com ]]; then
-        echo "The first argument must be an AWS IoT endpoint"
-        return 1
-    fi
-
-    local -r endpoint="$1"
-
-    if [[ -z $2 ]]; then
-        # Subscribe to all topics
-        local -r topic="#"
-    else
-        # Subscribe to topic related to the vehicle ID provided as 2nd argument
-        local -r topic="/+/$2/#"
-    fi
-
-    mosquitto_sub --cafile "${root_ca}" --cert "${cert}" --key "${key}" -h "${endpoint}" -p 8883 -t "${topic}" -d
 }
 
 # CentOS only
@@ -197,17 +189,32 @@ fi
 if [[ -d "${HOME}/.cabal/bin" ]]; then
     export PATH="${HOME}/.cabal/bin:${PATH}"
 fi
-alias ghc-sandbox="ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
-alias ghci-sandbox="ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
-alias runhaskell-sandbox="runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
+if command -v ghc &> /dev/null; then
+    alias ghc-sandbox="ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
+fi
+if command -v ghci &> /dev/null; then
+    alias ghci-sandbox="ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
+fi
+if command -v runhaskell &> /dev/null; then
+    alias runhaskell-sandbox="runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
+fi
 
 #----- Go ----------------#
 if _gopath=$(go env GOPATH 2>/dev/null); then
     export PATH="${_gopath}/bin${PATH+:}${PATH}"
 fi
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
 
 #----- Rust --------------#
-alias rustbook="rustup docs --book"
+if command -v rustbook &> /dev/null; then
+    alias rustbook="rustup docs --book"
+fi
 if [[ -d "${HOME}/.cargo/bin" ]]; then
     export PATH="${HOME}/.cargo/bin${PATH+:}${PATH}"
+fi
+[[ -s "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
+
+#----- Ruby --------------#
+if [[ -d "${HOME}/.rvm/bin" ]]; then
+    export PATH="${PATH}:${HOME}/.rvm/bin"
 fi

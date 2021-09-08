@@ -18,11 +18,3 @@ HISTCONTROL=ignoreboth
 # For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
-
-PATH="${PATH}:/usr/share/shunit2"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="${PATH}:${HOME}/.rvm/bin"
-
-[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
-[[ -s "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
