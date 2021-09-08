@@ -30,3 +30,7 @@ Library
 {{- if .codespaces }}
 encrypted_*
 {{- end }}
+{{- if eq .chezmoi.username "alexis.jeandeau" }}{{/* Work */}}
+{{- else }}{{/* Personal */}}
+.kube/config
+{{- end }}
