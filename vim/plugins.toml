@@ -152,22 +152,6 @@ repo = 'justinmk/vim-gtfo'
 repo = 'kshenoy/vim-signature'
 if = 'has("signs")'
 
-# Show the list of ctags for the current file using :TagbarToggle
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_post_source = '''
-  nnoremap <silent> <F7> :TagbarToggle<CR>
-
-  " Default: 40
-  let g:tagbar_width = 50
-
-  if has('autocmd')
-    autocmd VimEnter * nested :call tagbar#autoopen(1)
-    autocmd FileType * nested :call tagbar#autoopen(0)
-    autocmd BufEnter * nested :call tagbar#autoopen(0)
-  endif
-'''
-
 # Git wrapper
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -224,7 +208,6 @@ hook_add = '''
   nmap <Leader>a <Plug>(EasyAlign)
 '''
 
-
 # Make gvim-only colorschemes work transparently in terminal Vim
 [[plugins]]
 repo = 'christoomey/vim-tmux-navigator'
@@ -232,13 +215,6 @@ repo = 'christoomey/vim-tmux-navigator'
 # Some things to improve key support in rxvt
 [[plugins]]
 repo = 'nacitar/terminalkeys.vim'
-
-# Alignment plugin
-[[plugins]]
-repo = 'https://github.com/tommcdo/vim-lion.git'
-hook_add = '''
-  let b:lion_squeeze_spaces = 1
-'''
 
 # Syntax checking hacks for Vim
 [[plugins]]
@@ -300,21 +276,9 @@ depends = ['vim-airline']
 
 # Visually display indent levels in code
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
+repo = 'Yggdroot/indentLine'
 hook_add = '''
-  let g:indent_guides_start_level = 2
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_color_change_percent = 10
-  if !has('gui_running') && has('autocmd')
-    " Fix ugly colors in terminal Vim
-    " https://github.com/nathanaelkane/vim-indent-guides/issues/33
-    let g:indent_guides_auto_colors = 0
-    autocmd VimEnter,Colorscheme *
-        \ highlight IndentGuidesOdd  guibg=darkgrey ctermbg=236
-    autocmd VimEnter,Colorscheme *
-        \ highlight IndentGuidesEven guibg=darkgrey ctermbg=237
-  endif
+  let g:indentLine_char = '|'
 '''
 
 # For C++ auto-completion
@@ -326,17 +290,6 @@ repo = 'osyo-manga/vim-marching'
 # clang-format support
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
-
-[[plugins]]
-repo = 'mhameed/vim-unicodeBraille'
-
-# EditorConfig
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-# Tag management
-[[plugins]]
-repo = 'ludovicchabant/vim-gutentags'
 
 # For VimL lint
 [[plugins]]
@@ -406,15 +359,6 @@ if = 'has("nvim")'
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
 if = '!has("nvim") && has("python3") && v:version >= 800'
-
-# [[plugins]]
-# repo = 'roxma/nvim-completion-manager'
-# if = 'has("python3") && (has("nvim") || v:version >= 800)'
-# hook_add = '''
-#   " Don't give |ins-completion-menu| messages.  For example,
-#   " '-- XXX completion (YYY)', 'match 1 of 2', 'The only match',
-#   set shortmess+=c
-# '''
 
 # Edit ZIP files recursively (useful for JAR files)
 [[plugins]]

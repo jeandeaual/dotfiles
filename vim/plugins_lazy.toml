@@ -267,10 +267,12 @@ on_ft = ['swift']
 repo = 'othree/xml.vim'
 on_ft = ['html', 'xml']
 
+# SVG
 [[plugins]]
 repo = 'vim-scripts/svg.vim'
 on_ft = ['svg']
 
+# OpenSCAD
 [[plugins]]
 repo = 'vim-scripts/openscad.vim'
 on_ft = ['openscad']
@@ -330,6 +332,7 @@ on_ft = ['requirements']
 repo = 'chikamichi/mediawiki.vim'
 on_ft = ['mediawiki']
 
+# VimL
 [[plugins]]
 repo = 'syngan/vim-vimlint'
 depends = ['vim-vimlparser']
@@ -354,11 +357,6 @@ on_cmd =  ['HGblame', 'HGcat', 'HGdiff', 'HGshow']
 [[plugins]]
 repo = 'lilydjwg/colorizer'
 on_ft = ['css', 'svg']
-
-# Interface to http://codic.jp/
-[[plugins]]
-repo = 'koron/codic-vim'
-on_cmd =  ['Codic']
 
 # Simplifies the transition between multiline and single-line code
 [[plugins]]

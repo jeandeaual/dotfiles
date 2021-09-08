@@ -643,7 +643,7 @@ if has('gui_running')
     set transparency=3
     " Completely close the window when exiting MacVim
     autocmd VimLeave * macaction terminate:
-  elseif has('gui_win32') || has('gui_win32s')
+  elseif has('gui_win32')
     set guifont=Fira\ Code:h10,Consolas:h10
     " Correctly display wide characters (Chinese, Japanese, etc.) on Windows
     set guifontwide=MS_Gothic:h10
