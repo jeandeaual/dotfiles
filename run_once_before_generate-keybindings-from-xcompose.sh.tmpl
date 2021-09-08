@@ -1,0 +1,17 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -euo pipefail
+
+for cmd in python3; do
+    command -v "${cmd}" &>/dev/null || {
+        echo "${cmd} not found" 1>&2
+        exit 1
+    }
+done
+
+# https://www.chezmoi.io/docs/how-to/#run-a-script-when-the-contents-of-another-file-changes
+# xcompose2cocoakeybindings.py hash: {{ include "scripts/xcompose2cocoakeybindings.py" | sha256sum }}
+# .XCompose hash: {{ include "dot_XCompose" | sha256sum }}
+python3 {{ joinPath .chezmoi.sourceDir "scripts" "xcompose2cocoakeybindings.py" | quote }} {{ joinPath .chezmoi.sourceDir "dot_XCompose" | quote }} > {{ joinPath .chezmoi.sourceDir "private_Library" "KeyBindings" "DefaultKeyBinding.dict" | quote }}
+{{ end -}}
