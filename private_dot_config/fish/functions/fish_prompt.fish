@@ -69,7 +69,7 @@ function fish_prompt
     end
 
     set -l arrow "$arrow_color➜ "
-    if fish_is_root_user
+    if functions -q fish_is_root_user; and fish_is_root_user
         set arrow "$arrow_color# "
     end
 
