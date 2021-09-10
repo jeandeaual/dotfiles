@@ -22,9 +22,9 @@ if [[ -d "/usr/local/man" ]]; then
 fi
 
 #---- Aliases ------------#
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
 alias o='open'
-{{- else -}}
+{{- else }}
 if command -v xdg-open &> /dev/null; then
     alias o='xdg-open'
 fi
@@ -32,9 +32,9 @@ fi
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
 alias ls='ls -G'
-{{- else -}}
+{{- else }}
 alias ls='ls --color=auto --group-directories-first'
 {{- end }}
 alias ll='ls -Alh'
@@ -64,19 +64,19 @@ alias wip6='dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.
 # alias wip6='dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2'
 # Delete all executables from the current directory
 alias rmbin='find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;'
-{{ if ne .chezmoi.os "darwin" -}}
+{{- if ne .chezmoi.os "darwin" }}
 # Find all the .desktop files installed on the system
 alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2> /dev/null'
 {{- end }}
-{{ if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") -}}
-{{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}{{/* WSL */}}
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") }}
+{{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}{{/* WSL */}}
 # Ask GNOME Shell to restart itself through dbus
 if command -v dbus-send &> /dev/null; then
     alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 fi
-{{-   end -}}
+{{-   end }}
 {{- end }}
-{{ if ne .chezmoi.os "darwin" -}}
+{{- if ne .chezmoi.os "darwin" }}
 # Mimic the OS X commands
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -93,7 +93,7 @@ if [[ -e /usr/lib/mozc/mozc_tool ]]; then
     alias mozc-dict='/usr/lib/mozc/mozc_tool --mode=dictionary_tool'
 fi
 # Make cal display Monday as the start of the week
-{{ if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) -}}
+{{- if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) }}
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
 alias cal='ncal -bM -w'
 {{- end}}

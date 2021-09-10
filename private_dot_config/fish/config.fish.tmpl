@@ -20,65 +20,80 @@ if test -d /usr/local/man
 end
 
 # Aliases
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
 function o
     open $argv
 end
-{{- else -}}
+{{- else }}
 if type -q xdg-open
     function o
         xdg-open $argv
     end
 end
 {{- end }}
+
 function cp
     command cp -v $argv
 end
+
 function mv
     command mv -v $argv
 end
+
 function rm
     command rm -v $argv
 end
-{{ if eq .chezmoi.os "darwin" -}}
+
+{{- if eq .chezmoi.os "darwin" }}
 function ls
     command ls -G $argv
 end
-{{- else -}}
+{{- else }}
 function ls
     command ls --color=auto --group-directories-first $argv
 end
 {{- end }}
+
 function ll
     ls -Alh $argv
 end
+
 function du
     command du -h $argv
 end
+
 function df
     command df -Th $argv
 end
+
 function gzip
     command gzip -v9N $argv
 end
+
 function zip
     command zip -9 -r $argv
 end
+
 function 7z
     command 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $argv
 end
+
 function j
     jobs -l $argv
 end
+
 function ports --description="Show which process is using which port"
     sudo lsof +M -i4 -n -P
 end
+
 function tmux --description="Force tmux to assume the terminal supports 256 colours"
     command tmux -2 $argv
 end
+
 function em
     emacs $argv
 end
+
 if type -q emacsclient
     function emc --description="Open a new Emacs frame"
         emacsclient -n -c -a "" $argv
@@ -87,9 +102,11 @@ if type -q emacsclient
         emacsclient -n -w -a "" $argv
     end
 end
+
 function dup --description="Find duplicate files under the current file tree by size and MD5 sum"
     find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
 end
+
 function wip --description="Get the external IP address"
     dig -4 +short myip.opendns.com A @resolver1.opendns.com
     # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
@@ -99,24 +116,28 @@ function wip6
     dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
     # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
 end
+
 function rmbin --description="Delete all executables from the current directory"
     find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;
 end
-{{ if ne .chezmoi.os "darwin" -}}
+
+{{- if ne .chezmoi.os "darwin" }}
 function finddesktop --description="Find all the .desktop files installed on the system"
     find {/usr/{,local/},{$HOME}/.local/}share/applications -type f 2> /dev/null
 end
 {{- end }}
-{{ if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") -}}
+
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") }}
 {{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}{{/* WSL */}}
 if type -q dbus-send
     function restartgnome --description="Ask GNOME Shell to restart itself through dbus"
         dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
     end
 end
-{{-   end -}}
+{{-   end }}
 {{- end }}
-{{ if ne .chezmoi.os "darwin" -}}
+
+{{- if ne .chezmoi.os "darwin" }}
 # Mimic the OS X commands
 if type -q xclip
     function pbcopy
@@ -131,6 +152,7 @@ if type -q xclip
         end
     end
 end
+
 if type -q ip
     function ips
         for gw in (ip route list to 0/0 | awk '{print $3}')
@@ -139,6 +161,7 @@ if type -q ip
     end
 end
 {{- end }}
+
 # Mozc aliases
 if type -q /usr/lib/mozc/mozc_tool
     function mozc-config
@@ -154,30 +177,37 @@ if type -q /usr/lib/mozc/mozc_tool
         /usr/lib/mozc/mozc_tool --mode=dictionary_tool
     end
 end
-{{ if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) -}}
+
+{{- if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) }}
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
 function cal --description="Make cal display Monday as the start of the week"
     ncal -bM -w $argv
 end
 {{- end}}
+
 function zombie --description="List zombie processes"
     ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid
 end
+
 function ts --description="Current UNIX timestamp in seconds"
     date +%s
 end
+
 function tsms --description="Current UNIX timestamp in milliseconds"
     date +%s%N | cut -b1-13
 end
+
 function tsns --description="Current UNIX timestamp in nanoseconds"
     date +%s%N
 end
+
 # AWS
 if type -q aws
     function lambdalist
         aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
     end
 end
+
 # Python
 function activate
     source ./venv/bin/activate
@@ -185,12 +215,14 @@ end
 function pipenv2requirements
     jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
 end
+
 # Go
 if type -q go
     function gor --description="go build and strip the debugging information (DWARF tables)"
         go build -ldflags='-s -w' $argv
     end
 end
+
 # DBus
 if type -q dbus-send
     function secretservicepid --description="Get the PID of the currently running DBus Secret Service daemon"
@@ -200,6 +232,7 @@ if type -q dbus-send
         dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\''
     end
 end
+
 # SSH key generation
 if type -q ssh-keygen
     function ssh-keygen-rsa
@@ -210,7 +243,7 @@ if type -q ssh-keygen
     end
 end
 
-# Custom Functions
+# Custom functions
 function mkcd --argument-names 'dir' --description="Create a directory and enter it"
     mkdir -p "$dir" && cd "$dir"
 end
@@ -261,16 +294,19 @@ end
 if test -d {$HOME}/.cabal/bin
     set -U fish_user_paths {$HOME}/.cabal/bin $fish_user_paths
 end
+
 if type -q ghc
     function ghci-sandbox
         ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
     end
 end
+
 if type -q ghci
     function ghci-sandbox
         ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
     end
 end
+
 if type -q runhaskell
     function runhaskell-sandbox
         runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $argv
