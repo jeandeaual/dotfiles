@@ -12,6 +12,8 @@ else
     export ZSH="/usr/share/oh-my-zsh"
 fi
 
+export ZSH_CACHE_DIR="${HOME}/.cache/zsh"
+
 ZSH_THEME='gnzh'
 
 # Use hyphen-insensitive completion.

@@ -1,7 +1,3 @@
-if test "$OSTYPE" = "linux-gnu*"
-    set _release_id (awk -F= '/^ID=/{print $2}' /etc/os-release)
-end
-
 # Disable the default prompt
 set fish_greeting ""
 
@@ -122,14 +118,18 @@ end
 {{- end }}
 {{ if ne .chezmoi.os "darwin" -}}
 # Mimic the OS X commands
-function pbcopy
-    xclip -selection clipboard
-end
-function pbpaste
-    xclip -selection clipboard -o
-end
-function qr --description="Show a QR code with the clipboard's content"
-    xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
+if type -q xclip
+    function pbcopy
+        xclip -selection clipboard
+    end
+    function pbpaste
+        xclip -selection clipboard -o
+    end
+    if type -q qrencode -a type -q feh
+        function qr --description="Show a QR code with the clipboard's content"
+            xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
+        end
+    end
 end
 if type -q ip
     function ips
@@ -154,12 +154,10 @@ if type -q /usr/lib/mozc/mozc_tool
         /usr/lib/mozc/mozc_tool --mode=dictionary_tool
     end
 end
-{{ if ne .chezmoi.os "darwin" -}}
-if test "$_release_id" != "arch"
-    # ArchLinux already includes a cal utility with Monday as the start of the week
-    function cal --description="Make cal display Monday as the start of the week"
-        ncal -bM -w $argv
-    end
+{{ if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) -}}
+{{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
+function cal --description="Make cal display Monday as the start of the week"
+    ncal -bM -w $argv
 end
 {{- end}}
 function zombie --description="List zombie processes"
