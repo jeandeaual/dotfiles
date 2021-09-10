@@ -39,7 +39,7 @@ brew 'node'
 brew 'yarn'
 tap 'heroku/brew'
 brew 'heroku'
-{{- if eq .chezmoi.username "alexis.jeandeau" }}{{/* Work */}}
+{{- if .work }}{{/* Work */}}
 brew 'tfenv'
 brew 'asdf'
 tap 'TylerBrock/saw'
@@ -85,7 +85,7 @@ cask 'skype'
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
 cask 'homebrew/cask-drivers/hhkb-pro-driver'
-{{- if eq .chezmoi.username "alexis.jeandeau" }}{{/* Work */}}
+{{- if .work }}{{/* Work */}}
 cask 'box-drive'
 cask 'sequel-pro'
 cask 'sourcetree'
@@ -114,7 +114,7 @@ mas 'Microsoft Excel', id: 409203825
 mas 'Microsoft PowerPoint', id: 462062816
 mas 'Keka', id: 470158793
 mas 'BetterSnapTool', id: 417375580
-{{- if eq .chezmoi.username "alexis.jeandeau" }}{{/* Work */}}
+{{- if .work }}{{/* Work */}}
 {{- else }}{{/* Personal */}}
 mas 'GarageBand', id: 682658836
 mas 'LINE', id: 539883307

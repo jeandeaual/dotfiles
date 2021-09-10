@@ -9,6 +9,7 @@ encryption = "gpg"
 
 [data]
     codespaces = {{ $codespaces }}
+    work = {{ if eq .chezmoi.username "alexis.jeandeau" -}}true{{- else -}}false{{- end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
     display = 0
