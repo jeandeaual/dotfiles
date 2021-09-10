@@ -1,3 +1,15 @@
+{{- $archlinux := false -}}
+{{- $wsl := false -}}
+
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if eq .chezmoi.osRelease.id "arch" -}}
+{{-     $archlinux := true -}}
+{{-   end -}}
+{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
+{{-     $wsl := true -}}
+{{-   end -}}
+{{- end -}}
+
 # Disable the default prompt
 set fish_greeting ""
 
@@ -127,14 +139,12 @@ function finddesktop --description="Find all the .desktop files installed on the
 end
 {{- end }}
 
-{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") }}
-{{-   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}{{/* WSL */}}
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
 if type -q dbus-send
     function restartgnome --description="Ask GNOME Shell to restart itself through dbus"
         dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
     end
 end
-{{-   end }}
 {{- end }}
 
 {{- if ne .chezmoi.os "darwin" }}
@@ -178,12 +188,12 @@ if type -q /usr/lib/mozc/mozc_tool
     end
 end
 
-{{- if not (and (eq .chezmoi.os "linux") (eq (index .chezmoi.osRelease "id") "arch")) }}
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
+{{- if not $archlinux }}
 function cal --description="Make cal display Monday as the start of the week"
     ncal -bM -w $argv
 end
-{{- end}}
+{{- end }}
 
 function zombie --description="List zombie processes"
     ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid
