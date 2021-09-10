@@ -5,10 +5,12 @@ Code
 vim
 {{- if ne .chezmoi.os "windows" }}
 AppData
+Documents
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .vim
 .config/nvim
+.config/powershell
 {{- else }}
 vimfiles
 {{- end }}
