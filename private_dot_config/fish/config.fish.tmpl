@@ -216,13 +216,6 @@ function pipenv2requirements
     jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
 end
 
-# Go
-if type -q go
-    function gor --description="go build and strip the debugging information (DWARF tables)"
-        go build -ldflags='-s -w' $argv
-    end
-end
-
 # DBus
 if type -q dbus-send
     function secretservicepid --description="Get the PID of the currently running DBus Secret Service daemon"
@@ -314,9 +307,15 @@ if type -q runhaskell
 end
 
 # Go
-set _gopath (go env GOPATH 2>/dev/null)
-if test -n "$_gopath"
-    set -U fish_user_paths {$_gopath}/bin $fish_user_paths
+if type -q go
+    function gor --description="go build and strip the debugging information (DWARF tables)"
+        go build -ldflags='-s -w' $argv
+    end
+
+    set _gopath (go env GOPATH 2>/dev/null)
+    if test -n "$_gopath"
+        set -U fish_user_paths {$_gopath}/bin $fish_user_paths
+    end
 end
 
 # Rust
