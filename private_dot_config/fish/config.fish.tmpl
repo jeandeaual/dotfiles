@@ -108,7 +108,7 @@ function rmbin --description="Delete all executables from the current directory"
 end
 {{ if ne .chezmoi.os "darwin" -}}
 function finddesktop --description="Find all the .desktop files installed on the system"
-    find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2> /dev/null
+    find {/usr/{,local/},{$HOME}/.local/}share/applications -type f 2> /dev/null
 end
 {{- end }}
 {{ if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") -}}
@@ -131,8 +131,12 @@ end
 function qr --description="Show a QR code with the clipboard's content"
     xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
 end
-function ips
-    for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done
+if type -q ip
+    function ips
+        for gw in (ip route list to 0/0 | awk '{print $3}')
+            ip route get to "$gw" | awk '/src/ {print $5}'
+        end
+    end
 end
 {{- end }}
 # Mozc aliases
