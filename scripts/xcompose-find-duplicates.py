@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from os.path import expanduser, isfile
 import re
 import sys
-from typing import List, Set
 
 
 @dataclass(frozen=True)
@@ -14,7 +13,7 @@ class Entry:
     """XCompose entry data."""
 
     line_number: int
-    keys: List[str]
+    keys: list[str]
     symbol: str
 
 
@@ -43,12 +42,12 @@ def main() -> None:
         'ʰ', 'ʲ', 'ˡ', 'ⁿ', 'ʷ',
         'β', 'θ', 'χ',
         'ɐ', 'ɔ', 'ɟ', 'ɥ', 'ɯ', 'ɹ', 'ʌ', 'ʍ', 'ʎ', 'Η',
-        'ç', 'æ', 'Ò',
+        'ç', 'œ', 'æ', 'Ò',
         '‘'
     ]
 
-    registered: List[Entry] = []
-    found_symbols: Set[str] = set()
+    registered: list[Entry] = []
+    found_symbols: set[str] = set()
     previous_symbol = ''
 
     with open(args.file) as fp:
@@ -58,12 +57,12 @@ def main() -> None:
                     line.isspace():
                 continue
 
-            keys: List[str] = re.findall(key_regex, line)
+            keys: list[str] = re.findall(key_regex, line)
             if len(keys) == 0:
                 print(f'Found no key in {line}', file=sys.stderr)
                 continue
 
-            symbols: List[str] = re.findall(symbol_regex, line)
+            symbols: list[str] = re.findall(symbol_regex, line)
             if len(symbols) > 1:
                 print(f'Found multiple symbols in {line}: {symbols}',
                       file=sys.stderr)

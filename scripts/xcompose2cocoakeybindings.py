@@ -8,7 +8,7 @@ from io import StringIO
 from os.path import expanduser, isfile
 import re
 import sys
-from typing import Dict, Generator, List, Optional, TextIO
+from typing import Generator, Optional, TextIO
 
 
 KEY_MAP = {
@@ -54,7 +54,18 @@ KEY_MAP = {
     'up': '\\UF700',
     'down': '\\UF701',
     'left': '\\UF702',
-    'right': '\\UF703'
+    'right': '\\UF703',
+    'delete': '\\UF728',
+    'backspace': '\\U007F',
+    'home': '\\UF729',
+    'end': '\\UF72B',
+    'prior': '\\UF72C',
+    'next': '\\UF72D',
+    'escape': '\\U001B',
+    'tab': '\\U0009',
+    'iso_left_tab': '\\U0019',
+    'return': '\\U000D',
+    'enter': '\\U0003'
 }
 # VALUE_MAP = {
 #     "�": '\\UE007F'
@@ -72,7 +83,7 @@ class Entry:
     symbol: str
     comment: Optional[str]
     line: int
-    keys: List[str]
+    keys: list[str]
 
 
 class OverlappingEntries(Exception):
@@ -91,12 +102,12 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
             line.isspace():
         return None
 
-    keys: List[str] = re.findall(KEY_REGEX, line)
+    keys: list[str] = re.findall(KEY_REGEX, line)
     if len(keys) == 0:
         print(f'Found no key in {line}', file=sys.stderr)
         return None
 
-    symbols: List[str] = re.findall(SYMBOL_REGEX, line)
+    symbols: list[str] = re.findall(SYMBOL_REGEX, line)
     if len(symbols) > 1:
         print(f'Found multiple symbols in {line}: {symbols}',
               file=sys.stderr)
@@ -107,7 +118,7 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
 
     symbol = symbols[0]
 
-    comments: List[str] = re.findall(COMMENT_REGEX, line)
+    comments: list[str] = re.findall(COMMENT_REGEX, line)
     if len(comments) > 1:
         print(f'Found multiple comments in {line}: {comments}',
               file=sys.stderr)
@@ -117,9 +128,9 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
     return Entry(symbol, comment, line_number, keys)
 
 
-def parse_xcompose(fp) -> Dict:
+def parse_xcompose(fp) -> dict:
     """Parse a .XCompose file and return a nested key / value dictionnary."""
-    entries: Dict = OrderedDict()
+    entries: dict = OrderedDict()
 
     for n, line in enumerate(fp):  # type: int, str
         try:
@@ -147,8 +158,8 @@ def parse_xcompose(fp) -> Dict:
     return entries
 
 
-def write_entries(entries: Dict, out: TextIO, indent_level: int)\
-        -> Generator[Dict, None, None]:
+def write_entries(entries: dict, out: TextIO, indent_level: int)\
+        -> Generator[dict, None, None]:
     """Write the Cocoa keybinding dict."""
     for key, value in entries.items():
         for xcompose_key, keybinding in KEY_MAP.items():
