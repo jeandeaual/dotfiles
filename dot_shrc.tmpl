@@ -5,10 +5,10 @@
 
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if eq .chezmoi.osRelease.id "arch" -}}
-{{-     $archlinux := true -}}
+{{-     $archlinux = true -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
-{{-     $wsl := true -}}
+{{-     $wsl = true -}}
 {{-   end -}}
 {{- end -}}
 
@@ -17,9 +17,9 @@ if [ -f "${HOME}/.shrc.local" ]; then
     . "${HOME}/.shrc.local"
 fi
 
-# Required for interactive use on ash / dash
+# Required for interactive use on dash
 # shellcheck disable=SC3040
-set -o emacs
+set -o | grep emacs > /dev/null 2>&1 && set -o emacs
 
 # Environment variables
 #------------------------------------------------------------------------------
