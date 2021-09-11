@@ -1,3 +1,3 @@
-function chezmoi-cd {
+function chezmoicd {
     Set-Location $(chezmoi source-path)
 }

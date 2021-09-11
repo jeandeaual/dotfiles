@@ -1,13 +1,17 @@
+#!/bin/bash
+
 # If not running interactively, don't do anything
 [ -z "${PS1}" ] && return
 
 # Source global configuration between bash and zsh
 if [[ -f "${HOME}/.shrc" ]]; then
+    # shellcheck disable=SC1091
     source "${HOME}/.shrc"
 fi
 
 # Source global definitions
 if [[ -f /etc/bashrc ]]; then
+    # shellcheck disable=SC1091
     source /etc/bashrc
 fi
 

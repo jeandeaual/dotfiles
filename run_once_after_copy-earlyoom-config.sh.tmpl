@@ -1,4 +1,19 @@
-{{- if and (eq .chezmoi.os "linux") (not .codespaces) -}}
+{{- $alpine := false -}}
+{{- $archlinux := false -}}
+{{- $wsl := false -}}
+
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if eq .chezmoi.osRelease.id "alpine" -}}
+{{-     $alpine := true -}}
+{{-   else if eq .chezmoi.osRelease.id "arch" -}}
+{{-     $archlinux := true -}}
+{{-   end -}}
+{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
+{{-     $wsl := true -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if and (eq .chezmoi.os "linux") (not .codespaces) (not $wsl) (not $alpine) -}}
 #!/bin/bash
 
 set -euo pipefail
@@ -10,12 +25,11 @@ for cmd in ack sudo; do
     }
 done
 
-readonly release_id="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
-if [[ "${release_id}" == "arch" ]]; then
-  filepath=/etc/default/earlyoom
-else
-  filepath=/etc/init.d/earlyoom
-fi
+{{ if $archlinux -}}
+filepath=/etc/default/earlyoom
+{{- else -}}
+filepath=/etc/init.d/earlyoom
+{{- end }}
 
 echo "Writing earlyoom configuration to ${filepath}"
 

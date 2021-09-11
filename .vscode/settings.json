@@ -55,6 +55,7 @@
         // screen
         "dot_screenrc": "properties",
         // sh
+        "dot_profile": "shellscript",
         "dot_shrc*": "shellscript",
         "*.sh.tmpl": "shellscript",
         // shellcheck

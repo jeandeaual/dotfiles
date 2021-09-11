@@ -1,4 +1,6 @@
-{{- $archlinux := false -}}
+#!/bin/sh
+
+{{ $archlinux := false -}}
 {{- $wsl := false -}}
 
 {{- if eq .chezmoi.os "linux" -}}
@@ -10,14 +12,20 @@
 {{-   end -}}
 {{- end -}}
 
-if [[ -f "${HOME}/.shrc.local" ]]; then
-    source "${HOME}/.shrc.local"
+if [ -f "${HOME}/.shrc.local" ]; then
+    # shellcheck disable=SC1091
+    . "${HOME}/.shrc.local"
 fi
 
-#---- Environment variables ------------#
+# Required for interactive use on ash / dash
+# shellcheck disable=SC3040
+set -o emacs
+
+# Environment variables
+#------------------------------------------------------------------------------
 export VISUAL='gvim'
 # Preferred editor for local and remote sessions
-if [[ -n "${SSH_CONNECTION}" ]]; then
+if [ -n "${SSH_CONNECTION}" ]; then
   export EDITOR='vim'
 else
   export EDITOR='gvim'
@@ -29,15 +37,20 @@ export PAGER='less'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 export WWW_BROWSER='w3m'
 export DOWNLOADER='wget -S'
-if [[ -d "/usr/local/man" ]]; then
+if [ -d "/usr/local/man" ]; then
     export MANPATH="/usr/local/man${MANPATH:+:${MANPATH}}"
 fi
+# Add ~/.local/bin to the PATH if it exists
+if [ -d "${HOME}/.local/bin" ]; then
+    export PATH="${HOME}/.local/bin${PATH+:}${PATH}"
+fi
 
-#---- Aliases ------------#
+# Aliases
+#------------------------------------------------------------------------------
 {{- if eq .chezmoi.os "darwin" }}
 alias o='open'
 {{- else }}
-if command -v xdg-open &> /dev/null; then
+if command -v xdg-open > /dev/null; then
     alias o='xdg-open'
 fi
 {{- end }}
@@ -61,7 +74,7 @@ alias ports='sudo lsof +M -i4 -n -P'
 # Force tmux to assume the terminal supports 256 colours
 alias tmux='tmux -2'
 alias em='emacs'
-if command -v emacsclient &> /dev/null; then
+if command -v emacsclient > /dev/null; then
     # Open a new Emacs frame
     alias emc='emacsclient -n -c -a ""'
     # Open an Emacs frame in the current TTY
@@ -82,7 +95,7 @@ alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type
 {{- end }}
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
 # Ask GNOME Shell to restart itself through dbus
-if command -v dbus-send &> /dev/null; then
+if command -v dbus-send > /dev/null; then
     alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 fi
 {{- end }}
@@ -96,7 +109,7 @@ alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip r
 {{- end }}
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
-if [[ -e /usr/lib/mozc/mozc_tool ]]; then
+if [ -e /usr/lib/mozc/mozc_tool ]; then
     alias mozc-config='/usr/lib/mozc/mozc_tool --mode=config_dialog'
     alias mozc-pad='/usr/lib/mozc/mozc_tool --mode=hand_writing'
     alias mozc-register='/usr/lib/mozc/mozc_tool --mode=word_register_dialog'
@@ -108,6 +121,7 @@ fi
 alias cal='ncal -bM -w'
 {{- end }}
 # List zombie processes
+# shellcheck disable=SC2142
 alias zombie='ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid'
 # Current UNIX timestamp in seconds
 alias ts='date +%s'
@@ -117,43 +131,46 @@ alias tsms='date +%s%N | cut -b1-13'
 # Current UNIX timestamp in nanoseconds
 alias tsns='date +%s%N'
 # AWS
-if command -v aws &> /dev/null; then
+if command -v aws > /dev/null; then
     alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
 fi
 # Python
 alias activate='source ./venv/bin/activate'
 alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
 # Go
-if command -v go &> /dev/null; then
+if command -v go > /dev/null; then
     # go build and strip the debugging information (DWARF tables)
     alias gor="go build -ldflags='-s -w'"
 fi
 # DBus
-if command -v dbus-send &> /dev/null; then
+if command -v dbus-send > /dev/null; then
     # Get the PID of the currently running DBus Secret Service daemon
     alias secretservicepid='dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets'
     # Display the QuodLibet play time
+    # shellcheck disable=SC2142
     alias quodplaytime='dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\'''
 fi
 # SSH key generation
-if command -v ssh-keygen &> /dev/null; then
+if command -v ssh-keygen > /dev/null; then
     alias ssh-keygen-rsa='ssh-keygen -t rsa -b 4096'
     alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
 fi
 
-#---- Custom Functions ---#
+# Custom functions
+#------------------------------------------------------------------------------
+
 # Usage: mkcd FOLDER
 mkcd() {
-    mkdir -p -- "$1" && cd -P -- "$1"
+    mkdir -p -- "$1" && cd -P -- "$1" || return
 }
 
-chezmoi-cd() {
-    command -v chezmoi &>/dev/null || {
-        echo 'chezmoi is not installed' 1>&2
+chezmoicd() {
+    command -v chezmoi >/dev/null || {
+        echo "chezmoi is not installed" 1>&2
         return 1
     }
 
-    cd "$(chezmoi source-path)"
+    cd "$(chezmoi source-path)" || return
 }
 
 # Usage:
@@ -167,56 +184,65 @@ inc_version() {
     awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver="$1"
 }
 
-# Usage: write_iso ISO DEVICE
 write_iso() {
-    if [[ ! -f $1 || $1 != *.iso ]]; then
-        echo "The first argument needs to be an ISO file"
+    if [ $# -ne 2 ]; then
+        echo "usage: write_iso ISO DEVICE"
         return 1
     fi
-    if [[ ! -e $2 || $2 != /dev/sd* ]]; then
-        echo "The second argument needs to be a device"
+    if [ ! -f "$1" ] || ! echo "$1" | grep -q '.iso$'; then
+        echo "The first argument needs to be an ISO file" 1>&2
+        return 1
+    fi
+    if [ ! -e "$2" ] || ! echo "$2" | grep -q '^/dev/sd'; then
+        echo "The second argument needs to be a device" 1>&2
         return 1
     fi
 
-    sudo dd if="$1" of="$2" bs=4M conv=fdatasync status=progress
+    sudo dd if="$1" of="$2" bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
 }
 
 # CentOS only
 # Use Vim with system clipboard support if installed
-if [[ -e /usr/bin/vimx && ! -e /usr/local/bin/vim ]]; then
+if [ -e /usr/bin/vimx ] && [ ! -e /usr/local/bin/vim ]; then
     alias vim='/usr/bin/vimx'
 fi
 
-#----- Haskell --------------#
-if [[ -d "${HOME}/.cabal/bin" ]]; then
-    export PATH="${HOME}/.cabal/bin:${PATH}"
+# Haskell
+#------------------------------------------------------------------------------
+if [ -d "${HOME}/.cabal/bin" ]; then
+    export PATH="${HOME}/.cabal/bin${PATH+:}${PATH}"
 fi
-if command -v ghc &> /dev/null; then
+if command -v ghc > /dev/null; then
     alias ghc-sandbox="ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
-if command -v ghci &> /dev/null; then
+if command -v ghci > /dev/null; then
     alias ghci-sandbox="ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
-if command -v runhaskell &> /dev/null; then
+if command -v runhaskell > /dev/null; then
     alias runhaskell-sandbox="runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
 
-#----- Go ----------------#
+# Go
+#------------------------------------------------------------------------------
 if _gopath=$(go env GOPATH 2>/dev/null); then
     export PATH="${_gopath}/bin${PATH+:}${PATH}"
 fi
-[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+# shellcheck disable=SC1091
+[ -s "${HOME}/.gvm/scripts/gvm" ] && . "${HOME}/.gvm/scripts/gvm"
 
-#----- Rust --------------#
-if command -v rustbook &> /dev/null; then
+# Rust
+#------------------------------------------------------------------------------
+if command -v rustbook > /dev/null; then
     alias rustbook="rustup docs --book"
 fi
-if [[ -d "${HOME}/.cargo/bin" ]]; then
+if [ -d "${HOME}/.cargo/bin" ]; then
     export PATH="${HOME}/.cargo/bin${PATH+:}${PATH}"
 fi
-[[ -s "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
+# shellcheck disable=SC1091
+[ -s "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
-#----- Ruby --------------#
-if [[ -d "${HOME}/.rvm/bin" ]]; then
+# Ruby
+#------------------------------------------------------------------------------
+if [ -d "${HOME}/.rvm/bin" ]; then
     export PATH="${PATH}:${HOME}/.rvm/bin"
 fi
