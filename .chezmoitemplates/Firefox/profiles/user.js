@@ -77,6 +77,9 @@ user_pref("browser.startup.homepage_override.buildID", "20100101");
 // https://github.com/pyllyukko/user.js/issues/120
 user_pref("browser.display.use_document_fonts", 0);
 
+// PREF: Set the UI density to "compact"
+user_pref("browser.uidensity", 1);
+
 /******************************************************************************
  * SECTION: Extensions / plugins                                                       *
  ******************************************************************************/
