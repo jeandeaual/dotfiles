@@ -1,5 +1,31 @@
 {{- $codespaces := env "CODESPACES" | not | not -}}
-sourceDir = "{{ .chezmoi.sourceDir }}"
+
+{{- $alpine := false -}}
+{{- $wsl := false -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if eq .chezmoi.osRelease.id "arch" -}}
+{{-     $alpine = true -}}
+{{-   end -}}
+{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
+{{-     $wsl = true -}}
+{{-   end -}}
+{{- end -}}
+
+{{- $chassisType := "desktop" -}}
+{{- if and (eq .chezmoi.os "linux") (not $codespaces) (not $alpine) (not $wsl) -}}
+{{-   $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis -}}
+{{- else if eq .chezmoi.os "darwin" -}}
+{{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
+{{-     $chassisType = "laptop" -}}
+{{-   else -}}
+{{-     $chassisType = "desktop" -}}
+{{-   end -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   $chassisType = (output "powershell.exe" "-noprofile" "-command" "if (Get-WmiObject -Class win32_battery -ComputerName localhost) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }") -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
 {{- if not $codespaces }}{{/* Disable encryption on Codespaces */}}
 encryption = "gpg"
 
@@ -9,6 +35,7 @@ encryption = "gpg"
 
 [data]
     codespaces = {{ $codespaces }}
+    chassistype = {{ $chassisType | quote }}
     work = {{ if eq .chezmoi.username "alexis.jeandeau" -}}true{{- else -}}false{{- end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
