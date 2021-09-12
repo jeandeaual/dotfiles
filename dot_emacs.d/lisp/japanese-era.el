@@ -7,6 +7,8 @@
           (let ((era-name (if romaji (concat name-romaji " ") name-kanji)))
             (concat era-name (int-to-string (- year (1- era-start))))))))
     (pcase year-to-compute
+      ((pred (<= 2019))
+        (funcall show-era year-to-compute 2019 "令和" "Reiwa"))
       ((pred (<= 1989))
         (funcall show-era year-to-compute 1989 "平成" "Heisei"))
       ((pred (<= 1926))

@@ -10,25 +10,11 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 ;; Activate the installed packages
 (package-initialize)
-
-; ;; Bootstrap Quelpa
-; (if (require 'quelpa nil t)
-;   (quelpa-self-upgrade)
-;   (with-temp-buffer
-;     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-;     (eval-buffer)))
-
-; ;; Install quelpa-use-package
-; (quelpa
-;   '(quelpa-use-package
-;      :fetcher github
-;      :repo "quelpa/quelpa-use-package"))
-; (require 'quelpa-use-package)
 
 ;; Install use-package if not present
 (unless (package-installed-p 'use-package)
@@ -261,6 +247,7 @@
                                     (setq elixir-format-arguments nil)))))
 (use-package alchemist
   :ensure t)
+
 ;; Lilypond
 (mapc (lambda (dir)
         (when (file-directory-p dir)
