@@ -199,7 +199,7 @@ def main() -> None:
         print(f'{args.file} does not exist', file=sys.stderr)
         sys.exit(1)
 
-    with open(args.file) as fp:
+    with open(args.file, encoding='utf8') as fp:
         entries = parse_xcompose(fp)
 
     out = StringIO()

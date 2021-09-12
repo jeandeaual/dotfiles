@@ -305,7 +305,6 @@ include "%L"
 # No superscript Y (yet)
 # No superscript Z (yet)
 
-
 ## ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ
 <Multi_key> <n> <a>          : "ᵃ" U1D43 # SUPERSCRIPT a
 <Multi_key> <n> <b>          : "ᵇ" U1D47 # SUPERSCRIPT b
@@ -339,14 +338,6 @@ include "%L"
 # 𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡
 # 𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻
 
-# Cursive:
-# 𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩
-# 𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃
-
-# Script:
-# 𝒜𝐵𝒞𝒟𝐸𝐹𝒢𝐻𝐼𝒥𝒦𝐿𝑀𝒩𝒪𝒫𝒬𝑅𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵
-# 𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏
-
 # Italic Bold (serif):
 # 𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁
 # 𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛
@@ -355,13 +346,221 @@ include "%L"
 # 𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕
 # 𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯
 
-# Gothic:
-# 𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ
-# 𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷
+# Script
+<Multi_key> <backslash> <A> : "𝒜" U1D49C # MATHEMATICAL SCRIPT CAPITAL A
+<Multi_key> <backslash> <B> : "𝐵" U1D435 # MATHEMATICAL ITALIC CAPITAL B
+<Multi_key> <backslash> <C> : "𝒞" U1D49E # MATHEMATICAL SCRIPT CAPITAL C
+<Multi_key> <backslash> <D> : "𝒟" U1D49F # MATHEMATICAL SCRIPT CAPITAL D
+<Multi_key> <backslash> <E> : "𝐸" U1D438 # MATHEMATICAL SCRIPT CAPITAL E
+<Multi_key> <backslash> <F> : "𝐹" U1D439 # MATHEMATICAL ITALIC CAPITAL F
+<Multi_key> <backslash> <G> : "𝒢" U1D4A2 # MATHEMATICAL SCRIPT CAPITAL G
+<Multi_key> <backslash> <H> : "𝐻" U1D43B # MATHEMATICAL ITALIC CAPITAL H
+<Multi_key> <backslash> <I> : "𝐼" U1D43C # MATHEMATICAL ITALIC CAPITAL I
+<Multi_key> <backslash> <J> : "𝒥" U1D4A5 # MATHEMATICAL SCRIPT CAPITAL J
+<Multi_key> <backslash> <K> : "𝒦" U1D4A6 # MATHEMATICAL SCRIPT CAPITAL K
+<Multi_key> <backslash> <L> : "𝐿" U1D43F # MATHEMATICAL ITALIC CAPITAL L
+<Multi_key> <backslash> <M> : "𝑀" U1D440 # MATHEMATICAL ITALIC CAPITAL M
+<Multi_key> <backslash> <N> : "𝒩" U1D4A9 # MATHEMATICAL SCRIPT CAPITAL N
+<Multi_key> <backslash> <O> : "𝒪" U1D4AA # MATHEMATICAL SCRIPT CAPITAL O
+<Multi_key> <backslash> <P> : "𝒫" U1D4AB # MATHEMATICAL SCRIPT CAPITAL P
+<Multi_key> <backslash> <Q> : "𝒬" U1D4AC # MATHEMATICAL SCRIPT CAPITAL Q
+<Multi_key> <backslash> <R> : "𝑅" U1D445 # MATHEMATICAL ITALIC CAPITAL R
+<Multi_key> <backslash> <S> : "𝒮" U1D4AE # MATHEMATICAL SCRIPT CAPITAL S
+<Multi_key> <backslash> <T> : "𝒯" U1D4AF # MATHEMATICAL SCRIPT CAPITAL T
+<Multi_key> <backslash> <U> : "𝒰" U1D4B0 # MATHEMATICAL SCRIPT CAPITAL U
+<Multi_key> <backslash> <V> : "𝒱" U1D4B1 # MATHEMATICAL SCRIPT CAPITAL V
+<Multi_key> <backslash> <W> : "𝒲" U1D4B2 # MATHEMATICAL SCRIPT CAPITAL W
+<Multi_key> <backslash> <X> : "𝒳" U1D4B3 # MATHEMATICAL SCRIPT CAPITAL X
+<Multi_key> <backslash> <Y> : "𝒴" U1D4B4 # MATHEMATICAL SCRIPT CAPITAL Y
+<Multi_key> <backslash> <Z> : "𝒵" U1D4B5 # MATHEMATICAL SCRIPT CAPITAL Z
+<Multi_key> <backslash> <a> : "𝒶" U1D4B6 # MATHEMATICAL SCRIPT SMALL A
+<Multi_key> <backslash> <b> : "𝒷" U1D4B7 # MATHEMATICAL SCRIPT SMALL B
+<Multi_key> <backslash> <c> : "𝒸" U1D4B8 # MATHEMATICAL SCRIPT SMALL C
+<Multi_key> <backslash> <d> : "𝒹" U1D4B9 # MATHEMATICAL SCRIPT SMALL D
+<Multi_key> <backslash> <e> : "𝑒" U1D452 # MATHEMATICAL ITALIC SMALL E
+<Multi_key> <backslash> <f> : "𝒻" U1D4BB # MATHEMATICAL SCRIPT SMALL F
+<Multi_key> <backslash> <g> : "𝑔" U1D454 # MATHEMATICAL ITALIC SMALL G
+<Multi_key> <backslash> <h> : "𝒽" U1D4BD # MATHEMATICAL SCRIPT SMALL H
+<Multi_key> <backslash> <i> : "𝒾" U1D4BE # MATHEMATICAL SCRIPT SMALL I
+<Multi_key> <backslash> <j> : "𝒿" U1D4BF # MATHEMATICAL SCRIPT SMALL J
+<Multi_key> <backslash> <k> : "𝓀" U1D4C0 # MATHEMATICAL SCRIPT SMALL K
+<Multi_key> <backslash> <l> : "𝓁" U1D4C1 # MATHEMATICAL SCRIPT SMALL L
+<Multi_key> <backslash> <m> : "𝓂" U1D4C2 # MATHEMATICAL SCRIPT SMALL M
+<Multi_key> <backslash> <n> : "𝓃" U1D4C3 # MATHEMATICAL SCRIPT SMALL N
+<Multi_key> <backslash> <o> : "𝑜" U1D45C # MATHEMATICAL ITALIC SMALL O
+<Multi_key> <backslash> <p> : "𝓅" U1D4C5 # MATHEMATICAL SCRIPT SMALL P
+<Multi_key> <backslash> <q> : "𝓆" U1D4C6 # MATHEMATICAL SCRIPT SMALL Q
+<Multi_key> <backslash> <r> : "𝓇" U1D4C7 # MATHEMATICAL SCRIPT SMALL R
+<Multi_key> <backslash> <s> : "𝓈" U1D4C8 # MATHEMATICAL SCRIPT SMALL S
+<Multi_key> <backslash> <t> : "𝓉" U1D4C9 # MATHEMATICAL SCRIPT SMALL T
+<Multi_key> <backslash> <u> : "𝓊" U1D4CA # MATHEMATICAL SCRIPT SMALL U
+<Multi_key> <backslash> <v> : "𝓋" U1D4CB # MATHEMATICAL SCRIPT SMALL V
+<Multi_key> <backslash> <w> : "𝓌" U1D4CC # MATHEMATICAL SCRIPT SMALL W
+<Multi_key> <backslash> <x> : "𝓍" U1D4CD # MATHEMATICAL SCRIPT SMALL X
+<Multi_key> <backslash> <y> : "𝓎" U1D4CE # MATHEMATICAL SCRIPT SMALL Y
+<Multi_key> <backslash> <z> : "𝓏" U1D4CF # MATHEMATICAL SCRIPT SMALL Z
 
-# Gothic Bold:
-# 𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅
-# 𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+# Bold script
+<Multi_key> <backslash> <backslash> <A> : "𝓐" U1D4D0 # MATHEMATICAL BOLD SCRIPT CAPITAL A
+<Multi_key> <backslash> <backslash> <B> : "𝓑" U1D4D1 # MATHEMATICAL BOLD SCRIPT CAPITAL B
+<Multi_key> <backslash> <backslash> <C> : "𝓒" U1D4D2 # MATHEMATICAL BOLD SCRIPT CAPITAL C
+<Multi_key> <backslash> <backslash> <D> : "𝓓" U1D4D3 # MATHEMATICAL BOLD SCRIPT CAPITAL D
+<Multi_key> <backslash> <backslash> <E> : "𝓔" U1D4D4 # MATHEMATICAL BOLD SCRIPT CAPITAL E
+<Multi_key> <backslash> <backslash> <F> : "𝓕" U1D4D5 # MATHEMATICAL BOLD SCRIPT CAPITAL F
+<Multi_key> <backslash> <backslash> <G> : "𝓖" U1D4D6 # MATHEMATICAL BOLD SCRIPT CAPITAL G
+<Multi_key> <backslash> <backslash> <H> : "𝓗" U1D4D7 # MATHEMATICAL BOLD SCRIPT CAPITAL H
+<Multi_key> <backslash> <backslash> <I> : "𝓘" U1D4D8 # MATHEMATICAL BOLD SCRIPT CAPITAL I
+<Multi_key> <backslash> <backslash> <J> : "𝓙" U1D4D9 # MATHEMATICAL BOLD SCRIPT CAPITAL J
+<Multi_key> <backslash> <backslash> <K> : "𝓚" U1D4DA # MATHEMATICAL BOLD SCRIPT CAPITAL K
+<Multi_key> <backslash> <backslash> <L> : "𝓛" U1D4DB # MATHEMATICAL BOLD SCRIPT CAPITAL L
+<Multi_key> <backslash> <backslash> <M> : "𝓜" U1D4DC # MATHEMATICAL BOLD SCRIPT CAPITAL M
+<Multi_key> <backslash> <backslash> <N> : "𝓝" U1D4DD # MATHEMATICAL BOLD SCRIPT CAPITAL N
+<Multi_key> <backslash> <backslash> <O> : "𝓞" U1D4DE # MATHEMATICAL BOLD SCRIPT CAPITAL O
+<Multi_key> <backslash> <backslash> <P> : "𝓟" U1D4DF # MATHEMATICAL BOLD SCRIPT CAPITAL P
+<Multi_key> <backslash> <backslash> <Q> : "𝓠" U1D4E0 # MATHEMATICAL BOLD SCRIPT CAPITAL Q
+<Multi_key> <backslash> <backslash> <R> : "𝓡" U1D4E1 # MATHEMATICAL BOLD SCRIPT CAPITAL R
+<Multi_key> <backslash> <backslash> <S> : "𝓢" U1D4E2 # MATHEMATICAL BOLD SCRIPT CAPITAL S
+<Multi_key> <backslash> <backslash> <T> : "𝓣" U1D4E3 # MATHEMATICAL BOLD SCRIPT CAPITAL T
+<Multi_key> <backslash> <backslash> <U> : "𝓤" U1D4E4 # MATHEMATICAL BOLD SCRIPT CAPITAL U
+<Multi_key> <backslash> <backslash> <V> : "𝓥" U1D4E5 # MATHEMATICAL BOLD SCRIPT CAPITAL V
+<Multi_key> <backslash> <backslash> <W> : "𝓦" U1D4E6 # MATHEMATICAL BOLD SCRIPT CAPITAL W
+<Multi_key> <backslash> <backslash> <X> : "𝓧" U1D4E7 # MATHEMATICAL BOLD SCRIPT CAPITAL X
+<Multi_key> <backslash> <backslash> <Y> : "𝓨" U1D4E8 # MATHEMATICAL BOLD SCRIPT CAPITAL Y
+<Multi_key> <backslash> <backslash> <Z> : "𝓩" U1D4E9 # MATHEMATICAL BOLD SCRIPT CAPITAL Z
+<Multi_key> <backslash> <backslash> <a> : "𝓪" U1D4EA # MATHEMATICAL BOLD SCRIPT SMALL A
+<Multi_key> <backslash> <backslash> <b> : "𝓫" U1D4EB # MATHEMATICAL BOLD SCRIPT SMALL B
+<Multi_key> <backslash> <backslash> <c> : "𝓬" U1D4EC # MATHEMATICAL BOLD SCRIPT SMALL C
+<Multi_key> <backslash> <backslash> <d> : "𝓭" U1D4ED # MATHEMATICAL BOLD SCRIPT SMALL D
+<Multi_key> <backslash> <backslash> <e> : "𝓮" U1D4EE # MATHEMATICAL BOLD SCRIPT SMALL E
+<Multi_key> <backslash> <backslash> <f> : "𝓯" U1D4EF # MATHEMATICAL BOLD SCRIPT SMALL F
+<Multi_key> <backslash> <backslash> <g> : "𝓰" U1D4F0 # MATHEMATICAL BOLD SCRIPT SMALL G
+<Multi_key> <backslash> <backslash> <h> : "𝓱" U1D4F1 # MATHEMATICAL BOLD SCRIPT SMALL H
+<Multi_key> <backslash> <backslash> <i> : "𝓲" U1D4F2 # MATHEMATICAL BOLD SCRIPT SMALL I
+<Multi_key> <backslash> <backslash> <j> : "𝓳" U1D4F3 # MATHEMATICAL BOLD SCRIPT SMALL J
+<Multi_key> <backslash> <backslash> <k> : "𝓴" U1D4F4 # MATHEMATICAL BOLD SCRIPT SMALL K
+<Multi_key> <backslash> <backslash> <l> : "𝓵" U1D4F5 # MATHEMATICAL BOLD SCRIPT SMALL L
+<Multi_key> <backslash> <backslash> <m> : "𝓶" U1D4F6 # MATHEMATICAL BOLD SCRIPT SMALL M
+<Multi_key> <backslash> <backslash> <n> : "𝓷" U1D4F7 # MATHEMATICAL BOLD SCRIPT SMALL N
+<Multi_key> <backslash> <backslash> <o> : "𝓸" U1D4F8 # MATHEMATICAL BOLD SCRIPT SMALL O
+<Multi_key> <backslash> <backslash> <p> : "𝓹" U1D4F9 # MATHEMATICAL BOLD SCRIPT SMALL P
+<Multi_key> <backslash> <backslash> <q> : "𝓺" U1D4FA # MATHEMATICAL BOLD SCRIPT SMALL Q
+<Multi_key> <backslash> <backslash> <r> : "𝓻" U1D4FB # MATHEMATICAL BOLD SCRIPT SMALL R
+<Multi_key> <backslash> <backslash> <s> : "𝓼" U1D4FC # MATHEMATICAL BOLD SCRIPT SMALL S
+<Multi_key> <backslash> <backslash> <t> : "𝓽" U1D4FD # MATHEMATICAL BOLD SCRIPT SMALL T
+<Multi_key> <backslash> <backslash> <u> : "𝓾" U1D4FE # MATHEMATICAL BOLD SCRIPT SMALL U
+<Multi_key> <backslash> <backslash> <v> : "𝓿" U1D4FF # MATHEMATICAL BOLD SCRIPT SMALL V
+<Multi_key> <backslash> <backslash> <w> : "𝔀" U1D500 # MATHEMATICAL BOLD SCRIPT SMALL W
+<Multi_key> <backslash> <backslash> <x> : "𝔁" U1D501 # MATHEMATICAL BOLD SCRIPT SMALL X
+<Multi_key> <backslash> <backslash> <y> : "𝔂" U1D502 # MATHEMATICAL BOLD SCRIPT SMALL Y
+<Multi_key> <backslash> <backslash> <z> : "𝔃" U1D503 # MATHEMATICAL BOLD SCRIPT SMALL Z
+
+# Gothic
+<Multi_key> <g> <g> <A> : "𝔄" U1D504 # MATHEMATICAL FRAKTUR CAPITAL A
+<Multi_key> <g> <g> <B> : "𝔅" U1D505 # MATHEMATICAL FRAKTUR CAPITAL B
+<Multi_key> <g> <g> <C> : "ℭ" U212D  # BLACK-LETTER CAPITAL C
+<Multi_key> <g> <g> <D> : "𝔇" U1D507 # MATHEMATICAL FRAKTUR CAPITAL D
+<Multi_key> <g> <g> <E> : "𝔈" U1D508 # MATHEMATICAL FRAKTUR CAPITAL E
+<Multi_key> <g> <g> <F> : "𝔉" U1D509 # MATHEMATICAL FRAKTUR CAPITAL F
+<Multi_key> <g> <g> <G> : "𝔊" U1D50A # MATHEMATICAL FRAKTUR CAPITAL G
+<Multi_key> <g> <g> <H> : "ℌ" U210C  # BLACK-LETTER CAPITAL H
+<Multi_key> <g> <g> <I> : "ℑ" U2111  # BLACK-LETTER CAPITAL I
+<Multi_key> <g> <g> <J> : "𝔍" U1D50D # MATHEMATICAL FRAKTUR CAPITAL J
+<Multi_key> <g> <g> <K> : "𝔎" U1D50E # MATHEMATICAL FRAKTUR CAPITAL K
+<Multi_key> <g> <g> <L> : "𝔏" U1D50F # MATHEMATICAL FRAKTUR CAPITAL L
+<Multi_key> <g> <g> <M> : "𝔐" U1D510 # MATHEMATICAL FRAKTUR CAPITAL M
+<Multi_key> <g> <g> <N> : "𝔑" U1D511 # MATHEMATICAL FRAKTUR CAPITAL N
+<Multi_key> <g> <g> <O> : "𝔒" U1D512 # MATHEMATICAL FRAKTUR CAPITAL O
+<Multi_key> <g> <g> <P> : "𝔓" U1D513 # MATHEMATICAL FRAKTUR CAPITAL P
+<Multi_key> <g> <g> <Q> : "𝔔" U1D514 # MATHEMATICAL FRAKTUR CAPITAL Q
+<Multi_key> <g> <g> <R> : "ℜ" U211C  # BLACK-LETTER CAPITAL R
+<Multi_key> <g> <g> <S> : "𝔖" U1D516 # MATHEMATICAL FRAKTUR CAPITAL S
+<Multi_key> <g> <g> <T> : "𝔗" U1D517 # MATHEMATICAL FRAKTUR CAPITAL T
+<Multi_key> <g> <g> <U> : "𝔘" U1D518 # MATHEMATICAL FRAKTUR CAPITAL U
+<Multi_key> <g> <g> <V> : "𝔙" U1D519 # MATHEMATICAL FRAKTUR CAPITAL V
+<Multi_key> <g> <g> <W> : "𝔚" U1D51A # MATHEMATICAL FRAKTUR CAPITAL W
+<Multi_key> <g> <g> <X> : "𝔛" U1D51B # MATHEMATICAL FRAKTUR CAPITAL X
+<Multi_key> <g> <g> <Y> : "𝔜" U1D51C # MATHEMATICAL FRAKTUR CAPITAL Y
+<Multi_key> <g> <g> <Z> : "ℨ" U2128  # BLACK-LETTER CAPITAL Z
+<Multi_key> <g> <g> <a> : "𝔞" U1D51E # MATHEMATICAL FRAKTUR SMALL A
+<Multi_key> <g> <g> <b> : "𝔟" U1D51F # MATHEMATICAL FRAKTUR SMALL B
+<Multi_key> <g> <g> <c> : "𝔠" U1D520 # MATHEMATICAL FRAKTUR SMALL C
+<Multi_key> <g> <g> <d> : "𝔡" U1D521 # MATHEMATICAL FRAKTUR SMALL D
+<Multi_key> <g> <g> <e> : "𝔢" U1D522 # MATHEMATICAL FRAKTUR SMALL E
+<Multi_key> <g> <g> <f> : "𝔣" U1D523 # MATHEMATICAL FRAKTUR SMALL F
+<Multi_key> <g> <g> <g> : "𝔤" U1D524 # MATHEMATICAL FRAKTUR SMALL G
+<Multi_key> <g> <g> <h> : "𝔥" U1D525 # MATHEMATICAL FRAKTUR SMALL H
+<Multi_key> <g> <g> <i> : "𝔦" U1D526 # MATHEMATICAL FRAKTUR SMALL I
+<Multi_key> <g> <g> <j> : "𝔧" U1D527 # MATHEMATICAL FRAKTUR SMALL J
+<Multi_key> <g> <g> <k> : "𝔨" U1D528 # MATHEMATICAL FRAKTUR SMALL K
+<Multi_key> <g> <g> <l> : "𝔩" U1D529 # MATHEMATICAL FRAKTUR SMALL L
+<Multi_key> <g> <g> <m> : "𝔪" U1D52A # MATHEMATICAL FRAKTUR SMALL M
+<Multi_key> <g> <g> <n> : "𝔫" U1D52B # MATHEMATICAL FRAKTUR SMALL N
+<Multi_key> <g> <g> <o> : "𝔬" U1D52C # MATHEMATICAL FRAKTUR SMALL O
+<Multi_key> <g> <g> <p> : "𝔭" U1D52D # MATHEMATICAL FRAKTUR SMALL P
+<Multi_key> <g> <g> <q> : "𝔮" U1D52E # MATHEMATICAL FRAKTUR SMALL Q
+<Multi_key> <g> <g> <r> : "𝔯" U1D52F # MATHEMATICAL FRAKTUR SMALL R
+<Multi_key> <g> <g> <s> : "𝔰" U1D530 # MATHEMATICAL FRAKTUR SMALL S
+<Multi_key> <g> <g> <t> : "𝔱" U1D531 # MATHEMATICAL FRAKTUR SMALL T
+<Multi_key> <g> <g> <u> : "𝔲" U1D532 # MATHEMATICAL FRAKTUR SMALL U
+<Multi_key> <g> <g> <v> : "𝔳" U1D533 # MATHEMATICAL FRAKTUR SMALL V
+<Multi_key> <g> <g> <w> : "𝔴" U1D534 # MATHEMATICAL FRAKTUR SMALL W
+<Multi_key> <g> <g> <x> : "𝔵" U1D535 # MATHEMATICAL FRAKTUR SMALL X
+<Multi_key> <g> <g> <y> : "𝔶" U1D536 # MATHEMATICAL FRAKTUR SMALL Y
+<Multi_key> <g> <g> <z> : "𝔷" U1D537 # MATHEMATICAL FRAKTUR SMALL Z
+
+# Gothic bold
+<Multi_key> <G> <G> <A> : "𝕬" U1D56C # MATHEMATICAL BOLD FRAKTUR CAPITAL A
+<Multi_key> <G> <G> <B> : "𝕭" U1D56D # MATHEMATICAL BOLD FRAKTUR CAPITAL B
+<Multi_key> <G> <G> <C> : "𝕮" U1D56E # MATHEMATICAL BOLD FRAKTUR CAPITAL C
+<Multi_key> <G> <G> <D> : "𝕯" U1D56F # MATHEMATICAL BOLD FRAKTUR CAPITAL D
+<Multi_key> <G> <G> <E> : "𝕰" U1D570 # MATHEMATICAL BOLD FRAKTUR CAPITAL E
+<Multi_key> <G> <G> <F> : "𝕱" U1D571 # MATHEMATICAL BOLD FRAKTUR CAPITAL F
+<Multi_key> <G> <G> <G> : "𝕲" U1D572 # MATHEMATICAL BOLD FRAKTUR CAPITAL G
+<Multi_key> <G> <G> <H> : "𝕳" U1D573 # MATHEMATICAL BOLD FRAKTUR CAPITAL H
+<Multi_key> <G> <G> <I> : "𝕴" U1D574 # MATHEMATICAL BOLD FRAKTUR CAPITAL I
+<Multi_key> <G> <G> <J> : "𝕵" U1D575 # MATHEMATICAL BOLD FRAKTUR CAPITAL J
+<Multi_key> <G> <G> <K> : "𝕶" U1D576 # MATHEMATICAL BOLD FRAKTUR CAPITAL K
+<Multi_key> <G> <G> <L> : "𝕷" U1D577 # MATHEMATICAL BOLD FRAKTUR CAPITAL L
+<Multi_key> <G> <G> <M> : "𝕸" U1D578 # MATHEMATICAL BOLD FRAKTUR CAPITAL M
+<Multi_key> <G> <G> <N> : "𝕹" U1D579 # MATHEMATICAL BOLD FRAKTUR CAPITAL N
+<Multi_key> <G> <G> <O> : "𝕺" U1D57A # MATHEMATICAL BOLD FRAKTUR CAPITAL O
+<Multi_key> <G> <G> <P> : "𝕻" U1D57B # MATHEMATICAL BOLD FRAKTUR CAPITAL P
+<Multi_key> <G> <G> <Q> : "𝕼" U1D57C # MATHEMATICAL BOLD FRAKTUR CAPITAL Q
+<Multi_key> <G> <G> <R> : "𝕽" U1D57D # MATHEMATICAL BOLD FRAKTUR CAPITAL R
+<Multi_key> <G> <G> <S> : "𝕾" U1D57E # MATHEMATICAL BOLD FRAKTUR CAPITAL S
+<Multi_key> <G> <G> <T> : "𝕿" U1D57F # MATHEMATICAL BOLD FRAKTUR CAPITAL T
+<Multi_key> <G> <G> <U> : "𝖀" U1D580 # MATHEMATICAL BOLD FRAKTUR CAPITAL U
+<Multi_key> <G> <G> <V> : "𝖁" U1D581 # MATHEMATICAL BOLD FRAKTUR CAPITAL V
+<Multi_key> <G> <G> <W> : "𝖂" U1D582 # MATHEMATICAL BOLD FRAKTUR CAPITAL W
+<Multi_key> <G> <G> <X> : "𝖃" U1D583 # MATHEMATICAL BOLD FRAKTUR CAPITAL X
+<Multi_key> <G> <G> <Y> : "𝖄" U1D584 # MATHEMATICAL BOLD FRAKTUR CAPITAL Y
+<Multi_key> <G> <G> <Z> : "𝖅" U1D585 # MATHEMATICAL BOLD FRAKTUR CAPITAL Z
+<Multi_key> <G> <G> <a> : "𝖆" U1D586 # MATHEMATICAL BOLD FRAKTUR SMALL A
+<Multi_key> <G> <G> <b> : "𝖇" U1D587 # MATHEMATICAL BOLD FRAKTUR SMALL B
+<Multi_key> <G> <G> <c> : "𝖈" U1D588 # MATHEMATICAL BOLD FRAKTUR SMALL C
+<Multi_key> <G> <G> <d> : "𝖉" U1D589 # MATHEMATICAL BOLD FRAKTUR SMALL D
+<Multi_key> <G> <G> <e> : "𝖊" U1D58A # MATHEMATICAL BOLD FRAKTUR SMALL E
+<Multi_key> <G> <G> <f> : "𝖋" U1D58B # MATHEMATICAL BOLD FRAKTUR SMALL F
+<Multi_key> <G> <G> <g> : "𝖌" U1D58C # MATHEMATICAL BOLD FRAKTUR SMALL G
+<Multi_key> <G> <G> <h> : "𝖍" U1D58D # MATHEMATICAL BOLD FRAKTUR SMALL H
+<Multi_key> <G> <G> <i> : "𝖎" U1D58E # MATHEMATICAL BOLD FRAKTUR SMALL I
+<Multi_key> <G> <G> <j> : "𝖏" U1D58F # MATHEMATICAL BOLD FRAKTUR SMALL J
+<Multi_key> <G> <G> <k> : "𝖐" U1D590 # MATHEMATICAL BOLD FRAKTUR SMALL K
+<Multi_key> <G> <G> <l> : "𝖑" U1D591 # MATHEMATICAL BOLD FRAKTUR SMALL L
+<Multi_key> <G> <G> <m> : "𝖒" U1D592 # MATHEMATICAL BOLD FRAKTUR SMALL M
+<Multi_key> <G> <G> <n> : "𝖓" U1D593 # MATHEMATICAL BOLD FRAKTUR SMALL N
+<Multi_key> <G> <G> <o> : "𝖔" U1D594 # MATHEMATICAL BOLD FRAKTUR SMALL O
+<Multi_key> <G> <G> <p> : "𝖕" U1D595 # MATHEMATICAL BOLD FRAKTUR SMALL P
+<Multi_key> <G> <G> <q> : "𝖖" U1D596 # MATHEMATICAL BOLD FRAKTUR SMALL Q
+<Multi_key> <G> <G> <r> : "𝖗" U1D597 # MATHEMATICAL BOLD FRAKTUR SMALL R
+<Multi_key> <G> <G> <s> : "𝖘" U1D598 # MATHEMATICAL BOLD FRAKTUR SMALL S
+<Multi_key> <G> <G> <t> : "𝖙" U1D599 # MATHEMATICAL BOLD FRAKTUR SMALL T
+<Multi_key> <G> <G> <u> : "𝖚" U1D59A # MATHEMATICAL BOLD FRAKTUR SMALL U
+<Multi_key> <G> <G> <v> : "𝖛" U1D59B # MATHEMATICAL BOLD FRAKTUR SMALL V
+<Multi_key> <G> <G> <w> : "𝖜" U1D59C # MATHEMATICAL BOLD FRAKTUR SMALL W
+<Multi_key> <G> <G> <x> : "𝖝" U1D59D # MATHEMATICAL BOLD FRAKTUR SMALL X
+<Multi_key> <G> <G> <y> : "𝖞" U1D59E # MATHEMATICAL BOLD FRAKTUR SMALL Y
+<Multi_key> <G> <G> <z> : "𝖟" U1D59F # MATHEMATICAL BOLD FRAKTUR SMALL Z
 
 # Squared latin letters
 <Multi_key> <bracketleft> <A> <bracketright> : "🄰" U1F130 # SQUARED LATIN CAPITAL LETTER A
@@ -1808,102 +2007,110 @@ UMulti_key> <6> <U>           : "Û" U00DB # LATIN CAPITAL LETTER U WITH CIRCUMF
 ## Animals
 
 ### Chinese Zodiac
-<Multi_key> <Multi_key> <r> <a> <t>                     : "🐀" U1F400 # RAT
-<Multi_key> <Multi_key> <o> <x>                         : "🐂" U1F402 # OX
-<Multi_key> <Multi_key> <t> <i> <g> <e> <r>             : "🐅" U1F405 # TIGER
-<Multi_key> <Multi_key> <r> <a> <b> <b> <i> <t>         : "🐇" U1F407 # RABBIT
-<Multi_key> <Multi_key> <d> <r> <a> <g> <o> <n>         : "🐉" U1F409 # DRAGON
-<Multi_key> <Multi_key> <s> <n> <a> <k> <e>             : "🐍" U1F40D # SNAKE
-<Multi_key> <Multi_key> <h> <o> <r> <s> <e>             : "🐎" U1F40E # HORSE
-<Multi_key> <Multi_key> <g> <o> <a> <t>                 : "🐐" U1F410 # GOAT
-<Multi_key> <Multi_key> <b> <e> <l> <i> <e> <r>         : "🐏" U1F40F # RAM (male sheep)
-<Multi_key> <Multi_key> <s> <h> <e> <e> <p>             : "🐑" U1F411 # SHEEP (or ewe, female sheep)
-<Multi_key> <Multi_key> <m> <o> <n> <k> <e> <y>         : "🐒" U1F412 # MONKEY
-<Multi_key> <Multi_key> <r> <o> <o> <s> <t> <e> <r>     : "🐓" U1F413 # ROOSTER
-<Multi_key> <Multi_key> <c> <o> <q>                     : "🐓" U1F413 # ROOSTER
-<Multi_key> <Multi_key> <d> <o> <g>                     : "🐕" U1F415 # DOG
-<Multi_key> <Multi_key> <p> <i> <g>                     : "🐖" U1F416 # PIG
-<Multi_key> <Multi_key> <b> <o> <a> <r>                 : "🐗" U1F417 # BOAR
+<Multi_key> <Multi_key> <r> <a> <t>                           : "🐀" U1F400 # RAT
+<Multi_key> <Multi_key> <o> <x>                               : "🐂" U1F402 # OX
+<Multi_key> <Multi_key> <t> <i> <g> <e> <r>                   : "🐅" U1F405 # TIGER
+<Multi_key> <Multi_key> <r> <a> <b> <b> <i> <t>               : "🐇" U1F407 # RABBIT
+<Multi_key> <Multi_key> <d> <r> <a> <g> <o> <n>               : "🐉" U1F409 # DRAGON
+<Multi_key> <Multi_key> <s> <n> <a> <k> <e>                   : "🐍" U1F40D # SNAKE
+<Multi_key> <Multi_key> <h> <o> <r> <s> <e>                   : "🐎" U1F40E # HORSE
+<Multi_key> <Multi_key> <g> <o> <a> <t>                       : "🐐" U1F410 # GOAT
+<Multi_key> <Multi_key> <b> <e> <l> <i> <e> <r>               : "🐏" U1F40F # RAM (male sheep)
+<Multi_key> <Multi_key> <s> <h> <e> <e> <p>                   : "🐑" U1F411 # SHEEP (or ewe, female sheep)
+<Multi_key> <Multi_key> <m> <o> <n> <k> <e> <y>               : "🐒" U1F412 # MONKEY
+<Multi_key> <Multi_key> <r> <o> <o> <s> <t> <e> <r>           : "🐓" U1F413 # ROOSTER
+<Multi_key> <Multi_key> <c> <o> <q>                           : "🐓" U1F413 # ROOSTER
+<Multi_key> <Multi_key> <d> <o> <g>                           : "🐕" U1F415 # DOG
+<Multi_key> <Multi_key> <p> <i> <g>                           : "🐖" U1F416 # PIG
+<Multi_key> <Multi_key> <b> <o> <a> <r>                       : "🐗" U1F417 # BOAR
 
-<Multi_key> <Multi_key> <p> <o> <o> <d> <l> <e>         : "🐩" U1F429 # POODLE
-<Multi_key> <Multi_key> <w> <m> <o> <u> <s> <e>         : "🐁" U1F401 # MOUSE
-<Multi_key> <Multi_key> <f> <m> <o> <u> <s> <e>         : "🐭" U1F42D # MOUSE FACE
-<Multi_key> <Multi_key> <h> <a> <m> <s> <t> <e> <r>     : "🐹" U1F439 # HAMSTER FACE
-<Multi_key> <Multi_key> <f> <d> <o> <g>                 : "🐶" U1F436 # DOG FACE
-<Multi_key> <Multi_key> <g> <d> <o> <g>                 : "🦮" U1F9AE # GUIDE DOG
-<Multi_key> <Multi_key> <s> <d> <o> <g>                 : "🐕‍🦺" U1F415 U200D U1F9BA # SERVICE DOG
-<Multi_key> <Multi_key> <c> <h> <i> <c> <k> <e> <n>     : "🐔" U1F414 # CHICKEN
-<Multi_key> <Multi_key> <f> <h> <o> <r> <s> <e>         : "🐴" U1F434 # HORSE FACE
-<Multi_key> <Multi_key> <u> <n> <i> <c> <o> <r> <n>     : "🦄" U1F984 # UNICORN FACE
-<Multi_key> <Multi_key> <p> <a> <n> <d> <a>             : "🐼" U1F43C # PANDA FACE
-<Multi_key> <Multi_key> <d> <o> <v> <e>                 : "🕊️" U1F54A UFE0F # DOVE OF PEACE (emoji version of 🕊)
-<Multi_key> <Multi_key> <b> <u> <g>                     : "🐛" U1F41B # BUG
-<Multi_key> <Multi_key> <a> <n> <t>                     : "🐜" U1F41C # ANT
-<Multi_key> <Multi_key> <s> <p> <i> <d> <e> <r>         : "🕷️" U1F766 UFE0F # SPIDER (emoji version of 🕷)
-<Multi_key> <Multi_key> <a> <b> <e> <i> <l> <l> <e>     : "🐝" U1F41D # HONEYBEE
-<Multi_key> <Multi_key> <b> <u> <t> <t> <e> <r> <f>     : "🦋" U1F98B # BUTTERFLY
-<Multi_key> <Multi_key> <p> <e> <n> <g> <u> <i> <n>     : "🐧" U1F427 # PENGUIN
-<Multi_key> <Multi_key> <l> <i> <n> <u> <x>             : "🐧" U1F427 # PENGUIN
-<Multi_key> <Multi_key> <f> <o> <x>                     : "🦊" U1F98A # FOX FACE
-<Multi_key> <Multi_key> <b> <e> <a> <r>                 : "🐻" U1F43B # BEAR FACE
-<Multi_key> <Multi_key> <p> <b> <e> <a> <r>             : "🐻‍❄️" U1F43B U200D U2744 UFE0F # POLAR BEAR
-<Multi_key> <Multi_key> <c> <a> <t>                     : "🐈" U1F408 # CAT
-<Multi_key> <Multi_key> <b> <c> <a> <t>                 : "🐈‍⬛" U1F408 U200D U2B1B # BLACK CAT
-<Multi_key> <Multi_key> <f> <c> <a> <t>                 : "🐱" U1F431 # CAT FACE
-# 😼 CAT FACE WITH WRY SMILE
-# 😹 CAT FACE WITH TEARS OF JOY
-# 🙀 WEARY CAT FACE
-# 😾 POUTING CAT FACE
-# 😿 CRYING CAT FACE
-# 😻 SMILING CAT FACE WITH HEART-EYES
-# 😺 GRINNING CAT FACE
-# 😸 GRINNING CAT FACE WITH SMILING EYES
-# 😽 KISSING CAT FACE
-<Multi_key> <Multi_key> <d> <r> <o> <m> <a>             : "🐪" U1F42A # DROMEDARY CAMEL
-<Multi_key> <Multi_key> <c> <a> <m> <e> <l>             : "🐫" U1F42B # BACTRIAN CAMEL
-<Multi_key> <Multi_key> <c> <h> <a> <m> <e> <a> <u>     : "🐫" U1F42B # BACTRIAN CAMEL
-<Multi_key> <Multi_key> <f> <u> <g> <u>                 : "🐡" U1F421 # BLOWFISH
-<Multi_key> <Multi_key> <f> <i> <s> <h>                 : "🐟" U1F41F # FISH
-<Multi_key> <Multi_key> <t> <f> <i> <s> <h>             : "🐠" U1F420 # TROPICAL FISH
-<Multi_key> <Multi_key> <w> <h> <a> <l> <e>             : "🐋" U1F40B # WHALE
-<Multi_key> <Multi_key> <d> <o> <c> <k> <e> <r>         : "🐳" U1F433 # SPOUTING WHALE
-<Multi_key> <Multi_key> <d> <o> <l> <p> <h> <i> <n>     : "🐬" U1F42C # DOLPHIN
-<Multi_key> <Multi_key> <o> <y> <s> <t> <e> <r>         : "🦪" U1F9AA # OYSTER
-<Multi_key> <Multi_key> <h> <u> <i> <t> <r> <e>         : "🦪" U1F9AA # OYSTER
-<Multi_key> <Multi_key> <c> <r> <a> <b>                 : "🦀" U1F980 # CRAB
-<Multi_key> <Multi_key> <s> <h> <r> <i> <m> <p>         : "🦐" U1F990 # SHRIMP
-<Multi_key> <Multi_key> <l> <o> <b> <s> <t> <e> <r>     : "🦞" U1F99E # LOBSTER
-<Multi_key> <Multi_key> <s> <q> <u> <i> <d>             : "🦑" U1F991 # SQUID
-<Multi_key> <Multi_key> <o> <c> <t> <o> <p> <u> <s>     : "🐙" U1F419 # OCTOPUS
-<Multi_key> <Multi_key> <s> <n> <a> <i> <l>             : "🐌" U1F40C # SNAIL
-<Multi_key> <Multi_key> <b> <a> <t>                     : "🦇" U1F987 # BAT
-<Multi_key> <Multi_key> <b> <i> <r> <d>                 : "🐦" U1F426 # BIRD
-<Multi_key> <Multi_key> <p> <e> <a> <c> <o> <c> <k>     : "🦚" U1F99A # PEACOCK
-<Multi_key> <Multi_key> <e> <a> <g> <l> <e>             : "🦅" U1F985 # EAGLE
-<Multi_key> <Multi_key> <p> <a> <r> <r> <o> <t>         : "🦜" U1F99C # PARROT
-<Multi_key> <Multi_key> <o> <w> <l>                     : "🦉" U1F989 # OWL
-<Multi_key> <Multi_key> <s> <o> <n> <i> <c>             : "🦔" U1F994 # HEDGEHOG
-<Multi_key> <Multi_key> <d> <u> <c> <k>                 : "🦆" U1F986 # DUCK
-<Multi_key> <Multi_key> <s> <w> <a> <n>                 : "🦢" U1F9A2 # SWAN
-<Multi_key> <Multi_key> <g> <o> <o> <s> <e>             : "🦢" U1F9A2 # SWAN
-<Multi_key> <Multi_key> <l> <l> <a> <m> <a>             : "🦙" U1F999 # LLAMA
-<Multi_key> <Multi_key> <a> <l> <p> <a> <c> <a>         : "🦙" U1F999 # LLAMA
-<Multi_key> <Multi_key> <s> <l> <o> <t> <h>             : "🦥" U1F9A5 # SLOTH
-<Multi_key> <Multi_key> <o> <t> <t> <e> <r>             : "🦦" U1F9A6 # OTTER
-<Multi_key> <Multi_key> <s> <k> <u> <n> <k>             : "🦨" U1F9A8 # SKUNK
-<Multi_key> <Multi_key> <f> <m> <o> <n> <k> <e> <y>     : "🐵" U1F435 # MONKEY FACE
-<Multi_key> <Multi_key> <g> <o> <r> <i> <l> <l> <a>     : "🦍" U1F421 # GORILLA
-<Multi_key> <Multi_key> <o> <a> <n> <g> <u> <t> <a> <n> : "🦧" U1F9A7 # ORANGUTAN
-<Multi_key> <Multi_key> <m> <o> <s> <q> <u> <i> <t> <o> : "🦟" U1F99F # MOSQUITO
-<Multi_key> <Multi_key> <s> <a> <u> <r> <o> <p> <o> <d> : "🦕" U1F995 # SAUROPOD
-<Multi_key> <Multi_key> <d> <i> <n> <o>                 : "🦕" U1F995 # SAUROPOD
-<Multi_key> <Multi_key> <t> <r> <e> <x>                 : "🦖" U1F996 # T-REX
-<Multi_key> <Multi_key> <f> <l> <y>                     : "🪰" U1FAB0 # FLY
-<Multi_key> <Multi_key> <w> <o> <r> <m>                 : "🪱" U1FAB1 # WORM
-<Multi_key> <Multi_key> <b> <e> <e> <t> <l> <e>         : "🪲" U1FAB2 # BEETLE
-<Multi_key> <Multi_key> <r> <o> <a> <c> <h>             : "🪳" U1FAB3 # COCKROACH
-<Multi_key> <Multi_key> <i> <g> <n> <o> <r> <e>         : "🙈" U1F648 # SEE-NO-EVIL MONKEY
-<Multi_key> <Multi_key> <s> <a> <n> <z> <a> <r> <u>     : "🙈🙉🙊" U1F648 U1F649 U1F64A # Three Wise Monkeys
+<Multi_key> <Multi_key> <p> <o> <o> <d> <l> <e>               : "🐩" U1F429 # POODLE
+<Multi_key> <Multi_key> <w> <m> <o> <u> <s> <e>               : "🐁" U1F401 # MOUSE
+<Multi_key> <Multi_key> <f> <m> <o> <u> <s> <e>               : "🐭" U1F42D # MOUSE FACE
+<Multi_key> <Multi_key> <h> <a> <m> <s> <t> <e> <r>           : "🐹" U1F439 # HAMSTER FACE
+<Multi_key> <Multi_key> <f> <d> <o> <g>                       : "🐶" U1F436 # DOG FACE
+<Multi_key> <Multi_key> <g> <d> <o> <g>                       : "🦮" U1F9AE # GUIDE DOG
+<Multi_key> <Multi_key> <s> <d> <o> <g>                       : "🐕‍🦺" U1F415 U200D U1F9BA # SERVICE DOG
+<Multi_key> <Multi_key> <c> <h> <i> <c> <k> <e> <n>           : "🐔" U1F414 # CHICKEN
+<Multi_key> <Multi_key> <f> <h> <o> <r> <s> <e>               : "🐴" U1F434 # HORSE FACE
+<Multi_key> <Multi_key> <u> <n> <i> <c> <o> <r> <n>           : "🦄" U1F984 # UNICORN FACE
+<Multi_key> <Multi_key> <p> <a> <n> <d> <a>                   : "🐼" U1F43C # PANDA FACE
+<Multi_key> <Multi_key> <d> <o> <v> <e>                       : "🕊️" U1F54A UFE0F # DOVE OF PEACE (emoji version of 🕊)
+<Multi_key> <Multi_key> <b> <u> <g>                           : "🐛" U1F41B # BUG
+<Multi_key> <Multi_key> <a> <n> <t>                           : "🐜" U1F41C # ANT
+<Multi_key> <Multi_key> <s> <p> <i> <d> <e> <r>               : "🕷️" U1F766 UFE0F # SPIDER (emoji version of 🕷)
+<Multi_key> <Multi_key> <a> <b> <e> <i> <l> <l> <e>           : "🐝" U1F41D # HONEYBEE
+<Multi_key> <Multi_key> <b> <u> <t> <t> <e> <r> <f>           : "🦋" U1F98B # BUTTERFLY
+<Multi_key> <Multi_key> <p> <e> <n> <g> <u> <i> <n>           : "🐧" U1F427 # PENGUIN
+<Multi_key> <Multi_key> <l> <i> <n> <u> <x>                   : "🐧" U1F427 # PENGUIN
+<Multi_key> <Multi_key> <f> <o> <x>                           : "🦊" U1F98A # FOX FACE
+<Multi_key> <Multi_key> <b> <e> <a> <r>                       : "🐻" U1F43B # BEAR FACE
+<Multi_key> <Multi_key> <p> <b> <e> <a> <r>                   : "🐻‍❄️" U1F43B U200D U2744 UFE0F # POLAR BEAR
+<Multi_key> <Multi_key> <c> <a> <t>                           : "🐈" U1F408 # CAT
+<Multi_key> <Multi_key> <b> <c> <a> <t>                       : "🐈‍⬛" U1F408 U200D U2B1B # BLACK CAT
+<Multi_key> <Multi_key> <c> <f> <a> <c> <e>                   : "🐱" U1F431 # CAT FACE
+<Multi_key> <Multi_key> <c> <h> <e> <h> <e>                   : "😼" U1F63C # CAT FACE WITH WRY SMILE
+<Multi_key> <Multi_key> <c> <colon> <apostrophe> <parenright> : "😹" U1F639 # CAT FACE WITH TEARS OF JOY
+<Multi_key> <Multi_key> <c> <l> <o> <l>                       : "😹" U1F639 # CAT FACE WITH TEARS OF JOY
+<Multi_key> <Multi_key> <c> <m> <d> <r>                       : "😹" U1F639 # CAT FACE WITH TEARS OF JOY
+<Multi_key> <Multi_key> <c> <colon> <bracketleft>             : "🙀" U1F640 # WEARY CAT FACE
+<Multi_key> <Multi_key> <c> <colon> <minus> <bracketleft>     : "🙀" U1F640 # WEARY CAT FACE
+<Multi_key> <Multi_key> <c> <w> <e> <a> <r> <y>               : "🙀" U1F640 # WEARY CAT FACE
+<Multi_key> <Multi_key> <c> <greater> <colon> <parenleft>     : "😾" U1F63E # POUTING CAT FACE
+<Multi_key> <Multi_key> <c> <greater> <colon> <bracketleft>   : "😾" U1F63E # POUTING CAT FACE
+<Multi_key> <Multi_key> <c> <colon> <apostrophe> <parenleft>  : "😿" U1F63F # CRYING CAT FACE
+<Multi_key> <Multi_key> <c> <3> <underscore> <3>              : "😻" U1F63B # SMILING CAT FACE WITH HEART-EYES
+<Multi_key> <Multi_key> <c> <colon> <D>                       : "😺" U1F63A # GRINNING CAT FACE
+<Multi_key> <Multi_key> <c> <colon> <minus> <D>               : "😺" U1F63A # GRINNING CAT FACE
+<Multi_key> <Multi_key> <c> <g> <r> <i> <n>                   : "😸" U1F638 # GRINNING CAT FACE WITH SMILING EYES
+<Multi_key> <Multi_key> <c> <parenleft> <x> <o> <parenright>  : "😽" U1F63D # KISSING CAT FACE WITH CLOSED EYES
+<Multi_key> <Multi_key> <d> <r> <o> <m> <a>                   : "🐪" U1F42A # DROMEDARY CAMEL
+<Multi_key> <Multi_key> <c> <a> <m> <e> <l>                   : "🐫" U1F42B # BACTRIAN CAMEL
+<Multi_key> <Multi_key> <c> <h> <a> <m> <e> <a> <u>           : "🐫" U1F42B # BACTRIAN CAMEL
+<Multi_key> <Multi_key> <f> <u> <g> <u>                       : "🐡" U1F421 # BLOWFISH
+<Multi_key> <Multi_key> <f> <i> <s> <h>                       : "🐟" U1F41F # FISH
+<Multi_key> <Multi_key> <t> <f> <i> <s> <h>                   : "🐠" U1F420 # TROPICAL FISH
+<Multi_key> <Multi_key> <w> <h> <a> <l> <e>                   : "🐋" U1F40B # WHALE
+<Multi_key> <Multi_key> <d> <o> <c> <k> <e> <r>               : "🐳" U1F433 # SPOUTING WHALE
+<Multi_key> <Multi_key> <d> <o> <l> <p> <h> <i> <n>           : "🐬" U1F42C # DOLPHIN
+<Multi_key> <Multi_key> <o> <y> <s> <t> <e> <r>               : "🦪" U1F9AA # OYSTER
+<Multi_key> <Multi_key> <h> <u> <i> <t> <r> <e>               : "🦪" U1F9AA # OYSTER
+<Multi_key> <Multi_key> <c> <r> <a> <b>                       : "🦀" U1F980 # CRAB
+<Multi_key> <Multi_key> <s> <h> <r> <i> <m> <p>               : "🦐" U1F990 # SHRIMP
+<Multi_key> <Multi_key> <l> <o> <b> <s> <t> <e> <r>           : "🦞" U1F99E # LOBSTER
+<Multi_key> <Multi_key> <s> <q> <u> <i> <d>                   : "🦑" U1F991 # SQUID
+<Multi_key> <Multi_key> <i> <k> <a>                           : "🦑" U1F991 # SQUID
+<Multi_key> <Multi_key> <o> <c> <t> <o> <p> <u> <s>           : "🐙" U1F419 # OCTOPUS
+<Multi_key> <Multi_key> <t> <a> <k> <o>                       : "🐙" U1F419 # OCTOPUS
+<Multi_key> <Multi_key> <s> <n> <a> <i> <l>                   : "🐌" U1F40C # SNAIL
+<Multi_key> <Multi_key> <b> <a> <t>                           : "🦇" U1F987 # BAT
+<Multi_key> <Multi_key> <b> <i> <r> <d>                       : "🐦" U1F426 # BIRD
+<Multi_key> <Multi_key> <p> <e> <a> <c> <o> <c> <k>           : "🦚" U1F99A # PEACOCK
+<Multi_key> <Multi_key> <e> <a> <g> <l> <e>                   : "🦅" U1F985 # EAGLE
+<Multi_key> <Multi_key> <p> <a> <r> <r> <o> <t>               : "🦜" U1F99C # PARROT
+<Multi_key> <Multi_key> <o> <w> <l>                           : "🦉" U1F989 # OWL
+<Multi_key> <Multi_key> <s> <o> <n> <i> <c>                   : "🦔" U1F994 # HEDGEHOG
+<Multi_key> <Multi_key> <d> <u> <c> <k>                       : "🦆" U1F986 # DUCK
+<Multi_key> <Multi_key> <s> <w> <a> <n>                       : "🦢" U1F9A2 # SWAN
+<Multi_key> <Multi_key> <g> <o> <o> <s> <e>                   : "🦢" U1F9A2 # SWAN
+<Multi_key> <Multi_key> <l> <l> <a> <m> <a>                   : "🦙" U1F999 # LLAMA
+<Multi_key> <Multi_key> <a> <l> <p> <a> <c> <a>               : "🦙" U1F999 # LLAMA
+<Multi_key> <Multi_key> <s> <l> <o> <t> <h>                   : "🦥" U1F9A5 # SLOTH
+<Multi_key> <Multi_key> <o> <t> <t> <e> <r>                   : "🦦" U1F9A6 # OTTER
+<Multi_key> <Multi_key> <s> <k> <u> <n> <k>                   : "🦨" U1F9A8 # SKUNK
+<Multi_key> <Multi_key> <f> <m> <o> <n> <k> <e> <y>           : "🐵" U1F435 # MONKEY FACE
+<Multi_key> <Multi_key> <g> <o> <r> <i> <l> <l> <a>           : "🦍" U1F421 # GORILLA
+<Multi_key> <Multi_key> <o> <a> <n> <g> <u> <t> <a> <n>       : "🦧" U1F9A7 # ORANGUTAN
+<Multi_key> <Multi_key> <m> <o> <s> <q> <u> <i> <t> <o>       : "🦟" U1F99F # MOSQUITO
+<Multi_key> <Multi_key> <s> <a> <u> <r> <o> <p> <o> <d>       : "🦕" U1F995 # SAUROPOD
+<Multi_key> <Multi_key> <d> <i> <n> <o>                       : "🦕" U1F995 # SAUROPOD
+<Multi_key> <Multi_key> <t> <r> <e> <x>                       : "🦖" U1F996 # T-REX
+<Multi_key> <Multi_key> <f> <l> <y>                           : "🪰" U1FAB0 # FLY
+<Multi_key> <Multi_key> <w> <o> <r> <m>                       : "🪱" U1FAB1 # WORM
+<Multi_key> <Multi_key> <b> <e> <e> <t> <l> <e>               : "🪲" U1FAB2 # BEETLE
+<Multi_key> <Multi_key> <r> <o> <a> <c> <h>                   : "🪳" U1FAB3 # COCKROACH
+<Multi_key> <Multi_key> <i> <g> <n> <o> <r> <e>               : "🙈" U1F648 # SEE-NO-EVIL MONKEY
+<Multi_key> <Multi_key> <s> <a> <n> <z> <a> <r> <u>           : "🙈🙉🙊" U1F648 U1F649 U1F64A # Three Wise Monkeys
 
 ## Nature
 
@@ -2022,8 +2229,8 @@ UMulti_key> <6> <U>           : "Û" U00DB # LATIN CAPITAL LETTER U WITH CIRCUMF
 <Multi_key> <Multi_key> <c> <h> <e> <r> <u> <b>                  : "👼" U1F47C # BABY ANGEL
 <Multi_key> <Multi_key> <colon> <D>                              : "😀" U1F600 # GRINNING FACE
 <Multi_key> <Multi_key> <colon> <minus> <D>                      : "😀" U1F600 # GRINNING FACE
-<Multi_key> <Multi_key> <equal> <D>                              : "😃" U1F601 # SMILING FACE WITH OPEN MOUTH
 <Multi_key> <Multi_key> <g> <r> <i> <n>                          : "😁" U1F601 # GRINNING FACE WITH SMILING EYES
+<Multi_key> <Multi_key> <equal> <D>                              : "😃" U1F603 # SMILING FACE WITH OPEN MOUTH
 <Multi_key> <Multi_key> <X> <D>                                  : "😆" U1F606 # SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES
 <Multi_key> <Multi_key> <x> <D>                                  : "😆" U1F606 # SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES
 <Multi_key> <Multi_key> <m> <o> <n> <o> <c> <l> <e>              : "🧐" U1F9D0 # FACE WITH MONOCLE
@@ -2058,6 +2265,7 @@ UMulti_key> <6> <U>           : "Û" U00DB # LATIN CAPITAL LETTER U WITH CIRCUMF
 <Multi_key> <Multi_key> <colon> <apostrophe> <parenright>        : "😂" U1F602 # FACE WITH TEARS OF JOY
 <Multi_key> <Multi_key> <l> <o> <l>                              : "😂" U1F602 # FACE WITH TEARS OF JOY
 <Multi_key> <Multi_key> <m> <d> <r>                              : "😂" U1F602 # FACE WITH TEARS OF JOY
+<Multi_key> <Multi_key> <t> <e> <a> <r>                          : "🥲" U1F972 # SMILING FACE WITH TEAR
 <Multi_key> <Multi_key> <l> <a> <r> <m> <e>                      : "🥲" U1F972 # SMILING FACE WITH TEAR
 <Multi_key> <Multi_key> <e> <m> <u>                              : "🥲" U1F972 # SMILING FACE WITH TEAR
 <Multi_key> <Multi_key> <r> <o> <f> <l>                          : "🤣" U1F923 # ROLLING ON THE FLOOR LAUGHING
@@ -2509,32 +2717,37 @@ UMulti_key> <6> <U>           : "Û" U00DB # LATIN CAPITAL LETTER U WITH CIRCUMF
 <Multi_key> <Multi_key> <r> <a> <i> <l>                     : "🛤️" U1F6E4 UFE0F # RAILWAY TRACK (emoji version of 🛤)
 <Multi_key> <Multi_key> <m> <r> <a> <i> <l>                 : "🚞" U1F69E # MOUNTAIN RAILWAY
 <Multi_key> <Multi_key> <c> <a> <r>                         : "🚗" U1F697 # CAR
+<Multi_key> <Multi_key> <C> <A> <R>                         : "🚘" U1F698 # ONCOMING AUTOMOBILE
 <Multi_key> <Multi_key> <t> <a> <x> <i>                     : "🚕" U1F695 # TAXI
+<Multi_key> <Multi_key> <T> <A> <X> <I>                     : "🚖" U1F696 # ONCOMING TAXI
 <Multi_key> <Multi_key> <S> <U> <V>                         : "🚙" U1F699 # RECREATIONAL VEHICLE
 <Multi_key> <Multi_key> <r> <a> <c> <e> <c> <a> <r>         : "🏎️" U1F3CE # RACING CAR (emoji version of 🏎)
 <Multi_key> <Multi_key> <a> <m> <b> <u> <l> <a> <n> <c> <e> : "🚑" U1F691 # AMBULANCE
 <Multi_key> <Multi_key> <f> <t> <r> <u> <c> <k>             : "🚒" U1F692 # FIRE ENGINE
 <Multi_key> <Multi_key> <p> <o> <l> <i> <c> <e> <c>         : "🚓" U1F693 # POLICE CAR
+<Multi_key> <Multi_key> <P> <O> <L> <I> <C> <E>             : "🚔" U1F694 # ONCOMING POLICE CAR
 <Multi_key> <Multi_key> <p> <t> <r> <u> <c> <k>             : "🛻" U1F6FB # PICKUP TRUCK
 <Multi_key> <Multi_key> <b> <u> <s>                         : "🚌" U1F68C # BUS
-# TODO: 🚘, 🚖, 🚔 & 🚍
+<Multi_key> <Multi_key> <B> <U> <S>                         : "🚍" U1F68D # ONCOMING BUS
 <Multi_key> <Multi_key> <m> <i> <n> <i> <b> <u> <s>         : "🚐" U1F690 # MINIBUS
 <Multi_key> <Multi_key> <d> <e> <l> <i> <v> <e> <r> <y>     : "🚚" U1F69A # DELIVERY TRUCK
 <Multi_key> <Multi_key> <t> <r> <u> <c> <k>                 : "🚛" U1F69B # ARTICULATED LORRY (truck)
 <Multi_key> <Multi_key> <v> <e> <l> <o>                     : "🚲" U1F6B2 # BICYCLE
 <Multi_key> <Multi_key> <m> <o> <t> <o>                     : "🏍️" U1F3CD UFE0F # RACING MOTORCYCLE (emoji version of 🏍)
 <Multi_key> <Multi_key> <l> <o> <c> <o>                     : "🚂" U1F682 # STEAM LOCOMOTIVE
-<Multi_key> <Multi_key> <t> <r> <a> <i> <n>                 : "🚆" U1F686 # TRAIN
+<Multi_key> <Multi_key> <t> <r> <a> <i> <n>                 : "🚃" U1F683 # RAILWAY CAR
+<Multi_key> <Multi_key> <T> <R> <A> <I> <N>                 : "🚆" U1F686 # TRAIN
 <Multi_key> <Multi_key> <T> <G> <V>                         : "🚄" U1F684 # HIGH-SPEED TRAIN
 <Multi_key> <Multi_key> <s> <h> <i> <n> <k> <a> <n>         : "🚅" U1F685 # HIGH-SPEED TRAIN WITH BULLET NOSE
 <Multi_key> <Multi_key> <m> <e> <t> <r> <o>                 : "🚇" U1F687 # METRO
-<Multi_key> <Multi_key> <t> <r> <a> <m>                     : "🚊" U1F68A # TRAM
+<Multi_key> <Multi_key> <t> <r> <a> <m>                     : "🚋" U1F68B # TRAM CAR
+<Multi_key> <Multi_key> <T> <R> <A> <M>                     : "🚊" U1F68A # TRAM
 <Multi_key> <Multi_key> <L> <R> <T>                         : "🚈" U1F68A # LIGHT RAIL
 <Multi_key> <Multi_key> <T> <L> <R>                         : "🚈" U1F68A # LIGHT RAIL
+<Multi_key> <Multi_key> <L> <0>                             : "🚈" U1F68A # LIGHT RAIL
 <Multi_key> <Multi_key> <m> <o> <n> <o> <r> <a> <i> <l>     : "🚝" U1F69D # MONORAIL
 <Multi_key> <Multi_key> <s> <u> <s> <p> <e> <n>             : "🚟" U1F69F # SUSPENSION RAILWAY
 <Multi_key> <Multi_key> <c> <a> <b> <l> <e> <c> <a> <r>     : "🚡" U1F6A1 # AERIAL TRAMWAY
-# TODO: 🚃 & 🚋 useful?
 <Multi_key> <Multi_key> <b> <o> <a> <t>                     : "⛵" U26F5 # SAILBOAT
 <Multi_key> <Multi_key> <s> <a> <i> <l>                     : "⛵" U26F5 # SAILBOAT
 <Multi_key> <Multi_key> <v> <o> <i> <l> <i> <e> <r>         : "⛵" U26F5 # SAILBOAT
@@ -2597,6 +2810,7 @@ UMulti_key> <6> <U>           : "Û" U00DB # LATIN CAPITAL LETTER U WITH CIRCUMF
 <Multi_key> <Multi_key> <x> <f> <l> <a> <g>                 : "🏳️‍⚧️" U1F3F3 UFE0F U200D U26A7 UFE0F # TRANSGENDER FLAG
 <Multi_key> <Multi_key> <p> <f> <l> <a> <g>                 : "🏴‍☠️" U1F3F4 U200D U2620 UFE0F # PIRATE FLAG
 <Multi_key> <Multi_key> <p> <i> <r> <a> <t> <e>             : "🏴‍☠️" U1F3F4 U200D U2620 UFE0F # PIRATE FLAG
+<Multi_key> <Multi_key> <o> <f> <l> <a> <g>                 : "🏳‍🟧‍⬛‍🟧" U1F3F3 U200D U1F7E7 U200D U2B1B U200D U1F7E7 # REFUGEE NATION FLAG
 <Multi_key> <Multi_key> <bar> <e> <o>                       : "🏳️‍⭐‍💚" U1F3F3 UFE0F U200D U2B50 U200D U1F49A # ESPERANTO FLAG
 <Multi_key> <Multi_key> <bar> <e> <n> <g>                   : "🏴󠁧󠁢󠁥󠁮󠁧󠁿" U1F3F4 UE0067 UE0062 UE0065 UE006E UE0067 UE007F # Flag: England
 <Multi_key> <Multi_key> <bar> <s> <c> <t>                   : "🏴󠁧󠁢󠁳󠁣󠁴󠁿" U1F3F4 UE0067 UE0062 UE0073 UE0063 UE0074 UE007F # Flag: Scotland

@@ -50,7 +50,7 @@ def main() -> None:
     found_symbols: set[str] = set()
     previous_symbol = ''
 
-    with open(args.file) as fp:
+    with open(args.file, encoding='utf8') as fp:
         for n, line in enumerate(fp):  # type: int, str
             if line.startswith('#') or \
                     line.startswith('include') or \
