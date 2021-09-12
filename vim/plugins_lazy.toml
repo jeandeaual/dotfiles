@@ -413,6 +413,11 @@ on_path = '.*'
 repo = 'freitass/todo.txt-vim'
 on_ft = ['todo']
 
+# fish
+[[plugins]]
+repo = 'khaveesh/vim-fish-syntax'
+on_ft = ['fish']
+
 # vimproc
 [[plugins]]
 repo = 'Shougo/vimproc.vim'

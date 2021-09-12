@@ -752,6 +752,11 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   (use-package markdown-preview-mode
     :ensure t))
 
+;; fish
+(use-package fish-mode
+  :ensure t
+  :mode (("\\.fish\\'"  . fish-mode)))
+
 ;; PlantUML
 (use-package plantuml-mode
   :ensure t
