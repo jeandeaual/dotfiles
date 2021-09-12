@@ -252,6 +252,20 @@ if type -q ssh-keygen
     end
 end
 
+if type -q flac
+    function flacreencode --description="Reencode FLAC files with the highest compression settings"
+        find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;
+    end
+end
+
+{{ if $archlinux }}
+if type -q paru
+    function paruignore --description="Call paru while skipping checksums and PGP checks"
+        paru --mflags "--skipchecksums --skippgpcheck" $argv
+    end
+end
+{{- end }}
+
 # Custom functions
 #------------------------------------------------------------------------------
 function mkcd --argument-names 'dir' --description="Create a directory and enter it"

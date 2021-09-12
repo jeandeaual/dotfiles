@@ -155,6 +155,17 @@ if command -v ssh-keygen > /dev/null; then
     alias ssh-keygen-rsa='ssh-keygen -t rsa -b 4096'
     alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
 fi
+if command -v flac > /dev/null; then
+    # Reencode FLAC files with the highest compression settings
+    alias flacreencode="find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;"
+fi
+{{- if $archlinux }}
+if command -v paru > /dev/null; then
+    # Call paru while skipping checksums and PGP checks
+    alias paruignore='paru --mflags "--skipchecksums --skippgpcheck"'
+fi
+{{- end }}
+
 
 # Custom functions
 #------------------------------------------------------------------------------
