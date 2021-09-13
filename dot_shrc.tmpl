@@ -4,7 +4,7 @@
 {{- $wsl := false -}}
 
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if eq .chezmoi.osRelease.id "arch" -}}
+{{-   if or (eq .chezmoi.osRelease.id "arch") (eq (index .chezmoi.osRelease "idLike") "arch") -}}
 {{-     $archlinux = true -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}

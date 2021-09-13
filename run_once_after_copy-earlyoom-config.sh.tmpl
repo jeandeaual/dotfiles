@@ -5,7 +5,7 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if eq .chezmoi.osRelease.id "alpine" -}}
 {{-     $alpine = true -}}
-{{-   else if eq .chezmoi.osRelease.id "arch" -}}
+{{-   else if or (eq .chezmoi.osRelease.id "arch") (eq (index .chezmoi.osRelease "idLike") "arch") -}}
 {{-     $archlinux = true -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
@@ -13,7 +13,7 @@
 {{-   end -}}
 {{- end -}}
 
-{{- if and (eq .chezmoi.os "linux") (not .codespaces) (not $wsl) (not $alpine) -}}
+{{- if and (eq .chezmoi.os "linux") (ne .chassistype "server") (not .codespaces) (not $wsl) (not $alpine) -}}
 #!/bin/bash
 
 set -euo pipefail
