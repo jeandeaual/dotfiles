@@ -19,7 +19,7 @@ fi
 
 # Required for interactive use on dash
 # shellcheck disable=SC3040
-set -o | grep emacs > /dev/null 2>&1 && set -o emacs
+set -o | grep emacs >/dev/null 2>&1 && set -o emacs
 
 # Environment variables
 #------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ fi
 {{- if eq .chezmoi.os "darwin" }}
 alias o='open'
 {{- else }}
-if command -v xdg-open > /dev/null; then
+if command -v xdg-open >/dev/null; then
     alias o='xdg-open'
 fi
 {{- end }}
@@ -74,7 +74,7 @@ alias ports='sudo lsof +M -i4 -n -P'
 # Force tmux to assume the terminal supports 256 colours
 alias tmux='tmux -2'
 alias em='emacs'
-if command -v emacsclient > /dev/null; then
+if command -v emacsclient >/dev/null; then
     # Open a new Emacs frame
     alias emc='emacsclient -n -c -a ""'
     # Open an Emacs frame in the current TTY
@@ -91,11 +91,11 @@ alias wip6='dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.
 alias rmbin='find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;'
 {{- if ne .chezmoi.os "darwin" }}
 # Find all the .desktop files installed on the system
-alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2> /dev/null'
+alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2>/dev/null'
 {{- end }}
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
 # Ask GNOME Shell to restart itself through dbus
-if command -v dbus-send > /dev/null; then
+if command -v dbus-send >/dev/null; then
     alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 fi
 {{- end }}
@@ -103,9 +103,13 @@ fi
 # Mimic the OS X commands
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
-# Show a QR code with the clipboard's content
-alias qr='xclip -selection clipboard -o | qrencode --size=10 -o - | feh -'
-alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done'
+if command -v xclip >/dev/null && command -v qrencode >/dev/null; then
+    # Show a QR code with the clipboard's content
+    alias qr='xclip -selection clipboard -o | qrencode --size=10 -o - | feh -'
+fi
+if command -v ip >/dev/null; then
+    alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done'
+fi
 {{- end }}
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
@@ -122,7 +126,7 @@ alias cal='ncal -bM -w'
 {{- end }}
 # List zombie processes
 # shellcheck disable=SC2142
-alias zombie='ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid'
+alias zombie='ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}'
 # Current UNIX timestamp in seconds
 alias ts='date +%s'
 # Current UNIX timestamp in milliseconds
@@ -131,19 +135,14 @@ alias tsms='date +%s%N | cut -b1-13'
 # Current UNIX timestamp in nanoseconds
 alias tsns='date +%s%N'
 # AWS
-if command -v aws > /dev/null; then
+if command -v aws >/dev/null; then
     alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
 fi
 # Python
 alias activate='source ./venv/bin/activate'
 alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
-# Go
-if command -v go > /dev/null; then
-    # go build and strip the debugging information (DWARF tables)
-    alias gor="go build -ldflags='-s -w'"
-fi
 # DBus
-if command -v dbus-send > /dev/null; then
+if command -v dbus-send >/dev/null; then
     # Get the PID of the currently running DBus Secret Service daemon
     alias secretservicepid='dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets'
     # Display the QuodLibet play time
@@ -151,16 +150,16 @@ if command -v dbus-send > /dev/null; then
     alias quodplaytime='dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\'''
 fi
 # SSH key generation
-if command -v ssh-keygen > /dev/null; then
+if command -v ssh-keygen >/dev/null; then
     alias ssh-keygen-rsa='ssh-keygen -t rsa -b 4096'
     alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
 fi
-if command -v flac > /dev/null; then
+if command -v flac >/dev/null; then
     # Reencode FLAC files with the highest compression settings
     alias flacreencode="find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;"
 fi
 {{- if $archlinux }}
-if command -v paru > /dev/null; then
+if command -v paru >/dev/null; then
     # Call paru while skipping checksums and PGP checks
     alias paruignore='paru --mflags "--skipchecksums --skippgpcheck"'
 fi
@@ -170,11 +169,13 @@ fi
 # Custom functions
 #------------------------------------------------------------------------------
 
+# Create a directory and enter it
 # Usage: mkcd FOLDER
 mkcd() {
     mkdir -p -- "$1" && cd -P -- "$1" || return
 }
 
+# Change directory to the chezmoi folder without creating a subshell
 chezmoicd() {
     command -v chezmoi >/dev/null || {
         echo "chezmoi is not installed" 1>&2
@@ -184,6 +185,7 @@ chezmoicd() {
     cd "$(chezmoi source-path)" || return
 }
 
+# Increment a version number
 # Usage:
 # echo "1.2.3" | inc_version 3
 # 1.2.4
@@ -195,6 +197,7 @@ inc_version() {
     awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver="$1"
 }
 
+# Write an ISO image to a device
 write_iso() {
     if [ $# -ne 2 ]; then
         echo "usage: write_iso ISO DEVICE"
@@ -223,27 +226,32 @@ fi
 if [ -d "${HOME}/.cabal/bin" ]; then
     export PATH="${HOME}/.cabal/bin${PATH+:}${PATH}"
 fi
-if command -v ghc > /dev/null; then
+if command -v ghc >/dev/null; then
     alias ghc-sandbox="ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
-if command -v ghci > /dev/null; then
+if command -v ghci >/dev/null; then
     alias ghci-sandbox="ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
-if command -v runhaskell > /dev/null; then
+if command -v runhaskell >/dev/null; then
     alias runhaskell-sandbox="runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
 fi
 
 # Go
 #------------------------------------------------------------------------------
-if _gopath=$(go env GOPATH 2>/dev/null); then
-    export PATH="${_gopath}/bin${PATH+:}${PATH}"
+if command -v go >/dev/null; then
+    # go build and strip the debugging information (DWARF tables)
+    alias gor="go build -ldflags='-s -w'"
+
+    if _gopath=$(go env GOPATH 2>/dev/null); then
+        export PATH="${_gopath}/bin${PATH+:}${PATH}"
+    fi
 fi
 # shellcheck disable=SC1091
 [ -s "${HOME}/.gvm/scripts/gvm" ] && . "${HOME}/.gvm/scripts/gvm"
 
 # Rust
 #------------------------------------------------------------------------------
-if command -v rustbook > /dev/null; then
+if command -v rustup >/dev/null; then
     alias rustbook="rustup docs --book"
 fi
 if [ -d "${HOME}/.cargo/bin" ]; then
@@ -255,5 +263,5 @@ fi
 # Ruby
 #------------------------------------------------------------------------------
 if [ -d "${HOME}/.rvm/bin" ]; then
-    export PATH="${PATH}:${HOME}/.rvm/bin"
+    export PATH="${HOME}/.rvm/bin${PATH+:}${PATH}"
 fi

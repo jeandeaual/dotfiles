@@ -757,6 +757,11 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :mode (("\\.fish\\'"  . fish-mode)))
 
+;; Elvish
+(use-package elvish-mode
+  :ensure t
+  :mode (("\\.elv\\'"  . elvish-mode)))
+
 ;; PlantUML
 (use-package plantuml-mode
   :ensure t

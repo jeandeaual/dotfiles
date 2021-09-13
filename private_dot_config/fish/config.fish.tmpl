@@ -127,12 +127,12 @@ end
 
 function wip --description="Get the external IP address"
     dig -4 +short myip.opendns.com A @resolver1.opendns.com
-    # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
+    # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
 end
 
 function wip6
     dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
-    # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2
+    # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
 end
 
 function rmbin --description="Delete all executables from the current directory"
@@ -141,7 +141,7 @@ end
 
 {{- if ne .chezmoi.os "darwin" }}
 function finddesktop --description="Find all the .desktop files installed on the system"
-    find {/usr/{,local/},{$HOME}/.local/}share/applications -type f 2> /dev/null
+    find {/usr/{,local/},{$HOME}/.local/}share/applications -type f 2>/dev/null
 end
 {{- end }}
 
@@ -162,7 +162,7 @@ if type -q xclip
     function pbpaste
         xclip -selection clipboard -o
     end
-    if type -q qrencode -a type -q feh
+    if type -q qrencode && type -q feh
         function qr --description="Show a QR code with the clipboard's content"
             xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
         end
@@ -202,7 +202,7 @@ end
 {{- end }}
 
 function zombie --description="List zombie processes"
-    ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f --ppid
+    ps -eo state,ppid | awk '/^Z/ {print $2}' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}
 end
 
 function ts --description="Current UNIX timestamp in seconds"
@@ -238,7 +238,7 @@ if type -q dbus-send
         dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets
     end
     function quodplaytime --description="Display the QuodLibet play time"
-        dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '\''{print $2 / 1000}'\''
+        dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}'
     end
 end
 
@@ -274,7 +274,7 @@ end
 
 function chezmoicd --description="Change directory to the chezmoi folder without creating a subshell"
     if ! type -q chezmoi
-        echo 'chezmoi is not installed' 1>&2
+        echo "chezmoi is not installed" 1>&2
         return 1
     end
 
@@ -295,15 +295,15 @@ end
 # Usage: write_iso ISO DEVICE
 function write_iso --argument-names 'file' 'device' --description="Write an ISO image to a device"
     if test (count $argv) -ne 2
-        echo "usage: write_iso ISO DEVICE"
+        echo "usage: write_iso ISO DEVICE" 1>&2
         return 1
     end
     if test ! -f "$file"; or not string match -q "*.iso" "$file"
-        echo "The first argument needs to be an ISO file"
+        echo "The first argument needs to be an ISO file" 1>&2
         return 1
     end
-    if test ! -e "$device"; or not string match -q "/dev/sd*" "$file"
-        echo "The second argument needs to be a device"
+    if test ! -e "$device"; or not string match -q "/dev/sd*" "$device"
+        echo "The second argument needs to be a device" 1>&2
         return 1
     end
 
@@ -312,7 +312,7 @@ end
 
 # CentOS only
 # Use Vim with system clipboard support if installed
-if type -q /usr/bin/vimx -a ! type -q /usr/local/bin/vim
+if type -q /usr/bin/vimx && not type -q /usr/local/bin/vim
     function vim
         /usr/bin/vimx $argv
     end
@@ -349,8 +349,8 @@ if type -q go
         go build -ldflags='-s -w' $argv
     end
 
-    set _gopath (go env GOPATH 2>/dev/null)
-    if test -n "$_gopath"
+    set gopath (go env GOPATH 2>/dev/null)
+    if test -n "$gopath"
         set -U fish_user_paths {$_gopath}/bin $fish_user_paths
     end
 end
@@ -358,7 +358,9 @@ end
 # Rust
 #------------------------------------------------------------------------------
 if type -q rustup
-    alias rustbook="rustup docs --book"
+    function rustbook
+        rustup docs --book
+    end
 end
 if test -d "{$HOME}/.cargo/bin"
     set -U fish_user_paths {$HOME}/.cargo/bin $fish_user_paths

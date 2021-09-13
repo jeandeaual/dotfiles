@@ -18,6 +18,8 @@
         "dot_digrc": "properties",
         // Feh
         "**/feh/themes": "shellscript",
+        // Elvish
+        "*.elv.*": "elvish",
         // Firefox
         "**/Firefox/profiles/user": "gojs",
         // Fish

@@ -418,6 +418,11 @@ on_ft = ['todo']
 repo = 'khaveesh/vim-fish-syntax'
 on_ft = ['fish']
 
+# Elvish
+[[plugins]]
+repo = 'chlorm/vim-syntax-elvish'
+on_ft = ['elvish']
+
 # vimproc
 [[plugins]]
 repo = 'Shougo/vimproc.vim'

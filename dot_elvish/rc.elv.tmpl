@@ -1,0 +1,288 @@
+{{- $archlinux := false -}}
+{{- $wsl := false -}}
+
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if or (eq .chezmoi.osRelease.id "arch") (eq (index .chezmoi.osRelease "idLike") "arch") -}}
+{{-     $archlinux = true -}}
+{{-   end -}}
+{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
+{{-     $wsl = true -}}
+{{-   end -}}
+{{- end -}}
+
+use re
+use readline-binding
+use path
+use str
+use epm
+
+epm:install &silent-if-installed ^
+  github.com/zzamboni/elvish-modules
+
+{{ if eq .chezmoi.os "darwin" -}}
+use github.com/zzamboni/elvish-modules/iterm2
+
+iterm2:init
+edit:insert:binding[Ctrl-L] = $iterm2:clear-screen~
+{{- end }}
+
+# Prompt
+#------------------------------------------------------------------------------
+# Default prompt:
+# edit:prompt = { tilde-abbr $pwd; put '> ' }
+# Default right prompt:
+# edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
+
+# Environment variables
+#------------------------------------------------------------------------------
+E:VISUAL = 'gvim'
+# Preferred editor for local and remote sessions
+if ?(test -n $E:SSH_CONNECTION) {
+  E:EDITOR = 'vim'
+} else {
+  E:EDITOR = 'gvim'
+}
+E:SYSTEMD_EDITOR = $E:EDITOR
+E:FCEDIT = $E:EDITOR
+E:SVN_EDITOR = $E:EDITOR
+E:PAGER = 'less'
+E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+E:WWW_BROWSER = 'w3m'
+E:DOWNLOADER = 'wget -S'
+if ?(test -d "/usr/local/man") {
+  if (eq E:MANPATH '') {
+    E:MANPATH = /usr/local/man
+  } else {
+    E:MANPATH = (str:join ':' [/usr/local/man $E:MANPATH])
+  }
+}
+# Add ~/.local/bin to the PATH if it exists
+if ?(test -d $E:HOME"/.local/bin") {
+  paths = [$E:HOME"/.local/bin" $@paths]
+}
+
+# Aliases
+#------------------------------------------------------------------------------
+{{- if eq .chezmoi.os "darwin" }}
+fn o [@a]{ open $@a }
+{{- else }}
+if ?(command -v xdg-open >/dev/null) {
+  fn o [@a]{ xdg-open $@a }
+}
+{{- end }}
+fn cp [@a]{ e:cp -v $@a }
+fn mv [@a]{ e:mv -v $@a }
+fn rm [@a]{ e:rm -v $@a }
+{{- if eq .chezmoi.os "darwin" }}
+fn ls [@a]{ e:ls -G $@a }
+{{- else }}
+fn ls [@a]{ e:ls --color=auto --group-directories-first $@a }
+{{- end }}
+fn ll [@a]{ e:ls -Alh $@a }
+fn du [@a]{ e:du -h $@a }
+fn df [@a]{ e:df -Th $@a }
+fn gzip [@a]{ e:gzip -v9N $@a }
+fn zip [@a]{ e:zip -9 -r $@a }
+fn 7z [@a]{ e:7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $@a }
+fn j [@a]{ jobs -l $@a }
+# Show which process is using which port
+fn ports { sudo lsof +M -i4 -n -P }
+# Force tmux to assume the terminal supports 256 colours
+fn tmux [@a]{ e:tmux -2 $@a }
+fn em [@a]{ emacs $@a }
+if ?(command -v emacsclient >/dev/null) {
+  # Open a new Emacs frame
+  fn emc [@a]{ emacsclient -n -c -a "" $@a }
+  # Open an Emacs frame in the current TTY
+  fn emw [@a]{ emacsclient -n -w -a "" $@a }
+}
+# Find duplicate files under the current file tree by size and MD5 sum
+fn dup {
+  find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
+}
+# Get the external IP address
+fn wip {
+  dig -4 +short myip.opendns.com A @resolver1.opendns.com
+  # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+}
+fn wip6 {
+  dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
+  # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+}
+# Delete all executables from the current directory
+fn rmbin { find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \; }
+{{- if ne .chezmoi.os "darwin" }}
+# Find all the .desktop files installed on the system
+fn finddesktop { find {/usr/{,local/},$E:HOME/.local/}share/applications -type f 2>/dev/null }
+{{- end }}
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
+# Ask GNOME Shell to restart itself through dbus
+if ?(command -v dbus-send >/dev/null) {
+  fn restartgnome { dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()' }
+}
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+# Mimic the OS X commands
+fn pbcopy { xclip -selection clipboard }
+fn pbpaste { xclip -selection clipboard -o }
+# Show a QR code with the clipboard's content
+if (and ?(command -v xclip >/dev/null) ?(command -v qrencode >/dev/null)) {
+  fn qr { xclip -selection clipboard -o | qrencode --size=10 -o - | feh - }
+}
+if ?(command -v ip >/dev/null) {
+  fn ips {
+    for gw (ip route list to 0/0 | awk '{print $3}') {
+      ip route get to "$gw" | awk '/src/ {print $5}'
+    }
+  }
+}
+{{- end }}
+# Mozc aliases
+if ?(test -e /usr/lib/mozc/mozc_tool) {
+  fn mozc-config { /usr/lib/mozc/mozc_tool --mode=config_dialog }
+  fn mozc-pad { /usr/lib/mozc/mozc_tool --mode=hand_writing }
+  fn mozc-register { /usr/lib/mozc/mozc_tool --mode=word_register_dialog }
+  fn mozc-dict { /usr/lib/mozc/mozc_tool --mode=dictionary_tool }
+}
+{{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
+{{- if not $archlinux }}
+# Make cal display Monday as the start of the week
+fn cal [@a]{ ncal -bM -w $@a }
+{{- end }}
+# List zombie processes
+fn zombie {
+  ps -eo state,ppid | awk '/^Z/ {print $2}' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}
+}
+# Current UNIX timestamp in seconds
+fn ts { date +%s }
+# Current UNIX timestamp in milliseconds
+fn tsms { date +%s%N | cut -b1-13 }
+# Current UNIX timestamp in nanoseconds
+fn tsns { date +%s%N }
+# AWS
+if ?(command -v aws >/dev/null) {
+  fn lambdalist {
+    aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
+  }
+}
+# Python
+fn activate { source ./venv/bin/activate }
+fn pipenv2requirements { jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock }
+# DBus
+if ?(command -v dbus-send >/dev/null) {
+  # Get the PID of the currently running DBus Secret Service daemon
+  fn secretservicepid { dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets }
+  # Display the QuodLibet play time
+  fn quodplaytime { dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}' }
+}
+# SSH key generation
+if ?(command -v ssh-keygen >/dev/null) {
+  fn ssh-keygen-rsa { ssh-keygen -t rsa -b 4096 }
+  fn ssh-keygen-ed25519 { ssh-keygen -t ed25519 }
+}
+if ?(command -v flac >/dev/null) {
+  # Reencode FLAC files with the highest compression settings
+  fn flacreencode { find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \; }
+}
+{{- if $archlinux }}
+if ?(command -v paru >/dev/null) {
+  # Call paru while skipping checksums and PGP checks
+  fn paruignore [@a]{ paru --mflags "--skipchecksums --skippgpcheck" $@a }
+}
+{{- end }}
+
+# Custom functions
+#------------------------------------------------------------------------------
+# Create a directory and enter it
+fn mkcd [dir]{
+  mkdir -p $dir
+  cd $dir
+}
+
+# Change directory to the chezmoi folder without creating a subshell
+fn chezmoicd {
+  if (not ?(command -v chezmoi >/dev/null)) {
+    fail "chezmoi is not installed"
+  }
+
+  cd (chezmoi source-path)
+}
+
+# Increment a version number
+# Usage:
+# echo "1.2.3" | inc_version 3
+# 1.2.4
+# echo "1.2.3" | inc_version 2
+# 1.3.0
+# echo "1.2.3" | inc_version 1
+# 2.0.0
+fn inc_version [version]{
+  awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver=$version
+}
+
+# Write an ISO image to a device
+# Usage: write_iso ISO DEVICE
+fn write_iso [file device]{
+  if (or ?(test ! -f $file) (not (re:match '.iso$' $file))) {
+    fail "The first argument needs to be an ISO file"
+  }
+  if (or ?(test ! -e $device) (not (re:match '^/dev/sd' $device))) {
+    fail "The second argument needs to be a device"
+  }
+
+  sudo dd if=$file of=$device bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
+}
+
+# CentOS only
+# Use Vim with system clipboard support if installed
+if (and ?(test -e /usr/bin/vimx) ?(test ! -e /usr/local/bin/vim)) {
+  fn vim [@a]{ /usr/bin/vimx $@a }
+}
+
+# Haskell
+#------------------------------------------------------------------------------
+if ?(test -d $E:HOME"/.cabal/bin") {
+  paths = [$E:HOME"/.cabal/bin" $@paths]
+}
+if ?(command -v ghc >/dev/null) {
+  fn ghc-sandbox [@a]{ ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+}
+if ?(command -v ghci >/dev/null) {
+  fn ghci-sandbox [@a]{ ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+}
+if ?(command -v runhaskell >/dev/null) {
+  fn runhaskell-sandbox [@a]{ runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+}
+
+# Go
+#------------------------------------------------------------------------------
+if ?(command -v go >/dev/null) {
+  # go build and strip the debugging information (DWARF tables)
+  fn gor [@a]{ go build -ldflags='-s -w' $@a }
+
+  var gopath = (go env GOPATH 2>/dev/null)
+  if (not-eq $gopath '') {
+    paths = [$gopath"/bin" $@paths]
+  }
+}
+
+# Rust
+#------------------------------------------------------------------------------
+if ?(command -v rustup >/dev/null) {
+  fn rustbook { rustup docs --book }
+}
+if ?(test -d $E:HOME"/.cargo/bin") {
+  paths = [$E:HOME"/.cargo/bin" $@paths]
+}
+
+# Ruby
+#------------------------------------------------------------------------------
+if ?(test -d $E:HOME"/.rvm/bin") {
+  paths = [$E:HOME"/.rvm/bin" $@paths]
+}
+
+each [p]{
+  if (not (path:is-dir &follow-symlink $p)) {
+    echo (styled "Warning: directory "$p" in $paths no longer exists." red)
+  }
+} $paths
