@@ -3,7 +3,7 @@
 {{- $alpine := false -}}
 {{- $wsl := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if eq .chezmoi.osRelease.id "arch" -}}
+{{-   if eq .chezmoi.osRelease.id "alpine" -}}
 {{-     $alpine = true -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
