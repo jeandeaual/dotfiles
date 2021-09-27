@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# shellcheck disable=SC1091
+. "$(chezmoi source-path)/scripts/plist.sh"
+
+theme=Pro
+
+# Enable “focus follows mouse” for Terminal.app and all X11 apps
+# i.e. hover over a window and start typing in it without clicking first
+pl FocusFollowsMouse -bool true
+
+# Enable Secure Keyboard Entry in Terminal.app
+# See: https://security.stackexchange.com/a/47786/8918
+pl SecureKeyboardEntry -bool true
+
+# Disable the line marks
+pl ShowLineMarks -int 0
+
+# Set the theme
+pl 'Default Window Settings' -string "${theme}"
+
+# Use option as meta key
+pl 'Window Settings':${theme}:useOptionAsMetaKey -bool YES
+pl 'Window Settings':${theme}:columnCount -integer 120
+pl 'Window Settings':${theme}:rowCount -integer 35

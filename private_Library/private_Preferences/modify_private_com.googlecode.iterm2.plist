@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# shellcheck disable=SC1091
+. "$(chezmoi source-path)/scripts/plist.sh"
+
+theme_idx=0 # default
+
+pl PromptOnQuit -bool NO
+pl SUEnableAutomaticChecks -bool NO
+pl SUSendProfileInfo -bool NO
+pl TabStyleWithAutomaticOption -integer 6
+pl HapticFeedbackForEsc -bool NO
+pl SoundForEsc -bool NO
+pl VisualIndicatorForEsc -bool NO
+pl 'New Bookmarks':${theme_idx}:'Option Key Sends' -integer 2
+pl 'New Bookmarks':${theme_idx}:'Prompt Before Closing 2' -bool NO
+pl 'New Bookmarks':${theme_idx}:'Normal Font' -string "FiraCodeNerdFontCompleteM-Retina 12"
+pl 'New Bookmarks':${theme_idx}:'ASCII Anti Aliased' -bool YES
+pl 'New Bookmarks':${theme_idx}:'Non-ASCII Anti Aliased' -bool YES
+pl 'New Bookmarks':${theme_idx}:'ASCII Ligatures' -bool NO
+pl 'New Bookmarks':${theme_idx}:Columns -integer 120
+pl 'New Bookmarks':${theme_idx}:Rows -integer 35
+pl 'New Bookmarks':${theme_idx}:Transparency -float 0
