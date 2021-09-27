@@ -9,7 +9,7 @@
 	ff = only
 [core]
 	autocrlf = false
-	editor = gvim -f
+	editor = vim -f
 	filemode = false
 [alias]
 	co = checkout
@@ -21,8 +21,10 @@
 	dt = difftool
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	who = shortlog -s --
+	pushf = push --force-with-lease
 	sdcommit = !sh -c 'git stash && git svn dcommit && git stash pop'
 	srebase = !sh -c 'git stash && git svn rebase && git stash pop'
+	k = !sh -c 'nohup gitk --all &'
 	guik = !sh -c '(nohup gitk --all &) && (nohup git gui &)'
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	serve2 = !sh -c 'git daemon --reuseaddr --verbose \"$@\" --base-path=. --export-all ./.git' sh
@@ -33,10 +35,10 @@
 	diff = auto
 	interactive = auto
 	status = auto
-[tar "tar.xz"]
-	command = xz -c
 [tar "tar.bz2"]
 	command = bzip2
+[tar "tar.xz"]
+	command = xz -c
 ; Use the SSH instead of HTTPS for Bitbucket (required for 2FA)
 [url "git@bitbucket.org:"]
 	insteadOf = https://bitbucket.org/
@@ -45,9 +47,6 @@
 	insteadOf = "aur:"
 [url "ssh://aur@aur.archlinux.org/"]
 	pushInsteadOf = "aur:"
-; Machine specific Git configuration
-[include]
-	path = ~/.gitconfig.local
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
