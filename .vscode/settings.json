@@ -71,7 +71,7 @@
         // X
         "dot_xprofile": "shellscript",
         // XCompose
-        "dot_XCompose": "XCompose",
+        "dot_XCompose": "xcompose",
         // xdg-user-dir
         "user-dirs.dirs": "shellscript",
         // youtube-dl
