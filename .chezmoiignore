@@ -17,6 +17,7 @@ vimfiles
 {{- if ne .chezmoi.os "darwin" }}
 .Brewfile*
 .config/karabiner
+.hushlogin
 Library
 {{- end }}
 {{- if eq .chezmoi.os "darwin" }}
