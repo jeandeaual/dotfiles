@@ -1,3 +1,7 @@
+{{ if eq .chezmoi.os "windows" -}}
+{{ template "PowerShell/fonts.ps1" }}
+{{- end }}
+
 # Aliases
 #------------------------------------------------------------------------------
 

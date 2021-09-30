@@ -1,0 +1,10 @@
+{{- if eq .chezmoi.os "windows" -}}
+
+{{ template "PowerShell/fonts.ps1" }}
+
+foreach ($Font in (Get-ChildItem -Path ([IO.Path]::Combine($env:LOCALAPPDATA, "Microsoft", "Windows", "Fonts")) | Where-Object {
+             ($_.Name -Like '*.ttf') -or ($_.Name -Like '*.otf')
+         })) {
+    Install-Font -FontFile $Font
+}
+{{ end -}}
