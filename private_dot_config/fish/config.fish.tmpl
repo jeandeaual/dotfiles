@@ -1,12 +1,7 @@
 {{- $archlinux := false -}}
-{{- $wsl := false -}}
-
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if or (eq .chezmoi.osRelease.id "arch") (eq (index .chezmoi.osRelease "idLike") "arch") -}}
 {{-     $archlinux = true -}}
-{{-   end -}}
-{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
-{{-     $wsl = true -}}
 {{-   end -}}
 {{- end -}}
 
@@ -145,7 +140,7 @@ function finddesktop --description="Find all the .desktop files installed on the
 end
 {{- end }}
 
-{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not .wsl) }}
 if type -q dbus-send
     function restartgnome --description="Ask GNOME Shell to restart itself through dbus"
         dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'

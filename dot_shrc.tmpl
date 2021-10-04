@@ -1,14 +1,9 @@
 #!/bin/sh
 
 {{ $archlinux := false -}}
-{{- $wsl := false -}}
-
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if or (eq .chezmoi.osRelease.id "arch") (eq (index .chezmoi.osRelease "idLike") "arch") -}}
 {{-     $archlinux = true -}}
-{{-   end -}}
-{{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
-{{-     $wsl = true -}}
 {{-   end -}}
 {{- end -}}
 
@@ -93,7 +88,7 @@ alias rmbin='find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;'
 # Find all the .desktop files installed on the system
 alias finddesktop='find {/usr/{,local/},${HOME}/.local/}share/applications -type f 2>/dev/null'
 {{- end }}
-{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not $wsl) }}
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not .wsl) }}
 # Ask GNOME Shell to restart itself through dbus
 if command -v dbus-send >/dev/null; then
     alias restartgnome="dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"

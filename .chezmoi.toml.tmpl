@@ -1,19 +1,27 @@
 {{- $codespaces := env "CODESPACES" | not | not -}}
 
-{{- $alpine := false -}}
+{{- $embedded := false -}}
 {{- $wsl := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if eq .chezmoi.osRelease.id "alpine" -}}
-{{-     $alpine = true -}}
+{{-   if regexMatch "link/ether b8:27:eb:([0-9a-f]{2}:){2}([0-9a-f]{2})" (output "ip" "-o" "link" "show" | lower) }}{{/* Detect Raspberry Pi via its Ethernet MAC address */}}
+{{-     $embedded = true -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
 {{-     $wsl = true -}}
 {{-   end -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   if regexMatch "b8:27:eb:([0-9a-f]{2}:){2}([0-9a-f]{2})" (output "powershell.exe" "-NoProfile" "-Command" "Get-NetAdapter | ForEach-Object { Write-Host $_.MacAddress.ToLower() }") }}{{/* Detect Raspberry Pi via its Ethernet MAC address */}}
+{{-     $embedded = true -}}
+{{-   end -}}
 {{- end -}}
 
 {{- $chassisType := "desktop" -}}
-{{- if and (eq .chezmoi.os "linux") (not $codespaces) (not $alpine) (not $wsl) -}}
-{{-   $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepod)") -}}
+{{-     $chassisType = "container" -}}
+{{-   else if and (lookPath "hostnamectl") (not $wsl) -}}
+{{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis -}}
+{{-   end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
 {{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
 {{-     $chassisType = "laptop" -}}
@@ -21,12 +29,24 @@
 {{-     $chassisType = "desktop" -}}
 {{-   end -}}
 {{- else if eq .chezmoi.os "windows" -}}
-{{-   $chassisType = (output "powershell.exe" "-noprofile" "-command" "if (Get-WmiObject -Class win32_battery -ComputerName localhost) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }") -}}
+{{-   $chassisType = output "powershell.exe" "-NoProfile" "-Command" "if (Get-WmiObject -Class win32_battery -ComputerName localhost) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }" -}}
+{{- end -}}
+
+{{- $serial := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $serial = index ioreg "IORegistryEntryChildren" 0 "IOPlatformSerialNumber" -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   $serial = output "powershell.exe" "-NoProfile" "-Command" "Get-WmiObject -Class win32_bios | ForEach-Object { Write-Host $_.SerialNumber -NoNewLine }" -}}
+{{-   if or (eq $serial "System Serial Number") (eq $serial "To Be Filled By O.E.M.") -}}
+{{-     $serial = "" -}}
+{{-   end -}}
+{{- else if stat "/sys/firmware/devicetree/base/serial-number" -}}
+{{    $serial = output "cat" "/sys/firmware/devicetree/base/serial-number" -}}
 {{- end -}}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- if not $codespaces }}{{/* Disable encryption on Codespaces */}}
+{{- if and (not $codespaces) (ne $chassisType "container") }}{{/* Disable encryption on Codespaces and containers */}}
 encryption = "gpg"
 
 [gpg]
@@ -35,7 +55,10 @@ encryption = "gpg"
 
 [data]
     codespaces = {{ $codespaces }}
+    wsl = {{ $wsl }}
+    embedded = {{ $embedded }}
     chassistype = {{ $chassisType | quote }}
+    serial = {{ $serial | quote }}
     work = {{ if eq .chezmoi.username "alexis.jeandeau" -}}true{{- else -}}false{{- end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
@@ -44,5 +67,5 @@ encryption = "gpg"
 {{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
     email = "alexis.jeandeau@gmail.com"
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
-    email = {{ promptString "email" | quote }}
+    email = {{ promptString "E-mail" | quote }}
 {{- end }}
