@@ -29,13 +29,11 @@ Library
 .config/Code
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
+.local/share/fonts
 .Xresources
 .xprofile
 {{- end }}
-{{- if .codespaces }}
-encrypted_*
-{{- end }}
-{{- if eq .chezmoi.username "alexis.jeandeau" }}{{/* Work */}}
+{{- if .work }}{{/* Work */}}
 {{- else }}{{/* Personal */}}
 .kube/config
 {{- end }}
