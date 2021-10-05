@@ -20,7 +20,7 @@
 {{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepod)") -}}
 {{-     $chassisType = "container" -}}
 {{-   else if and (lookPath "hostnamectl") (not $wsl) -}}
-{{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis -}}
+{{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis | trimSuffix "\"" | trimPrefix "\"" -}}
 {{-   end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
 {{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
@@ -41,7 +41,7 @@
 {{-     $serial = "" -}}
 {{-   end -}}
 {{- else if stat "/sys/firmware/devicetree/base/serial-number" -}}
-{{    $serial = output "cat" "/sys/firmware/devicetree/base/serial-number" -}}
+{{-   $serial = regexReplaceAll "[^0-9A-Za-z]" (output "cat" "/sys/firmware/devicetree/base/serial-number") "" -}}
 {{- end -}}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
