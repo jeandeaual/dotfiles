@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "windows" -}}
+
+winget import `
+    -i {{ joinPath .chezmoi.sourceDir "AppData" "Local" "Packages" "Microsoft.DesktopAppInstaller_8wekyb3d8bbwe" "LocalState" "winget-export.json" }} `
+    --accept-package-agreements `
+    --accept-source-agreements
+{{ end -}}

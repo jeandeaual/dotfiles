@@ -4,6 +4,7 @@ install.sh
 scripts/
 Code/
 vim/
+AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/winget-export.json
 {{- if ne .chezmoi.os "windows" }}
 AppData
 Documents
