@@ -29,14 +29,14 @@
 {{-     $chassisType = "desktop" -}}
 {{-   end -}}
 {{- else if eq .chezmoi.os "windows" -}}
-{{-   $chassisType = output "powershell.exe" "-NoProfile" "-Command" "if (Get-WmiObject -Class win32_battery -ComputerName localhost) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }" -}}
+{{-   $chassisType = output "powershell.exe" "-NoProfile" "-Command" "if (Get-CimInstance -ClassName CIM_Battery) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }" -}}
 {{- end -}}
 
 {{- $serial := "" -}}
 {{- if eq .chezmoi.os "darwin" -}}
 {{-   $serial = index ioreg "IORegistryEntryChildren" 0 "IOPlatformSerialNumber" -}}
 {{- else if eq .chezmoi.os "windows" -}}
-{{-   $serial = output "powershell.exe" "-NoProfile" "-Command" "Get-WmiObject -Class win32_bios | ForEach-Object { Write-Host $_.SerialNumber -NoNewLine }" -}}
+{{-   $serial = output "powershell.exe" "-NoProfile" "-Command" "Write-Host (Get-CimInstance -ClassName CIM_BIOSElement).SerialNumber -NoNewLine" -}}
 {{-   if or (eq $serial "System Serial Number") (eq $serial "To Be Filled By O.E.M.") -}}
 {{-     $serial = "" -}}
 {{-   end -}}
