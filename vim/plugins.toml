@@ -108,6 +108,11 @@ repo = 'weirongxu/plantuml-previewer.vim'
 [[plugins]]
 repo = 'stfl/meson.vim'
 
+# Kubernetes
+[[plugins]]
+repo = 'andrewstuart/vim-kubernetes'
+depends = ['vim-go']
+
 # Filetype detection by the shebang line
 [[plugins]]
 repo = 'vitalk/vim-shebang'
