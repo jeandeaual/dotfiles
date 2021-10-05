@@ -1,24 +1,16 @@
-function Test-Administrator
-{
-    <#
-        .SYNOPSIS
-            Check if the user is an administrator
-    #>
-    $user = [Security.Principal.WindowsIdentity]::GetCurrent()
-    (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
-}
+{{ template "PowerShell/admin.ps1" }}
 
 function Install-Font {
     <#
         .SYNOPSIS
-            Install a font
+        Install a font
 
         .DESCRIPTION
-            This function will attempt to install the font by copying it to C:\Windows\Fonts (if run as admin) or
-            %LOCALAPPDATA%\Microsoft\Windows\Fonts and then adding it in the registry.
+        This function will attempt to install the font by copying it to C:\Windows\Fonts (if run as admin) or
+        %LOCALAPPDATA%\Microsoft\Windows\Fonts and then adding it in the registry.
 
         .EXAMPLE
-            Install-Font -FontFile $file
+        Install-Font -FontFile $file
     #>
     param (
         # Path of the font to install
