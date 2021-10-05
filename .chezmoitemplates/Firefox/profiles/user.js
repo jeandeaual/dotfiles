@@ -371,13 +371,13 @@ user_pref("security.ssl3.ecdh_ecdsa_aes_256_sha", false);
 user_pref("security.ssl3.rsa_camellia_256_sha", false);
 
 // PREF: Enable ciphers with ECDHE and key size > 128bits
-user_pref("security.ssl3.ecdhe_rsa_aes_256_sha", true); // 0xc014
-user_pref("security.ssl3.ecdhe_ecdsa_aes_256_sha", true); // 0xc00a
+user_pref("security.ssl3.ecdhe_rsa_aes_256_sha", true);
+user_pref("security.ssl3.ecdhe_ecdsa_aes_256_sha", true);
 
 // PREF: Enable GCM ciphers (TLSv1.2 only)
 // https://en.wikipedia.org/wiki/Galois/Counter_Mode
-user_pref("security.ssl3.ecdhe_ecdsa_aes_128_gcm_sha256", true); // 0xc02b
-user_pref("security.ssl3.ecdhe_rsa_aes_128_gcm_sha256", true); // 0xc02f
+user_pref("security.ssl3.ecdhe_ecdsa_aes_128_gcm_sha256", true);
+user_pref("security.ssl3.ecdhe_rsa_aes_128_gcm_sha256", true);
 
 // PREF: Enable ChaCha20 and Poly1305 (Firefox >= 47)
 // https://www.mozilla.org/en-US/firefox/47.0/releasenotes/
@@ -400,7 +400,16 @@ user_pref("security.ssl3.dhe_dss_camellia_128_sha", false);
 user_pref("security.ssl3.dhe_dss_camellia_256_sha", false);
 
 // PREF: Fallbacks due compatibility reasons
-user_pref("security.ssl3.rsa_aes_256_sha", true); // 0x35
-user_pref("security.ssl3.rsa_aes_128_sha", true); // 0x2f
+user_pref("security.ssl3.rsa_aes_256_sha", true);
+user_pref("security.ssl3.rsa_aes_128_sha", true);
+
+/******************************************************************************
+ * SECTION: Keybindings                                                       *
+ ******************************************************************************/
+
+// PREF: Disable forward / back on the side mouse buttons since they are usually
+// used for push-to-talk in other applications
+user_pref("mousebutton.4th.enabled", false);
+user_pref("mousebutton.5th.enabled", false);
 
 /* jshint ignore:end */
