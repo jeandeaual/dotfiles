@@ -18,42 +18,48 @@ epm:install &silent-if-installed ^
 use github.com/zzamboni/elvish-modules/iterm2
 
 iterm2:init
-edit:insert:binding[Ctrl-L] = $iterm2:clear-screen~
+set edit:insert:binding[Ctrl-l] = $iterm2:clear-screen~
 {{- end }}
 
-# Prompt
-#------------------------------------------------------------------------------
-# Default prompt:
-# edit:prompt = { tilde-abbr $pwd; put '> ' }
-# Default right prompt:
-# edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
+use interactive
+
+# Arrange for [Alt-e] and [Meta-e] to edit the current command buffer using the
+# prefered external editor
+set edit:insert:binding[Alt-e] = $interactive:external_edit_command~
+set edit:insert:binding[Meta-e] = $interactive:external_edit_command~
+
+try {
+    use work
+} except {
+    # The work module might not be available on some machines
+}
 
 # Environment variables
 #------------------------------------------------------------------------------
-E:VISUAL = 'gvim'
+set E:VISUAL = 'gvim'
 # Preferred editor for local and remote sessions
-if ?(test -n $E:SSH_CONNECTION) {
-  E:EDITOR = 'vim'
+if (eq $E:SSH_CONNECTION '') {
+  set E:EDITOR = 'vim'
 } else {
-  E:EDITOR = 'gvim'
+  set E:EDITOR = 'gvim'
 }
-E:SYSTEMD_EDITOR = $E:EDITOR
-E:FCEDIT = $E:EDITOR
-E:SVN_EDITOR = $E:EDITOR
-E:PAGER = 'less'
-E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
-E:WWW_BROWSER = 'w3m'
-E:DOWNLOADER = 'wget -S'
-if ?(test -d "/usr/local/man") {
+set E:SYSTEMD_EDITOR = $E:EDITOR
+set E:FCEDIT = $E:EDITOR
+set E:SVN_EDITOR = $E:EDITOR
+set E:PAGER = 'less'
+set E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+set E:WWW_BROWSER = 'w3m'
+set E:DOWNLOADER = 'wget -S'
+if (path:is-dir /usr/local/man) {
   if (eq E:MANPATH '') {
-    E:MANPATH = /usr/local/man
+    set E:MANPATH = /usr/local/man
   } else {
-    E:MANPATH = (str:join ':' [/usr/local/man $E:MANPATH])
+    set E:MANPATH = (str:join ':' [/usr/local/man $E:MANPATH])
   }
 }
 # Add ~/.local/bin to the PATH if it exists
-if ?(test -d $E:HOME"/.local/bin") {
-  paths = [$E:HOME"/.local/bin" $@paths]
+if (path:is-dir $E:HOME"/.local/bin") {
+  set paths = [$E:HOME"/.local/bin" $@paths]
 }
 
 # Aliases
@@ -61,7 +67,7 @@ if ?(test -d $E:HOME"/.local/bin") {
 {{- if eq .chezmoi.os "darwin" }}
 fn o [@a]{ open $@a }
 {{- else }}
-if ?(command -v xdg-open >/dev/null) {
+if (has-external xdg-open) {
   fn o [@a]{ xdg-open $@a }
 }
 {{- end }}
@@ -85,16 +91,13 @@ fn ports { sudo lsof +M -i4 -n -P }
 # Force tmux to assume the terminal supports 256 colours
 fn tmux [@a]{ e:tmux -2 $@a }
 fn em [@a]{ emacs $@a }
-if ?(command -v emacsclient >/dev/null) {
+if (has-external emacsclient) {
   # Open a new Emacs frame
   fn emc [@a]{ emacsclient -n -c -a "" $@a }
   # Open an Emacs frame in the current TTY
   fn emw [@a]{ emacsclient -n -w -a "" $@a }
 }
-# Find duplicate files under the current file tree by size and MD5 sum
-fn dup {
-  find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
-}
+
 # Get the external IP address
 fn wip {
   dig -4 +short myip.opendns.com A @resolver1.opendns.com
@@ -105,14 +108,14 @@ fn wip6 {
   # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
 }
 # Delete all executables from the current directory
-fn rmbin { find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \; }
-{{- if ne .chezmoi.os "darwin" }}
+fn rmbin { find . -maxdepth 1 -perm /111 -type f -exec rm -v '{}' ';' }
+{{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") }}
 # Find all the .desktop files installed on the system
-fn finddesktop { find {/usr/{,local/},$E:HOME/.local/}share/applications -type f 2>/dev/null }
+fn finddesktop { try { find {/usr/{,local/},$E:HOME/.local/}share/applications -type f 2>/dev/null } except _ { } }
 {{- end }}
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not .wsl) }}
 # Ask GNOME Shell to restart itself through dbus
-if ?(command -v dbus-send >/dev/null) {
+if (has-external dbus-send) {
   fn restartgnome { dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()' }
 }
 {{- end }}
@@ -121,19 +124,19 @@ if ?(command -v dbus-send >/dev/null) {
 fn pbcopy { xclip -selection clipboard }
 fn pbpaste { xclip -selection clipboard -o }
 # Show a QR code with the clipboard's content
-if (and ?(command -v xclip >/dev/null) ?(command -v qrencode >/dev/null)) {
+if (and (has-external xclip) (has-external qrencode)) {
   fn qr { xclip -selection clipboard -o | qrencode --size=10 -o - | feh - }
 }
-if ?(command -v ip >/dev/null) {
+if (has-external ip) {
   fn ips {
     for gw (ip route list to 0/0 | awk '{print $3}') {
-      ip route get to "$gw" | awk '/src/ {print $5}'
+      ip route get to $gw | awk '/src/ {print $5}'
     }
   }
 }
 {{- end }}
 # Mozc aliases
-if ?(test -e /usr/lib/mozc/mozc_tool) {
+if (has-external /usr/lib/mozc/mozc_tool) {
   fn mozc-config { /usr/lib/mozc/mozc_tool --mode=config_dialog }
   fn mozc-pad { /usr/lib/mozc/mozc_tool --mode=hand_writing }
   fn mozc-register { /usr/lib/mozc/mozc_tool --mode=word_register_dialog }
@@ -146,7 +149,7 @@ fn cal [@a]{ ncal -bM -w $@a }
 {{- end }}
 # List zombie processes
 fn zombie {
-  ps -eo state,ppid | awk '/^Z/ {print $2}' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}
+  ps -eo state,ppid | eawk [line type pid]{ use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } except _ { }
 }
 # Current UNIX timestamp in seconds
 fn ts { date +%s }
@@ -155,32 +158,49 @@ fn tsms { date +%s%N | cut -b1-13 }
 # Current UNIX timestamp in nanoseconds
 fn tsns { date +%s%N }
 # AWS
-if ?(command -v aws >/dev/null) {
+if (has-external aws) {
   fn lambdalist {
-    aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
+    aws --output json lambda list-functions |
+      from-json |
+      each [result]{ put $result[Functions] } |
+      all (one) |
+      each [f]{ put $f[FunctionName] }
   }
 }
 # Python
-fn activate { source ./venv/bin/activate }
-fn pipenv2requirements { jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock }
+fn pipenv2requirements {
+  var pipfile = (cat Pipfile.lock | from-json)
+  var default = $pipfile[default]
+  keys $default | each [k]{
+    echo &sep='' $k $default[$k][version]
+  }
+}
 # DBus
-if ?(command -v dbus-send >/dev/null) {
+if (has-external dbus-send) {
   # Get the PID of the currently running DBus Secret Service daemon
-  fn secretservicepid { dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets }
+  fn secretservicepid {
+    dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets
+  }
   # Display the QuodLibet play time
-  fn quodplaytime { dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}' }
+  fn quodplaytime {
+    dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}'
+  }
 }
 # SSH key generation
-if ?(command -v ssh-keygen >/dev/null) {
+if (has-external ssh-keygen) {
   fn ssh-keygen-rsa { ssh-keygen -t rsa -b 4096 }
   fn ssh-keygen-ed25519 { ssh-keygen -t ed25519 }
 }
-if ?(command -v flac >/dev/null) {
+if (has-external flac) {
   # Reencode FLAC files with the highest compression settings
-  fn flacreencode { find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \; }
+  fn flacreencode { put **[type:regular].flac | peach [file]{ flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file } }
+}
+if (has-external pwsh) {
+  # Start PowerShell without displaying the copyright banner
+  fn pwsh [@a]{ e:pwsh -NoLogo $@a }
 }
 {{- if $archlinux }}
-if ?(command -v paru >/dev/null) {
+if (has-external paru) {
   # Call paru while skipping checksums and PGP checks
   fn paruignore [@a]{ paru --mflags "--skipchecksums --skippgpcheck" $@a }
 }
@@ -194,13 +214,11 @@ fn mkcd [dir]{
   cd $dir
 }
 
-# Change directory to the chezmoi folder without creating a subshell
-fn chezmoicd {
-  if (not ?(command -v chezmoi >/dev/null)) {
-    fail "chezmoi is not installed"
+if (has-external chezmoi) {
+  # Change directory to the chezmoi folder without creating a subshell
+  fn chezmoicd {
+    cd (chezmoi source-path)
   }
-
-  cd (chezmoi source-path)
 }
 
 # Increment a version number
@@ -218,64 +236,111 @@ fn inc_version [version]{
 # Write an ISO image to a device
 # Usage: write_iso ISO DEVICE
 fn write_iso [file device]{
-  if (or ?(test ! -f $file) (not (re:match '.iso$' $file))) {
+  if (or (not (path:is-regular &follow-symlink=$true $file)) (not (re:match '.iso$' $file))) {
     fail "The first argument needs to be an ISO file"
   }
-  if (or ?(test ! -e $device) (not (re:match '^/dev/sd' $device))) {
+  if (or (not (path:is-regular &follow-symlink=$true $device)) (not (re:match '^/dev/sd' $device))) {
     fail "The second argument needs to be a device"
   }
 
   sudo dd if=$file of=$device bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
 }
 
+if (has-external tsh) {
+  # Login to Teleport
+  fn tshl [env]{
+    if (not (has-value [prod stg dev infra sci] $env)) {
+      set env = dev
+    }
+
+    if (eq $E:SSH_CONNECTION '') {
+      if (and (not-eq $E:TELEPORT_PROXY '')
+                (not-eq $E:TELEPORT_USER '')
+                (path:is-regular &follow-symlink=$true $E:HOME"/.tsh/"(str:split ':' $E:TELEPORT_PROXY | take 1)".yaml")) {
+        tsh login
+      }
+
+      tsh kube login $env
+    }
+  }
+}
+
 # CentOS only
 # Use Vim with system clipboard support if installed
-if (and ?(test -e /usr/bin/vimx) ?(test ! -e /usr/local/bin/vim)) {
+if (and (path:is-regular &follow-symlink=$true /usr/bin/vimx) ^
+        (not (path:is-regular &follow-symlink=$true /usr/local/bin/vim))) {
   fn vim [@a]{ /usr/bin/vimx $@a }
 }
 
 # Haskell
 #------------------------------------------------------------------------------
-if ?(test -d $E:HOME"/.cabal/bin") {
-  paths = [$E:HOME"/.cabal/bin" $@paths]
+if (path:is-dir $E:HOME"/.cabal/bin") {
+  set paths = [$E:HOME"/.cabal/bin" $@paths]
 }
-if ?(command -v ghc >/dev/null) {
+if (has-external ghc) {
   fn ghc-sandbox [@a]{ ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
 }
-if ?(command -v ghci >/dev/null) {
+if (has-external ghci) {
   fn ghci-sandbox [@a]{ ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
 }
-if ?(command -v runhaskell >/dev/null) {
+if (has-external runhaskell) {
   fn runhaskell-sandbox [@a]{ runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
 }
 
 # Go
 #------------------------------------------------------------------------------
-if ?(command -v go >/dev/null) {
+if (has-external go) {
   # go build and strip the debugging information (DWARF tables)
   fn gor [@a]{ go build -ldflags='-s -w' $@a }
 
   var gopath = (go env GOPATH 2>/dev/null)
   if (not-eq $gopath '') {
-    paths = [$gopath"/bin" $@paths]
+    set paths = [$gopath"/bin" $@paths]
   }
 }
 
 # Rust
 #------------------------------------------------------------------------------
-if ?(command -v rustup >/dev/null) {
+if (has-external rustup) {
   fn rustbook { rustup docs --book }
 }
-if ?(test -d $E:HOME"/.cargo/bin") {
-  paths = [$E:HOME"/.cargo/bin" $@paths]
+if (path:is-dir $E:HOME"/.cargo/bin") {
+  set paths = [$E:HOME"/.cargo/bin" $@paths]
 }
 
 # Ruby
 #------------------------------------------------------------------------------
-if ?(test -d $E:HOME"/.rvm/bin") {
-  paths = [$E:HOME"/.rvm/bin" $@paths]
+if (path:is-dir $E:HOME"/.rvm/bin") {
+  set paths = [$E:HOME"/.rvm/bin" $@paths]
 }
 
+# Prompt
+#------------------------------------------------------------------------------
+if (has-external starship) {
+  eval (starship init elvish)
+} else {
+  # Default prompt:
+  # set edit:prompt = { tilde-abbr $pwd; put '> ' }
+  # Default right prompt:
+  # set edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
+  set edit:prompt = {
+    var user_char = '$'
+    # https://fishshell.com/docs/current/cmds/fish_is_root_user.html
+    if (has-value [root toor Administrator] $E:USER) {
+      set user_char = '#'
+    }
+
+    styled-segment (whoami) &fg-color=green &bold=$true
+    styled '@' bold
+    styled-segment (hostname) &fg-color=blue &bold=$true
+    put ' '
+    styled-segment (tilde-abbr $pwd) &fg-color=yellow &bold=$true
+    put ' '$user_char' '
+  }
+  set edit:rprompt = { }
+}
+
+# Check if the paths in $PATH actually exist
 each [p]{
   if (not (path:is-dir &follow-symlink $p)) {
     echo (styled "Warning: directory "$p" in $paths no longer exists." red)

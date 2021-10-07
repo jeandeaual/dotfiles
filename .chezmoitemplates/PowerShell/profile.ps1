@@ -35,9 +35,7 @@ function Add-Path {
 
 {{ if eq .chezmoi.os "windows" -}}
 {{ template "PowerShell/fonts.ps1" }}
-{{- end }}
 
-{{- if eq .chezmoi.os "windows" }}
 foreach ($path in @("C:\bin", "${env:ProgramFiles}\nodejs")) {
     Add-Path $path
 }
@@ -47,9 +45,11 @@ try { Get-ChildItem -Directory -Path "${env:LocalAppData}\Programs\Python" -Erro
 try { Get-ChildItem -Directory -Path "C:\" -ErrorAction Stop | Where-Object {$_.Name -like 'Ruby*-x64'} | Add-Path } catch {}
 # Add the Vim folder to the path if it's not already there
 try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Vim" -ErrorAction Stop | Where-Object {$_.Name -like 'vim*'} | Add-Path } catch {}
+{{ else -}}
+{{ template "PowerShell/admin.ps1" .chezmoi.os}}
 {{- end }}
 
-# Aliases
+# Aliases & functions
 #------------------------------------------------------------------------------
 
 if (Get-Command vim -ErrorAction SilentlyContinue) {
@@ -76,13 +76,24 @@ function Relaunch-Admin { Start-Process -Verb RunAs (Get-Process -Id $PID).Path 
 # Alias for the function:
 Set-Alias pwshadmin Relaunch-Admin
 
-function ll { Get-ChildItem -Force }
+Set-Alias which Get-Command
+
+function ll { Get-ChildItem -Force $args }
+
+# Start PowerShell without displaying the copyright banner
+if (Get-Command pwsh -ErrorAction SilentlyContinue) {
+    function private:pwsh { & pwsh -NoLogo $args }
+}
+
+{{- if eq .chezmoi.os "windows" }}
+function private:powershell { & powershell -NoLogo $args }
+{{- end }}
 
 # Custom functions
 #------------------------------------------------------------------------------
 
 function mkcd {
-    if (!(Test-Path -Path $args[0])) {
+    if (-not (Test-Path -Path $args[0])) {
         mkdir $args[0] > $null
     }
     Set-Location $args[0] -PassThru
@@ -147,4 +158,45 @@ Function Req {
     Write-Host "OK ($($response.StatusCode))"
 
     return $response
+}
+
+# Python
+function activate {
+{{- if eq .chezmoi.os "windows" }}
+    .\venv\Scripts\Activate.ps1
+{{- else }}
+    .\venv\bin\Activate.ps1
+{{- end }}
+}
+
+# Prompt
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship init powershell)
+} else {
+    function global:prompt {
+        $userChar = '$'
+        # https://fishshell.com/docs/current/cmds/fish_is_root_user.html
+        if (Test-Admin) {
+            $userChar = '#'
+        }
+{{- if eq .chezmoi.os "windows" }}
+        $username = ([Security.Principal.WindowsIdentity]::GetCurrent()).Name.Split('\')[1]
+{{- else }}
+        $username = $(whoami)
+{{- end }}
+        $path = switch -Wildcard ($executionContext.SessionState.Path.CurrentLocation.Path) {
+            "$HOME" { "~" }
+            "$HOME{{ if eq .chezmoi.os "windows" }}\{{ else }}/{{ end }}*" { $executionContext.SessionState.Path.CurrentLocation.Path.Replace($HOME, "~") }
+            default { $executionContext.SessionState.Path.CurrentLocation.Path }
+        }
+
+        Write-Host $username -NoNewLine -ForegroundColor Green
+        Write-Host '@' -NoNewLine -ForegroundColor White
+        Write-Host ([System.Net.Dns]::GetHostName()) -NoNewLine -ForegroundColor Blue
+        Write-Host ' ' -NoNewline
+        Write-Host $path -NoNewLine -ForegroundColor Yellow
+        Write-Host " $userChar" -NoNewLine
+
+        return ' '
+    }
 }

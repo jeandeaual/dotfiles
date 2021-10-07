@@ -12,6 +12,11 @@ if [ -f "${HOME}/.shrc.local" ]; then
     . "${HOME}/.shrc.local"
 fi
 
+if [ -f "${HOME}/.shrc.work" ]; then
+    # shellcheck disable=SC1091
+    . "${HOME}/.shrc.work"
+fi
+
 # Required for interactive use on dash
 # shellcheck disable=SC3040
 set -o | grep emacs >/dev/null 2>&1 && set -o emacs
@@ -40,7 +45,7 @@ if [ -d "${HOME}/.local/bin" ]; then
     export PATH="${HOME}/.local/bin${PATH+:}${PATH}"
 fi
 
-# Aliases
+# Aliases & functions
 #------------------------------------------------------------------------------
 {{- if eq .chezmoi.os "darwin" }}
 alias o='open'
@@ -75,8 +80,6 @@ if command -v emacsclient >/dev/null; then
     # Open an Emacs frame in the current TTY
     alias emw='emacsclient -n -w -a ""'
 fi
-# Find duplicate files under the current file tree by size and MD5 sum
-alias dup='find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate'
 # Get the external IP address
 alias wip='dig -4 +short myip.opendns.com A @resolver1.opendns.com'
 # alias wip='dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '\''"'\'' -f 2'
@@ -108,7 +111,7 @@ fi
 {{- end }}
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
-if [ -e /usr/lib/mozc/mozc_tool ]; then
+if command -v /usr/lib/mozc/mozc_tool >/dev/null; then
     alias mozc-config='/usr/lib/mozc/mozc_tool --mode=config_dialog'
     alias mozc-pad='/usr/lib/mozc/mozc_tool --mode=hand_writing'
     alias mozc-register='/usr/lib/mozc/mozc_tool --mode=word_register_dialog'
@@ -153,16 +156,16 @@ if command -v flac >/dev/null; then
     # Reencode FLAC files with the highest compression settings
     alias flacreencode="find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;"
 fi
+if command -v pwsh >/dev/null; then
+    # Start PowerShell without displaying the copyright banner
+    alias pwsh='pwsh -NoLogo'
+fi
 {{- if $archlinux }}
 if command -v paru >/dev/null; then
     # Call paru while skipping checksums and PGP checks
     alias paruignore='paru --mflags "--skipchecksums --skippgpcheck"'
 fi
 {{- end }}
-
-
-# Custom functions
-#------------------------------------------------------------------------------
 
 # Create a directory and enter it
 # Usage: mkcd FOLDER
@@ -171,14 +174,11 @@ mkcd() {
 }
 
 # Change directory to the chezmoi folder without creating a subshell
-chezmoicd() {
-    command -v chezmoi >/dev/null || {
-        echo "chezmoi is not installed" 1>&2
-        return 1
+if command -v chezmoi >/dev/null; then
+    chezmoicd() {
+        cd "$(chezmoi source-path)" || return
     }
-
-    cd "$(chezmoi source-path)" || return
-}
+fi
 
 # Increment a version number
 # Usage:
@@ -209,6 +209,36 @@ write_iso() {
 
     sudo dd if="$1" of="$2" bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
 }
+
+# Remove .DS_Store and ._ AppleDouble files recursively in a directory
+rmmacdotfiles() {
+{{- if eq .chezmoi.os "darwin" }}
+    dot_clean -m "${@:-.}"
+{{- else }}
+    find "${@:-.}" -type f \( -name '.DS_Store' -o -name '._*' \) -delete
+{{- end }}
+}
+
+if command -v tsh >/dev/null; then
+    tshl() {
+        case "$1" in
+            prod|stg|dev|infra|sti)
+                env=$1
+                ;;
+            *)
+                env=dev
+                ;;
+        esac
+
+        if [ -n "${TELEPORT_PROXY}" ] && \
+           [ "${TELEPORT_USER}" ] && \
+           [ ! -f "${HOME}/.tsh/$(echo $TELEPORT_PROXY | cut -d':' -f 1).yaml" ]; then
+            tsh login
+        fi
+
+        tsh kube login "${env}"
+    }
+fi
 
 # CentOS only
 # Use Vim with system clipboard support if installed

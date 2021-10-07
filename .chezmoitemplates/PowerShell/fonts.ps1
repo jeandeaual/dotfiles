@@ -1,4 +1,4 @@
-{{ template "PowerShell/admin.ps1" }}
+{{ template "PowerShell/admin.ps1" .chezmoi.os }}
 
 function Install-Font {
     <#
@@ -39,7 +39,7 @@ function Install-Font {
         ".ttf" { $FontName = "$FontName (TrueType)" }
         ".otf" { $FontName = "$FontName (OpenType)" }
     }
-    if (Test-Administrator) {
+    if (Test-Admin) {
         $FontPath = "C:\Windows\Fonts"
         $RegistryPath = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts"
         $DestPath = [IO.Path]::Combine($FontPath, $FontFile.Name)

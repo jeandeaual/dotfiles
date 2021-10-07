@@ -1,0 +1,318 @@
+{{- $plaintext := false -}}
+{{- $nerdfont := true -}}
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+[character]
+{{- if $plaintext }}
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
+vicmd_symbol = "[<](bold green)"
+{{- else }}
+# Replace the "❯" symbol in the prompt with "➜"
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vicmd_symbol = "[←](bold green)"
+{{- end }}
+
+[cmd_duration]
+format = ' [{{ if not $plaintext }}⏱{{ end }} $duration]($style)'
+
+[directory]
+truncation_length = 8
+truncate_to_repo = false
+{{- if $plaintext }}
+read_only = " ro"
+{{- end }}
+
+[git_branch]
+format = ' [$symbol$branch]($style)'
+{{- if $plaintext }}
+symbol = ""
+{{- else if not $nerdfont }}
+symbol = "🪵 "
+{{- end }}
+
+{{- if $plaintext }}
+
+[git_commit]
+tag_symbol = " tag "
+{{- end }}
+
+[git_status]
+format = ' ([$all_status$ahead_behind]($style))'
+{{- if $plaintext }}
+symbol = "git "
+ahead = ">"
+behind = "<"
+diverged = "<>"
+renamed = "r"
+deleted = "x"
+{{- end }}
+
+[hg_branch]
+format = ' [$symbol$branch]($style)'
+{{- if $plaintext }}
+symbol = "hg "
+{{- end }}
+
+[jobs]
+{{- if $plaintext }}
+symbol = "<>"
+{{- end }}
+
+[memory_usage]
+format = ' $symbol[$ram( | $swap)]($style)'
+{{- if $plaintext }}
+symbol = "memory "
+{{- end }}
+
+[shell]
+# fish_indicator = ""
+# powershell_indicator = "_"
+disabled = true
+
+[time]
+format = ' [$time]($style)'
+
+[username]
+format = ' [$user]($style)'
+
+[aws]
+format = ' [$symbol($profile)(\($region\))(\[$duration\])]($style)'
+{{- if $plaintext }}
+symbol = "aws "
+{{- end }}
+disabled = true
+
+[cmake]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "cmake "
+{{- end }}
+
+[cobol]
+format = ' [$symbol($version )]($style)'
+{{- if $plaintext }}
+symbol = "cbl "
+{{- end }}
+
+[conda]
+format = ' [$symbol$environment]($style)'
+{{- if $plaintext }}
+symbol = "conda "
+{{- end }}
+
+[crystal]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "cr "
+{{- end }}
+
+[dart]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "dart "
+{{- end }}
+
+[deno]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "deno "
+{{- end }}
+
+[docker_context]
+format = ' [$symbol$context]($style)'
+{{- if $plaintext }}
+symbol = "docker "
+{{- end }}
+
+[dotnet]
+format = ' [$symbol($version)({{ if not $plaintext }}🎯{{ end }} $tfm)]($style)'
+{{- if $plaintext }}
+symbol = ".NET "
+{{- end }}
+
+[elixir]
+format = ' [$symbol($version OTP $otp_version\))]($style)\]'
+{{- if $plaintext }}
+symbol = "elixir "
+{{- end }}
+
+[elm]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "elm "
+{{- end }}
+
+[erlang]
+format = ' [$symbol($version)]($style)'
+{{- if or $plaintext (not $nerdfont) }}
+symbol = "erl "
+{{- end }}
+
+[gcloud]
+format = ' [$symbol$account(@$domain)(\($region\))]($style)'
+{{- if $plaintext }}
+symbol = "gcloud "
+{{- end }}
+
+[golang]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "go "
+{{- end }}
+
+[helm]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "helm "
+{{- end }}
+
+[java]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "java "
+{{- end }}
+
+[julia]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "jl "
+{{- end }}
+
+[kotlin]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "kt "
+{{- end }}
+
+[kubernetes]
+format = ' [$symbol$context( \($namespace\))]($style)'
+{{- if $plaintext }}
+symbol = "k9s "
+{{- end }}
+
+[lua]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "lua "
+{{- end }}
+
+[nim]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "nim "
+{{- end }}
+
+[nix_shell]
+format = ' [$symbol$state( \($name\))]($style)'
+{{- if $plaintext }}
+symbol = "nix "
+{{- end }}
+
+[nodejs]
+format = ' [$symbol($version)]($style)'
+{{- if or $plaintext (not $nerdfont) }}
+symbol = "node "
+{{- end }}
+
+[ocaml]
+format = ' [$symbol($version)(\($switch_indicator$switch_name\))]($style)'
+{{- if $plaintext }}
+symbol = "ml "
+{{- end }}
+
+[openstack]
+format = ' [$symbol$cloud(\($project\))]($style)'
+{{- if $plaintext }}
+symbol = "os "
+{{- end }}
+
+[package]
+format = ' [$symbol$version]($style)'
+{{- if $plaintext }}
+symbol = "pkg "
+{{- end }}
+
+[perl]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "pl "
+{{- end }}
+
+[php]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "php "
+{{- end }}
+
+[purescript]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "purs "
+{{- end }}
+
+[python]
+format = ' [${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
+{{- if $plaintext }}
+symbol = "py "
+{{- end }}
+
+[red]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "red "
+{{- end }}
+
+[ruby]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "rb "
+{{- end }}
+
+[rust]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "rs "
+{{- end }}
+
+[scala]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "scala "
+{{- end }}
+
+[swift]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "swift "
+{{- end }}
+
+[terraform]
+format = ' [$symbol$workspace]($style)'
+{{- if $plaintext }}
+symbol = "tf "
+{{- end }}
+
+[vagrant]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "vg "
+{{- end }}
+
+[vlang]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "vlang "
+{{- end }}
+
+[zig]
+format = ' [$symbol($version)]($style)'
+{{- if $plaintext }}
+symbol = "zig "
+{{- end }}

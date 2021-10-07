@@ -5,6 +5,10 @@
 {{-   end -}}
 {{- end -}}
 
+if test -f {$HOME}/.fish.local
+    source {$HOME}/.fish.local
+end
+
 # Disable the default prompt
 set fish_greeting ""
 
@@ -12,9 +16,9 @@ set fish_greeting ""
 #------------------------------------------------------------------------------
 set -xU VISUAL gvim
 if set -q SSH_CONNECTION
-  set -xU EDITOR vim
+    set -xU EDITOR vim
 else
-  set -xU EDITOR gvim
+    set -xU EDITOR gvim
 end
 set -xU SYSTEMD_EDITOR $EDITOR
 set -xU FCEDIT $EDITOR
@@ -23,11 +27,11 @@ set -xU PAGER less
 set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
 set -xU WWW_BROWSER w3m
 set -xU DOWNLOADER wget -S
-if test -d "/usr/local/man"
+if test -d /usr/local/man
     set -xU MANPATH /usr/local/man $MANPATH
 end
 # Add ~/.local/bin to the PATH if it exists
-if test -d "{$HOME}/.local/bin"
+if test -d {$HOME}/.local/bin
     set -U fish_user_paths {$HOME}/.local/bin $fish_user_paths
 end
 
@@ -95,11 +99,11 @@ function j
     jobs -l $argv
 end
 
-function ports --description="Show which process is using which port"
+function ports --description "Show which process is using which port"
     sudo lsof +M -i4 -n -P
 end
 
-function tmux --description="Force tmux to assume the terminal supports 256 colours"
+function tmux --description "Force tmux to assume the terminal supports 256 colours"
     command tmux -2 $argv
 end
 
@@ -108,19 +112,15 @@ function em
 end
 
 if type -q emacsclient
-    function emc --description="Open a new Emacs frame"
+    function emc --description "Open a new Emacs frame"
         emacsclient -n -c -a "" $argv
     end
-    function emw --description="Open an Emacs frame in the current TTY"
+    function emw --description "Open an Emacs frame in the current TTY"
         emacsclient -n -w -a "" $argv
     end
 end
 
-function dup --description="Find duplicate files under the current file tree by size and MD5 sum"
-    find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
-end
-
-function wip --description="Get the external IP address"
+function wip --description "Get the external IP address"
     dig -4 +short myip.opendns.com A @resolver1.opendns.com
     # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
 end
@@ -130,19 +130,19 @@ function wip6
     # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
 end
 
-function rmbin --description="Delete all executables from the current directory"
+function rmbin --description "Delete all executables from the current directory"
     find . -maxdepth 1 -perm /111 -type f -exec rm -v {} \;
 end
 
 {{- if ne .chezmoi.os "darwin" }}
-function finddesktop --description="Find all the .desktop files installed on the system"
+function finddesktop --description "Find all the .desktop files installed on the system"
     find {/usr/{,local/},{$HOME}/.local/}share/applications -type f 2>/dev/null
 end
 {{- end }}
 
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not .wsl) }}
 if type -q dbus-send
-    function restartgnome --description="Ask GNOME Shell to restart itself through dbus"
+    function restartgnome --description "Ask GNOME Shell to restart itself through dbus"
         dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
     end
 end
@@ -158,7 +158,7 @@ if type -q xclip
         xclip -selection clipboard -o
     end
     if type -q qrencode && type -q feh
-        function qr --description="Show a QR code with the clipboard's content"
+        function qr --description "Show a QR code with the clipboard's content"
             xclip -selection clipboard -o | qrencode --size=10 -o - | feh -
         end
     end
@@ -191,24 +191,24 @@ end
 
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
 {{- if not $archlinux }}
-function cal --description="Make cal display Monday as the start of the week"
+function cal --description "Make cal display Monday as the start of the week"
     ncal -bM -w $argv
 end
 {{- end }}
 
-function zombie --description="List zombie processes"
+function zombie --description "List zombie processes"
     ps -eo state,ppid | awk '/^Z/ {print $2}' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}
 end
 
-function ts --description="Current UNIX timestamp in seconds"
+function ts --description "Current UNIX timestamp in seconds"
     date +%s
 end
 
-function tsms --description="Current UNIX timestamp in milliseconds"
+function tsms --description "Current UNIX timestamp in milliseconds"
     date +%s%N | cut -b1-13
 end
 
-function tsns --description="Current UNIX timestamp in nanoseconds"
+function tsns --description "Current UNIX timestamp in nanoseconds"
     date +%s%N
 end
 
@@ -221,7 +221,7 @@ end
 
 # Python
 function activate
-    source ./venv/bin/activate
+    source ./venv/bin/activate.fish
 end
 function pipenv2requirements
     jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
@@ -229,10 +229,10 @@ end
 
 # DBus
 if type -q dbus-send
-    function secretservicepid --description="Get the PID of the currently running DBus Secret Service daemon"
+    function secretservicepid --description "Get the PID of the currently running DBus Secret Service daemon"
         dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets
     end
-    function quodplaytime --description="Display the QuodLibet play time"
+    function quodplaytime --description "Display the QuodLibet play time"
         dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}'
     end
 end
@@ -248,61 +248,45 @@ if type -q ssh-keygen
 end
 
 if type -q flac
-    function flacreencode --description="Reencode FLAC files with the highest compression settings"
+    function flacreencode --description "Reencode FLAC files with the highest compression settings"
         find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;
+    end
+end
+
+if type -q pwsh
+    function pwsh --description "Start PowerShell without displaying the copyright banner"
+        command pwsh -NoLogo $argv
     end
 end
 
 {{ if $archlinux }}
 if type -q paru
-    function paruignore --description="Call paru while skipping checksums and PGP checks"
+    function paruignore --description "Call paru while skipping checksums and PGP checks"
         paru --mflags "--skipchecksums --skippgpcheck" $argv
     end
 end
 {{- end }}
 
-# Custom functions
-#------------------------------------------------------------------------------
-function mkcd --argument-names 'dir' --description="Create a directory and enter it"
-    mkdir -p "$dir" && cd "$dir"
+if type -q chezmoi
+    function chezmoicd --description "Change directory to the chezmoi folder without creating a subshell"
+        cd (chezmoi source-path)
+    end
 end
 
-function chezmoicd --description="Change directory to the chezmoi folder without creating a subshell"
-    if ! type -q chezmoi
-        echo "chezmoi is not installed" 1>&2
-        return 1
-    end
+if type -q tsh
+    function tshl --argument-names 'env' --description "Login to Teleport"
+        switch $env
+            case prod stg dev infra sci
+            case '*'
+                set env dev
+        end
 
-    cd (chezmoi source-path)
-end
+        if test -n $TELEPORT_PROXY; and test -n $TELEPORT_USER; and test ! -f {$HOME}/.tsh/(string split -f 1 ':' $TELEPORT_PROXY).yaml
+            tsh login
+        end
 
-# Usage:
-# echo "1.2.3" | inc_version 3
-# 1.2.4
-# echo "1.2.3" | inc_version 2
-# 1.3.0
-# echo "1.2.3" | inc_version 1
-# 2.0.0
-function inc_version --argument-names 'version' --description="Increment a version number"
-    awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver="$version"
-end
-
-# Usage: write_iso ISO DEVICE
-function write_iso --argument-names 'file' 'device' --description="Write an ISO image to a device"
-    if test (count $argv) -ne 2
-        echo "usage: write_iso ISO DEVICE" 1>&2
-        return 1
+        tsh kube login $env
     end
-    if test ! -f "$file"; or not string match -q "*.iso" "$file"
-        echo "The first argument needs to be an ISO file" 1>&2
-        return 1
-    end
-    if test ! -e "$device"; or not string match -q "/dev/sd*" "$device"
-        echo "The second argument needs to be a device" 1>&2
-        return 1
-    end
-
-    sudo dd if="$file" of="$device" bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
 end
 
 # CentOS only
@@ -340,7 +324,7 @@ end
 # Go
 #------------------------------------------------------------------------------
 if type -q go
-    function gor --description="go build and strip the debugging information (DWARF tables)"
+    function gor --description "go build and strip the debugging information (DWARF tables)"
         go build -ldflags='-s -w' $argv
     end
 
@@ -357,12 +341,12 @@ if type -q rustup
         rustup docs --book
     end
 end
-if test -d "{$HOME}/.cargo/bin"
+if test -d {$HOME}/.cargo/bin
     set -U fish_user_paths {$HOME}/.cargo/bin $fish_user_paths
 end
 
 # Ruby
 #------------------------------------------------------------------------------
-if test -d "{$HOME}/.rvm/bin"
+if test -d {$HOME}/.rvm/bin
     set -U fish_user_paths {$HOME}/.rvm/bin $fish_user_paths
 end

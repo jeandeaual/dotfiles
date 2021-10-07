@@ -1,0 +1,10 @@
+function rmmacdotfiles --argument-names 'path' --description "Remove .DS_Store and ._ AppleDouble files recursively in a director"
+    if not test -n "$path"
+        set path .
+    end
+{{ if eq .chezmoi.os "darwin" }}
+    dot_clean -m $path
+{{- else }}
+    find $path -type f \( -name '.DS_Store' -o -name '._*' \) -delete
+{{- end }}
+end
