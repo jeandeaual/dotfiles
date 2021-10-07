@@ -231,7 +231,7 @@ if command -v tsh >/dev/null; then
         esac
 
         if [ -n "${TELEPORT_PROXY}" ] && \
-           [ "${TELEPORT_USER}" ] && \
+           [ -n "${TELEPORT_USER}" ] && \
            [ ! -f "${HOME}/.tsh/$(echo $TELEPORT_PROXY | cut -d':' -f 1).yaml" ]; then
             tsh login
         fi
