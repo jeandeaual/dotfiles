@@ -64,6 +64,8 @@
         "dot_shellcheckrc": "properties",
         // Termite
         "**/termite/config": "properties",
+        // TOML
+        "*.toml.tmpl": "toml",
         // Vim
         "vimrc": "VimL",
         // wget

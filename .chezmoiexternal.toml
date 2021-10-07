@@ -8,13 +8,13 @@
     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
     exact = true
     stripComponents = 1
-{{ if ne .chezmoi.os "darwin" }}
-{{- $fontFolder := ".local/share/fonts" -}}
-{{- $suffix := "" -}}
-{{- if eq .chezmoi.os "windows" -}}
-{{-   $fontFolder = "AppData/Local/Microsoft/Windows/Fonts" -}}
-{{-   $suffix = " Windows Compatible" -}}
-{{- end -}}
+{{ if and (ne .chezmoi.os "darwin") (not .codespaces) (not .remotecontainer) (ne .chassistype "container") }}
+{{-   $fontFolder := ".local/share/fonts" -}}
+{{-   $suffix := "" -}}
+{{-   if eq .chezmoi.os "windows" -}}
+{{-     $fontFolder = "AppData/Local/Microsoft/Windows/Fonts" -}}
+{{-     $suffix = " Windows Compatible" -}}
+{{-   end -}}
 # Download all the variants of the Fira Code Nerd Font
 {{-   range $_, $face := list "Regular" "Light" "Medium" "Bold" "Retina" "SemiBold" -}}
 {{-     range $_, $variant := list "" " Mono" }}

@@ -1,10 +1,19 @@
+{{- /* GitHub Codespaces */ -}}
 {{- $codespaces := env "CODESPACES" | not | not -}}
+{{- /* Visual Studio Code Remote - Containers (including devcontainers) */ -}}
+{{- $remoteContainer := env "REMOTE_CONTAINERS" | not | not -}}
 
 {{- $embedded := false -}}
 {{- $wsl := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if regexMatch "link/ether b8:27:eb:([0-9a-f]{2}:){2}([0-9a-f]{2})" (output "ip" "-o" "link" "show" | lower) }}{{/* Detect Raspberry Pi via its Ethernet MAC address */}}
-{{-     $embedded = true -}}
+{{-   if lookPath "ip" -}}{{/* Detect Raspberry Pi via its Ethernet MAC address */}}
+{{-     if regexMatch "link/ether b8:27:eb:([0-9a-f]{2}:){2}([0-9a-f]{2})" (output "ip" "-o" "link" "show" | lower) }}
+{{-       $embedded = true -}}
+{{-     end -}}
+{{-   else if lookPath "ifconfig" -}}
+{{-     if regexMatch "ether b8:27:eb:([0-9a-f]{2}:){2}([0-9a-f]{2})" (output "ifconfig" | lower) }}
+{{-       $embedded = true -}}
+{{-     end -}}
 {{-   end -}}
 {{-   if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
 {{-     $wsl = true -}}
@@ -46,7 +55,7 @@
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- if and (not $codespaces) (ne $chassisType "container") }}{{/* Disable encryption on Codespaces and containers */}}
+{{- if and (not $codespaces) (not $remoteContainer) (ne $chassisType "container") }}{{/* Disable encryption on Codespaces and containers */}}
 encryption = "gpg"
 
 [gpg]
@@ -55,6 +64,7 @@ encryption = "gpg"
 
 [data]
     codespaces = {{ $codespaces }}
+    remotecontainer = {{ $remoteContainer }}
     wsl = {{ $wsl }}
     embedded = {{ $embedded }}
     chassistype = {{ $chassisType | quote }}
@@ -64,7 +74,7 @@ encryption = "gpg"
     uid = 1000
     display = 0
 {{- end }}
-{{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
+{{- if or $codespaces $remoteContainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive, so set an email address */}}
     email = "alexis.jeandeau@gmail.com"
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
     email = {{ promptString "E-mail" | quote }}
