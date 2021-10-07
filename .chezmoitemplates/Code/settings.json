@@ -1,5 +1,4 @@
 {
-    "editor.fontSize": 12,
     "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
     "editor.renderWhitespace": "boundary",
     "editor.fontLigatures": true,
@@ -61,6 +60,15 @@
     },
     "[LilyPond]": {
         "editor.tabSize": 2
+    },
+    "[powershell]": {
+        "files.eol": "\r\n",
+        "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
+        "editor.semanticHighlighting.enabled": false,
+        "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+    },
+    "[AutoHotKey]": {
+        "files.eol": "\r\n",
     },
     "[ruby]": {
         "editor.tabSize": 2
@@ -218,16 +226,16 @@
     "redhat.telemetry.enabled": false,
     "editor.inlineSuggest.enabled": true,
     "editor.bracketPairColorization.colorize": true,
-    // "workbench.preferredDarkColorTheme": "Popping and Locking Black Theme",
-    // "workbench.preferredLightColorTheme": "Popping and Locking Black Theme",
-    // "workbench.colorCustomizations": {
-    //     "activityBar.activeBorder": "#14af36",
-    //     "activityBar.activeBackground": "#14af36",
-    //     "editorCursor.background":"#000000",
-    //     "editorCursor.foreground":"#14af36"
-    // },
-    // "editor.tokenColorCustomizations": {
-    //     // "comments": "#696969"
-    //     "comments": "#696969"
-    // }
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "csharp.suppressDotnetInstallWarning": true,
+    "python.analysis.completeFunctionParens": true,
+{{- if lookPath "podman" }}
+    "remote.containers.dockerPath": "podman",
+{{- else if lookPath "docker" }}
+    "remote.containers.dockerPath": "docker",
+{{- end }}
+    "dotfiles.repository": "jeandeaual/dotfiles",
+    "remote.containers.copyGitConfig": true
 }

@@ -2,7 +2,6 @@ LICENSE
 README.md
 install.sh
 scripts/
-Code/
 vim/
 AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/winget-export.json
 {{- if ne .chezmoi.os "windows" }}
@@ -27,7 +26,7 @@ Library
 {{- end }}
 {{- if or (eq .chezmoi.os "windows") (eq .chezmoi.os "darwin") }}
 # Visual Studio Code data is stored under ~/Library on macOS, ~/AppData on Windows and ~/.config otherwise
-.config/Code
+.config/Code*
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
 .local/share/fonts
