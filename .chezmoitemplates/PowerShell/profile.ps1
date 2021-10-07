@@ -34,7 +34,7 @@ function Add-Path {
 }
 
 {{ if eq .chezmoi.os "windows" -}}
-{{ template "PowerShell/fonts.ps1" }}
+{{ template "PowerShell/fonts.ps1" .chezmoi.os }}
 
 foreach ($path in @("C:\bin", "${env:ProgramFiles}\nodejs")) {
     Add-Path $path
