@@ -150,8 +150,7 @@ on_ft = ['php']
 
 # Lua
 [[plugins]]
-repo = 'xolox/vim-lua-ftplugin'
-depends = ['vim-misc']
+repo = 'euclidianAce/BetterLua.vim'
 on_ft = ['lua']
 
 # TeX
@@ -422,6 +421,11 @@ on_ft = ['fish']
 [[plugins]]
 repo = 'chlorm/vim-syntax-elvish'
 on_ft = ['elvish']
+
+# ion
+[[plugins]]
+repo = 'vmchale/ion-vim'
+on_ft = ['ion']
 
 # vimproc
 [[plugins]]

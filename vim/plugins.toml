@@ -98,6 +98,11 @@ repo = 'gisphm/vim-gitignore'
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
 
+# Plist
+[[plugins]]
+repo = 'darfink/vim-plist'
+if = 'executable("plutil") || executable("plistutil")'
+
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 

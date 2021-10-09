@@ -32,7 +32,6 @@ else
   endif
 endif
 
-let s:dein_dir = s:vim_dir . '/dein'
 let s:cache_dir = expand('~/.cache')
 let s:dein_dir = s:cache_dir . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -66,8 +65,6 @@ if dein#load_state(s:dein_dir)
     let &runtimepath .= ',' . s:lilypond_mac_dir
   elseif isdirectory(s:lilypond_unix_local)
     let &runtimepath .= ',' . s:lilypond_unix_local
-  elseif !filereadable('/usr/share/vim/vimfiles/ftdetect/lilypond.vim')
-    call dein#add('gisraptor/vim-lilypond-integrator')
   endif
 
   call dein#end()
