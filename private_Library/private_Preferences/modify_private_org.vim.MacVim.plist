@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# shellcheck disable=SC1091
+. "$(chezmoi source-path)/scripts/plist.sh"
+
+# After last window closes: Quit MacVim
+pl MMLastWindowClosedBehavior -integer 2
+pl MMNoTitleBarWindow -bool NO
+pl MMTitlebarAppearsTransparent -bool NO
+pl NSFullScreenMenuItemEverywhere -bool NO
+pl SUAutomaticallyUpdate -bool NO
+pl SUCheckAtStartup -bool NO
+pl SUEnableAutomaticChecks -bool NO
+pl SUSendProfileInfo -bool NO

@@ -73,7 +73,8 @@
         // TOML
         "*.toml.tmpl": "toml",
         // Vim
-        "vimrc": "VimL",
+        "vimrc": "viml",
+        "*.vim.tmpl": "viml",
         // Visual Studio Code
         "*.code-snippets.tmpl": "gojson",
         // wget
