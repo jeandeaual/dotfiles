@@ -21,6 +21,7 @@ vicmd_symbol = "[←](bold green)"
 
 [cmd_duration]
 format = ' [{{ if not $plaintext }}⏱{{ end }} $duration]($style)'
+disabled = true
 
 [directory]
 truncation_length = 8
@@ -34,7 +35,7 @@ format = ' [$symbol$branch]($style)'
 {{- if $plaintext }}
 symbol = ""
 {{- else if not $nerdfont }}
-symbol = "🪵 "
+symbol = "🌱 "
 {{- end }}
 
 {{- if $plaintext }}
