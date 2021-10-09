@@ -12,6 +12,12 @@
         // chezmoi
         ".chezmoiignore": "gogo",
         ".chezmoiremove": "gogo",
+        "**/.chezmoitemplates/**/*.js": "gojs",
+        "**/.chezmoitemplates/**/*.ts": "gots",
+        "**/.chezmoitemplates/**/*.json": "gojson",
+        "**/.chezmoitemplates/**/*.code-snippets": "gojson",
+        "**/.chezmoitemplates/**/*.yaml": "goyaml",
+        "**/.chezmoitemplates/**/*.yml": "goyaml",
         // curl
         "dot_curlrc": "properties",
         // dig
@@ -45,6 +51,8 @@
         "**/ncmpcpp/config": "properties",
         // perlcritic
         "dot_perlcriticrc": "properties",
+        // PowerShell
+        "*.ps1.tmpl": "powershell",
         // pylint
         "dot_pylintrc": "properties",
         // readline
@@ -68,6 +76,8 @@
         "*.toml.tmpl": "toml",
         // Vim
         "vimrc": "VimL",
+        // Visual Studio Code
+        "*.code-snippets.tmpl": "gojson",
         // wget
         "dot_wgetrc": "properties",
         // X

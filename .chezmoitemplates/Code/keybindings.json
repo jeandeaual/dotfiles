@@ -1,7 +1,6 @@
-// Place your key bindings in this file to override the defaults
 [
-    {
-        "key": "ctrl+f5",
-        "command": "workbench.files.action.refreshFilesExplorer"
-    }
+  {
+    "key": "ctrl+f5",
+    "command": "workbench.files.action.refreshFilesExplorer"
+  }
 ]
