@@ -81,7 +81,7 @@ user_pref("browser.display.use_document_fonts", 0);
 user_pref("browser.uidensity", 1);
 
 /******************************************************************************
- * SECTION: Extensions / plugins                                                       *
+ * SECTION: Extensions / plugins                                              *
  ******************************************************************************/
 
 // PREF: Ensure you have a security delay when installing add-ons (milliseconds)

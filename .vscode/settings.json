@@ -26,8 +26,6 @@
         "**/feh/themes": "shellscript",
         // Elvish
         "*.elv.*": "elvish",
-        // Firefox
-        "**/Firefox/profiles/user": "gojs",
         // Fish
         "*.fish.*": "fish",
         // Gimp
