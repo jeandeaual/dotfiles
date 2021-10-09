@@ -38,6 +38,10 @@ Library
 .XCompose
 .Xresources
 .xprofile
+.vim
+vimfiles
+.config/nvim
+.config/Code*
 {{- end }}
 {{- if .remotecontainer }}
 # By default Visual Studio Code loads the host .gitconfig on Remote - Containers

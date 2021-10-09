@@ -62,6 +62,13 @@ encryption = "gpg"
     recipient = "alexis.jeandeau@gmail.com"
 {{- end }}
 
+{{- if lookPath "pwsh" }}
+
+[interpreters.ps1]
+    command = "pwsh"
+    arguments = "-NoLogo"
+{{- end }}
+
 [data]
     codespaces = {{ $codespaces }}
     remotecontainer = {{ $remoteContainer }}

@@ -1,0 +1,27 @@
+. {{ joinPath .chezmoi.sourceDir "scripts" "xml.ps1" | quote }}
+
+$basePath = '/Configuration'
+
+Update-Node -XPath "${basePath}/ShowTrayIconOnlyOnClose" -Text 'false'
+Update-Node -XPath "${basePath}/MinimizeToTray" -Text 'false'
+Update-Node -XPath "${basePath}/CloseToTray" -Text 'true'
+Update-Node -XPath "${basePath}/ShowDeviceConnectivityBalloons" -Text 'true'
+Update-Node -XPath "${basePath}/ShowDeviceOrFolderRejectedBalloons" -Text 'true'
+Update-Node -XPath "${basePath}/ShowSynchronizedBalloonEvenIfNothingDownloaded" -Text 'false'
+Update-Node -XPath "${basePath}/StartSyncthingAutomatically" -Text 'true'
+Update-Node -XPath "${basePath}/SyncthingDenyUpgrade" -Text 'false'
+Update-Node -XPath "${basePath}/SyncthingPriorityLevel" -Text 'Normal'
+Update-Node -XPath "${basePath}/NotifyOfNewVersions" -Text 'false'
+Update-Node -XPath "${basePath}/ObfuscateDeviceIDs" -Text 'true'
+Update-Node -XPath "${basePath}/UseComputerCulture" -Text 'true'
+Update-Node -XPath "${basePath}/SyncthingWebBrowserZoomLevel" -Text '0'
+Update-Node -XPath "${basePath}/DisableHardwareRendering" -Text 'false'
+Update-Node -XPath "${basePath}/EnableFailedTransferAlerts" -Text 'true'
+Update-Node -XPath "${basePath}/EnableConflictFileMonitoring" -Text 'true'
+Update-Node -XPath "${basePath}/ConflictResolverDeletesToRecycleBin" -Text 'true'
+Update-Node -XPath "${basePath}/PauseDevicesOnMeteredNetworks" -Text 'true'
+Update-Node -XPath "${basePath}/OpenFolderCommand" -Text 'explorer.exe "{0}"'
+Update-Node -XPath "${basePath}/ShowFileInFolderCommand" -Text 'explorer.exe /select, "{0}"'
+Update-Node -XPath "${basePath}/LogLevel" -Text 'Info'
+
+Format-XML -Indent 4 -CRLF $true

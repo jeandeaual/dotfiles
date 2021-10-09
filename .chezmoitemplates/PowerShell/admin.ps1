@@ -4,7 +4,7 @@ function Test-Admin {
         Check if the user is an administrator
     #>
 
-{{- if eq . "windows" }}
+{{- if eq .chezmoi.os "windows" }}
     $user = [Security.Principal.WindowsIdentity]::GetCurrent()
     (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 {{- else }}

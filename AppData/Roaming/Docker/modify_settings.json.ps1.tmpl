@@ -1,0 +1,36 @@
+{{ template "PowerShell/stdin.ps1" }}
+
+$json = Read-FileFromStdin | ConvertFrom-Json
+
+$json.acceptCanaryUpdates = $false
+$json.activeOrganizationName = ""
+$json.analyticsEnabled = $false
+$json.autoDownloadUpdates = $false
+$json.autoStart = $true
+$json.disableHardwareAcceleration = $false
+$json.disableTips = $true
+$json.disableUpdate = $true
+$json.diskTRIM = $true
+$json.displayRestartDialog = $true
+$json.displaySwitchVersionPack = $true
+$json.displaySwitchWinLinContainers = $true
+$json.displayedTutorial = $true
+$json.dns = "8.8.8.8"
+$json.enableIntegrationWithDefaultWslDistro = $true
+$json.exposeDockerAPIOnTCP2375 = $false
+$json.kubernetesEnabled = $true
+$json.lifecycleTimeoutSeconds = 600
+$json.openUIOnStartupDisabled = $true
+$json.showKubernetesSystemContainers = $false
+$json.skipUpdateToWSLPrompt = $true
+$json.skipWSLMountPerfWarning = $true
+$json.useCredentialHelper = $true
+$json.useDnsForwarder = $true
+$json.useNightlyBuildUpdates = $false
+$json.useVirtualizationFramework = $false
+$json.useVpnkit = $true
+$json.useWindowsContainers = $false
+$json.wslEnableGrpcfuse = $false
+$json.wslEngineEnabled = $true
+
+ConvertTo-Json -InputObject $json

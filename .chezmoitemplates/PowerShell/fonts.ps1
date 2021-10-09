@@ -1,4 +1,4 @@
-{{ template "PowerShell/admin.ps1" . }}
+{{- template "PowerShell/admin.ps1" . }}
 
 function Install-Font {
     <#

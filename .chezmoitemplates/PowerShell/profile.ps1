@@ -34,9 +34,9 @@ function Add-Path {
 }
 
 {{ if eq .chezmoi.os "windows" -}}
-{{ template "PowerShell/fonts.ps1" .chezmoi.os }}
+{{ template "PowerShell/fonts.ps1" . }}
 
-foreach ($path in @("C:\bin", "${env:ProgramFiles}\nodejs")) {
+foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake", "${env:ProgramFiles}\nodejs")) {
     Add-Path $path
 }
 # Add the Python folder to the path if it's not already there
@@ -46,7 +46,7 @@ try { Get-ChildItem -Directory -Path "C:\" -ErrorAction Stop | Where-Object {$_.
 # Add the Vim folder to the path if it's not already there
 try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Vim" -ErrorAction Stop | Where-Object {$_.Name -like 'vim*'} | Add-Path } catch {}
 {{ else -}}
-{{ template "PowerShell/admin.ps1" .chezmoi.os}}
+{{ template "PowerShell/admin.ps1" . }}
 {{- end }}
 
 # Aliases & functions
@@ -69,6 +69,8 @@ if (Get-Command flac -ErrorAction SilentlyContinue) {
         }
     }
 }
+
+{{ template "PowerShell/stdin.ps1" . }}
 
 # Function to relaunch as Admin:
 function Relaunch-Admin { Start-Process -Verb RunAs (Get-Process -Id $PID).Path }
