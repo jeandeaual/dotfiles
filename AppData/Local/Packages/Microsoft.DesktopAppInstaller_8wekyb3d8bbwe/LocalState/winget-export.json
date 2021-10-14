@@ -1,326 +1,329 @@
 {
-	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
-	"CreationDate" : "2021-10-02T00:00:00.000-00:00",
-	"Sources" :
-	[
+	"$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate": "2021-10-02T00:00:00.000-00:00",
+	"Sources": [
 		{
-			"Packages" :
-			[
+			"Packages": [
 				{
-					"PackageIdentifier" : "Plex.Plexamp"
+					"PackageIdentifier": "Plex.Plexamp"
 				},
 				{
-					"PackageIdentifier" : "CloudImperiumGames.RSILauncher"
+					"PackageIdentifier": "CloudImperiumGames.RSILauncher"
 				},
 				{
-					"PackageIdentifier" : "karakun.OpenWebStart"
+					"PackageIdentifier": "karakun.OpenWebStart"
 				},
 				{
-					"PackageIdentifier" : "Google.AndroidStudio"
+					"PackageIdentifier": "Google.AndroidStudio"
 				},
 				{
-					"PackageIdentifier" : "sirWest.AudioSwitch"
+					"PackageIdentifier": "sirWest.AudioSwitch"
 				},
 				{
-					"PackageIdentifier" : "Lexikos.AutoHotkey"
+					"PackageIdentifier": "Lexikos.AutoHotkey"
 				},
 				{
-					"PackageIdentifier" : "BleachBit.BleachBit"
+					"PackageIdentifier": "BleachBit.BleachBit"
 				},
 				{
-					"PackageIdentifier" : "Codeusa.BorderlessGaming"
+					"PackageIdentifier": "Codeusa.BorderlessGaming"
 				},
 				{
-					"PackageIdentifier" : "CPUID.CPU-Z"
+					"PackageIdentifier": "CPUID.CPU-Z"
 				},
 				{
-					"PackageIdentifier" : "CPUID.HWMonitor"
+					"PackageIdentifier": "CPUID.HWMonitor"
 				},
 				{
-					"PackageIdentifier" : "Discord.Discord"
+					"PackageIdentifier": "Discord.Discord"
 				},
 				{
-					"PackageIdentifier" : "Docker.DockerDesktop"
+					"PackageIdentifier": "Docker.DockerDesktop"
 				},
 				{
-					"PackageIdentifier" : "DolphinEmulator.Dolphin"
+					"PackageIdentifier": "DolphinEmulator.Dolphin"
 				},
 				{
-					"PackageIdentifier" : "Dropbox.Dropbox"
+					"PackageIdentifier": "Dropbox.Dropbox"
 				},
 				{
-					"PackageIdentifier" : "AndreWiethoff.ExactAudioCopy"
+					"PackageIdentifier": "AndreWiethoff.ExactAudioCopy"
 				},
 				{
-					"PackageIdentifier" : "WilbertBerendsen.Frescobaldi"
+					"PackageIdentifier": "WilbertBerendsen.Frescobaldi"
 				},
 				{
-					"PackageIdentifier" : "GIMP.GIMP"
+					"PackageIdentifier": "GIMP.GIMP"
 				},
 				{
-					"PackageIdentifier" : "Git.Git"
+					"PackageIdentifier": "Git.Git"
 				},
 				{
-					"PackageIdentifier" : "GnuPG.GnuPG"
+					"PackageIdentifier": "GnuPG.GnuPG"
 				},
 				{
-					"PackageIdentifier" : "Google.Chrome"
+					"PackageIdentifier": "Google.Chrome"
 				},
 				{
-					"PackageIdentifier" : "GnuPG.Gpg4win"
+					"PackageIdentifier": "GnuPG.Gpg4win"
 				},
 				{
-					"PackageIdentifier" : "Gramps.Gramps"
+					"PackageIdentifier": "Gramps.Gramps"
 				},
 				{
-					"PackageIdentifier" : "HandBrake.HandBrake"
+					"PackageIdentifier": "HandBrake.HandBrake"
 				},
 				{
-					"PackageIdentifier" : "ImageMagick.ImageMagick"
+					"PackageIdentifier": "ImageMagick.ImageMagick"
 				},
 				{
-					"PackageIdentifier" : "Kobo.Kobo"
+					"PackageIdentifier": "Kobo.Kobo"
 				},
 				{
-					"PackageIdentifier" : "KDE.Krita"
+					"PackageIdentifier": "KDE.Krita"
 				},
 				{
-					"PackageIdentifier" : "LINE.LINE"
+					"PackageIdentifier": "LINE.LINE"
 				},
 				{
-					"PackageIdentifier" : "MKVToolNix.MKVToolNix"
+					"PackageIdentifier": "MKVToolNix.MKVToolNix"
 				},
 				{
-					"PackageIdentifier" : "MusicBrainz.Picard"
+					"PackageIdentifier": "MusicBrainz.Picard"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.Edge"
+					"PackageIdentifier": "Microsoft.Edge"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.WingetCreate"
+					"PackageIdentifier": "Microsoft.WingetCreate"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.WindowsTerminal"
+					"PackageIdentifier": "Microsoft.WindowsTerminal"
 				},
 				{
-					"PackageIdentifier" : "Mozilla.Thunderbird"
+					"PackageIdentifier": "Mozilla.Thunderbird"
 				},
 				{
-					"PackageIdentifier" : "Mp3tag.Mp3tag"
+					"PackageIdentifier": "Mp3tag.Mp3tag"
 				},
 				{
-					"PackageIdentifier" : "Mozilla.Firefox.Nightly"
+					"PackageIdentifier": "Mozilla.Firefox.Nightly"
 				},
 				{
-					"PackageIdentifier" : "Notepad++.Notepad++"
+					"PackageIdentifier": "Notepad++.Notepad++"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.OneDrive"
+					"PackageIdentifier": "Microsoft.OneDrive"
 				},
 				{
-					"PackageIdentifier" : "Rainmeter.Rainmeter"
+					"PackageIdentifier": "OpenStenoProject.Plover"
 				},
 				{
-					"PackageIdentifier" : "Rufus.Rufus"
+					"PackageIdentifier": "Rainmeter.Rainmeter"
 				},
 				{
-					"PackageIdentifier" : "SABnzbdTeam.SABnzbd"
+					"PackageIdentifier": "Rufus.Rufus"
 				},
 				{
-					"PackageIdentifier" : "Valve.Steam"
+					"PackageIdentifier": "SABnzbdTeam.SABnzbd"
 				},
 				{
-					"PackageIdentifier" : "SumatraPDF.SumatraPDF"
+					"PackageIdentifier": "Valve.Steam"
 				},
 				{
-					"PackageIdentifier" : "eTeks.SweetHome3D"
+					"PackageIdentifier": "SumatraPDF.SumatraPDF"
 				},
 				{
-					"PackageIdentifier" : "Synthesia.Synthesia"
+					"PackageIdentifier": "eTeks.SweetHome3D"
 				},
 				{
-					"PackageIdentifier" : "TeamViewer.TeamViewer"
+					"PackageIdentifier": "Synthesia.Synthesia"
 				},
 				{
-					"PackageIdentifier" : "Ubisoft.Connect"
+					"PackageIdentifier": "TeamViewer.TeamViewer"
 				},
 				{
-					"PackageIdentifier" : "marha.VcXsrv"
+					"PackageIdentifier": "Ubisoft.Connect"
 				},
 				{
-					"PackageIdentifier" : "vim.vim"
+					"PackageIdentifier": "marha.VcXsrv"
 				},
 				{
-					"PackageIdentifier" : "VMPK.VMPK"
+					"PackageIdentifier": "vim.vim"
 				},
 				{
-					"PackageIdentifier" : "WhatsApp.WhatsApp"
+					"PackageIdentifier": "VMPK.VMPK"
 				},
 				{
-					"PackageIdentifier" : "SamHocevar.WinCompose"
+					"PackageIdentifier": "WhatsApp.WhatsApp"
 				},
 				{
-					"PackageIdentifier" : "WiresharkFoundation.Wireshark"
+					"PackageIdentifier": "SamHocevar.WinCompose"
 				},
 				{
-					"PackageIdentifier" : "darktable.darktable"
+					"PackageIdentifier": "WiresharkFoundation.Wireshark"
 				},
 				{
-					"PackageIdentifier" : "PeterPawlowski.foobar2000"
+					"PackageIdentifier": "darktable.darktable"
 				},
 				{
-					"PackageIdentifier" : "qBittorrent.qBittorrent"
+					"PackageIdentifier": "PeterPawlowski.foobar2000"
 				},
 				{
-					"PackageIdentifier" : "SlackTechnologies.Slack"
+					"PackageIdentifier": "qBittorrent.qBittorrent"
 				},
 				{
-					"PackageIdentifier" : "WinSCP.WinSCP"
+					"PackageIdentifier": "SlackTechnologies.Slack"
 				},
 				{
-					"PackageIdentifier" : "Viber.Viber"
+					"PackageIdentifier": "WinSCP.WinSCP"
 				},
 				{
-					"PackageIdentifier" : "VideoLAN.VLC"
+					"PackageIdentifier": "Viber.Viber"
 				},
 				{
-					"PackageIdentifier" : "PuTTY.PuTTY"
+					"PackageIdentifier": "VideoLAN.VLC"
 				},
 				{
-					"PackageIdentifier" : "Python.Python.3"
+					"PackageIdentifier": "PuTTY.PuTTY"
 				},
 				{
-					"PackageIdentifier" : "Inkscape.Inkscape"
+					"PackageIdentifier": "Python.Python.3"
 				},
 				{
-					"PackageIdentifier" : "Yarn.Yarn"
+					"PackageIdentifier": "msys2.msys2"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.PowerShell"
+					"PackageIdentifier": "Inkscape.Inkscape"
 				},
 				{
-					"PackageIdentifier" : "Kitware.CMake"
+					"PackageIdentifier": "Yarn.Yarn"
 				},
 				{
-					"PackageIdentifier" : "FlorianHoech.DisplayCAL"
+					"PackageIdentifier": "Microsoft.PowerShell"
 				},
 				{
-					"PackageIdentifier" : "Telegram.TelegramDesktop"
+					"PackageIdentifier": "Kitware.CMake"
 				},
 				{
-					"PackageIdentifier" : "TeamSonarr.Sonarr"
+					"PackageIdentifier": "FlorianHoech.DisplayCAL"
 				},
 				{
-					"PackageIdentifier" : "TeamRadarr.Radarr"
+					"PackageIdentifier": "Telegram.TelegramDesktop"
 				},
 				{
-					"PackageIdentifier" : "TeamLidarr.Lidarr"
+					"PackageIdentifier": "TeamSonarr.Sonarr"
 				},
 				{
-					"PackageIdentifier" : "AntiMicro.AntiMicro"
+					"PackageIdentifier": "TeamRadarr.Radarr"
 				},
 				{
-					"PackageIdentifier" : "Giorgiotani.Peazip"
+					"PackageIdentifier": "TeamLidarr.Lidarr"
 				},
 				{
-					"PackageIdentifier" : "JohnMacFarlane.Pandoc"
+					"PackageIdentifier": "AntiMicro.AntiMicro"
 				},
 				{
-					"PackageIdentifier" : "VaclavSlavik.Poedit"
+					"PackageIdentifier": "Giorgiotani.Peazip"
 				},
 				{
-					"PackageIdentifier" : "Mojang.MinecraftLauncher"
+					"PackageIdentifier": "JohnMacFarlane.Pandoc"
 				},
 				{
-					"PackageIdentifier" : "QMK.QMKToolbox"
+					"PackageIdentifier": "VaclavSlavik.Poedit"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.WindowsPCHealthCheck"
+					"PackageIdentifier": "Mojang.MinecraftLauncher"
 				},
 				{
-					"PackageIdentifier" : "PlayStation.PSRemotePlay"
+					"PackageIdentifier": "QMK.QMKToolbox"
 				},
 				{
-					"PackageIdentifier" : "AlexanderKojevnikov.Spek"
+					"PackageIdentifier": "Microsoft.WindowsPCHealthCheck"
 				},
 				{
-					"PackageIdentifier" : "OpenJS.NodeJS"
+					"PackageIdentifier": "PlayStation.PSRemotePlay"
 				},
 				{
-					"PackageIdentifier" : "KeePassXCTeam.KeePassXC"
+					"PackageIdentifier": "AlexanderKojevnikov.Spek"
 				},
 				{
-					"PackageIdentifier" : "Soulseek.SoulseekQt"
+					"PackageIdentifier": "OpenJS.NodeJS"
 				},
 				{
-					"PackageIdentifier" : "TechPowerUp.GPU-Z"
+					"PackageIdentifier": "KeePassXCTeam.KeePassXC"
 				},
 				{
-					"PackageIdentifier" : "LibreOffice.LibreOffice"
+					"PackageIdentifier": "Soulseek.SoulseekQt"
 				},
 				{
-					"PackageIdentifier" : "GitHub.cli"
+					"PackageIdentifier": "TechPowerUp.GPU-Z"
 				},
 				{
-					"PackageIdentifier" : "calibre.calibre"
+					"PackageIdentifier": "LibreOffice.LibreOffice"
 				},
 				{
-					"PackageIdentifier" : "EpicGames.EpicGamesLauncher"
+					"PackageIdentifier": "GitHub.cli"
 				},
 				{
-					"PackageIdentifier" : "Nvidia.GeForceExperience"
+					"PackageIdentifier": "calibre.calibre"
 				},
 				{
-					"PackageIdentifier" : "Nvidia.PhysX"
+					"PackageIdentifier": "EpicGames.EpicGamesLauncher"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.PowerToys"
+					"PackageIdentifier": "Nvidia.GeForceExperience"
 				},
 				{
-					"PackageIdentifier" : "GoLang.Go"
+					"PackageIdentifier": "Nvidia.PhysX"
 				},
 				{
-					"PackageIdentifier" : "PDFLabs.PDFtk-ThePDFToolkit"
+					"PackageIdentifier": "Microsoft.PowerToys"
 				},
 				{
-					"PackageIdentifier" : "Duplicati.Duplicati"
+					"PackageIdentifier": "GoLang.Go"
 				},
 				{
-					"PackageIdentifier" : "Freeplane.Freeplane"
+					"PackageIdentifier": "PDFLabs.PDFtk-ThePDFToolkit"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.VisualStudioCode"
+					"PackageIdentifier": "Duplicati.Duplicati"
 				},
 				{
-					"PackageIdentifier" : "Mumble.Mumble"
+					"PackageIdentifier": "Freeplane.Freeplane"
 				},
 				{
-					"PackageIdentifier" : "BlenderFoundation.Blender"
+					"PackageIdentifier": "Microsoft.VisualStudioCode"
 				},
 				{
-					"PackageIdentifier" : "Alacritty.Alacritty"
+					"PackageIdentifier": "Mumble.Mumble"
 				},
 				{
-					"PackageIdentifier" : "mesonbuild.meson"
+					"PackageIdentifier": "BlenderFoundation.Blender"
 				},
 				{
-					"PackageIdentifier" : "Plex.PlexMediaServer"
+					"PackageIdentifier": "Alacritty.Alacritty"
 				},
 				{
-					"PackageIdentifier" : "SyncTrayzor.SyncTrayzor"
+					"PackageIdentifier": "mesonbuild.meson"
 				},
 				{
-					"PackageIdentifier" : "Garmin.GarminExpress"
+					"PackageIdentifier": "Plex.PlexMediaServer"
+				},
+				{
+					"PackageIdentifier": "SyncTrayzor.SyncTrayzor"
+				},
+				{
+					"PackageIdentifier": "Garmin.GarminExpress"
 				}
 			],
-			"SourceDetails" :
-			{
-				"Argument" : "https://winget.azureedge.net/cache",
-				"Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
-				"Name" : "winget",
-				"Type" : "Microsoft.PreIndexed.Package"
+			"SourceDetails": {
+				"Argument": "https://winget.azureedge.net/cache",
+				"Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name": "winget",
+				"Type": "Microsoft.PreIndexed.Package"
 			}
 		}
 	],
-	"WinGetVersion" : "1.1.12701"
+	"WinGetVersion": "1.1.12701"
 }

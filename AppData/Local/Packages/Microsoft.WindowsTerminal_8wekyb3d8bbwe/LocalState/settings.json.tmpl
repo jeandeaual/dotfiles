@@ -40,6 +40,7 @@
         "defaults": {},
         "list":
         [
+{{- if lookPath "pwsh.exe" }}
             {
                 "bellStyle": {{ $bellStyle | quote }},
                 "commandline": "pwsh.exe -NoLogo",
@@ -54,6 +55,7 @@
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
             },
+{{- end }}
             {
                 "bellStyle": {{ $bellStyle | quote }},
                 "commandline": "powershell.exe -NoLogo",
@@ -80,6 +82,42 @@
                 "hidden": false,
                 "name": "Command Prompt"
             },
+{{- if lookPath "elvish.exe" }}
+            {
+                "bellStyle": {{ $bellStyle | quote }},
+                "commandline": "elvish.exe",
+                "cursorShape": {{ $cursorShape | quote }},
+                "font":
+                {
+                    "face": {{ $font | quote }},
+                    "size": {{ $fontSize }}
+                },
+                "guid": "{593ccddc-1484-45d6-9de1-b9a40c94dc4f}",
+                "hidden": false,
+                "icon": "\ud83e\udddd",
+                "name": "Elvish",
+                "startingDirectory": "%USERPROFILE%"
+            },
+{{- end }}
+{{- if stat (joinPath "C:\\" "msys64" "usr" "bin" "bash.exe") }}
+            {
+                "bellStyle": {{ $bellStyle | quote }},
+                "commandline": "cmd.exe /c \"set CHERE_INVOKING=1 && set MSYSTEM=MINGW64 && C:\\msys64\\usr\\bin\\bash.exe --login\"",
+                "cursorShape": {{ $cursorShape | quote }},
+                "font":
+                {
+                    "face": {{ $font | quote }},
+                    "size": {{ $fontSize }}
+                },
+                "guid": "{dceec84e-58a1-412d-9942-be9d7fc3459f}",
+                "hidden": false,
+                "icon": "%PROGRAMFILES%/Git/mingw64/share/git/git-for-windows.ico",
+                "icon": "C:/msys64/mingw64.ico",
+                "name": "MSYS2 MinGW 64-bit",
+                "startingDirectory": "%USERPROFILE%"
+            },
+{{- end }}
+{{- if stat (joinPath (env "ProgramFiles") "git" "usr" "bin" "bash.exe") }}
             {
                 "bellStyle": {{ $bellStyle | quote }},
                 "commandline": "%PROGRAMFILES%/git/usr/bin/bash.exe -i -l",
@@ -95,6 +133,7 @@
                 "name": "Git Bash",
                 "startingDirectory": "%USERPROFILE%"
             },
+{{- end }}
             {
                 "bellStyle": {{ $bellStyle | quote }},
                 "cursorShape": {{ $cursorShape | quote }},
@@ -121,21 +160,6 @@
                 "hidden": true,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure",
-                "startingDirectory": "%USERPROFILE%"
-            },
-            {
-                "bellStyle": {{ $bellStyle | quote }},
-                "commandline": "elvish.exe",
-                "cursorShape": {{ $cursorShape | quote }},
-                "font":
-                {
-                    "face": {{ $font | quote }},
-                    "size": {{ $fontSize }}
-                },
-                "guid": "{593ccddc-1484-45d6-9de1-b9a40c94dc4f}",
-                "hidden": false,
-                "icon": "\ud83e\udddd",
-                "name": "Elvish",
                 "startingDirectory": "%USERPROFILE%"
             }
         ]
