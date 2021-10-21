@@ -12,6 +12,7 @@ Documents
 .vim
 .config/alacritty
 .config/elvish
+.config/libreoffice
 .config/nvim
 .config/powershell
 {{- else }}
