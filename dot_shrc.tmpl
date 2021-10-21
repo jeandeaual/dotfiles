@@ -293,3 +293,8 @@ fi
 if [ -d "${HOME}/.rvm/bin" ]; then
     export PATH="${HOME}/.rvm/bin${PATH+:}${PATH}"
 fi
+
+# Prompt
+# Bash: PS1='\h:\W \u\$ '
+# ash: PS1='\w \$ '
+export PS1='\[\033[01;32m\]\u\[\033[00m\]\[\033[01;m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;33m\]\w\[\033[00m\] \$ '

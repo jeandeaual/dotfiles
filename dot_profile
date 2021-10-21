@@ -1,5 +1,26 @@
+#!/bin/sh
+
 # From the dash manual:
 # If the environment variable ENV is set on entry to an interactive shell,
 # or is set in the .profile of a login shell, the shell next reads commands
 # from the file named in ENV.
 export ENV="${HOME}/.shrc"
+
+if [ "${BASH}" ]; then
+    if [ -f "${HOME}/.bashrc" ]; then
+        # shellcheck disable=SC1091
+        . "${HOME}/.bashrc"
+    fi
+elif [ "${ZSH}" ]; then
+    if [ -f "${HOME}/.zshrc" ]; then
+        # shellcheck disable=SC1091
+        . "${HOME}/.zshrc"
+    fi
+else
+    if [ -f "${ENV}" ]; then
+        # shellcheck disable=SC1090,SC1091
+        . "${ENV}"
+    fi
+fi
+
+mesg n 2> /dev/null || true
