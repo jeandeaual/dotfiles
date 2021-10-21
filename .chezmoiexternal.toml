@@ -11,9 +11,9 @@
 
 {{- /* Plover Grandjean dictionnaries */ -}}
 {{- if and (not .devcontainer) (ne .chassistype "container") -}}
-{{-   $ploverFolder := ".local/share/fonts" -}}
-{{-   if eq .chezmoi.os "windows" -}}
-{{-     $ploverFolder = "AppData/Local/plover/plover" -}}
+{{-   $ploverFolder := ".config/plover" -}}
+{{-   if eq .chezmoi.os "darwin" -}}
+{{-     $ploverFolder = "Library/Application Support/plover" -}}
 {{-   else if eq .chezmoi.os "windows" -}}
 {{-     $ploverFolder = "AppData/Local/plover/plover" -}}
 {{-   end }}
