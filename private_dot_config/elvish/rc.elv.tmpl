@@ -11,10 +11,14 @@ use path
 use str
 use epm
 
+{{- if ne .chezmoi.os "windows" }}{{/* Modules don't work on Windows */}}
+
 epm:install &silent-if-installed ^
   github.com/zzamboni/elvish-modules
+{{- end }}
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
+
 use github.com/zzamboni/elvish-modules/iterm2
 
 iterm2:init
@@ -28,10 +32,16 @@ use interactive
 set edit:insert:binding[Alt-e] = $interactive:external_edit_command~
 set edit:insert:binding[Meta-e] = $interactive:external_edit_command~
 
+{{- if ne .chezmoi.os "windows" }}{{/* Modules don't work on Windows */}}
+
+# Make cd - work in Elvish
+edit:add-var cd~ $interactive:cd~
+{{- end }}
+
 try {
-    use work
+  use work
 } except {
-    # The work module might not be available on some machines
+  # The work module might not be available on some machines
 }
 
 var config_path = $E:HOME'/.config'
@@ -66,8 +76,8 @@ if (path:is-dir /usr/local/man) {
   }
 }
 # Add ~/.local/bin to the PATH if it exists
-if (path:is-dir $E:HOME"/.local/bin") {
-  set paths = [$E:HOME"/.local/bin" $@paths]
+if (path:is-dir $E:HOME'/.local/bin') {
+  set paths = [$E:HOME'/.local/bin' $@paths]
 }
 
 # Aliases
@@ -77,6 +87,7 @@ fn o [@a]{ open $@a }
 {{- else }}
 if (has-external xdg-open) {
   fn o [@a]{ xdg-open $@a }
+  edit:add-var o~ $o~
 }
 {{- end }}
 fn cp [@a]{ e:cp -v $@a }
@@ -102,8 +113,10 @@ fn em [@a]{ emacs $@a }
 if (has-external emacsclient) {
   # Open a new Emacs frame
   fn emc [@a]{ emacsclient -n -c -a "" $@a }
+  edit:add-var emc~ $emc~
   # Open an Emacs frame in the current TTY
   fn emw [@a]{ emacsclient -n -w -a "" $@a }
+  edit:add-var emw~ $emw~
 }
 
 # Get the external IP address
@@ -125,6 +138,7 @@ fn finddesktop { try { find {/usr/{,local/},$E:HOME/.local/}share/applications -
 # Ask GNOME Shell to restart itself through dbus
 if (has-external dbus-send) {
   fn restartgnome { dbus-send --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()' }
+  edit:add-var restart-gnome~ $restart-gnome~
 }
 {{- end }}
 {{- if ne .chezmoi.os "darwin" }}
@@ -132,23 +146,32 @@ if (has-external dbus-send) {
 fn pbcopy { xclip -selection clipboard }
 fn pbpaste { xclip -selection clipboard -o }
 # Show a QR code with the clipboard's content
-if (and (has-external xclip) (has-external qrencode)) {
+if (and (has-external xclip) (has-external qrencode) (has-external feh)) {
   fn qr { xclip -selection clipboard -o | qrencode --size=10 -o - | feh - }
+  edit:add-var qr~ $qr~
 }
 if (has-external ip) {
   fn ips {
-    for gw (ip route list to 0/0 | awk '{print $3}') {
+    ip route list to 0/0 | awk '{print $3}' | each [gw]{
       ip route get to $gw | awk '/src/ {print $5}'
     }
   }
+  edit:add-var ips~ $ips~
 }
 {{- end }}
 # Mozc aliases
 if (has-external /usr/lib/mozc/mozc_tool) {
   fn mozc-config { /usr/lib/mozc/mozc_tool --mode=config_dialog }
+  edit:add-var mozc-config~ $mozc-config~
+
   fn mozc-pad { /usr/lib/mozc/mozc_tool --mode=hand_writing }
+  edit:add-var mozc-pad~ $mozc-pad~
+
   fn mozc-register { /usr/lib/mozc/mozc_tool --mode=word_register_dialog }
+  edit:add-var mozc-register~ $mozc-register~
+
   fn mozc-dict { /usr/lib/mozc/mozc_tool --mode=dictionary_tool }
+  edit:add-var mozc-dict~ $mozc-dict~
 }
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
 {{- if not $archlinux }}
@@ -174,6 +197,7 @@ if (has-external aws) {
       all (one) |
       each [f]{ put $f[FunctionName] }
   }
+  edit:add-var lambdalist~ $lambdalist~
 }
 # Python
 fn pipenv2requirements {
@@ -189,28 +213,36 @@ if (has-external dbus-send) {
   fn secretservicepid {
     dbus-send --session --print-reply=literal --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.freedesktop.secrets
   }
+  edit:add-var secretservicepid~ $secretservicepid~
+
   # Display the QuodLibet play time
   fn quodplaytime {
     dbus-send --session --print-reply=literal --dest=net.sacredchao.QuodLibet /net/sacredchao/QuodLibet net.sacredchao.QuodLibet.GetPosition | awk '{print $2 / 1000}'
   }
+  edit:add-var quodplaytime~ $quodplaytime~
 }
 # SSH key generation
 if (has-external ssh-keygen) {
   fn ssh-keygen-rsa { ssh-keygen -t rsa -b 4096 }
+  edit:add-var ssh-keygen-rsa~ $ssh-keygen-rsa~
   fn ssh-keygen-ed25519 { ssh-keygen -t ed25519 }
+  edit:add-var ssh-keygen-ed25519~ $ssh-keygen-ed25519~
 }
 if (has-external flac) {
   # Reencode FLAC files with the highest compression settings
   fn flacreencode { put **[type:regular].flac | peach [file]{ flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file } }
+  edit:add-var flacreencode~ $flacreencode~
 }
 if (has-external pwsh) {
   # Start PowerShell without displaying the copyright banner
   fn pwsh [@a]{ e:pwsh -NoLogo $@a }
+  edit:add-var pwsh~ $pwsh~
 }
 {{- if $archlinux }}
 if (has-external paru) {
   # Call paru while skipping checksums and PGP checks
   fn paruignore [@a]{ paru --mflags "--skipchecksums --skippgpcheck" $@a }
+  edit:add-var paruignore~ $paruignore~
 }
 {{- end }}
 
@@ -227,6 +259,33 @@ if (has-external chezmoi) {
   fn chezmoicd {
     cd (chezmoi source-path)
   }
+  edit:add-var chezmoicd~ $chezmoicd~
+}
+
+if (has-external docker) {
+  # Cleanup dangling images and exited containers
+  # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
+  fn docker-cleanup {
+    # for container (docker ps -a -f "name=_run_" -q) {
+    docker ps -a -f "status=exited" -q | each [container]{ docker rm $container }
+
+    docker images -f "dangling=true" -q | each [image]{ docker rmi $image }
+
+    # Cleanup all BuildKit cache
+    docker builder prune -f
+  }
+  edit:add-var docker-cleanup~ $docker-cleanup~
+
+  # Delete all images and containers
+  fn docker-nuke {
+    docker ps -a -q | each [container]{ docker rm -f $container }
+
+    docker images -a -q | each [image]{ docker rmi -f $image }
+
+    # Cleanup all BuildKit cache
+    docker builder prune -f
+  }
+  edit:add-var docker-nuke~ $docker-nuke~
 }
 
 # Increment a version number
@@ -256,21 +315,20 @@ fn write_iso [file device]{
 
 if (has-external tsh) {
   # Login to Teleport
-  fn tshl [env]{
+  fn tshl [&env=dev]{
     if (not (has-value [prod stg dev infra sci] $env)) {
       set env = dev
     }
 
-    if (eq $E:SSH_CONNECTION '') {
-      if (and (not-eq $E:TELEPORT_PROXY '')
-                (not-eq $E:TELEPORT_USER '')
-                (path:is-regular &follow-symlink=$true $E:HOME"/.tsh/"(str:split ':' $E:TELEPORT_PROXY | take 1)".yaml")) {
-        tsh login
-      }
-
-      tsh kube login $env
+    if (and (not-eq $E:TELEPORT_PROXY '') ^
+            (not-eq $E:TELEPORT_USER '') ^
+            (not (path:is-regular &follow-symlink=$true $E:HOME"/.tsh/"(str:split ':' $E:TELEPORT_PROXY | take 1)".yaml"))) {
+      tsh login
     }
+
+    tsh kube login $env
   }
+  edit:add-var tshl~ $tshl~
 }
 
 # CentOS only
@@ -278,6 +336,7 @@ if (has-external tsh) {
 if (and (path:is-regular &follow-symlink=$true /usr/bin/vimx) ^
         (not (path:is-regular &follow-symlink=$true /usr/local/bin/vim))) {
   fn vim [@a]{ /usr/bin/vimx $@a }
+  edit:add-var vim~ $vim~
 }
 
 # Haskell
@@ -287,12 +346,15 @@ if (path:is-dir $E:HOME"/.cabal/bin") {
 }
 if (has-external ghc) {
   fn ghc-sandbox [@a]{ ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  edit:add-var ghc-sandbox~ $ghc-sandbox~
 }
 if (has-external ghci) {
   fn ghci-sandbox [@a]{ ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  edit:add-var ghci-sandbox~ $ghci-sandbox~
 }
 if (has-external runhaskell) {
   fn runhaskell-sandbox [@a]{ runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  edit:add-var runhaskell-sandbox~ $runhaskell-sandbox~
 }
 
 # Go
@@ -300,8 +362,9 @@ if (has-external runhaskell) {
 if (has-external go) {
   # go build and strip the debugging information (DWARF tables)
   fn gor [@a]{ go build -ldflags='-s -w' $@a }
+  edit:add-var gor~ $gor~
 
-  var gopath = (go env GOPATH 2>/dev/null)
+  var gopath = (go env GOPATH 2>{{ if eq .chezmoi.os "windows" }}NUL{{ else }}/dev/null{{ end }})
   if (not-eq $gopath '') {
     set paths = [$gopath"/bin" $@paths]
   }
@@ -311,6 +374,7 @@ if (has-external go) {
 #------------------------------------------------------------------------------
 if (has-external rustup) {
   fn rustbook { rustup docs --book }
+  edit:add-var rustbook~ $rustbook~
 }
 if (path:is-dir $E:HOME"/.cargo/bin") {
   set paths = [$E:HOME"/.cargo/bin" $@paths]

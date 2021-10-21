@@ -176,10 +176,42 @@ mkcd() {
     mkdir -p -- "$1" && cd -P -- "$1" || return
 }
 
-# Change directory to the chezmoi folder without creating a subshell
 if command -v chezmoi >/dev/null; then
+    # Change directory to the chezmoi folder without creating a subshell
     chezmoicd() {
         cd "$(chezmoi source-path)" || return
+    }
+fi
+
+if command -v docker >/dev/null; then
+    # Cleanup docker dangling images and exited containers
+    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
+    docker-cleanup() {
+        # for container in $(docker ps -a -f "name=_run_" -q); do
+        for container in $(docker ps -a -f "status=exited" -q); do
+            docker rm "${container}"
+        done
+
+        for image in $(docker images -f "dangling=true" -q); do
+            docker rmi "${image}"
+        done
+
+        # Cleanup all BuildKit cache
+        docker builder prune -f
+    }
+
+    # Delete all docker images and containers
+    docker-nuke() {
+        for container in $(docker ps -a -q); do
+            docker rm -f "${container}"
+        done
+
+        for image in $(docker images -a -q); do
+            docker rmi -f "${image}"
+        done
+
+        # Cleanup all BuildKit cache
+        docker builder prune -f
     }
 fi
 

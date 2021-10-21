@@ -282,6 +282,36 @@ if type -q chezmoi
     end
 end
 
+if type -q docker
+    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
+    function docker-cleanup --description "Cleanup docker dangling images and exited containers"
+        # for container in (docker ps -a -f "name=_run_" -q)
+        for container in (docker ps -a -f "status=exited" -q)
+            docker rm $container
+        end
+
+        for image in (docker images -f "dangling=true" -q)
+            docker rmi $image
+        end
+
+        # Cleanup all BuildKit cache
+        docker builder prune -f
+    end
+
+    function docker-nuke --description "Delete all docker images and containers"
+        for container in (docker ps -a -q)
+            docker rm -f $container
+        end
+
+        for image in (docker images -a -q)
+            docker rmi -f $image
+        end
+
+        # Cleanup all BuildKit cache
+        docker builder prune -f
+    end
+end
+
 if type -q tsh
     function tshl --argument-names 'env' --description "Login to Teleport"
         switch $env
