@@ -1,0 +1,128 @@
+{{ template "PowerShell/stdin.ps1" }}
+
+# Sample settings.json:
+# {"properties":{"ActivationShortcut":{"win":true,"ctrl":false,"alt":false,"shift":true,"code":67,"key":""},"changecursor":{"value":false},"copiedcolorrepresentation":0,"activationaction":1,"colorhistory":["255|178|177|180","255|141|140|142","255|192|191|193","255|28|27|34","255|32|32|32","255|12|12|12","255|251|251|251","255|91|171|91","255|66|65|77","255|225|16|34"],"colorhistorylimit":20,"visiblecolorformats":{"HEX":true,"RGB":true,"HSL":false,"HSV":false,"CMYK":true,"HSB":false,"HSI":false,"HWB":false,"NCol":false,"CIELAB":false,"CIEXYZ":false},"showcolorname":{"value":true}},"name":"ColorPicker","version":"1.0"}
+$json = Read-FileFromStdin | ConvertFrom-Json
+if ($null -eq $json) {
+    $json = "{}" | ConvertFrom-Json
+}
+
+if ($null -eq $json.properties) {
+    $json | Add-Member -Type NoteProperty -Name properties -Value ("{}" | ConvertFrom-Json)
+}
+
+if ($null -eq $json.properties.ActivationShortcut) {
+    $json.properties | Add-Member -Type NoteProperty -Name ActivationShortcut -Value ("{}" | ConvertFrom-Json)
+}
+
+if ($null -ne $json.properties.ActivationShortcut.win) {
+    $json.properties.ActivationShortcut.win = $true
+} else {
+    $json.properties.ActivationShortcut | Add-Member -Type NoteProperty -Name win -Value $true
+}
+
+if ($null -ne $json.properties.ActivationShortcut.ctrl) {
+    $json.properties.ActivationShortcut.ctrl = $false
+} else {
+    $json.properties.ActivationShortcut | Add-Member -Type NoteProperty -Name ctrl -Value $false
+}
+
+if ($null -ne $json.properties.ActivationShortcut.shift) {
+    $json.properties.ActivationShortcut.shift = $false
+} else {
+    $json.properties.ActivationShortcut | Add-Member -Type NoteProperty -Name shift -Value $false
+}
+
+if ($null -ne $json.properties.ActivationShortcut.code) {
+    $json.properties.ActivationShortcut.code = [int][char]"C"
+} else {
+    $json.properties.ActivationShortcut | Add-Member -Type NoteProperty -Name code -Value [int][char]"C"
+}
+
+if ($null -ne $json.properties.ActivationShortcut.key) {
+    $json.properties.ActivationShortcut.key = ""
+} else {
+    $json.properties.ActivationShortcut | Add-Member -Type NoteProperty -Name key -Value ""
+}
+
+if ($null -eq $json.properties.visiblecolorformats) {
+    $json.properties | Add-Member -Type NoteProperty -Name visiblecolorformats -Value ("{}" | ConvertFrom-Json)
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HEX) {
+    $json.properties.visiblecolorformats.HEX = $true
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HEX -Value $true
+}
+
+if ($null -ne $json.properties.visiblecolorformats.RGB) {
+    $json.properties.visiblecolorformats.RGB = $true
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name RGB -Value $true
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HSL) {
+    $json.properties.visiblecolorformats.HSL = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HSL -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HSV) {
+    $json.properties.visiblecolorformats.HSV = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HSV -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.CMYK) {
+    $json.properties.visiblecolorformats.CMYK = $true
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name CMYK -Value $true
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HSB) {
+    $json.properties.visiblecolorformats.HSB = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HSB -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HSI) {
+    $json.properties.visiblecolorformats.HSI = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HSI -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.HWB) {
+    $json.properties.visiblecolorformats.HWB = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name HWB -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.NCol) {
+    $json.properties.visiblecolorformats.NCol = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name NCol -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.CIELAB) {
+    $json.properties.visiblecolorformats.CIELAB = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name CIELAB -Value $false
+}
+
+if ($null -ne $json.properties.visiblecolorformats.CIEXYZ) {
+    $json.properties.visiblecolorformats.CIEXYZ = $false
+} else {
+    $json.properties.visiblecolorformats | Add-Member -Type NoteProperty -Name CIEXYZ -Value $false
+}
+
+if ($null -eq $json.properties.showcolorname) {
+    $json.properties | Add-Member -Type NoteProperty -Name showcolorname -Value ("{}" | ConvertFrom-Json)
+}
+
+if ($null -ne $json.properties.showcolorname.value) {
+    $json.properties.showcolorname.value = $true
+} else {
+    $json.properties.showcolorname | Add-Member -Type NoteProperty -Name value -Value $true
+}
+
+Write-Host ($json | ConvertTo-Json -Compress) -NoNewLine

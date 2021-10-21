@@ -1,0 +1,92 @@
+{{ template "PowerShell/stdin.ps1" }}
+
+# Sample settings.json:
+# {"startup":true,"enabled":{"Awake":false,"ColorPicker":true,"FancyZones":false,"File Explorer":true,"Image Resizer":false,"Keyboard Manager":true,"PowerRename":false,"PowerToys Run":true,"Shortcut Guide":true},"is_elevated":true,"run_elevated":true,"download_updates_automatically":false,"is_admin":true,"theme":"dark","system_theme":"dark","powertoys_version":"v0.47.1"}
+$json = Read-FileFromStdin | ConvertFrom-Json
+if ($null -eq $json) {
+    $json = "{}" | ConvertFrom-Json
+}
+
+if ($null -ne $json.startup) {
+    $json.startup = $true
+} else {
+    $json | Add-Member -Type NoteProperty -Name startup -Value $true
+}
+
+if ($null -eq $json.enabled) {
+    $json | Add-Member -Type NoteProperty -Name enabled -Value ("{}" | ConvertFrom-Json)
+}
+
+if ($null -ne $json.enabled.Awake) {
+    $json.enabled.Awake = $false
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name Awake -Value $false
+}
+
+if ($null -ne $json.enabled.ColorPicker) {
+    $json.enabled.ColorPicker = $true
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name ColorPicker -Value $true
+}
+
+if ($null -ne $json.enabled.FancyZones) {
+    $json.enabled.FancyZones = $false
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name FancyZones -Value $false
+}
+
+if ($null -ne $json.enabled."File Explorer") {
+    $json.enabled."File Explorer" = $true
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "File Explorer" -Value $true
+}
+
+if ($null -ne $json.enabled."Image Resizer") {
+    $json.enabled."Image Resizer" = $false
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "Image Resizer" -Value $false
+}
+
+if ($null -ne $json.enabled."Keyboard Manager") {
+    $json.enabled."Keyboard Manager" = $false
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "Keyboard Manager" -Value $false
+}
+
+if ($null -ne $json.enabled."Power Rename") {
+    $json.enabled."Power Rename" = $false
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "Power Rename" -Value $false
+}
+
+if ($null -ne $json.enabled."PowerToys Run") {
+    $json.enabled."PowerToys Run" = $true
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "PowerToys Run" -Value $true
+}
+
+if ($null -ne $json.enabled."Shortcut Guide") {
+    $json.enabled."Shortcut Guide" = $true
+} else {
+    $json.enabled | Add-Member -Type NoteProperty -Name "Shortcut Guide" -Value $true
+}
+
+if ($null -ne $json.run_elevated) {
+    $json.run_elevated = $true
+} else {
+    $json | Add-Member -Type NoteProperty -Name run_elevated -Value $true
+}
+
+if ($null -ne $json.download_updates_automatically) {
+    $json.download_updates_automatically = $false
+} else {
+    $json | Add-Member -Type NoteProperty -Name download_updates_automatically -Value $false
+}
+
+if ($null -ne $json.theme) {
+    $json.theme = "dark"
+} else {
+    $json | Add-Member -Type NoteProperty -Name theme -Value "dark"
+}
+
+Write-Host ($json | ConvertTo-Json -Compress) -NoNewLine
