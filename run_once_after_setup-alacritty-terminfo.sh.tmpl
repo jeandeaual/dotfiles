@@ -1,0 +1,35 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/bash
+
+set -euo pipefail
+
+for cmd in infocmp tic sudo; do
+    command -v "${cmd}" &>/dev/null || {
+        echo "${cmd} not found" 1>&2
+        exit 1
+    }
+done
+
+if infocmp alacritty >/dev/null 2>&1; then
+    # Already installed
+    exit 0
+fi
+
+tmpfile="$(mktemp)"
+trap 'rm -f -- "${tmpfile}"' EXIT
+
+readonly terminfo_url="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
+
+if [[ "$(command -v curl)" ]]; then
+    curl -fsSL "${terminfo_url}" > "${tmpfile}"
+elif [[ "$(command -v wget)" ]]; then
+    wget -qO- "${terminfo_url}" > "${tmpfile}"
+else
+    echo "To install the terminfo, you must have curl or wget installed" >&2
+    exit 1
+fi
+
+echo "Installing alacritty terminfo..."
+
+sudo tic -xe alacritty,alacritty-direct "${tmpfile}"
+{{ end -}}
