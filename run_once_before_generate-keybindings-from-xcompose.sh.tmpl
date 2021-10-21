@@ -1,13 +1,13 @@
 {{- if eq .chezmoi.os "darwin" -}}
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 for cmd in python3; do
-    command -v "${cmd}" &>/dev/null || {
+    if [ ! "$(command -v "${cmd}")" ]; then
         echo "${cmd} not found" 1>&2
         exit 1
-    }
+    fi
 done
 
 # https://www.chezmoi.io/docs/how-to/#run-a-script-when-the-contents-of-another-file-changes

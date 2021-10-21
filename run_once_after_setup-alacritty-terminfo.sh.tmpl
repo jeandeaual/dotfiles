@@ -1,13 +1,13 @@
-{{- if ne .chezmoi.os "windows" -}}
-#!/bin/bash
+{{- if and (lookPath "infocmp") (lookPath "tic") -}}
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 for cmd in infocmp tic sudo; do
-    command -v "${cmd}" &>/dev/null || {
+    if [ ! "$(command -v "${cmd}")" ]; then
         echo "${cmd} not found" 1>&2
         exit 1
-    }
+    fi
 done
 
 if infocmp alacritty >/dev/null 2>&1; then
@@ -20,9 +20,9 @@ trap 'rm -f -- "${tmpfile}"' EXIT
 
 readonly terminfo_url="https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
 
-if [[ "$(command -v curl)" ]]; then
+if [ "$(command -v curl)" ]; then
     curl -fsSL "${terminfo_url}" > "${tmpfile}"
-elif [[ "$(command -v wget)" ]]; then
+elif [ "$(command -v wget)" ]; then
     wget -qO- "${terminfo_url}" > "${tmpfile}"
 else
     echo "To install the terminfo, you must have curl or wget installed" >&2
