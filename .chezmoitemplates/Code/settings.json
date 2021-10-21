@@ -41,6 +41,7 @@
   "editor.renderFinalNewline": false,
   "editor.suggestSelection": "first",
   "workbench.startupEditor": "newUntitledFile",
+  "zenMode.hideLineNumbers": false,
   // Indentation and bracket guides
   "editor.guides.bracketPairs": true,
   "editor.guides.highlightActiveIndentation": true,
@@ -255,17 +256,21 @@
   },
   // Extensions
   "extensions.ignoreRecommendations": false,
-  "git.autofetch": true,
+  // Git
+  "git.autofetch": "all",
+  // eamodio.gitlens
   "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
   "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
+  // vscodevim.vim
   "vim.leader": ",",
   "vim.gdefault": true,
-  "zenMode.hideLineNumbers": false,
+  // wengerk.highlight-bad-chars
   "highlight-bad-chars.additionalUnicodeChars": [
     "\u200E",
     "\u200F"
   ],
   "latex-workshop.view.pdf.viewer": "tab",
+  // gruntfuggly.todo-tree
   "todo-tree.general.tags": [
     "BUG",
     "HACK",
@@ -276,6 +281,7 @@
     "[x]"
   ],
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  // adpyke.codesnap
   "codesnap.containerPadding": "0em",
   "codesnap.roundedCorners": true,
   "codesnap.showWindowControls": false,
@@ -284,7 +290,14 @@
   "codesnap.transparentBackground": true,
   "codesnap.target": "container",
   "codesnap.shutterAction": "save",
-  // Remote - Containers
+  // mutantdino.resourcemonitor
+  "resmon.show.cpuusage": true,
+  "resmon.show.mem": true,
+  "resmon.show.cpufreq": false,
+  "resmon.show.battery": false,
+  "resmon.show.disk": false,
+  "resmon.updatefrequencyms": 5000,
+  // ms-vscode-remote.remote-containers
 {{- if lookPath "podman" }}
   "remote.containers.dockerPath": "podman",
 {{- else if lookPath "docker" }}
