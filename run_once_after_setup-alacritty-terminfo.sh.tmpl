@@ -1,4 +1,4 @@
-{{- if and (lookPath "infocmp") (lookPath "tic") -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "infocmp") (lookPath "tic") -}}
 #!/bin/sh
 
 set -eu

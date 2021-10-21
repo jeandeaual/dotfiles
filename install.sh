@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -eu
 
 apply_all=false
 install_starship=true
