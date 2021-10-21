@@ -1,0 +1,3 @@
+set tab-size             = 4     # Number of spaces to use when expanding tabs
+set line-graphics        = auto  # Enum: ascii, default, utf-8, auto
+set truncation-delimiter = utf-8 # Character drawn for truncations, or "utf-8"
