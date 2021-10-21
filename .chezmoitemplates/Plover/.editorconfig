@@ -1,0 +1,8 @@
+[*]
+indent_style = space
+
+[*.json]
+indent_size = 0
+
+[layout-*.json]
+indent_size = 2

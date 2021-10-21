@@ -1,0 +1,221 @@
+{{- $color := "#ffffff" -}}
+{{- $colorPressed := "#b2b1b4" -}}
+{
+  "name": "Grandjean",
+  "margin": 5.0,
+  "key_width": 30.0,
+  "key_height": 35.0,
+  "keys": [
+    {
+      "name": "S-",
+      "label": "S",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "P-",
+      "label": "P",
+      "x": 1,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "T-",
+      "label": "T",
+      "x": 2,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "*",
+      "label": "*",
+      "x": 3,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "N-",
+      "label": "N",
+      "x": 4,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "Y-",
+      "label": "Y",
+      "x": 5,
+      "y": 0,
+      "width": 1,
+      "height": 2.3,
+      "is_round_bottom": true,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-O",
+      "label": "O",
+      "x": 6,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-A",
+      "label": "A",
+      "x": 7,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-I",
+      "label": "I",
+      "x": 8,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-n",
+      "label": "И",
+      "x": 9,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-D",
+      "label": "D",
+      "x": 10,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "K-",
+      "label": "K",
+      "x": 0,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "M-",
+      "label": "M",
+      "x": 1,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "F-",
+      "label": "F",
+      "x": 2,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "R-",
+      "label": "R",
+      "x": 3,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "L-",
+      "label": "L",
+      "x": 4,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-E",
+      "label": "E",
+      "x": 6,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-U",
+      "label": "U",
+      "x": 7,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-l",
+      "label": "Ɽ",
+      "x": 8,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-$",
+      "label": "$",
+      "x": 9,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-C",
+      "label": "ⵎ",
+      "x": 10,
+      "y": 1,
+      "width": 1,
+      "height": 1,
+      "color": "{{ $color }}",
+      "color_pressed": "{{ $colorPressed }}"
+    }
+  ]
+}

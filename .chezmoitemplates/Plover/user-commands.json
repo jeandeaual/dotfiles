@@ -1,0 +1,28 @@
+{
+"PHR*UP":"{PLOVER:LOOKUP}",
+"PHROFG":"{PLOVER:CONFIGURE}",{{/* Think PLOFG, for PLOver conFiG */}}
+"PHROFBGS":"{PLOVER:FOCUS}",{{/* Think PLOFKS, for PLOver focus */}}
+"PHROBGT":"{PLOVER:QUIT}",{{/* Think PLOKT, for PLOver quit */}}
+{{- /* Capitalize last word */}}
+"KA*PD":"{*-|}",
+{{- /* CAPS Lock */}}
+"KA*PS":"{MODE:CAPS}",
+{{- /* Uppercase next word */}}
+"KPA*L":"{<}",
+{{- /* Uppercase last word */}}
+"*UPD":"{*<}",
+{{- /* Lowercase next word (lower) */}}
+"HRO*ER":"{>}",
+{{- /* Lowercase last word (lowered) */}}
+"HRO*ERD":"{*>}",
+{{- /* Repeat last stroke */}}
+"#":"{*+}",
+{{- /* Toggle the asterisk key on the last stroke */}}
+"#*":"{*}",
+{{- /* Retroactively add space */}}
+"AFPS":"{*?}",
+{{- /* Retroactively delete space */}}
+"TK-FPS":"{*!}",
+{{- /* Requires https://github.com/nsmarkop/plover_system_switcher */}}
+"*RB": "{PLOVER:SWITCH_SYSTEM:Grandjean}"
+}

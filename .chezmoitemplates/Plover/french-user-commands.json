@@ -1,0 +1,4 @@
+{
+{{- /* Requires https://github.com/nsmarkop/plover_system_switcher */}}
+"*Ul": "{PLOVER:SWITCH_SYSTEM:English Stenotype}"
+}

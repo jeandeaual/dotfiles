@@ -1,0 +1,255 @@
+{{- $color := "#ffffff" -}}
+{{- $colorPressed := "#b2b1b4" -}}
+{
+  "name": "English Stenotype",
+  "margin": 5.0,
+  "key_width": 30.0,
+  "key_height": 35.0,
+  "keys": [
+    {
+      "name": "#",
+      "label": "#",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 10.0,
+      "height": 0.5,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "S-",
+      "label": "S",
+      "x": 0.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 2.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "T-",
+      "label": "T",
+      "x": 1.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "P-",
+      "label": "P",
+      "x": 2.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "H-",
+      "label": "H",
+      "x": 3.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "*",
+      "label": "*",
+      "x": 4.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 2.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-F",
+      "label": "F",
+      "x": 5.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-P",
+      "label": "P",
+      "x": 6.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-L",
+      "label": "L",
+      "x": 7.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-T",
+      "label": "T",
+      "x": 8.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-D",
+      "label": "D",
+      "x": 9.0,
+      "y": 0.5,
+      "width": 1.0,
+      "height": 1.0,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+
+    {
+      "name": "K-",
+      "label": "K",
+      "x": 1.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "W-",
+      "label": "W",
+      "x": 2.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "R-",
+      "label": "R",
+      "x": 3.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-R",
+      "label": "R",
+      "x": 5.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-B",
+      "label": "B",
+      "x": 6.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-G",
+      "label": "G",
+      "x": 7.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-S",
+      "label": "S",
+      "x": 8.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-Z",
+      "label": "Z",
+      "x": 9.0,
+      "y": 1.5,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "A-",
+      "label": "A",
+      "x": 2.2,
+      "y": 2.6,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "O-",
+      "label": "O",
+      "x": 3.2,
+      "y": 2.6,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-E",
+      "label": "E",
+      "x": 4.8,
+      "y": 2.6,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    },
+    {
+      "name": "-U",
+      "label": "U",
+      "x": 5.8,
+      "y": 2.6,
+      "width": 1.0,
+      "height": 1.0,
+      "is_round_bottom": true,
+      "color": "{{- $color -}}",
+      "color_pressed": "{{ $colorPressed }}"
+    }
+  ]
+}
