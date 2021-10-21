@@ -35,7 +35,7 @@ Library
 .Xresources
 .xprofile
 {{- end }}
-{{- if or (.codespaces) (.remotecontainer) (eq .chassistype "container") }}
+{{- if or .devcontainer (eq .chassistype "container") }}
 .local/share/fonts
 .XCompose
 .Xresources
@@ -45,11 +45,10 @@ vimfiles
 .config/nvim
 .config/Code*
 {{- end }}
-{{- if .remotecontainer }}
+{{- if .devcontainer }}
 # By default Visual Studio Code loads the host .gitconfig on Remote - Containers
 .gitconfig
 {{- end }}
 {{- if .work }}{{/* Work */}}
 {{- else }}{{/* Personal */}}
-.kube/config
 {{- end }}

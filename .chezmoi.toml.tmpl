@@ -1,7 +1,6 @@
-{{- /* GitHub Codespaces */ -}}
-{{- $codespaces := env "CODESPACES" | not | not -}}
-{{- /* Visual Studio Code Remote - Containers (including devcontainers) */ -}}
-{{- $remoteContainer := env "REMOTE_CONTAINERS" | not | not -}}
+{{- $email := "alexis.jeandeau@gmail.com" -}}
+{{- $work := eq .chezmoi.username "alexis.jeandeau" -}}
+{{- $devcontainer := or (env "REMOTE_CONTAINERS") (env "CODESPACES") (env "VSCODE_REMOTE_CONTAINERS_SESSION") | not | not -}}
 
 {{- $embedded := false -}}
 {{- $wsl := false -}}
@@ -55,11 +54,11 @@
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- if and (not $codespaces) (not $remoteContainer) (ne $chassisType "container") }}{{/* Disable encryption on Codespaces and containers */}}
+{{- if and (not $devcontainer) (ne $chassisType "container") }}{{/* Disable encryption on containers */}}
 encryption = "gpg"
 
 [gpg]
-    recipient = "alexis.jeandeau@gmail.com"
+    recipient = {{ $email | quote }}
 {{- end }}
 
 {{- if lookPath "pwsh" }}
@@ -69,20 +68,37 @@ encryption = "gpg"
     arguments = "-NoLogo"
 {{- end }}
 
+{{- if and (ne .chezmoi.os "windows") (lookPath "python3") }}
+
+[interpreters.py]
+    command = "python3"
+{{- else }}
+
+[interpreters.py]
+    command = "python"
+{{- end }}
+
 [data]
-    codespaces = {{ $codespaces }}
-    remotecontainer = {{ $remoteContainer }}
+    devcontainer = {{ $devcontainer }}
     wsl = {{ $wsl }}
     embedded = {{ $embedded }}
     chassistype = {{ $chassisType | quote }}
     serial = {{ $serial | quote }}
-    work = {{ if eq .chezmoi.username "alexis.jeandeau" -}}true{{- else -}}false{{- end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
     display = 0
 {{- end }}
-{{- if or $codespaces $remoteContainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive, so set an email address */}}
-    email = "alexis.jeandeau@gmail.com"
+{{- if or (not stdinIsATTY) $devcontainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive */}}
+    email = {{ $email | quote }}
+    work = {{ $work }}
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
-    email = {{ promptString "E-mail" | quote }}
+    email = {{ promptString "E-mail" $email | quote }}
+    work = {{ promptBool "Is this a work environment" $work }}
+{{- end }}
+{{- if and .devcontainer (lookPath "code") }}
+    editor = "code --wait"
+{{- else if lookPath "vim" }}
+    editor = "vim"
+{{- else }}
+    editor = "vi"
 {{- end }}

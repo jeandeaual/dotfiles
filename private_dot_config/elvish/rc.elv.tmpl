@@ -51,13 +51,8 @@ if (not-eq $E:XDG_CONFIG_HOME '') {
 
 # Environment variables
 #------------------------------------------------------------------------------
-set E:VISUAL = 'gvim'
-# Preferred editor for local and remote sessions
-if (eq $E:SSH_CONNECTION '') {
-  set E:EDITOR = 'vim'
-} else {
-  set E:EDITOR = 'gvim'
-}
+set E:EDITOR = '{{ .editor }}'
+set E:VISUAL = $E:EDITOR
 set E:SYSTEMD_EDITOR = $E:EDITOR
 set E:FCEDIT = $E:EDITOR
 set E:SVN_EDITOR = $E:EDITOR

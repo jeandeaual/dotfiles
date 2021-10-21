@@ -20,12 +20,8 @@ end
 
 # Environment variables
 #------------------------------------------------------------------------------
-set -xU VISUAL gvim
-if set -q SSH_CONNECTION
-    set -xU EDITOR vim
-else
-    set -xU EDITOR gvim
-end
+set -xU EDITOR {{ .editor }}
+set -xU VISUAL $EDITOR
 set -xU SYSTEMD_EDITOR $EDITOR
 set -xU FCEDIT $EDITOR
 set -xU SVN_EDITOR $EDITOR
