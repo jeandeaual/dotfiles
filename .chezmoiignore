@@ -10,6 +10,7 @@ Documents
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .vim
+.config/elvish
 .config/nvim
 .config/powershell
 {{- else }}

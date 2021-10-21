@@ -1,4 +1,7 @@
+.elvish
 .emacs
+.tmux.conf
+.zathurarc
 {{- if eq .chezmoi.os "windows" }}
 _vimrc
 _gvimrc

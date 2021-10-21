@@ -34,6 +34,11 @@ try {
     # The work module might not be available on some machines
 }
 
+var config_path = $E:HOME'/.config'
+if (not-eq $E:XDG_CONFIG_HOME '') {
+  set config_path = $E:XDG_CONFIG_HOME
+}
+
 # Environment variables
 #------------------------------------------------------------------------------
 set E:VISUAL = 'gvim'
@@ -50,6 +55,9 @@ set E:PAGER = 'less'
 set E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 set E:WWW_BROWSER = 'w3m'
 set E:DOWNLOADER = 'wget -S'
+if (path:is-regular &follow-symlink=$true $config_path'/ripgrep/ripgreprc') {
+  set E:RIPGREP_CONFIG_PATH = $config_path'/ripgrep/ripgreprc'
+}
 if (path:is-dir /usr/local/man) {
   if (eq E:MANPATH '') {
     set E:MANPATH = /usr/local/man

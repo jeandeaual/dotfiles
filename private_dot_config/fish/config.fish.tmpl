@@ -12,6 +12,12 @@ end
 # Disable the default prompt
 set fish_greeting ""
 
+if set -q XDG_CONFIG_HOME
+    set config_path $XDG_CONFIG_HOME
+else
+    set config_path {$HOME}/.config
+end
+
 # Environment variables
 #------------------------------------------------------------------------------
 set -xU VISUAL gvim
@@ -27,6 +33,9 @@ set -xU PAGER less
 set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
 set -xU WWW_BROWSER w3m
 set -xU DOWNLOADER wget -S
+if test -f {$config_path}/ripgrep/ripgreprc
+    set -xU RIPGREP_CONFIG_PATH {$config_path}/ripgrep/ripgreprc
+end
 if test -d /usr/local/man
     set -xU MANPATH /usr/local/man $MANPATH
 end

@@ -37,6 +37,9 @@ export PAGER='less'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 export WWW_BROWSER='w3m'
 export DOWNLOADER='wget -S'
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/ripgreprc" ]; then
+    export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/ripgreprc"
+fi
 if [ -d "/usr/local/man" ]; then
     export MANPATH="/usr/local/man${MANPATH:+:${MANPATH}}"
 fi
