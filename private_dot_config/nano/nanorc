@@ -1,0 +1,6 @@
+# When soft line wrapping is enabled, make it wrap lines at blank characters (tabs and spaces) instead of always at the edge of the screen.
+set atblanks
+# Display line numbers to the left of the text area. (Any line with an anchor additionally gets a mark in the margin.)
+set linenumbers
+# Don’t convert files from DOS/Mac format.
+set noconvert
