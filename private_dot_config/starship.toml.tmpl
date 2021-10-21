@@ -26,6 +26,7 @@ disabled = true
 [directory]
 truncation_length = 8
 truncate_to_repo = false
+truncation_symbol = "…/"
 {{- if $plaintext }}
 read_only = " ro"
 {{- end }}
@@ -61,8 +62,13 @@ format = ' [$symbol$branch]($style)'
 symbol = "hg "
 {{- end }}
 
-[jobs]
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) "
+
 {{- if $plaintext }}
+
+[jobs]
 symbol = "<>"
 {{- end }}
 
