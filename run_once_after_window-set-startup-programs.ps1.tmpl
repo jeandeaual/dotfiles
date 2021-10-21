@@ -1,0 +1,41 @@
+{{- if eq .chezmoi.os "windows" -}}
+
+{{ template "PowerShell/shortcut.ps1" . }}
+
+$Destination = ([IO.Path]::Combine($env:APPDATA, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup'))
+
+@(
+    @{
+        Source = ([IO.Path]::Combine(${env:ProgramFiles(x86)}, 'AudioSwitch', 'AudioSwitch.exe'))
+        Name = 'AudioSwitch'
+        Arguments = '/startup'
+    },
+    @{
+        Source = ([IO.Path]::Combine(${env:ProgramFiles(x86)}, 'Borderless Gaming', 'BorderlessGaming.exe'))
+        Name = 'Borderless Gaming'
+        Arguments = '-silent -minimize'
+    },
+    @{
+        Source = ([IO.Path]::Combine($env:ProgramFiles, 'PuTTY', 'pageant.exe'))
+        Name = 'Pageant'
+    },
+    @{
+        Source = ([IO.Path]::Combine($env:ProgramFiles, 'Rainmeter', 'Rainmeter.exe'))
+        Name = 'Rainmeter'
+    },
+    @{
+        Source = ([IO.Path]::Combine($env:ProgramFiles, 'VcXsrv', 'vcxsrv.exe'))
+        Name = 'VcXsrv'
+        Arguments = ':0 -ac -terminate -lesspointer -multiwindow -clipboard -wgl'
+    }
+) | ForEach-Object {
+    $Source = $_['Source']
+    if (-not (Test-Path -Path $Source -Type Leaf)) {
+        return
+    }
+    $ShortcutPath = ([IO.Path]::Combine($Destination, $_['Name'] + '.lnk'))
+    $Directory = (Get-Item $Source).Directory.FullName
+
+    Set-Shortcut -Source $Source -Destination $ShortcutPath -Arguments $_['Arguments'] -StartIn $Directory
+}
+{{ end -}}

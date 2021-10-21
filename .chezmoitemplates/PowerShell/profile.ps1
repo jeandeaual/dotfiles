@@ -4,16 +4,19 @@ function Add-Path {
         An example function to display how help should be written.
 
         .EXAMPLE
-        Add-Path "C:\bin"
+        Add-Path "C:\bin" -Before
 
-        This will add the path "C:\bin" to the PATH environment variable.
+        This will add the path "C:\bin" to the start of the PATH environment variable.
     #>
     param (
         # The path to add to the PATH environment variable
         [Parameter(Mandatory = $true,
                    ValueFromPipeline)]
         [System.IO.DirectoryInfo]
-        $Path
+        $Path,
+        # Whether to add the entry first or last
+        [switch]
+        $Before = $false
     )
 
     process {
@@ -21,12 +24,20 @@ function Add-Path {
 
         if (Test-Path -Path $FullPath) {
 {{- if eq .chezmoi.os "windows" }}
-            if ($env:Path -notlike "*${FullPath}*") {
-                $env:Path += ";${FullPath}"
+            if ($FullPath -notin ${env:Path}.Split(';')) {
+                if ($Before) {
+                    $env:Path = "${FullPath};${env:Path}"
+                } else {
+                    $env:Path += ";${FullPath}"
+                }
             }
 {{- else }}
-            if ($env:PATH -notlike "*${FullPath}*") {
-                $env:PATH += ":${FullPath}"
+            if ($FullPath -notin ${env:PATH}.Split(':')) {
+                if ($Before) {
+                    $env:PATH = "${FullPath}:${env:PATH}"
+                } else {
+                    $env:PATH += ":${FullPath}"
+                }
             }
 {{- end }}
         }
@@ -36,15 +47,21 @@ function Add-Path {
 {{ if eq .chezmoi.os "windows" -}}
 {{ template "PowerShell/fonts.ps1" . }}
 
-foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake", "${env:ProgramFiles}\nodejs")) {
-    Add-Path $path
+{{ template "PowerShell/shortcut.ps1" . }}
+
+foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake")) {
+    Add-Path -Path $path -Before
 }
 # Add the Python folder to the path if it's not already there
-try { Get-ChildItem -Directory -Path "${env:LocalAppData}\Programs\Python" -ErrorAction Stop | Where-Object {$_.Name -like 'Python*'} | Add-Path } catch {}
+try { Get-ChildItem -Directory -Path "${env:LocalAppData}\Programs\Python" -ErrorAction Stop | Where-Object { $_.Name -like 'Python*' } | Select-Object -First 1 | Add-Path -Before } catch {}
 # Add the Ruby folder to the path if it's not already there
-try { Get-ChildItem -Directory -Path "C:\" -ErrorAction Stop | Where-Object {$_.Name -like 'Ruby*-x64'} | Add-Path } catch {}
+try { Get-ChildItem -Directory -Path "C:\" -ErrorAction Stop | Where-Object { $_.Name -like 'Ruby*-x64' } | Select-Object -First 1 | Add-Path -Before } catch {}
 # Add the Vim folder to the path if it's not already there
-try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Vim" -ErrorAction Stop | Where-Object {$_.Name -like 'vim*'} | Add-Path } catch {}
+try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Vim" -ErrorAction Stop | Where-Object { $_.Name -like 'vim*' } | Select-Object -First 1 | Add-Path } catch {}
+# Add the Emacs folder to the path if it's not already there
+try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Emacs" -ErrorAction Stop | Select-Object -First 1 | Get-ChildItem -Directory | Where-Object { $_.Name -eq 'bin' } | Add-Path } catch {}
+# Add the Plover folder to the path if it's not already there
+try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Open Steno Project" -ErrorAction Stop | Where-Object { $_.Name -like 'Plover*' } | Select-Object -First 1 | Add-Path } catch {}
 {{ else -}}
 {{ template "PowerShell/admin.ps1" . }}
 {{- end }}
@@ -79,6 +96,8 @@ function Relaunch-Admin { Start-Process -Verb RunAs (Get-Process -Id $PID).Path 
 Set-Alias pwshadmin Relaunch-Admin
 
 Set-Alias which Get-Command
+Set-Alias open Invoke-Item
+Set-Alias o Invoke-Item
 
 function ll { Get-ChildItem -Force $args }
 

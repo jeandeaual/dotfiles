@@ -16,5 +16,5 @@ function Read-FileFromStdin {
         return $null
     }
 
-    return $lines -join [System.Environment]::NewLine
+    $lines -join [System.Environment]::NewLine
 }
