@@ -1,11 +1,8 @@
 {{- $plaintext := false -}}
 {{- $nerdfont := true -}}
 
-# Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
-
-# Disable the blank line at the start of the prompt
-# add_newline = false
+# Wait 50 milliseconds for starship to check files under the current directory.
+scan_timeout = 50
 
 [character]
 {{- if $plaintext }}
@@ -24,12 +21,13 @@ format = ' [{{ if not $plaintext }}⏱{{ end }} $duration]($style)'
 disabled = true
 
 [directory]
-truncation_length = 8
-truncate_to_repo = false
-truncation_symbol = "…/"
+format = '[$path]($style)[$read_only]($read_only_style)'
 {{- if $plaintext }}
 read_only = " ro"
 {{- end }}
+truncation_length = 8
+truncate_to_repo = false
+truncation_symbol = "…/"
 
 [git_branch]
 format = ' [$symbol$branch]($style)'
@@ -63,8 +61,8 @@ symbol = "hg "
 {{- end }}
 
 [hostname]
+format = '@[$hostname]($style) '
 ssh_only = true
-format = "[$hostname]($style) "
 
 {{- if $plaintext }}
 
@@ -87,7 +85,7 @@ disabled = true
 format = ' [$time]($style)'
 
 [username]
-format = ' [$user]($style)'
+format = '[$user]($style)'
 
 [aws]
 format = ' [$symbol($profile)(\($region\))(\[$duration\])]($style)'
