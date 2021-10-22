@@ -1,5 +1,25 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
+{{- $shell := env "SHELL" | default "/bin/sh" -}}
+{{- if regexMatch "elvish$" $shell }}
+
+# Start tmux when launching alacritty
+shell:
+  program: {{ $shell }}
+  args:
+    - -c
+    - or (tmux attach) (tmux)
+{{- else if regexMatch "(ba|z|da|a|fi)sh$" $shell }}
+
+# Start tmux when launching alacritty
+shell:
+  program: {{ $shell }}
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
+{{- end }}
+
 window:
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
