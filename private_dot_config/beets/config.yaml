@@ -36,7 +36,7 @@ id3v23: yes
 original_date: no
 per_disc_numbering: yes
 # files matching these patterns are deleted from source after import
-clutter: ['Thumbs.DB', '.DS_Store', '*.m3u', '.pls']
+clutter: ['Thumbs.DB', '.DS_Store', '*.m3u', '*.pls']
 item_fields:
     disc_and_track: f'{disc:1}-{track:02}' if disctotal > 1 else f'{track:02}'
     format_details: |
