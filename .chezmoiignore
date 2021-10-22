@@ -33,19 +33,29 @@ Library
 .config/Code*
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
+.config/pacman
 .local/share/fonts
 .Xresources
 .xprofile
 {{- end }}
 {{- if or .devcontainer (eq .chassistype "container") }}
+.config/alacritty
+.config/Code*
+.config/firefox
+.config/i3*
+.config/libreoffice
+.config/mpv
+.config/plover
+.config/nvim
+.config/user-dirs
 .local/share/fonts
+.vim
+vimfiles
+.gimprc
+.mozilla
 .XCompose
 .Xresources
 .xprofile
-.vim
-vimfiles
-.config/nvim
-.config/Code*
 {{- end }}
 {{- if .devcontainer }}
 # By default Visual Studio Code loads the host .gitconfig on Remote - Containers
