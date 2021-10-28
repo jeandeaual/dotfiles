@@ -1,12 +1,14 @@
 {
-    "recommendations": [
-        "skyapps.fish-vscode",
-        "golang.go",
-        "casualjim.gotemplate",
-        "xadillax.viml",
-        "rebornix.ruby",
-        "speedy37.ascii-plist",
-        "paradox460.elvish-lang",
-        "streetsidesoftware.hunspell"
-    ]
+  "recommendations": [
+    "skyapps.fish-vscode",
+    "golang.go",
+    "casualjim.gotemplate",
+    "xadillax.viml",
+    "ms-python.python",
+    "rebornix.ruby",
+    "speedy37.ascii-plist",
+    "paradox460.elvish-lang",
+    "jeandeaual.scheme",
+    "streetsidesoftware.hunspell"
+  ]
 }

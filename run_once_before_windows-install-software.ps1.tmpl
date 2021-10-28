@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "windows" -}}
+{{- if and (eq .chezmoi.os "windows") (lookPath "winget") -}}
 
 winget import `
     -i {{ joinPath .chezmoi.sourceDir "AppData" "Local" "Packages" "Microsoft.DesktopAppInstaller_8wekyb3d8bbwe" "LocalState" "winget-export.json" }} `

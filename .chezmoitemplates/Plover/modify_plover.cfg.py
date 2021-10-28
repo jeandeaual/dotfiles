@@ -1,65 +1,45 @@
 """Requires Python 3.7+."""
 
 from __future__ import annotations
-from configparser import ConfigParser, NoSectionError, NoOptionError
-from enum import Enum, auto, unique
-from typing import Any
-from sys import stdin, stdout
+
+from configparser import ConfigParser, NoOptionError, NoSectionError
+from enum import Enum, unique
 from json import dumps
-
-
-class StrEnum(str, Enum):
-    """
-    StrEnum is a Python ``enum.Enum`` that inherits from ``str``.
-
-    The default ``auto()`` behavior uses the member name as its value.
-    """
-
-    def __new__(cls, value, *args, **kwargs):
-        if not isinstance(value, (str, auto)):
-            raise TypeError(
-                'Values of StrEnums must be strings: '
-                f'{value!r} is a {type(value)}'
-            )
-        return super().__new__(cls, value, *args, **kwargs)
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-    def _generate_next_value_(name, *_):
-        return name
+from sys import stdin, stdout
+from typing import Any
 
 
 @unique
-class Section(StrEnum):
+class Section(Enum):
     """Plover configuration file sections."""
 
-    MACHINE_CONFIGURATION = 'Machine Configuration'
-    TX_BOLT = 'TX Bolt'
-    GEMINI_PR = 'Gemini PR'
-    OUTPUT_CONFIGURATION = 'Output Configuration'
-    TRANSLATION_FRAME = 'Translation Frame'
-    STROKE_DISPLAY = 'Stroke Display'
-    SYSTEM = 'System'
-    SUGGESTIONS_DISPLAY = 'Suggestions Display'
-    GUI = 'GUI'
-    LOGGING_CONFIGURATION = 'Logging Configuration'
-    KEYBOARD = 'Keyboard'
-    STARTUP = 'Startup'
-    SYSTEM_ENGLISH = 'System: English Stenotype'
-    SYSTEM_GRANDJEAN = 'System: Grandjean'
+    MACHINE_CONFIGURATION = "Machine Configuration"
+    TX_BOLT = "TX Bolt"
+    GEMINI_PR = "Gemini PR"
+    OUTPUT_CONFIGURATION = "Output Configuration"
+    TRANSLATION_FRAME = "Translation Frame"
+    STROKE_DISPLAY = "Stroke Display"
+    SYSTEM = "System"
+    SUGGESTIONS_DISPLAY = "Suggestions Display"
+    GUI = "GUI"
+    LOGGING_CONFIGURATION = "Logging Configuration"
+    KEYBOARD = "Keyboard"
+    STARTUP = "Startup"
+    SYSTEM_ENGLISH = "System: English Stenotype"
+    SYSTEM_GRANDJEAN = "System: Grandjean"
 
 
 @unique
-class SpacePlacement(StrEnum):
+class SpacePlacement(Enum):
     """Plover output configuration space placement options."""
 
-    BEFORE = 'Before Output'
-    AFTER = 'After Output'
+    BEFORE = "Before Output"
+    AFTER = "After Output"
 
 
-def set_config_value(config: ConfigParser, section: Section,
-                     option: str, value: Any):
+def set_config_value(
+    config: ConfigParser, section: Section, option: str, value: Any
+):
     """
     Set a configuration value.
 
@@ -79,8 +59,9 @@ def set_config_value(config: ConfigParser, section: Section,
         config.set(section.value, option, str_value)
 
 
-def set_json_config_value(config: ConfigParser, section: Section,
-                          option: str, value: Any):
+def set_json_config_value(
+    config: ConfigParser, section: Section, option: str, value: Any
+):
     """
     Set a JSON configuration value.
 
@@ -97,151 +78,166 @@ config.read_file(stdin)
 
 section = Section.MACHINE_CONFIGURATION
 
-set_config_value(config, section, 'auto_start', True)
+set_config_value(config, section, "auto_start", True)
 
 section = Section.OUTPUT_CONFIGURATION
 
-set_config_value(config, section, 'undo_levels', 100)
-set_config_value(config, section, 'start_attached', True)
-set_config_value(config, section, 'start_capitalized', True)
-set_config_value(config, section, 'space_placement', SpacePlacement.BEFORE)
+set_config_value(config, section, "undo_levels", 100)
+set_config_value(config, section, "start_attached", True)
+set_config_value(config, section, "start_capitalized", True)
+set_config_value(config, section, "space_placement", SpacePlacement.BEFORE)
 
 section = Section.STROKE_DISPLAY
 
-set_config_value(config, section, 'show', True)
+set_config_value(config, section, "show", True)
 
 section = Section.SUGGESTIONS_DISPLAY
 
-set_config_value(config, section, 'show', True)
+set_config_value(config, section, "show", True)
 
 section = Section.GUI
 
-set_config_value(config, section, 'classic_dictionaries_display_order', False)
+set_config_value(config, section, "classic_dictionaries_display_order", False)
 
 section = Section.SYSTEM_ENGLISH
 
-set_json_config_value(config, section, 'dictionaries', [
+set_json_config_value(
+    config,
+    section,
+    "dictionaries",
+    [
         {
-            'enabled': True,
-            'path': dictionary_path,
-        } for dictionary_path in [
-            'show-strokes.py',
-            'user-commands.json',
-            'user.json',
-            'emoji.json',
-            'punctuation.json',
-            'numbers.json',
-            'fingerspelling.json',
-            'dict.json',
-            'condensed-strokes.json',
-            'condensed-strokes-fingerspelled.json',
+            "enabled": True,
+            "path": dictionary_path,
+        }
+        for dictionary_path in [
+            "show-strokes.py",
+            "user-commands.json",
+            "user.json",
+            "emoji.json",
+            "punctuation.json",
+            "numbers.json",
+            "fingerspelling.json",
+            "dict.json",
+            "condensed-strokes.json",
+            "condensed-strokes-fingerspelled.json",
         ]
-    ])
+    ],
+)
 # Default QWERTY configuration
-set_json_config_value(config, section, 'keymap[keyboard]', [
+set_json_config_value(
+    config,
+    section,
+    "keymap[keyboard]",
+    [
         [
-            '#',
-            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+            "#",
+            ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
         ],
         [
-            'S-',
-            ['q', 'a'],
+            "S-",
+            ["q", "a"],
         ],
         [
-            'T-',
-            ['w'],
+            "T-",
+            ["w"],
         ],
         [
-            'K-',
-            ['s'],
+            "K-",
+            ["s"],
         ],
         [
-            'P-',
-            ['e'],
+            "P-",
+            ["e"],
         ],
         [
-            'W-',
-            ['d'],
+            "W-",
+            ["d"],
         ],
         [
-            'H-',
-            ['r'],
+            "H-",
+            ["r"],
         ],
         [
-            'R-',
-            ['f'],
+            "R-",
+            ["f"],
         ],
         [
-            'A-',
-            ['c'],
+            "A-",
+            ["c"],
         ],
         [
-            'O-',
-            ['v'],
+            "O-",
+            ["v"],
         ],
         [
-            '*',
-            ['t', 'y', 'g', 'h'],
+            "*",
+            ["t", "y", "g", "h"],
         ],
         [
-            '-E',
-            ['n'],
+            "-E",
+            ["n"],
         ],
         [
-            '-U',
-            ['m'],
+            "-U",
+            ["m"],
         ],
         [
-            '-F',
-            ['u'],
+            "-F",
+            ["u"],
         ],
         [
-            '-R',
-            ['j'],
+            "-R",
+            ["j"],
         ],
         [
-            '-P',
-            ['i'],
+            "-P",
+            ["i"],
         ],
         [
-            '-B',
-            ['k'],
+            "-B",
+            ["k"],
         ],
         [
-            '-L',
-            ['o'],
+            "-L",
+            ["o"],
         ],
         [
-            '-G',
-            ['l'],
+            "-G",
+            ["l"],
         ],
         [
-            '-T',
-            ['p'],
+            "-T",
+            ["p"],
         ],
         [
-            '-S',
-            [';'],
+            "-S",
+            [";"],
         ],
         [
-            '-D',
-            ['['],
+            "-D",
+            ["["],
         ],
         [
-            '-Z',
-            ['\''],
+            "-Z",
+            ["'"],
         ],
         [
-            'arpeggiate',
-            ['space'],
+            "arpeggiate",
+            ["space"],
         ],
         [
-            'no-op',
-            ['\\', ']', 'z', 'x', 'b', ',', '.', '/'],
+            "no-op",
+            ["\\", "]", "z", "x", "b", ",", ".", "/"],
         ],
-    ])
+    ],
+)
 # Default configuration
-set_json_config_value(config, section, 'keymap[tx bolt]', [
+set_json_config_value(
+    config,
+    section,
+    "keymap[tx bolt]",
+    [
         [
             "#",
             ["#"],
@@ -338,12 +334,30 @@ set_json_config_value(config, section, 'keymap[tx bolt]', [
             "no-op",
             [],
         ],
-    ])
+    ],
+)
 # Default configuration
-set_json_config_value(config, section, 'keymap[gemini pr]', [
+set_json_config_value(
+    config,
+    section,
+    "keymap[gemini pr]",
+    [
         [
             "#",
-            ["#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9", "#A", "#B", "#C"],
+            [
+                "#1",
+                "#2",
+                "#3",
+                "#4",
+                "#5",
+                "#6",
+                "#7",
+                "#8",
+                "#9",
+                "#A",
+                "#B",
+                "#C",
+            ],
         ],
         [
             "S-",
@@ -436,28 +450,39 @@ set_json_config_value(config, section, 'keymap[gemini pr]', [
         [
             "no-op",
             ["Fn", "pwr", "res1", "res2"],
-        ]
-    ])
+        ],
+    ],
+)
 
 section = Section.SYSTEM_GRANDJEAN
 
-set_json_config_value(config, section, 'dictionaries', [
+set_json_config_value(
+    config,
+    section,
+    "dictionaries",
+    [
         {
-            'enabled': True,
-            'path': dictionary_path,
-        } for dictionary_path in [
-            'french-user.json',
-            '07_french_user.json',
-            '06_french_verbes.json',
-            '05_french_noms.json',
-            '04_french_adjectifs.json',
-            '03_french_adverbes.json',
-            '02_french_chiffres.json',
-            '01_french_sion.json',
+            "enabled": True,
+            "path": dictionary_path,
+        }
+        for dictionary_path in [
+            "french-user.json",
+            "07_french_user.json",
+            "06_french_verbes.json",
+            "05_french_noms.json",
+            "04_french_adjectifs.json",
+            "03_french_adverbes.json",
+            "02_french_chiffres.json",
+            "01_french_sion.json",
         ]
-    ])
+    ],
+)
 # Default QWERTY configuration
-set_json_config_value(config, section, 'keymap[keyboard]', [
+set_json_config_value(
+    config,
+    section,
+    "keymap[keyboard]",
+    [
         [
             "S-",
             ["q"],
@@ -549,10 +574,15 @@ set_json_config_value(config, section, 'keymap[keyboard]', [
         [
             "no-op",
             [],
-        ]
-    ])
+        ],
+    ],
+)
 # Configuration for the Splitography
-set_json_config_value(config, section, 'keymap[gemini pr]', [
+set_json_config_value(
+    config,
+    section,
+    "keymap[gemini pr]",
+    [
         [
             "S-",
             ["S1-"],
@@ -640,8 +670,9 @@ set_json_config_value(config, section, 'keymap[gemini pr]', [
         [
             "no-op",
             [],
-        ]
-    ])
+        ],
+    ],
+)
 
 # Write the configuration
 config.write(stdout)

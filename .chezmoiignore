@@ -1,8 +1,9 @@
 LICENSE
 README.md
 install.sh
+install.ps1
+pyproject.toml
 scripts/
-vim/
 AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/winget-export.json
 {{- if ne .chezmoi.os "windows" }}
 AppData

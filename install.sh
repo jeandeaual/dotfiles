@@ -4,6 +4,11 @@ set -eu
 
 apply_all=false
 install_starship=true
+bin_dir="${HOME}/.local/bin"
+
+usage() {
+    echo "Usage: $(basename "$0") [-a] [-b|--bin-dir BIN_DIR] [--without-starship] [-h|--help]"
+}
 
 while test $# -gt 0; do
     case "$1" in
@@ -11,9 +16,23 @@ while test $# -gt 0; do
             apply_all=true
             shift
             ;;
+        -b|--bin-dir)
+            shift
+            if [ $# -lt 1 ]; then
+                echo "bin_dir not provided" >&2
+                usage >&2
+                exit 1
+            fi
+            bin_dir=$1
+            shift
+            ;;
         --without-starship)
             install_starship=false
             shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
             ;;
         *)
             break
@@ -23,24 +42,35 @@ done
 
 chezmoi_bin=chezmoi
 
+# Install chezmoi
 if [ ! "$(command -v "${chezmoi_bin}")" ]; then
     readonly chezmoi_install_script="https://git.io/chezmoi"
-    readonly starship_install_script="https://starship.rs/install.sh"
-    readonly bin_dir="${HOME}/.local/bin"
-    readonly chezmoi_bin="${bin_dir}/chezmoi"
+    chezmoi_bin="${bin_dir}/chezmoi"
 
     if [ "$(command -v curl)" ]; then
         sh -c "$(curl -fsSL "${chezmoi_install_script}")" -- -b "${bin_dir}"
-        if [ "${install_starship}" = true ] && [ ! "$(command -v starship)" ]; then
-            sh -c "$(curl -fsSL "${starship_install_script}")" -- -b "${bin_dir}" -f
-        fi
     elif [ "$(command -v wget)" ]; then
         sh -c "$(wget -qO- "${chezmoi_install_script}")" -- -b "${bin_dir}"
-        if [ "${install_starship}" = true ] && [ ! "$(command -v starship)" ]; then
-            sh -c "$(wget -qO- "${starship_install_script}")" -- -b "${bin_dir}" -f
-        fi
     else
-        echo "To install chezmoi, you must have curl or wget installed" >&2
+        echo "You must have curl or wget installed to install chezmoi" >&2
+        exit 1
+    fi
+fi
+
+# Install Starship
+if [ "${install_starship}" = true ] && [ ! "$(command -v starship)" ]; then
+    readonly starship_install_script="https://starship.rs/install.sh"
+
+    if [ ! -d "${bin_dir}" ]; then
+        mkdir -p "${bin_dir}"
+    fi
+
+    if [ "$(command -v curl)" ]; then
+        sh -c "$(curl -fsSL "${starship_install_script}")" -- -b "${bin_dir}" -f
+    elif [ "$(command -v wget)" ]; then
+        sh -c "$(wget -qO- "${starship_install_script}")" -- -b "${bin_dir}" -f
+    else
+        echo "You must have curl or wget installed to install Starship" >&2
         exit 1
     fi
 fi

@@ -1,0 +1,28 @@
+name: Test the scripts
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'scripts/*.py'
+      - 'dot_XCompose'
+  push:
+    branches:
+      - master
+    paths:
+      - 'scripts/*.py'
+      - 'dot_XCompose'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '^3.9'
+      - name: Check for duplicate entries in .XCompose
+        run: python scripts/xcompose-find-duplicates.py dot_XCompose
+      - name: Check if .XCompose can be converted to a Cocoa keybinding dict
+        run: python scripts/xcompose2cocoakeybindings.py dot_XCompose

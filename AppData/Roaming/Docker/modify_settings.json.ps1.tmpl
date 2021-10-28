@@ -1,8 +1,10 @@
 {{ template "PowerShell/stdin.ps1" }}
 
-$json = Read-FileFromStdin | ConvertFrom-Json
-if ($null -eq $json) {
+$file = Read-FileFromStdin
+if ($null -eq $file) {
     $json = "{}" | ConvertFrom-Json
+} else {
+    $json = $file | ConvertFrom-Json
 }
 
 if ($null -ne $json.acceptCanaryUpdates) {
@@ -11,175 +13,175 @@ if ($null -ne $json.acceptCanaryUpdates) {
     $json | Add-Member -Type NoteProperty -Name acceptCanaryUpdates -Value $false
 }
 
-if ($null -eq $json.activeOrganizationName) {
+if ($null -ne $json.activeOrganizationName) {
     $json.activeOrganizationName = ""
 } else {
     $json | Add-Member -Type NoteProperty -Name activeOrganizationName -Value ""
 }
 
-if ($null -eq $json.analyticsEnabled) {
+if ($null -ne $json.analyticsEnabled) {
     $json.analyticsEnabled = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name analyticsEnabled -Value $false
 }
 
-if ($null -eq $json.autoDownloadUpdates) {
+if ($null -ne $json.autoDownloadUpdates) {
     $json.autoDownloadUpdates = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name autoDownloadUpdates -Value $false
 }
 
-if ($null -eq $json.autoStart) {
+if ($null -ne $json.autoStart) {
     $json.autoStart = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name autoStart -Value $true
 }
 
-if ($null -eq $json.disableHardwareAcceleration) {
+if ($null -ne $json.disableHardwareAcceleration) {
     $json.disableHardwareAcceleration = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name disableHardwareAcceleration -Value $false
 }
 
-if ($null -eq $json.disableTips) {
+if ($null -ne $json.disableTips) {
     $json.disableTips = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name disableTips -Value $true
 }
 
-if ($null -eq $json.disableUpdate) {
+if ($null -ne $json.disableUpdate) {
     $json.disableUpdate = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name disableUpdate -Value $true
 }
 
-if ($null -eq $json.diskTRIM) {
+if ($null -ne $json.diskTRIM) {
     $json.diskTRIM = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name diskTRIM -Value $true
 }
 
-if ($null -eq $json.displayRestartDialog) {
+if ($null -ne $json.displayRestartDialog) {
     $json.displayRestartDialog = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name displayRestartDialog -Value $true
 }
 
-if ($null -eq $json.displaySwitchVersionPack) {
+if ($null -ne $json.displaySwitchVersionPack) {
     $json.displaySwitchVersionPack = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name displaySwitchVersionPack -Value $true
 }
 
-if ($null -eq $json.displaySwitchWinLinContainers) {
+if ($null -ne $json.displaySwitchWinLinContainers) {
     $json.displaySwitchWinLinContainers = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name displaySwitchWinLinContainers -Value $true
 }
 
-if ($null -eq $json.displayedTutorial) {
+if ($null -ne $json.displayedTutorial) {
     $json.displayedTutorial = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name displayedTutorial -Value $true
 }
 
-if ($null -eq $json.dns) {
+if ($null -ne $json.dns) {
     $json.dns = "8.8.8.8"
 } else {
     $json | Add-Member -Type NoteProperty -Name dns -Value "8.8.8.8"
 }
 
-if ($null -eq $json.enableIntegrationWithDefaultWslDistro) {
+if ($null -ne $json.enableIntegrationWithDefaultWslDistro) {
     $json.enableIntegrationWithDefaultWslDistro = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name enableIntegrationWithDefaultWslDistro -Value $true
 }
 
-if ($null -eq $json.exposeDockerAPIOnTCP2375) {
+if ($null -ne $json.exposeDockerAPIOnTCP2375) {
     $json.exposeDockerAPIOnTCP2375 = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name exposeDockerAPIOnTCP2375 -Value $false
 }
 
-if ($null -eq $json.kubernetesEnabled) {
+if ($null -ne $json.kubernetesEnabled) {
     $json.kubernetesEnabled = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name kubernetesEnabled -Value $true
 }
 
-if ($null -eq $json.lifecycleTimeoutSeconds) {
+if ($null -ne $json.lifecycleTimeoutSeconds) {
     $json.lifecycleTimeoutSeconds = 600
 } else {
     $json | Add-Member -Type NoteProperty -Name lifecycleTimeoutSeconds -Value 600
 }
 
-if ($null -eq $json.openUIOnStartupDisabled) {
+if ($null -ne $json.openUIOnStartupDisabled) {
     $json.openUIOnStartupDisabled = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name openUIOnStartupDisabled -Value $true
 }
 
-if ($null -eq $json.showKubernetesSystemContainers) {
+if ($null -ne $json.showKubernetesSystemContainers) {
     $json.showKubernetesSystemContainers = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name showKubernetesSystemContainers -Value $false
 }
 
-if ($null -eq $json.skipUpdateToWSLPrompt) {
+if ($null -ne $json.skipUpdateToWSLPrompt) {
     $json.skipUpdateToWSLPrompt = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name skipUpdateToWSLPrompt -Value $true
 }
 
-if ($null -eq $json.skipWSLMountPerfWarning) {
+if ($null -ne $json.skipWSLMountPerfWarning) {
     $json.skipWSLMountPerfWarning = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name skipWSLMountPerfWarning -Value $true
 }
 
-if ($null -eq $json.useCredentialHelper) {
+if ($null -ne $json.useCredentialHelper) {
     $json.useCredentialHelper = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name useCredentialHelper -Value $true
 }
 
-if ($null -eq $json.useDnsForwarder) {
+if ($null -ne $json.useDnsForwarder) {
     $json.useDnsForwarder = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name useDnsForwarder -Value $true
 }
 
-if ($null -eq $json.useNightlyBuildUpdates) {
+if ($null -ne $json.useNightlyBuildUpdates) {
     $json.useNightlyBuildUpdates = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name useNightlyBuildUpdates -Value $false
 }
 
-if ($null -eq $json.useVirtualizationFramework) {
+if ($null -ne $json.useVirtualizationFramework) {
     $json.useVirtualizationFramework = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name useVirtualizationFramework -Value $false
 }
 
-if ($null -eq $json.useVpnkit) {
+if ($null -ne $json.useVpnkit) {
     $json.useVpnkit = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name useVpnkit -Value $true
 }
 
-if ($null -eq $json.useWindowsContainers) {
+if ($null -ne $json.useWindowsContainers) {
     $json.useWindowsContainers = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name useWindowsContainers -Value $false
 }
 
-if ($null -eq $json.wslEnableGrpcfuse) {
+if ($null -ne $json.wslEnableGrpcfuse) {
     $json.wslEnableGrpcfuse = $false
 } else {
     $json | Add-Member -Type NoteProperty -Name wslEnableGrpcfuse -Value $false
 }
 
-if ($null -eq $json.wslEngineEnabled) {
+if ($null -ne $json.wslEngineEnabled) {
     $json.wslEngineEnabled = $true
 } else {
     $json | Add-Member -Type NoteProperty -Name wslEngineEnabled -Value $true
