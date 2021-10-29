@@ -154,6 +154,12 @@ if (has-external ip) {
   edit:add-var ips~ $ips~
 }
 {{- end }}
+if (has-external brew) {
+  fn brewu {
+    and (brew update) (brew upgrade) (brew upgrade --casks --greedy)
+  }
+  edit:add-var brewu~ $brewu~
+}
 # Mozc aliases
 if (has-external /usr/lib/mozc/mozc_tool) {
   fn mozc-config { /usr/lib/mozc/mozc_tool --mode=config_dialog }

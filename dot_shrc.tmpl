@@ -107,6 +107,9 @@ if command -v ip >/dev/null; then
     alias ips='for gw in $(ip route list to 0/0 | awk '"'"'{print $3}'"'"'); do ip route get to "${gw}" | awk '"'"'/src/ {print $5}'"'"'; done'
 fi
 {{- end }}
+if command -v brew >/dev/null; then
+    alias brewu='brew update && brew upgrade && brew upgrade --casks --greedy'
+fi
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
 if command -v /usr/lib/mozc/mozc_tool >/dev/null; then

@@ -178,6 +178,12 @@ if type -q ip
 end
 {{- end }}
 
+if type -q brew
+    function brewu
+        brew update && brew upgrade && brew upgrade --casks --greedy
+    end
+end
+
 # Mozc aliases
 if type -q /usr/lib/mozc/mozc_tool
     function mozc-config

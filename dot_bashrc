@@ -1,18 +1,27 @@
 #!/bin/bash
 
 # If not running interactively, don't do anything
-[ -z "${PS1}" ] && return
+if [[ -z "${PS1}" ]]; then
+    return
+fi
 
 # Source global configuration between bash and zsh
-if [[ -f "${HOME}/.shrc" ]]; then
+if [[ -r "${HOME}/.shrc" ]]; then
     # shellcheck disable=SC1091
     source "${HOME}/.shrc"
 fi
 
 # Source global definitions
-if [[ -f /etc/bashrc ]]; then
+if [[ -r "/etc/bashrc" ]]; then
     # shellcheck disable=SC1091
-    source /etc/bashrc
+    source "/etc/bashrc"
+fi
+
+# Bash completions on macOS
+# https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/bash-completion%402.rb#L50
+if [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
+    # shellcheck disable=SC1091
+    source "/usr/local/etc/profile.d/bash_completion.sh"
 fi
 
 # Don't put duplicate lines or lines starting with space in the history.

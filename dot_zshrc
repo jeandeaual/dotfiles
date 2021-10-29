@@ -32,6 +32,11 @@ plugins=(zsh-syntax-highlighting)
 
 source "${ZSH}/oh-my-zsh.sh"
 
+# kubectl completions
+if [[ $commands[kubectl] ]]; then
+    source <(kubectl completion zsh)
+fi
+
 # Prompt
 if command -v starship >/dev/null; then
     eval "$(starship init zsh)"

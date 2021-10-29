@@ -8,6 +8,7 @@ brew 'coreutils'
 brew 'moreutils'
 brew 'findutils'
 brew 'bash'
+brew 'bash-completion@2'
 brew 'zsh'
 brew 'fish'
 brew 'elvish'
@@ -47,6 +48,7 @@ brew 'rustup-init'
 # brew 'podman'
 # brew 'kubectl'
 brew 'kubectx'
+brew 'kubeseal'
 brew 'heroku/brew/heroku'
 {{- if .work }}{{/* Work */}}
 brew 'tfenv'
@@ -73,6 +75,7 @@ cask 'jeandeaual/tap/plover'
 cask 'karabiner-elements'
 cask 'bettertouchtool'
 cask 'steermouse'
+cask 'maccy'
 cask 'soundsource'
 cask 'vlc'
 cask 'plexamp'
@@ -137,4 +140,20 @@ mas 'Telegram', id: 747648890
 mas 'ChatSecure Messenger', id: 464200063
 {{- end }}
 EOF
+
+login_items=(
+    "/Applications/Maccy.app"
+    "/Applications/SoundSource.app"
+    "/Applications/BetterSnapTool.app"
+{{- if eq .chassistype "laptop" }}
+    "${HOME}/Applications/Pock.app"
+{{- end }}
+    "${HOME}/Applications/Slack.app"
+    "${HOME}/Applications/Syncthing.app"
+    "${HOME}/Applications/Visual Studio Code.app"
+)
+
+for path in "${login_items[@]}"; do
+    osascript -e 'tell application "System Events" to make login item at end with properties {path:"'"${path}"'", hidden:false}' >/dev/null
+done
 {{ end -}}
