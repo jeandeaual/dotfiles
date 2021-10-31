@@ -61,7 +61,7 @@ symbol = "hg "
 {{- end }}
 
 [hostname]
-format = '@[$hostname]($style) '
+format = '[$hostname]($style) '
 ssh_only = true
 
 {{- if $plaintext }}
@@ -85,7 +85,7 @@ disabled = true
 format = ' [$time]($style)'
 
 [username]
-format = '[$user]($style)'
+format = '[$user]($style) '
 
 [aws]
 format = ' [$symbol($profile)(\($region\))(\[$duration\])]($style)'
