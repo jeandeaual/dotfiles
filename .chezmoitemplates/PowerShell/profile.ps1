@@ -126,6 +126,30 @@ if (Get-Command chezmoi -ErrorAction SilentlyContinue) {
     }
 }
 
+if (Get-Command docker -ErrorAction SilentlyContinue) {
+    function docker-resetclock {
+        docker run --net=host --ipc=host --uts=host --pid=host --security-opt=seccomp=unconfined --privileged --rm alpine date -s "$(date -u '+%Y-%m-%d %H:%M:%S')"
+    }
+
+    # Cleanup docker dangling images and exited containers
+    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
+    function docker-cleanup() {
+        # for container in $(docker ps -a -f "name=_run_" -q); do
+        docker ps -a -f "status=exited" -q | ForEach-Object { docker rm $_ }
+        docker images -f "dangling=true" -q | ForEach-Object { docker rmi $_ }
+        # Cleanup all BuildKit cache
+        docker builder prune -f
+    }
+
+    # Delete all docker images and containers
+    function docker-nuke() {
+        docker ps -a -q | ForEach-Object { docker rm -f $_ }
+        docker images -a -q | ForEach-Object { docker rmi -f $_ }
+        # Cleanup all BuildKit cache
+        docker builder prune -f
+    }
+}
+
 Function Req {
     <#
         .SYNOPSIS
