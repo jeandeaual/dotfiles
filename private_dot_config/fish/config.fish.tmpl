@@ -25,8 +25,13 @@ set -xU VISUAL $EDITOR
 set -xU SYSTEMD_EDITOR $EDITOR
 set -xU FCEDIT $EDITOR
 set -xU SVN_EDITOR $EDITOR
-set -xU PAGER less
-set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
+if type -q ov
+    set -xU PAGER ov
+    set -xU PSQL_PAGER ov -w=f -H2 -F -C -d "|"
+else
+    set -xU PAGER less
+    set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
+end
 set -xU WWW_BROWSER w3m
 set -xU DOWNLOADER wget -S
 if test -f {$config_path}/ripgrep/ripgreprc
@@ -39,6 +44,12 @@ end
 if test -d {$HOME}/.local/bin
     set -U fish_user_paths {$HOME}/.local/bin $fish_user_paths
 end
+# Raspberry Pi
+{{- if .embedded }}
+if test -d /opt/vc/bin
+    set -U fish_user_paths $fish_user_paths /opt/vc/bin
+end
+{{- end }}
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
 set devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
@@ -75,18 +86,50 @@ function rm
     command rm -v $argv
 end
 
+if type -q exa
+    function ls
+        exa --group-directories-first $argv
+    end
+
+    function la
+        ls -a $argv
+    end
+
+    function ll
+        ls --git -al $argv
+    end
+
+    set tree_ignore 'cache|log|logs|node_modules|vendor|__pycache__'
+
+    function lt
+        ls --tree -D -L 2 -I $tree_ignore $argv
+    end
+    
+    function ltt
+        ls --tree -D -L 3 -I $tree_ignore $argv
+    end
+
+    function lttt
+        ls --tree -D -L 4 -I $tree_ignore $argv
+    end
+
+    function ltttt
+        ls --tree -D -L 5 -I $tree_ignore $argv
+    end
+else
 {{- if eq .chezmoi.os "darwin" }}
-function ls
-    command ls -G $argv
-end
+    function ls
+        command ls -G $argv
+    end
 {{- else }}
-function ls
-    command ls --color=auto --group-directories-first $argv
-end
+    function ls
+        command ls --color=auto --group-directories-first $argv
+    end
 {{- end }}
 
-function ll
-    ls -Alh $argv
+    function ll
+        ls -Alh $argv
+    end
 end
 
 function du

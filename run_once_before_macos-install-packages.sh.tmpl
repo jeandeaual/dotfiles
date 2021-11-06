@@ -34,6 +34,8 @@ brew 'p7zip'
 brew 'tmux'
 brew 'lsusb'
 brew 'watch'
+brew 'noborus/tap/ov'
+brew 'exa'
 brew 'jq'
 brew 'yq'
 brew 'wget'
@@ -62,6 +64,7 @@ brew 'helm'
 brew 'argo'
 {{- else }}{{/* Personal */}}
 brew 'arduino-cli'
+brew 'qmk/qmk/qmk'
 {{- end }}
 
 # Install GUI applications
@@ -97,6 +100,7 @@ cask 'libreoffice'
 cask 'docker'
 cask 'slack'
 cask 'skype'
+cask 'kobo'
 cask 'homebrew/cask-fonts/font-fira-code-nerd-font'
 cask 'homebrew/cask-drivers/hhkb-pro-driver'
 {{- if .work }}{{/* Work */}}

@@ -28,8 +28,13 @@ export VISUAL="${EDITOR}"
 export SYSTEMD_EDITOR="${EDITOR}"
 export FCEDIT="${EDITOR}"
 export SVN_EDITOR="${EDITOR}"
-export PAGER='less'
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+if command -v ov >/dev/null; then
+    export PAGER='ov'
+    export PSQL_PAGER='ov -w=f -H2 -F -C -d "|"'
+else
+    export PAGER='less'
+    export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+fi
 export WWW_BROWSER='w3m'
 export DOWNLOADER='wget -S'
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/ripgreprc" ]; then
@@ -42,6 +47,12 @@ fi
 if [ -d "${HOME}/.local/bin" ]; then
     export PATH="${HOME}/.local/bin${PATH+:}${PATH}"
 fi
+# Raspberry Pi
+{{- if .embedded }}
+if [ -d "/opt/vc/bin" ]; then
+    export PATH="${PATH}${PATH+:}/opt/vc/bin"
+fi
+{{- end }}
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
 devcontainer_cli_path="${HOME}/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
@@ -64,12 +75,25 @@ fi
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
+if command -v exa >/dev/null; then
+    alias ls='exa --group-directories-first'
+    alias la='ls -a'
+    alias ll='ls --git -al'
+
+    tree_ignore="cache|log|logs|node_modules|vendor|__pycache__"
+
+    alias lt='ls --tree -D -L 2 -I ${tree_ignore}'
+    alias ltt='ls --tree -D -L 3 -I ${tree_ignore}'
+    alias lttt='ls --tree -D -L 4 -I ${tree_ignore}'
+    alias ltttt='ls --tree -D -L 5 -I ${tree_ignore}'
+else
 {{- if eq .chezmoi.os "darwin" }}
-alias ls='ls -G'
+    alias ls='ls -G'
 {{- else }}
-alias ls='ls --color=auto --group-directories-first'
+    alias ls='ls --color=auto --group-directories-first'
 {{- end }}
-alias ll='ls -Alh'
+    alias ll='ls -Alh'
+fi
 alias du='du -h'
 alias df='df -Th'
 alias gzip='gzip -v9N'

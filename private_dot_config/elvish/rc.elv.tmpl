@@ -56,8 +56,13 @@ set E:VISUAL = $E:EDITOR
 set E:SYSTEMD_EDITOR = $E:EDITOR
 set E:FCEDIT = $E:EDITOR
 set E:SVN_EDITOR = $E:EDITOR
-set E:PAGER = 'less'
-set E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+if (has-external ov) {
+  set E:PAGER = 'ov'
+  set E:PSQL_PAGER = 'ov -w=f -H2 -F -C -d "|"'
+} else {
+  set E:PAGER = 'less'
+  set E:LESS = '--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+}
 set E:WWW_BROWSER = 'w3m'
 set E:DOWNLOADER = 'wget -S'
 if (path:is-regular &follow-symlink=$true $config_path'/ripgrep/ripgreprc') {
@@ -74,6 +79,12 @@ if (path:is-dir /usr/local/man) {
 if (path:is-dir $E:HOME'/.local/bin') {
   set paths = [$E:HOME'/.local/bin' $@paths]
 }
+# Raspberry Pi
+{{- if .embedded }}
+if (path:is-dir /opt/vc/bin) {
+  set paths = [$@paths /opt/vc/bin]
+}
+{{- end }}
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
 var devcontainer_cli_path = $E:HOME'/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin'
@@ -99,12 +110,35 @@ if (has-external xdg-open) {
 fn cp [@a]{ e:cp -v $@a }
 fn mv [@a]{ e:mv -v $@a }
 fn rm [@a]{ e:rm -v $@a }
+if (has-external exa) {
+  fn ls [@a]{ exa --group-directories-first $@a }
+  edit:add-var ls~ $ls~
+  fn la [@a]{ ls -a $@a }
+  edit:add-var la~ $la~
+  fn ll [@a]{ ls --git -al $@a }
+  edit:add-var ll~ $ll~
+
+  var tree_ignore = 'cache|log|logs|node_modules|vendor|__pycache__'
+
+  fn lt [@a]{ ls --tree -D -L 2 -I $tree_ignore $@a }
+  edit:add-var lt~ $lt~
+  fn ltt [@a]{ ls --tree -D -L 3 -I $tree_ignore $@a }
+  edit:add-var ltt~ $ltt~
+  fn lttt [@a]{ ls --tree -D -L 4 -I $tree_ignore $@a }
+  edit:add-var lttt~ $lttt~
+  fn ltttt [@a]{ ls --tree -D -L 5 -I $tree_ignore $@a }
+  edit:add-var ltttt~ $ltttt~
+} else {
 {{- if eq .chezmoi.os "darwin" }}
-fn ls [@a]{ e:ls -G $@a }
+  fn ls [@a]{ e:ls -G $@a }
+  edit:add-var ls~ $ls~
 {{- else }}
-fn ls [@a]{ e:ls --color=auto --group-directories-first $@a }
+  fn ls [@a]{ e:ls --color=auto --group-directories-first $@a }
+  edit:add-var ls~ $ls~
 {{- end }}
-fn ll [@a]{ e:ls -Alh $@a }
+  fn ll [@a]{ e:ls -Alh $@a }
+  edit:add-var ll~ $ll~
+}
 fn du [@a]{ e:du -h $@a }
 fn df [@a]{ e:df -Th $@a }
 fn gzip [@a]{ e:gzip -v9N $@a }
@@ -353,8 +387,8 @@ if (and (path:is-regular &follow-symlink=$true /usr/bin/vimx) ^
 
 # Haskell
 #------------------------------------------------------------------------------
-if (path:is-dir $E:HOME"/.cabal/bin") {
-  set paths = [$E:HOME"/.cabal/bin" $@paths]
+if (path:is-dir $E:HOME'/.cabal/bin') {
+  set paths = [$E:HOME'/.cabal/bin' $@paths]
 }
 if (has-external ghc) {
   fn ghc-sandbox [@a]{ ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
@@ -388,14 +422,14 @@ if (has-external rustup) {
   fn rustbook { rustup docs --book }
   edit:add-var rustbook~ $rustbook~
 }
-if (path:is-dir $E:HOME"/.cargo/bin") {
-  set paths = [$E:HOME"/.cargo/bin" $@paths]
+if (path:is-dir $E:HOME'/.cargo/bin') {
+  set paths = [$E:HOME'/.cargo/bin' $@paths]
 }
 
 # Ruby
 #------------------------------------------------------------------------------
-if (path:is-dir $E:HOME"/.rvm/bin") {
-  set paths = [$E:HOME"/.rvm/bin" $@paths]
+if (path:is-dir $E:HOME'/.rvm/bin') {
+  set paths = [$E:HOME'/.rvm/bin' $@paths]
 }
 
 # Prompt
