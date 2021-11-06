@@ -39,6 +39,15 @@ end
 if test -d {$HOME}/.local/bin
     set -U fish_user_paths {$HOME}/.local/bin $fish_user_paths
 end
+# Visual Studio Code devcontainer CLI
+{{- if eq .chezmoi.os "darwin" }}
+set devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+{{- else }}
+set devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
+{{- end }}
+if test -d $devcontainer_cli_path
+    set -U fish_user_paths $fish_user_paths $devcontainer_cli_path
+end
 
 # Aliases
 #------------------------------------------------------------------------------

@@ -42,6 +42,15 @@ fi
 if [ -d "${HOME}/.local/bin" ]; then
     export PATH="${HOME}/.local/bin${PATH+:}${PATH}"
 fi
+# Visual Studio Code devcontainer CLI
+{{- if eq .chezmoi.os "darwin" }}
+devcontainer_cli_path="${HOME}/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+{{- else }}
+devcontainer_cli_path="${XDG_CONFIG_HOME:-$HOME/.config}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+{{- end }}
+if [ -d "${devcontainer_cli_path}" ]; then
+    export PATH="${PATH}${PATH+:}${devcontainer_cli_path}"
+fi
 
 # Aliases & functions
 #------------------------------------------------------------------------------

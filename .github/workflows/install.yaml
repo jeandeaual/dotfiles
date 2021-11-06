@@ -20,6 +20,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      CODESPACES: true
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2

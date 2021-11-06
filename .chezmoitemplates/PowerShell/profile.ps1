@@ -49,7 +49,7 @@ function Add-Path {
 
 {{ template "PowerShell/shortcut.ps1" . }}
 
-foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake")) {
+foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake" "${env:AppData}\Code\User\globalStorage\ms-vscode-remote.remote-containers\cli-bin")) {
     Add-Path -Path $path -Before
 }
 # Add the Python folder to the path if it's not already there
