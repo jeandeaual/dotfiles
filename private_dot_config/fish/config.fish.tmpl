@@ -104,7 +104,7 @@ if type -q exa
     function lt
         ls --tree -D -L 2 -I $tree_ignore $argv
     end
-    
+
     function ltt
         ls --tree -D -L 3 -I $tree_ignore $argv
     end
@@ -232,6 +232,10 @@ end
 
 if type -q brew
     function brewu
+        brew update && brew upgrade
+    end
+
+    function brewua
         brew update && brew upgrade && brew upgrade --casks --greedy
     end
 end
@@ -252,9 +256,13 @@ if type -q /usr/lib/mozc/mozc_tool
     end
 end
 
+{{- if eq .chezmoi.os "darwin" }}
+function cal --description "Make cal display the week numbers"
+    ncal -w $argv
+end
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
-{{- if not $archlinux }}
-function cal --description "Make cal display Monday as the start of the week"
+{{- else if not $archlinux }}
+function cal --description "Make cal display the week numbers and Monday as the start of the week"
     ncal -bM -w $argv
 end
 {{- end }}
@@ -336,35 +344,22 @@ if type -q chezmoi
     end
 end
 
-if type -q docker
-    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
-    function docker-cleanup --description "Cleanup docker dangling images and exited containers"
-        # for container in (docker ps -a -f "name=_run_" -q)
-        for container in (docker ps -a -f "status=exited" -q)
-            docker rm $container
-        end
+{{- range list "docker" "podman" }}
 
-        for image in (docker images -f "dangling=true" -q)
-            docker rmi $image
-        end
-
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+if type -q {{ . }}
+    function {{ . }}cleanup --description "Cleanup {{ . | title }} dangling images, exited containers, unused networks and build cache"
+        {{ . }} system prune -f
     end
 
-    function docker-nuke --description "Delete all docker images and containers"
-        for container in (docker ps -a -q)
-            docker rm -f $container
+    function {{ . }}nuke --description "Delete all {{ . | title }} images, containers, networks, volumes and build cache"
+        for container in ({{ . }} ps -a -q)
+            {{ . }} rm -f $container
         end
 
-        for image in (docker images -a -q)
-            docker rmi -f $image
-        end
-
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+        {{ . }} system prune -a --volumes -f
     end
 end
+{{- end }}
 
 if type -q tsh
     function tshl --argument-names 'env' --description "Login to Teleport"
@@ -379,6 +374,60 @@ if type -q tsh
         end
 
         tsh kube login $env
+    end
+end
+
+if type -q git
+    # e.g. gitc -9 hours -m "This is a commit"
+    function gitc --argument-names 'diff' 'unit' --description "Make a Git commit with a specific date"
+        if test (count $argv) -lt 3
+            echo "usage: gitc DIFF UNIT ARGS" 1>&2
+            return 1
+        end
+
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
+        if string match -q -- "-*" $diff
+            set date (date -d (string sub -s 2 -- $diff)" $unit ago")
+        else
+            set date (date -d $diff" "$unit)
+        end
+{{- else }}
+        switch $unit
+            case second seconds
+                set unit S
+            case minute minutes
+                set unit M
+            case hour hours
+                set unit H
+            case day days
+                set unit d
+            case week weeks
+                set unit w
+            case month months
+                set unit m
+            case year years
+                set unit y
+            case '*'
+                echo "usage: gitc DIFF UNIT ARGS" 1>&2
+                return 1
+        end
+
+        if not string match -q -- "-*" $diff
+            set diff +$diff
+        end
+
+        set date (date -v$diff$unit)
+{{- end }}
+
+        set -lx GIT_COMMITTER_DATE $date
+
+        if contains -- '--amend' $argv
+            # When amending a commit, GIT_AUTHOR_DATE is ignored in favor of the --date option
+            git commit --date $date $argv[3..]
+        else
+            set -lx GIT_AUTHOR_DATE $date
+            git commit $argv[3..]
+        end
     end
 end
 
@@ -422,7 +471,7 @@ if type -q go
     end
 
     set gopath (go env GOPATH 2>/dev/null)
-    if test -n "$gopath"
+    if test -n $gopath
         set -U fish_user_paths {$_gopath}/bin $fish_user_paths
     end
 end

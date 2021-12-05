@@ -141,7 +141,8 @@ if command -v ip >/dev/null; then
 fi
 {{- end }}
 if command -v brew >/dev/null; then
-    alias brewu='brew update && brew upgrade && brew upgrade --casks --greedy'
+    alias brewu='brew update && brew upgrade'
+    alias brewua='brew update && brew upgrade && brew upgrade --casks --greedy'
 fi
 #alias 2bfp='youtube-dl -v -ciw -o "%(title)s.%(ext)s" --merge-output-format mkv --playlist-end 5 ytuser:TheSw1tcher'
 # Mozc aliases
@@ -151,9 +152,12 @@ if command -v /usr/lib/mozc/mozc_tool >/dev/null; then
     alias mozc-register='/usr/lib/mozc/mozc_tool --mode=word_register_dialog'
     alias mozc-dict='/usr/lib/mozc/mozc_tool --mode=dictionary_tool'
 fi
+{{- if eq .chezmoi.os "darwin" }}
+# Make cal display the week numbers
+alias cal='ncal -w'
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
-{{- if not $archlinux }}
-# Make cal display Monday as the start of the week
+{{- else if not $archlinux }}
+# Make cal display the week numbers and Monday as the start of the week
 alias cal='ncal -bM -w'
 {{- end }}
 # List zombie processes
@@ -214,37 +218,24 @@ if command -v chezmoi >/dev/null; then
     }
 fi
 
-if command -v docker >/dev/null; then
-    # Cleanup docker dangling images and exited containers
-    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
-    docker-cleanup() {
-        # for container in $(docker ps -a -f "name=_run_" -q); do
-        for container in $(docker ps -a -f "status=exited" -q); do
-            docker rm "${container}"
-        done
+{{- range list "docker" "podman" }}
 
-        for image in $(docker images -f "dangling=true" -q); do
-            docker rmi "${image}"
-        done
-
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+if command -v {{ . }} >/dev/null; then
+    # Cleanup {{ . | title }} dangling images, exited containers, unused networks and build cache
+    {{ . }}cleanup() {
+        {{ . }} system prune -f
     }
 
-    # Delete all docker images and containers
-    docker-nuke() {
-        for container in $(docker ps -a -q); do
-            docker rm -f "${container}"
+    # Delete all {{ . | title }} images, containers, networks, volumes and build cache
+    {{ . }}nuke() {
+        for container in $({{ . }} ps -a -q); do
+            {{ . }} rm -f "${container}"
         done
 
-        for image in $(docker images -a -q); do
-            docker rmi -f "${image}"
-        done
-
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+        {{ . }} system prune -a --volumes -f
     }
 fi
+{{- end }}
 
 # Increment a version number
 # Usage:
@@ -298,11 +289,81 @@ if command -v tsh >/dev/null; then
 
         if [ -n "${TELEPORT_PROXY}" ] && \
            [ -n "${TELEPORT_USER}" ] && \
-           [ ! -f "${HOME}/.tsh/$(echo $TELEPORT_PROXY | cut -d':' -f 1).yaml" ]; then
+           [ ! -f "${HOME}/.tsh/$(echo "$TELEPORT_PROXY" | cut -d':' -f 1).yaml" ]; then
             tsh login
         fi
 
         tsh kube login "${env}"
+    }
+fi
+
+if command -v git >/dev/null; then
+    # Make a Git commit with a specific date
+    # e.g. gitc -9 hours -m "This is a commit"
+    gitc() {
+        if [ $# -lt 3 ]; then
+            echo "usage: gitc DIFF UNIT ARGS" 1>&2
+            return 1
+        fi
+
+        diff=$1
+        shift
+        unit=$1
+        shift
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
+        if [ "${diff%"${diff#?}"}" = "-" ]; then
+            date="$(date -d "${diff#-} ${unit} ago")"
+        else
+            date="$(date -d "${diff} ${unit}")"
+        fi
+{{- else }}
+        case "${unit}" in
+            second|seconds)
+                unit="S"
+                ;;
+            minute|minutes)
+                unit="M"
+                ;;
+            hour|hours)
+                unit="H"
+                ;;
+            day|days)
+                unit="d"
+                ;;
+            week|weeks)
+                unit="w"
+                ;;
+            month|months)
+                unit="m"
+                ;;
+            year|years)
+                unit="y"
+                ;;
+            *)
+                echo "usage: gitc DIFF UNIT ARGS" 1>&2
+                return 1
+        esac
+
+        if [ "${diff%"${diff#?}"}" != "-" ]; then
+            diff="+${diff}"
+        fi
+
+        date="$(date -v"${diff}${unit}")"
+{{- end }}
+
+        amend=false
+        for arg in "$@"; do
+            if [ "${arg}" = "--amend" ]; then
+                amend=true
+            fi
+        done
+
+        if [ "${amend}" = true ]; then
+            # When amending a commit, GIT_AUTHOR_DATE is ignored in favor of the --date option
+            GIT_COMMITTER_DATE="${date}" git commit --date "${date}" "$@"
+        else
+            GIT_AUTHOR_DATE="${date}" GIT_COMMITTER_DATE="${date}" git commit "$@"
+        fi
     }
 fi
 
@@ -357,7 +418,30 @@ if [ -d "${HOME}/.rvm/bin" ]; then
     export PATH="${HOME}/.rvm/bin${PATH+:}${PATH}"
 fi
 
+# Node
+#------------------------------------------------------------------------------
+export NVM_DIR="${HOME}/.nvm"
+{{- if eq .chezmoi.os "darwin" }}
+nvm_install_dir="$(brew --prefix nvm)"
+# shellcheck disable=SC1091
+[ -s "${nvm_install_dir}/nvm.sh" ] && . "${nvm_install_dir}/nvm.sh"
+# shellcheck disable=SC1091
+[ -s "${nvm_install_dir}/etc/bash_completion.d/nvm" ] && . "${nvm_install_dir}/etc/bash_completion.d/nvm"
+{{- else if $archlinux }}
+# shellcheck disable=SC1091
+[ -s "/usr/share/nvm/init-nvm.sh" ] && . "/usr/share/nvm/init-nvm.sh"
+{{- else }}{{- /* Install via https://raw.githubusercontent.com/nvm-sh/nvm/vX.X.X/install.sh */ -}}
+# shellcheck disable=SC1091
+[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
+# shellcheck disable=SC1091
+[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
+{{- end }}
+
 # Prompt
-# Bash: PS1='\h:\W \u\$ '
-# ash: PS1='\w \$ '
-export PS1='\[\033[01;32m\]\u\[\033[00m\]\[\033[01;m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;33m\]\w\[\033[00m\] \$ '
+# Bash default: PS1='\h:\W \u\$ '
+# ash default: PS1='\w \$ '
+if [ -z "${BASH_VERSION}" ] || [ -z "${ZSH_VERSION}" ]; then
+    export PS1='\[\033[01;32m\]\u\[\033[00m\]\[\033[01;m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;33m\]\w\[\033[00m\] \$ '
+else
+    export PS1='\u@\h \w \$ '
+fi

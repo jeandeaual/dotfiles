@@ -199,7 +199,7 @@ symbol = "kt "
 [kubernetes]
 format = ' [$symbol$context( \($namespace\))]($style)'
 {{- if $plaintext }}
-symbol = "k9s "
+symbol = "k8s "
 {{- end }}
 
 [lua]
@@ -254,6 +254,14 @@ symbol = "pl "
 format = ' [$symbol($version)]($style)'
 {{- if $plaintext }}
 symbol = "php "
+{{- end }}
+
+[pulumi]
+format = ' [$symbol$stack]($style)'
+{{- if $plaintext }}
+symbol = "pulumi "
+{{- else if not $nerdfont }}
+symbol = "🛥 "
 {{- end }}
 
 [purescript]

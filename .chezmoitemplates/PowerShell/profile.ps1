@@ -49,7 +49,7 @@ function Add-Path {
 
 {{ template "PowerShell/shortcut.ps1" . }}
 
-foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake" "${env:AppData}\Code\User\globalStorage\ms-vscode-remote.remote-containers\cli-bin")) {
+foreach ($path in @("C:\bin", "${env:ProgramFiles}\CMake", "${env:AppData}\Code\User\globalStorage\ms-vscode-remote.remote-containers\cli-bin")) {
     Add-Path -Path $path -Before
 }
 # Add the Python folder to the path if it's not already there
@@ -126,31 +126,93 @@ if (Get-Command chezmoi -ErrorAction SilentlyContinue) {
     }
 }
 
-if (Get-Command docker -ErrorAction SilentlyContinue) {
-    function docker-resetclock {
-        docker run --net=host --ipc=host --uts=host --pid=host --security-opt=seccomp=unconfined --privileged --rm alpine date -s "$(date -u '+%Y-%m-%d %H:%M:%S')"
+{{- range list "docker" "podman" }}
+
+if (Get-Command {{ . }} -ErrorAction SilentlyContinue) {
+    function {{ . | title }}-ResetClock {
+        <#
+            .SYNOPSIS
+                Reset the {{ . | title }} VM clock to the time of the host.
+        #>
+
+        {{ . }} run --net=host --ipc=host --uts=host --pid=host --security-opt=seccomp=unconfined --privileged --rm alpine date -s "$(date -u '+%Y-%m-%d %H:%M:%S')"
     }
 
-    # Cleanup docker dangling images and exited containers
-    # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
-    function docker-cleanup() {
-        # for container in $(docker ps -a -f "name=_run_" -q); do
-        docker ps -a -f "status=exited" -q | ForEach-Object { docker rm $_ }
-        docker images -f "dangling=true" -q | ForEach-Object { docker rmi $_ }
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+    Set-Alias {{ . }}resetclock {{ . | title }}-ResetClock
+
+    function {{ . }}-Cleanup() {
+        <#
+            .SYNOPSIS
+                Cleanup {{ . | title }} dangling images, exited containers, unused networks and build cache.
+        #>
+
+        {{ . }} system prune -f
     }
 
-    # Delete all docker images and containers
-    function docker-nuke() {
-        docker ps -a -q | ForEach-Object { docker rm -f $_ }
-        docker images -a -q | ForEach-Object { docker rmi -f $_ }
-        # Cleanup all BuildKit cache
-        docker builder prune -f
+    Set-Alias {{ . }}cleanup {{ . | title }}-Cleanup
+
+    function {{ . }}-Nuke() {
+        <#
+            .SYNOPSIS
+                Delete all {{ . | title }} images, containers, networks, volumes and build cache
+        #>
+
+        {{ . }} ps -a -q | ForEach-Object { {{ . }} rm -f $_ }
+
+        {{ . }} system prune -a --volumes -f
+    }
+
+    Set-Alias {{ . }}nuke {{ . | title }}-Nuke
+}
+{{- end }}
+
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    function gitc {
+        <#
+            .SYNOPSIS
+                Make a Git commit with a specific date.
+
+            .EXAMPLE
+                gitc -9 hours -m "This is a commit"
+        #>
+        param (
+            # The path to add to the PATH environment variable
+            [Parameter(Mandatory = $true)]
+            [string]
+            $Diff,
+            # Whether to add the entry first or last
+            [Parameter(Mandatory = $true)]
+            [string]
+            $Unit,
+            [Parameter(ValueFromRemainingArguments)]
+            [string[]]$Arguments
+        )
+
+        $Date = Get-Date
+
+        switch -Regex ($Unit) {
+            "^seconds?$" { $Date = $Date.AddSeconds($Diff) }
+            "^minutes?$" { $Date = $Date.AddMinutes($Diff) }
+            "^hours?$" { $Date = $Date.AddHours($Diff) }
+            "^days?$" { $Date = $Date.AddDays($Diff) }
+            "^months?$" { $Date = $Date.AddMonths($Diff) }
+            "^years?$" { $Date = $Date.AddYears($Diff) }
+            default { throw "Invalid unit: $Unit" }
+        }
+
+        $env:GIT_COMMITTER_DATE = $Date
+
+        if ($Arguments.Contains('--amend')) {
+            # When amending a commit, GIT_AUTHOR_DATE is ignored in favor of the --date option
+            git commit --date $Date $Arguments
+        } else {
+            $env:GIT_AUTHOR_DATE = $Date
+            git commit $Arguments
+        }
     }
 }
 
-Function Req {
+function Req {
     <#
         .SYNOPSIS
             An example function to display how help should be written.
@@ -160,11 +222,14 @@ Function Req {
 
             This will add the path "C:\bin" to the PATH environment variable.
     #>
-    Param(
+    param (
         [Parameter(Mandatory=$True)]
-        [hashtable]$Params,
-        [int]$Retries = 3,
-        [int]$SecondsDelay = 5
+        [hashtable]
+        $Params,
+        [int]
+        $Retries = 3,
+        [int]
+        $SecondsDelay = 5
     )
 
     if (-not $Params.ContainsKey('Method')) {

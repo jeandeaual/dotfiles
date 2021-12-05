@@ -40,6 +40,7 @@ edit:add-var cd~ $interactive:cd~
 
 try {
   use work
+  edit:add-var airistoken~ $work:airistoken~
 } except {
   # The work module might not be available on some machines
 }
@@ -201,9 +202,14 @@ if (has-external ip) {
 {{- end }}
 if (has-external brew) {
   fn brewu {
-    and (brew update) (brew upgrade) (brew upgrade --casks --greedy)
+    and (brew update) (brew upgrade)
   }
   edit:add-var brewu~ $brewu~
+
+  fn brewua {
+    and (brew update) (brew upgrade) (brew upgrade --casks --greedy)
+  }
+  edit:add-var brewua~ $brewua~
 }
 # Mozc aliases
 if (has-external /usr/lib/mozc/mozc_tool) {
@@ -219,9 +225,12 @@ if (has-external /usr/lib/mozc/mozc_tool) {
   fn mozc-dict { /usr/lib/mozc/mozc_tool --mode=dictionary_tool }
   edit:add-var mozc-dict~ $mozc-dict~
 }
+{{- if eq .chezmoi.os "darwin" }}
+# Make cal display the week numbers
+fn cal [@a]{ ncal -w $@a }
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
-{{- if not $archlinux }}
-# Make cal display Monday as the start of the week
+{{- else if not $archlinux }}
+# Make cal display the week numbers and Monday as the start of the week
 fn cal [@a]{ ncal -bM -w $@a }
 {{- end }}
 # List zombie processes
@@ -308,31 +317,24 @@ if (has-external chezmoi) {
   edit:add-var chezmoicd~ $chezmoicd~
 }
 
-if (has-external docker) {
-  # Cleanup dangling images and exited containers
-  # http://blog.coffeeandcode.com/cleanup-docker-images-and-exited-containers/
-  fn docker-cleanup {
-    # for container (docker ps -a -f "name=_run_" -q) {
-    docker ps -a -f "status=exited" -q | each [container]{ docker rm $container }
+{{- range list "docker" "podman" }}
 
-    docker images -f "dangling=true" -q | each [image]{ docker rmi $image }
-
-    # Cleanup all BuildKit cache
-    docker builder prune -f
+if (has-external {{ . }}) {
+  # Cleanup {{ . | title }} dangling images, exited containers, unused networks and build cache
+  fn {{ . }}cleanup {
+    {{ . }} system prune -f
   }
-  edit:add-var docker-cleanup~ $docker-cleanup~
+  edit:add-var {{ . }}cleanup~ ${{ . }}cleanup~
 
-  # Delete all images and containers
-  fn docker-nuke {
-    docker ps -a -q | each [container]{ docker rm -f $container }
+  # Delete all {{ . | title }} images, containers, networks, volumes and build cache
+  fn {{ . }}nuke {
+    {{ . }} ps -a -q | each [container]{ {{ . }} rm -f $container }
 
-    docker images -a -q | each [image]{ docker rmi -f $image }
-
-    # Cleanup all BuildKit cache
-    docker builder prune -f
+    {{ . }} system prune -a --volumes -f
   }
-  edit:add-var docker-nuke~ $docker-nuke~
+  edit:add-var {{ . }}nuke~ ${{ . }}nuke~
 }
+{{- end }}
 
 # Increment a version number
 # Usage:
@@ -350,10 +352,10 @@ fn inc_version [version]{
 # Usage: write_iso ISO DEVICE
 fn write_iso [file device]{
   if (or (not (path:is-regular &follow-symlink=$true $file)) (not (re:match '.iso$' $file))) {
-    fail "The first argument needs to be an ISO file"
+    fail 'The first argument needs to be an ISO file'
   }
   if (or (not (path:is-regular &follow-symlink=$true $device)) (not (re:match '^/dev/sd' $device))) {
-    fail "The second argument needs to be a device"
+    fail 'The second argument needs to be a device'
   }
 
   sudo dd if=$file of=$device bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
@@ -375,6 +377,51 @@ if (has-external tsh) {
     tsh kube login $env
   }
   edit:add-var tshl~ $tshl~
+}
+
+if (has-external git) {
+  fn gitc [diff unit @a]{
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
+    if (str:has-prefix $diff '-') {
+      set date = (date -d (str:trim-prefix $diff '-')' '$unit' ago')
+    } else {
+      set date = (date -d $diff' '$unit' ago')
+    }
+{{- else }}
+    if (has-value [second seconds] $unit) {
+      set unit = 'S'
+    } elif (has-value [minute minutes] $unit) {
+      set unit = 'M'
+    } elif (has-value [hour hours] $unit) {
+      set unit = 'H'
+    } elif (has-value [day days] $unit) {
+      set unit = 'd'
+    } elif (has-value [week weeks] $unit) {
+      set unit = 'w'
+    } elif (has-value [month months] $unit) {
+      set unit = 'm'
+    } elif (has-value [year years] $unit) {
+      set unit = 'y'
+    } else {
+      fail 'Invalid unit'
+    }
+
+    if (not (str:has-prefix $diff '-')) {
+      set diff = '+'$diff
+    }
+
+    set date = (date -v$diff$unit)
+{{- end }}
+
+    if (has-value $a '--amend') {
+      # When amending a commit, GIT_AUTHOR_DATE is ignored in favor of the --date option
+      E:GIT_COMMITTER_DATE=$date git commit --date $date $@a
+    } else {
+      E:GIT_AUTHOR_DATE=$date E:GIT_COMMITTER_DATE=$date git commit $@a
+    }
+  }
+
+  edit:add-var gitc~ $gitc~
 }
 
 # CentOS only
