@@ -13,7 +13,7 @@ include "%L"
 # <Multi_key> <V> <G> : "◎" U25CE # BULLSEYE (very good)
 # <Multi_key> <G> <G> : "○" U25CB # WHITE CIRCLE (good)
 # <Multi_key> <N> <G> : "△" U25B3 # WHITE UP-POINTING TRIANGLE (not great)
-<Multi_key> <k> <8> <s> : "☸" U2638 # WHEEL OF DHARMA
+<Multi_key> <k> <8> <s> : "⎈" U2388 # HELM SYMBOL
 <Multi_key> <z> <i> <g> : "↯" U21AF # DOWNWARDS ZIGZAG ARROW
 <Multi_key> <j> <u> <b> : "EЭ" U0045 U042D # Esperanto jubilee symbol (jibilea simbolo)
 ## Star rating
@@ -215,6 +215,23 @@ include "%L"
 <Multi_key> <m> <b>                   : "⊥" U22A5 # UP TACK
 <Multi_key> <percent> <0>             : "‰" U2030 # PER MILLE SIGN
 <Multi_key> <percent> <percent>       : "‱" U2031 # PER TEN THOUSAND SIGN (basis point, permyriad)
+
+# Drawings
+<Multi_key> <B> <h>     : "─" U2500 # BOX DRAWINGS LIGHT HORIZONTAL
+<Multi_key> <B> <v>     : "│" U2502 # BOX DRAWINGS LIGHT VERTICAL
+<Multi_key> <B> <1>     : "┌" U250C # BOX DRAWINGS LIGHT DOWN AND RIGHT
+<Multi_key> <B> <2>     : "┐" U2510 # BOX DRAWINGS LIGHT DOWN AND LEFT
+<Multi_key> <B> <3>     : "└" U2514 # BOX DRAWINGS LIGHT UP AND RIGHT
+<Multi_key> <B> <4>     : "┘" U2518 # BOX DRAWINGS LIGHT UP AND LEFT
+<Multi_key> <B> <Up>    : "┴" U2534 # BOX DRAWINGS LIGHT UP AND HORIZONTAL
+<Multi_key> <B> <u>     : "┴" U2534 # BOX DRAWINGS LIGHT UP AND HORIZONTAL
+<Multi_key> <B> <Down>  : "┬" U252C # BOX DRAWINGS LIGHT DOWN AND HORIZONTAL
+<Multi_key> <B> <d>     : "┬" U252C # BOX DRAWINGS LIGHT DOWN AND HORIZONTAL
+<Multi_key> <B> <Left>  : "┤" U2524 # BOX DRAWINGS LIGHT VERTICAL AND LEFT
+<Multi_key> <B> <l>     : "┤" U2524 # BOX DRAWINGS LIGHT VERTICAL AND LEFT
+<Multi_key> <B> <Right> : "├" U251C # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+<Multi_key> <B> <r>     : "├" U251C # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+<Multi_key> <B> <m>     : "┼" U253C # BOX DRAWINGS LIGHT VERTICAL AND HORIZONTAL
 
 # Subscripts
 
@@ -750,7 +767,7 @@ include "%L"
 
 # Various symbols
 <Multi_key> <f> <d> <l>                 : "⚜" U269C # FLEUR-DE-LIS
-<Multi_key> <C> <C> <C> <P>             : "☭" U262D # HAMMER AND SICKLE
+<Multi_key> <c> <c> <c> <p>             : "☭" U262D # HAMMER AND SICKLE
 <Multi_key> <exclam> <asciicircum>      : "⚠" U26A0 # WARNING SIGN
 <Multi_key> <w> <a> <r> <n>             : "⚠" U26A0 # WARNING SIGN
 <Multi_key> <r> <a> <d>                 : "☢" U2622 # RADIOACTIVE SIGN
@@ -1863,6 +1880,7 @@ include "%L"
 <Multi_key> <Multi_key> <b> <i> <b>                 : "🍼" U1F37C # BABY BOTTLE
 
 <Multi_key> <Multi_key> <c> <h> <e> <f>             : "👨🏻‍🍳" U1F468 U1F3FB U200D U1F373 # Chef (light skin tone)
+<Multi_key> <Multi_key> <I> <T>                     : "👨🏻‍💻" U1F468 U1F3FB U200D U1F4BB # Technologist (light skin tone)
 
 ## Places
 <Multi_key> <Multi_key> <m> <a> <p>                     : "🗺️" U1F5FA UFE0F # WORLD MAP (emoji version of 🗺)
@@ -1959,7 +1977,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <h> <r> <u> <g>             : "🤷" U1F937 # SHRUG
 <Multi_key> <Multi_key> <f> <r> <o> <w> <n>             : "🙍" U1F64D # PERSON FROWNING
 <Multi_key> <Multi_key> <p> <o> <u> <t>                 : "🙎" U1F64E # PERSON WITH POUTING FACE
-<Multi_key> <Multi_key> <n> <e> <g> <a> <i>             : "🙏" U1F64F # PERSON WITH FOLDED HANDS
+<Multi_key> <Multi_key> <p> <r> <a> <y>                 : "🙏" U1F64F # PERSON WITH FOLDED HANDS
 <Multi_key> <Multi_key> <b> <o> <w>                     : "🙇" U1F647 # PERSON BOWING DEEPLY
 <Multi_key> <Multi_key> <a> <n> <n> <a> <i>             : "💁" U1F481 # INFORMATION DESK PERSON
 <Multi_key> <Multi_key> <i> <n> <f> <o>                 : "💁" U1F481 # INFORMATION DESK PERSON
@@ -2101,6 +2119,12 @@ include "%L"
 <Multi_key> <Multi_key> <c> <colon> <minus> <D>               : "😺" U1F63A # GRINNING CAT FACE
 <Multi_key> <Multi_key> <c> <g> <r> <i> <n>                   : "😸" U1F638 # GRINNING CAT FACE WITH SMILING EYES
 <Multi_key> <Multi_key> <c> <parenleft> <x> <o> <parenright>  : "😽" U1F63D # KISSING CAT FACE WITH CLOSED EYES
+<Multi_key> <Multi_key> <n> <c> <a> <t>                       : "🐱‍👤" U1F431 U200D U1F464 # Ninja Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <a> <c> <a> <t>                       : "🐱‍🚀" U1F431 U200D U1F680 # Astro Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <h> <c> <a> <t>                       : "🐱‍💻" U1F431 U200D U1F4BB # Hacker Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <d> <c> <a> <t>                       : "🐱‍🐉" U1F431 U200D U1F409 # Dino Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <h> <c> <a> <t>                       : "🐱‍👓" U1F431 U200D U1F453 # Hipster Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <s> <c> <a> <t>                       : "🐱‍🏍" U1F431 U200D U1F3CD # Stunt Cat (Microsoft Windows 10 proprietary ZWJ sequence)
 <Multi_key> <Multi_key> <d> <r> <o> <m> <a>                   : "🐪" U1F42A # DROMEDARY CAMEL
 <Multi_key> <Multi_key> <c> <a> <m> <e> <l>                   : "🐫" U1F42B # BACTRIAN CAMEL
 <Multi_key> <Multi_key> <c> <h> <a> <m> <e> <a> <u>           : "🐫" U1F42B # BACTRIAN CAMEL
@@ -2301,7 +2325,6 @@ include "%L"
 <Multi_key> <Multi_key> <semicolon> <minus> <P>                  : "😜" U1F61C # FACE WITH STUCK-OUT TONGUE AND WINKING EYE
 <Multi_key> <Multi_key> <m> <i> <a> <m>                          : "😋" U1F60B # FACE SAVOURING DELICIOUS FOOD
 # <Multi_key> <Multi_key> <colon> <parenleft>                      : "☹️" U2639 UFE0F # WHITE FROWNING FACE
-<Multi_key> <Multi_key> <x> <o>                                  : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <X> <o>                                  : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <x> <O>                                  : "😵" U1F635 # DIZZY FACE
 <Multi_key> <Multi_key> <X> <O>                                  : "😵" U1F635 # DIZZY FACE
@@ -2361,10 +2384,11 @@ include "%L"
 <Multi_key> <Multi_key> <k> <i> <m> <o> <i>                      : "🤢" U1F922 # NAUSEATED FACE
 <Multi_key> <Multi_key> <v> <o> <m> <i> <t>                      : "🤮" U1F92E # FACE WITH OPEN MOUTH VOMITING
 <Multi_key> <Multi_key> <period> <underscore> <period>           : "😐" U1F610 # NEUTRAL FACE
+<Multi_key> <Multi_key> <colon> <bar>                            : "😐" U1F610 # NEUTRAL FACE
+<Multi_key> <Multi_key> <colon> <minus> <bar>                    : "😐" U1F610 # NEUTRAL FACE
 <Multi_key> <Multi_key> <minus> <underscore> <minus>             : "😑" U1F611 # EXPRESSIONLESS FACE
 <Multi_key> <Multi_key> <p> <e> <n> <s> <i> <v> <e>              : "😔" U1F614 # PENSIVE FACE
-<Multi_key> <Multi_key> <colon> <bar>                            : "😔" U1F614 # PENSIVE FACE
-<Multi_key> <Multi_key> <colon> <minus> <bar>                    : "😔" U1F614 # PENSIVE FACE
+<Multi_key> <Multi_key> <p> <e> <n> <s> <i> <f>                  : "😔" U1F614 # PENSIVE FACE
 <Multi_key> <Multi_key> <greater> <underscore> <less>            : "😣" U1F623 # PERSEVERING FACE
 <Multi_key> <Multi_key> <greater> <less>                         : "😣" U1F623 # PERSEVERING FACE
 <Multi_key> <Multi_key> <u> <n> <a> <m> <u> <s> <e> <d>          : "😒" U1F612 # UNAMUSED FACE
@@ -2411,7 +2435,7 @@ include "%L"
 <Multi_key> <Multi_key> <colon> <dollar>                         : "😳" U1F633 # FLUSHED FACE
 <Multi_key> <Multi_key> <colon> <minus> <dollar>                 : "😳" U1F633 # FLUSHED FACE
 # <Multi_key> <Multi_key> <parenleft> <x> <o> <parenright>         : "😗" U1F617 # KISSING FACE
-# <Multi_key> <Multi_key> <parenleft> <x> <o> <parenright>         : "😙" U1F619 # KISSING FACE WITH SMILING EYES
+<Multi_key> <Multi_key> <x> <o> <x> <o>                          : "😙" U1F619 # KISSING FACE WITH SMILING EYES
 <Multi_key> <Multi_key> <parenleft> <x> <o> <parenright>         : "😚" U1F61A # KISSING FACE WITH CLOSED EYES
 <Multi_key> <Multi_key> <colon> <asterisk>                       : "😘" U1F618 # FACE THROWING A KISS
 <Multi_key> <Multi_key> <colon> <minus> <asterisk>               : "😘" U1F618 # FACE THROWING A KISS
