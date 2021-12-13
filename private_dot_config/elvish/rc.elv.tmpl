@@ -101,62 +101,62 @@ if (path:is-dir $devcontainer_cli_path) {
 # Aliases
 #------------------------------------------------------------------------------
 {{- if eq .chezmoi.os "darwin" }}
-fn o [@a]{ open $@a }
+fn o {|@a| open $@a }
 {{- else }}
 if (has-external xdg-open) {
-  fn o [@a]{ xdg-open $@a }
+  fn o {|@a| xdg-open $@a }
   edit:add-var o~ $o~
 }
 {{- end }}
-fn cp [@a]{ e:cp -v $@a }
-fn mv [@a]{ e:mv -v $@a }
-fn rm [@a]{ e:rm -v $@a }
+fn cp {|@a| e:cp -v $@a }
+fn mv {|@a| e:mv -v $@a }
+fn rm {|@a| e:rm -v $@a }
 if (has-external exa) {
-  fn ls [@a]{ exa --group-directories-first $@a }
+  fn ls {|@a| exa --group-directories-first $@a }
   edit:add-var ls~ $ls~
-  fn la [@a]{ ls -a $@a }
+  fn la {|@a| ls -a $@a }
   edit:add-var la~ $la~
-  fn ll [@a]{ ls --git -al $@a }
+  fn ll {|@a| ls --git -al $@a }
   edit:add-var ll~ $ll~
 
   var tree_ignore = 'cache|log|logs|node_modules|vendor|__pycache__'
 
-  fn lt [@a]{ ls --tree -D -L 2 -I $tree_ignore $@a }
+  fn lt {|@a| ls --tree -D -L 2 -I $tree_ignore $@a }
   edit:add-var lt~ $lt~
-  fn ltt [@a]{ ls --tree -D -L 3 -I $tree_ignore $@a }
+  fn ltt {|@a| ls --tree -D -L 3 -I $tree_ignore $@a }
   edit:add-var ltt~ $ltt~
-  fn lttt [@a]{ ls --tree -D -L 4 -I $tree_ignore $@a }
+  fn lttt {|@a| ls --tree -D -L 4 -I $tree_ignore $@a }
   edit:add-var lttt~ $lttt~
-  fn ltttt [@a]{ ls --tree -D -L 5 -I $tree_ignore $@a }
+  fn ltttt {|@a| ls --tree -D -L 5 -I $tree_ignore $@a }
   edit:add-var ltttt~ $ltttt~
 } else {
 {{- if eq .chezmoi.os "darwin" }}
-  fn ls [@a]{ e:ls -G $@a }
+  fn ls {|@a| e:ls -G $@a }
   edit:add-var ls~ $ls~
 {{- else }}
-  fn ls [@a]{ e:ls --color=auto --group-directories-first $@a }
+  fn ls {|@a| e:ls --color=auto --group-directories-first $@a }
   edit:add-var ls~ $ls~
 {{- end }}
-  fn ll [@a]{ e:ls -Alh $@a }
+  fn ll {|@a| e:ls -Alh $@a }
   edit:add-var ll~ $ll~
 }
-fn du [@a]{ e:du -h $@a }
-fn df [@a]{ e:df -Th $@a }
-fn gzip [@a]{ e:gzip -v9N $@a }
-fn zip [@a]{ e:zip -9 -r $@a }
-fn 7z [@a]{ e:7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $@a }
-fn j [@a]{ jobs -l $@a }
+fn du {|@a| e:du -h $@a }
+fn df {|@a| e:df -Th $@a }
+fn gzip {|@a| e:gzip -v9N $@a }
+fn zip {|@a| e:zip -9 -r $@a }
+fn 7z {|@a| e:7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $@a }
+fn j {|@a| jobs -l $@a }
 # Show which process is using which port
 fn ports { sudo lsof +M -i4 -n -P }
 # Force tmux to assume the terminal supports 256 colours
-fn tmux [@a]{ e:tmux -2 $@a }
-fn em [@a]{ emacs $@a }
+fn tmux {|@a| e:tmux -2 $@a }
+fn em {|@a| emacs $@a }
 if (has-external emacsclient) {
   # Open a new Emacs frame
-  fn emc [@a]{ emacsclient -n -c -a "" $@a }
+  fn emc {|@a| emacsclient -n -c -a "" $@a }
   edit:add-var emc~ $emc~
   # Open an Emacs frame in the current TTY
-  fn emw [@a]{ emacsclient -n -w -a "" $@a }
+  fn emw {|@a| emacsclient -n -w -a "" $@a }
   edit:add-var emw~ $emw~
 }
 
@@ -193,7 +193,7 @@ if (and (has-external xclip) (has-external qrencode) (has-external feh)) {
 }
 if (has-external ip) {
   fn ips {
-    ip route list to 0/0 | awk '{print $3}' | each [gw]{
+    ip route list to 0/0 | awk '{print $3}' | each {|gw|
       ip route get to $gw | awk '/src/ {print $5}'
     }
   }
@@ -227,15 +227,15 @@ if (has-external /usr/lib/mozc/mozc_tool) {
 }
 {{- if eq .chezmoi.os "darwin" }}
 # Make cal display the week numbers
-fn cal [@a]{ ncal -w $@a }
+fn cal {|@a| ncal -w $@a }
 {{- /* ArchLinux already includes a cal utility with Monday as the start of the week */ -}}
 {{- else if not $archlinux }}
 # Make cal display the week numbers and Monday as the start of the week
-fn cal [@a]{ ncal -bM -w $@a }
+fn cal {|@a| ncal -bM -w $@a }
 {{- end }}
 # List zombie processes
 fn zombie {
-  ps -eo state,ppid | eawk [line type pid]{ use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } except _ { }
+  ps -eo state,ppid | eawk {|line type pid| use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } except _ { }
 }
 # Current UNIX timestamp in seconds
 fn ts { date +%s }
@@ -248,9 +248,9 @@ if (has-external aws) {
   fn lambdalist {
     aws --output json lambda list-functions |
       from-json |
-      each [result]{ put $result[Functions] } |
+      each {|result| put $result[Functions] } |
       all (one) |
-      each [f]{ put $f[FunctionName] }
+      each {|f| put $f[FunctionName] }
   }
   edit:add-var lambdalist~ $lambdalist~
 }
@@ -258,7 +258,7 @@ if (has-external aws) {
 fn pipenv2requirements {
   var pipfile = (cat Pipfile.lock | from-json)
   var default = $pipfile[default]
-  keys $default | each [k]{
+  keys $default | each {|k|
     echo &sep='' $k $default[$k][version]
   }
 }
@@ -285,18 +285,18 @@ if (has-external ssh-keygen) {
 }
 if (has-external flac) {
   # Reencode FLAC files with the highest compression settings
-  fn flacreencode { put **[type:regular].flac | peach [file]{ flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file } }
+  fn flacreencode { put **[type:regular].flac | peach {|file| flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file } }
   edit:add-var flacreencode~ $flacreencode~
 }
 if (has-external pwsh) {
   # Start PowerShell without displaying the copyright banner
-  fn pwsh [@a]{ e:pwsh -NoLogo $@a }
+  fn pwsh {|@a| e:pwsh -NoLogo $@a }
   edit:add-var pwsh~ $pwsh~
 }
 {{- if $archlinux }}
 if (has-external paru) {
   # Call paru while skipping checksums and PGP checks
-  fn paruignore [@a]{ paru --mflags "--skipchecksums --skippgpcheck" $@a }
+  fn paruignore {|@a| paru --mflags "--skipchecksums --skippgpcheck" $@a }
   edit:add-var paruignore~ $paruignore~
 }
 {{- end }}
@@ -304,7 +304,7 @@ if (has-external paru) {
 # Custom functions
 #------------------------------------------------------------------------------
 # Create a directory and enter it
-fn mkcd [dir]{
+fn mkcd {|dir|
   mkdir -p $dir
   cd $dir
 }
@@ -328,7 +328,7 @@ if (has-external {{ . }}) {
 
   # Delete all {{ . | title }} images, containers, networks, volumes and build cache
   fn {{ . }}nuke {
-    {{ . }} ps -a -q | each [container]{ {{ . }} rm -f $container }
+    {{ . }} ps -a -q | each {|container| {{ . }} rm -f $container }
 
     {{ . }} system prune -a --volumes -f
   }
@@ -344,13 +344,13 @@ if (has-external {{ . }}) {
 # 1.3.0
 # echo "1.2.3" | inc_version 1
 # 2.0.0
-fn inc_version [version]{
+fn inc_version {|version|
   awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver=$version
 }
 
 # Write an ISO image to a device
 # Usage: write_iso ISO DEVICE
-fn write_iso [file device]{
+fn write_iso {|file device|
   if (or (not (path:is-regular &follow-symlink=$true $file)) (not (re:match '.iso$' $file))) {
     fail 'The first argument needs to be an ISO file'
   }
@@ -363,7 +363,7 @@ fn write_iso [file device]{
 
 if (has-external tsh) {
   # Login to Teleport
-  fn tshl [&env=dev]{
+  fn tshl {|&env=dev|
     if (not (has-value [prod stg dev infra sci] $env)) {
       set env = dev
     }
@@ -380,8 +380,9 @@ if (has-external tsh) {
 }
 
 if (has-external git) {
-  fn gitc [diff unit @a]{
+  fn gitc {|diff unit @a|
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
+    var date
     if (str:has-prefix $diff '-') {
       set date = (date -d (str:trim-prefix $diff '-')' '$unit' ago')
     } else {
@@ -410,7 +411,7 @@ if (has-external git) {
       set diff = '+'$diff
     }
 
-    set date = (date -v$diff$unit)
+    var date = (date -v$diff$unit)
 {{- end }}
 
     if (has-value $a '--amend') {
@@ -428,7 +429,7 @@ if (has-external git) {
 # Use Vim with system clipboard support if installed
 if (and (path:is-regular &follow-symlink=$true /usr/bin/vimx) ^
         (not (path:is-regular &follow-symlink=$true /usr/local/bin/vim))) {
-  fn vim [@a]{ /usr/bin/vimx $@a }
+  fn vim {|@a| /usr/bin/vimx $@a }
   edit:add-var vim~ $vim~
 }
 
@@ -438,15 +439,15 @@ if (path:is-dir $E:HOME'/.cabal/bin') {
   set paths = [$E:HOME'/.cabal/bin' $@paths]
 }
 if (has-external ghc) {
-  fn ghc-sandbox [@a]{ ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  fn ghc-sandbox {|@a| ghc -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
   edit:add-var ghc-sandbox~ $ghc-sandbox~
 }
 if (has-external ghci) {
-  fn ghci-sandbox [@a]{ ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  fn ghci-sandbox {|@a| ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
   edit:add-var ghci-sandbox~ $ghci-sandbox~
 }
 if (has-external runhaskell) {
-  fn runhaskell-sandbox [@a]{ runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
+  fn runhaskell-sandbox {|@a| runhaskell -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d $@a }
   edit:add-var runhaskell-sandbox~ $runhaskell-sandbox~
 }
 
@@ -454,7 +455,7 @@ if (has-external runhaskell) {
 #------------------------------------------------------------------------------
 if (has-external go) {
   # go build and strip the debugging information (DWARF tables)
-  fn gor [@a]{ go build -ldflags='-s -w' $@a }
+  fn gor {|@a| go build -ldflags='-s -w' $@a }
   edit:add-var gor~ $gor~
 
   var gopath = (go env GOPATH 2>{{ if eq .chezmoi.os "windows" }}NUL{{ else }}/dev/null{{ end }})
@@ -506,7 +507,7 @@ if (has-external starship) {
 }
 
 # Check if the paths in $PATH actually exist
-each [p]{
+each {|p|
   if (not (path:is-dir &follow-symlink $p)) {
     echo (styled "Warning: directory "$p" in $paths no longer exists." red)
   }

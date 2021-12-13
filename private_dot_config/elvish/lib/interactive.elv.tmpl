@@ -16,7 +16,7 @@ fn external_edit_command {
 
 {{- if ne .chezmoi.os "windows" }}{{/* Modules don't work on Windows */}}
 
-fn cd [@a]{
+fn cd {|@a|
   use github.com/zzamboni/elvish-modules/dir
   dir:cd $@a
 }
