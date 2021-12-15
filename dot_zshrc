@@ -37,6 +37,10 @@ if [[ $commands[kubectl] ]]; then
     source <(kubectl completion zsh)
 fi
 
+if command -v rbenv >/dev/null; then
+    eval "$(rbenv init - zsh)"
+fi
+
 # Prompt
 if command -v starship >/dev/null; then
     eval "$(starship init zsh)"

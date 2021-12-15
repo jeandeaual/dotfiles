@@ -47,6 +47,10 @@ fi
 if [ -d "${HOME}/.local/bin" ]; then
     export PATH="${HOME}/.local/bin${PATH+:}${PATH}"
 fi
+# GPG
+if command -v tty >/dev/null; then
+    export GPG_TTY="$(tty)"
+fi
 # Raspberry Pi
 {{- if .embedded }}
 if [ -d "/opt/vc/bin" ]; then
@@ -416,6 +420,12 @@ fi
 #------------------------------------------------------------------------------
 if [ -d "${HOME}/.rvm/bin" ]; then
     export PATH="${HOME}/.rvm/bin${PATH+:}${PATH}"
+fi
+
+if command -v rbenv >/dev/null; then
+    if [ -z "${BASH_VERSION}" ] || [ -z "${ZSH_VERSION}" ]; then
+        eval "$(rbenv init - sh)"
+    fi
 fi
 
 # Node

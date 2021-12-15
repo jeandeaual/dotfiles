@@ -80,6 +80,10 @@ if (path:is-dir /usr/local/man) {
 if (path:is-dir $E:HOME'/.local/bin') {
   set paths = [$E:HOME'/.local/bin' $@paths]
 }
+# GPG
+if (has-external tty) {
+  set E:GPG_TTY = (tty)
+}
 # Raspberry Pi
 {{- if .embedded }}
 if (path:is-dir /opt/vc/bin) {

@@ -44,6 +44,10 @@ end
 if test -d {$HOME}/.local/bin
     set -U fish_user_paths {$HOME}/.local/bin $fish_user_paths
 end
+# GPG
+if type -q tty
+    set -xU GPG_TTY (tty)
+end
 # Raspberry Pi
 {{- if .embedded }}
 if test -d /opt/vc/bin
@@ -491,4 +495,8 @@ end
 #------------------------------------------------------------------------------
 if test -d {$HOME}/.rvm/bin
     set -U fish_user_paths {$HOME}/.rvm/bin $fish_user_paths
+end
+
+if type -q rbenv
+    status --is-interactive; and rbenv init - fish | source
 end

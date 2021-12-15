@@ -24,6 +24,10 @@ if [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
     source "/usr/local/etc/profile.d/bash_completion.sh"
 fi
 
+if command -v rbenv >/dev/null; then
+    eval "$(rbenv init - bash)"
+fi
+
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
