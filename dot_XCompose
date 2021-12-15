@@ -88,6 +88,7 @@ include "%L"
 <Multi_key> <slash> <slash>              : "⁄" U2044 # FRACTION SLASH
 
 # Can be used to write 5′ 10″ or 35° 41′ 22.2″N., 139° 41′ 30.16″ E.
+<Multi_key> <o> <o>                          : "°" U00B0 DEGREE SIGN
 <Multi_key> <period> <apostrophe>            : "′" U2032 PRIME
 <Multi_key> <period> <quotedbl>              : "″" U2033 DOUBLE PRIME
 <Multi_key> <asterisk> <period> <apostrophe> : "‴" U2034 TRIPLE PRIME
@@ -737,6 +738,10 @@ include "%L"
 <Multi_key> <comma> <c>       : "ç" U00E7 # LATIN SMALL LETTER C WITH CEDILLA
 <Multi_key> <C> <comma>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
 <Multi_key> <comma> <C>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
+
+# German
+<Multi_key> <s> <s> : "ß" U00DF # LATIN SMALL LETTER SHARP S
+<Multi_key> <S> <S> : "ẞ" U1E9E # LATIN CAPITAL LETTER SHARP S
 
 # Macron characters (for romaji)
 <Multi_key> <minus> <a> : "ā" U0101 # LATIN SMALL LETTER A WITH MACRON
