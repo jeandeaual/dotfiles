@@ -84,7 +84,7 @@ encryption = "gpg"
     embedded = {{ $embedded }}
     chassistype = {{ $chassisType | quote }}
     serial = {{ $serial | quote }}
-    dockercmd = "docker"
+    dockercmd = {{ if and .work (eq .chezmoi.os "darwin") }}"podman"{{ else }}"docker"{{ end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
     display = 0

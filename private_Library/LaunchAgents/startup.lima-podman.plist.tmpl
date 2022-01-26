@@ -1,10 +1,10 @@
-{{- if and (lookPath "podman") (eq .dockercmd "podman") -}}
+{{- if and .work (lookPath "lima") -}}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>startup.podman</string>
+	<string>startup.lima-podman</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>AbandonProcessGroup</key>
@@ -17,14 +17,18 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>sh</string>
+		<string>-e</string>
 		<string>-c</string>
-		<string>podman machine list | grep -q podman-machine-default || podman machine init;
-podman machine start</string>
+		<string>limactl start podman;
+podman_socket="$(limactl list podman --format 'unix://{{"{{"}}.Dir{{"}}"}}/sock/podman.sock')";
+launchctl setenv DOCKER_HOST "${podman_socket}";  # For docker-compose
+launchctl setenv CONTAINER_HOST "${podman_socket}";
+launchctl setenv LIMA_INSTANCE podman;</string>
 	</array>
 	<!--<key>StandardErrorPath</key>
-	<string>/tmp/startup.podman.err</string>
+	<string>/tmp/startup.lima-podman.err</string>
 	<key>StandardOutPath</key>
-	<string>/tmp/startup.podman.out</string>-->
+	<string>/tmp/startup.lima-podman.out</string>-->
 </dict>
 </plist>
 {{ end -}}
