@@ -81,18 +81,32 @@ if (Get-Command go -ErrorAction SilentlyContinue) {
 
 if (Get-Command flac -ErrorAction SilentlyContinue) {
     function flacreencode {
-        Get-ChildItem -Path . -Filter *.flac -Recurse | ForEach-Object {
-            flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $_
+        <#
+            .SYNOPSIS
+            Reencode FLAC files in the current directory with the highest compression settings.
+        #>
+        param (
+            # Don't check if it was encoded with a different version of FLAC
+            [switch]
+            $Force = $false
+        )
+
+        $FlacVersion = (flac --version).Split(" ")[1]
+
+        Get-ChildItem -Path . -File -Filter *.flac -Recurse | ForEach-Object {
+            if ($Force -or (metaflac --show-vendor-tag $_) -NotLike "*libFLAC $FlacVersion*") {
+                flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $_
+            }
         }
     }
 }
 
 {{ template "PowerShell/stdin.ps1" . }}
 
-# Function to relaunch as Admin:
+# Function to relaunch as Admin
 function Relaunch-Admin { Start-Process -Verb RunAs (Get-Process -Id $PID).Path }
 
-# Alias for the function:
+# Alias for the function
 Set-Alias pwshadmin Relaunch-Admin
 
 Set-Alias which Get-Command
@@ -211,6 +225,22 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
         }
     }
 }
+
+function Get-Timestamp {
+    return [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
+}
+
+function Get-TimestampMilliseconds {
+    return [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+}
+
+function Get-TimestampNanoseconds {
+    return "$([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())000000"
+}
+
+Set-Alias ts Get-Timestamp
+Set-Alias tsms Get-TimestampMilliseconds
+Set-Alias tsns Get-TimestampNanoseconds
 
 function Req {
     <#

@@ -4,6 +4,7 @@
 ARG VARIANT="3.14"
 FROM mcr.microsoft.com/vscode/devcontainers/base:0-alpine-${VARIANT}
 
+# hadolint ignore=DL3018
 RUN apk update \
     && apk add --no-cache \
     python3 \
@@ -36,6 +37,7 @@ RUN apk update \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Install some Python tools
+# hadolint ignore=DL3013
 RUN pip --disable-pip-version-check --no-cache-dir install \
     autoflake \
     black \

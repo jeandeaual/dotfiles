@@ -66,6 +66,13 @@ devcontainer_cli_path="${XDG_CONFIG_HOME:-$HOME/.config}/Code/User/globalStorage
 if [ -d "${devcontainer_cli_path}" ]; then
     export PATH="${PATH}${PATH+:}${devcontainer_cli_path}"
 fi
+{{- if eq .chezmoi.os "darwin" }}
+# MySQL (installed via Homebrew)
+mysql_cli_path="/usr/local/opt/mysql-client/bin"
+if [ -d "${mysql_cli_path}" ]; then
+    export PATH="${PATH}${PATH+:}${mysql_cli_path}"
+fi
+{{- end }}
 
 # Aliases & functions
 #------------------------------------------------------------------------------
@@ -169,11 +176,13 @@ alias cal='ncal -bM -w'
 alias zombie='ps -eo state,ppid | awk '\''/^Z/ {print $2}'\'' | xargs -r ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }}'
 # Current UNIX timestamp in seconds
 alias ts='date +%s'
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 # Current UNIX timestamp in milliseconds
 alias tsms='date +%s%N | cut -b1-13'
 # alias tsms='echo $(($(date +%s%N)/1000000))'
 # Current UNIX timestamp in nanoseconds
 alias tsns='date +%s%N'
+{{- end }}
 # AWS
 if command -v aws >/dev/null; then
     alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
@@ -195,8 +204,13 @@ if command -v ssh-keygen >/dev/null; then
     alias ssh-keygen-ed25519='ssh-keygen -t ed25519'
 fi
 if command -v flac >/dev/null; then
-    # Reencode FLAC files with the highest compression settings
-    alias flacreencode="find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;"
+    # Reencode FLAC files in the current directory with the highest compression settings
+    alias flacreencodef="find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;"
+
+    if command -v metaflac >/dev/null; then
+        # Reencode FLAC files in the current directory with the highest compression settings if it was encoded with a different version of FLAC
+        alias flacreencode='find . -type f -name '\''*.flac'\'' -exec sh -c '\''vendor="$(metaflac --show-vendor-tag $1)"; current_vendor="libFLAC $(flac --version | cut -d" " -f 2)"; [ "${vendor#*$current_vendor}" != "$vendor" ] || flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $1'\'' _ {} \;'
+    fi
 fi
 if command -v pwsh >/dev/null; then
     # Start PowerShell without displaying the copyright banner

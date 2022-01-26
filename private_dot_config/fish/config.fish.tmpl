@@ -20,39 +20,35 @@ end
 
 # Environment variables
 #------------------------------------------------------------------------------
-set -xU EDITOR {{ .editor }}
-set -xU VISUAL $EDITOR
-set -xU SYSTEMD_EDITOR $EDITOR
-set -xU FCEDIT $EDITOR
-set -xU SVN_EDITOR $EDITOR
+set -gx EDITOR {{ .editor }}
+set -gx VISUAL $EDITOR
+set -gx SYSTEMD_EDITOR $EDITOR
+set -gx FCEDIT $EDITOR
+set -gx SVN_EDITOR $EDITOR
 if type -q ov
-    set -xU PAGER ov
-    set -xU PSQL_PAGER ov -w=f -H2 -F -C -d "|"
+    set -gx PAGER ov
+    set -gx PSQL_PAGER ov -w=f -H2 -F -C -d "|"
 else
-    set -xU PAGER less
-    set -xU LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
+    set -gx PAGER less
+    set -gx LESS --tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS
 end
-set -xU WWW_BROWSER w3m
-set -xU DOWNLOADER wget -S
+set -gx WWW_BROWSER w3m
+set -gx DOWNLOADER wget -S
 if test -f {$config_path}/ripgrep/ripgreprc
-    set -xU RIPGREP_CONFIG_PATH {$config_path}/ripgrep/ripgreprc
+    set -gx RIPGREP_CONFIG_PATH {$config_path}/ripgrep/ripgreprc
 end
 if test -d /usr/local/man
-    set -xU MANPATH /usr/local/man $MANPATH
+    set -gx MANPATH /usr/local/man $MANPATH
 end
 # Add ~/.local/bin to the PATH if it exists
-if test -d {$HOME}/.local/bin
-    set -U fish_user_paths {$HOME}/.local/bin $fish_user_paths
-end
+fish_add_path {$HOME}/.local/bin
 # GPG
 if type -q tty
-    set -xU GPG_TTY (tty)
+    set -gx GPG_TTY (tty)
 end
 # Raspberry Pi
 {{- if .embedded }}
-if test -d /opt/vc/bin
-    set -U fish_user_paths $fish_user_paths /opt/vc/bin
-end
+fish_add_path -a /opt/vc/bin
 {{- end }}
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
@@ -60,9 +56,11 @@ set devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalSto
 {{- else }}
 set devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
 {{- end }}
-if test -d $devcontainer_cli_path
-    set -U fish_user_paths $fish_user_paths $devcontainer_cli_path
-end
+fish_add_path -a $devcontainer_cli_path
+{{- if eq .chezmoi.os "darwin" }}
+# MySQL (installed via Homebrew)
+fish_add_path -a /usr/local/opt/mysql-client/bin
+{{- end }}
 
 # Aliases
 #------------------------------------------------------------------------------
@@ -183,12 +181,12 @@ end
 
 function wip --description "Get the external IP address"
     dig -4 +short myip.opendns.com A @resolver1.opendns.com
-    # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+    # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | string split '"' -f 2
 end
 
 function wip6
     dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
-    # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+    # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | string split '"' -f 2
 end
 
 function rmbin --description "Delete all executables from the current directory"
@@ -279,13 +277,15 @@ function ts --description "Current UNIX timestamp in seconds"
     date +%s
 end
 
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") (and (eq .chezmoi.os "windows") (lookPath "date")) }}
 function tsms --description "Current UNIX timestamp in milliseconds"
-    date +%s%N | cut -b1-13
+    date +%s%N | string sub --length 13
 end
 
 function tsns --description "Current UNIX timestamp in nanoseconds"
     date +%s%N
 end
+{{- end }}
 
 # AWS
 if type -q aws
@@ -323,8 +323,24 @@ if type -q ssh-keygen
 end
 
 if type -q flac
-    function flacreencode --description "Reencode FLAC files with the highest compression settings"
-        find . -type f -name '*.flac' -exec flac --verify --best --decode-through-errors --preserve-modtime -e -p -f {} \;
+    function flacreencodef --description "Reencode FLAC files in the current directory with the highest compression settings"
+        for file in **.flac
+            if test -f $file
+                flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file
+            end
+        end
+    end
+
+    if type -q metaflac
+        function flacreencode --description "Reencode FLAC files in the current directory with the highest compression settings if it was encoded with a different version of FLAC"
+            set flac_version (string split " " (flac --version) -f 2)
+
+            for file in **.flac
+                if test -f $file; and not string match -q -- "*libFLAC $flac_version*" (metaflac --show-vendor-tag $file)
+                    flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file
+                end
+            end
+        end
     end
 end
 
@@ -373,7 +389,7 @@ if type -q tsh
                 set env dev
         end
 
-        if test -n $TELEPORT_PROXY; and test -n $TELEPORT_USER; and test ! -f {$HOME}/.tsh/(string split -f 1 ':' $TELEPORT_PROXY).yaml
+        if test -n $TELEPORT_PROXY; and test -n $TELEPORT_USER; and test ! -f {$HOME}/.tsh/(string split ':' $TELEPORT_PROXY -f 1).yaml
             tsh login
         end
 
@@ -445,9 +461,7 @@ end
 
 # Haskell
 #------------------------------------------------------------------------------
-if test -d {$HOME}/.cabal/bin
-    set -U fish_user_paths {$HOME}/.cabal/bin $fish_user_paths
-end
+fish_add_path {$HOME}/.cabal/bin
 
 if type -q ghc
     function ghci-sandbox
@@ -475,9 +489,7 @@ if type -q go
     end
 
     set gopath (go env GOPATH 2>/dev/null)
-    if test -n $gopath
-        set -U fish_user_paths {$_gopath}/bin $fish_user_paths
-    end
+    fish_add_path {$_gopath}/bin
 end
 
 # Rust
@@ -487,15 +499,11 @@ if type -q rustup
         rustup docs --book
     end
 end
-if test -d {$HOME}/.cargo/bin
-    set -U fish_user_paths {$HOME}/.cargo/bin $fish_user_paths
-end
+fish_add_path {$HOME}/.cargo/bin
 
 # Ruby
 #------------------------------------------------------------------------------
-if test -d {$HOME}/.rvm/bin
-    set -U fish_user_paths {$HOME}/.rvm/bin $fish_user_paths
-end
+fish_add_path {$HOME}/.rvm/bin
 
 if type -q rbenv
     status --is-interactive; and rbenv init - fish | source

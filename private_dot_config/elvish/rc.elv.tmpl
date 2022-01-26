@@ -101,6 +101,13 @@ var devcontainer_cli_path = $config_path'/Code/User/globalStorage/ms-vscode-remo
 if (path:is-dir $devcontainer_cli_path) {
   set paths = [$@paths $devcontainer_cli_path]
 }
+{{- if eq .chezmoi.os "darwin" }}
+# MySQL (installed via Homebrew)
+var mysql_cli_path = '/usr/local/opt/mysql-client/bin'
+if (path:is-dir $mysql_cli_path) {
+  set paths = [$@paths $mysql_cli_path]
+}
+{{- end }}
 
 # Aliases
 #------------------------------------------------------------------------------
@@ -167,11 +174,11 @@ if (has-external emacsclient) {
 # Get the external IP address
 fn wip {
   dig -4 +short myip.opendns.com A @resolver1.opendns.com
-  # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+  # dig -4 +short o-o.myaddr.l.google.com TXT @ns1.google.com | str:split '"' | drop 1 | take 1
 }
 fn wip6 {
   dig -6 +short myip.opendns.com AAAA @resolver1.ipv6-sandbox.opendns.com
-  # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | cut -d '"' -f 2
+  # dig -6 +short o-o.myaddr.l.google.com TXT @ns1.google.com | str:split '"' | drop 1 | take 1
 }
 # Delete all executables from the current directory
 fn rmbin { find . -maxdepth 1 -perm /111 -type f -exec rm -v '{}' ';' }
@@ -243,10 +250,12 @@ fn zombie {
 }
 # Current UNIX timestamp in seconds
 fn ts { date +%s }
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") (and (eq .chezmoi.os "windows") (lookPath "date")) }}
 # Current UNIX timestamp in milliseconds
-fn tsms { date +%s%N | cut -b1-13 }
+fn tsms { str:split '' (date +%s%N) | take 13 | str:join '' }
 # Current UNIX timestamp in nanoseconds
 fn tsns { date +%s%N }
+{{- end }}
 # AWS
 if (has-external aws) {
   fn lambdalist {
@@ -288,9 +297,27 @@ if (has-external ssh-keygen) {
   edit:add-var ssh-keygen-ed25519~ $ssh-keygen-ed25519~
 }
 if (has-external flac) {
-  # Reencode FLAC files with the highest compression settings
-  fn flacreencode { put **[type:regular].flac | peach {|file| flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file } }
-  edit:add-var flacreencode~ $flacreencode~
+  # Reencode FLAC files in the current directory with the highest compression settings
+  fn flacreencodef {
+    put **[type:regular].flac | peach {|file|
+      flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file
+    }
+  }
+  edit:add-var flacreencodef~ $flacreencodef~
+
+  if (has-external metaflac) {
+    # Reencode FLAC files in the current directory with the highest compression settings if it was encoded with a different version of FLAC
+    fn flacreencode {
+      var flac_version = (str:split ' ' (flac --version) | drop 1 | take 1)
+
+      put **[type:regular].flac | peach {|file|
+        if (not (re:match 'libFLAC '$flac_version (metaflac --show-vendor-tag $file))) {
+          flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $file
+        }
+      }
+    }
+    edit:add-var flacreencode~ $flacreencode~
+  }
 }
 if (has-external pwsh) {
   # Start PowerShell without displaying the copyright banner
