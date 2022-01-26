@@ -1,4 +1,3 @@
-AIris
-GitHub
-GitLab
-Jeandeau
+{{ template "en.dic" -}}
+{{ template "fr.dic" -}}
+{{ template "proper_nouns.dic" -}}

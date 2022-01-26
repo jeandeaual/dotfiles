@@ -1,5 +1,2 @@
-carnivalesque
-Candlemas
-carnivalesque
-memoization
-idempotence
+{{ template "en.dic" -}}
+{{ template "proper_nouns.dic" -}}
