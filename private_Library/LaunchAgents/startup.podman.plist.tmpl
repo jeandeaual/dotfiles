@@ -1,0 +1,30 @@
+{{- if and (lookPath "podman") (eq .dockercmd "podman") -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>startup.podman</string>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>AbandonProcessGroup</key>
+	<true/>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/usr/local/bin/:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<string>sh</string>
+		<string>-c</string>
+		<string>podman machine list | grep -q podman-machine-default || podman machine init;
+podman machine start</string>
+	</array>
+	<!--<key>StandardErrorPath</key>
+	<string>/tmp/startup.podman.err</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/startup.podman.out</string>-->
+</dict>
+</plist>
+{{ end -}}

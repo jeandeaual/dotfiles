@@ -1,0 +1,29 @@
+{{- if and .work (lookPath "lima") -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>startup.lima-docker</string>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>AbandonProcessGroup</key>
+	<true/>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/usr/local/bin/:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<string>sh</string>
+		<string>-c</string>
+		<string>limactl start docker && launchctl setenv LIMA_INSTANCE docker && launchctl setenv DOCKER_HOST "$(limactl list docker --format 'unix://{{"{{"}}.Dir{{"}}"}}/sock/docker.sock')"</string>
+	</array>
+	<!--<key>StandardErrorPath</key>
+	<string>/tmp/startup.lima-docker.err</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/startup.lima-docker.out</string>-->
+</dict>
+</plist>
+{{ end -}}

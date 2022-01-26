@@ -30,6 +30,7 @@ brew 'chezmoi'
 brew 'imagemagick'
 brew 'plantuml'
 brew 'tree'
+brew 'direnv'
 brew 'p7zip'
 brew 'tmux'
 brew 'lsusb'
@@ -42,24 +43,30 @@ brew 'wget'
 brew 'go'
 brew 'golangci-lint'
 brew 'shellcheck'
+brew 'hadolint'
 brew 'python'
 brew 'ruby'
 brew 'node'
 brew 'yarn'
 brew 'rustup-init'
-# brew 'podman'
-# brew 'kubectl'
+brew 'gromgit/fuse/sshfs-mac'
+brew 'podman'
+brew 'docker-compose'
 brew 'kubectx'
 brew 'kubeseal'
+brew 'gh'  # GitHub CLI
 brew 'heroku/brew/heroku'
 {{- if .work }}{{/* Work */}}
 brew 'tfenv'
 brew 'asdf'
 brew 'TylerBrock/saw/saw'
 brew 'pre-commit'
+brew 'docker'
+brew 'docker-credential-helper'
+brew 'kubernetes-cli'
+brew 'lima'
 brew 'k9s'
 brew 'okteto'
-brew 'teleport'
 brew 'helm'
 brew 'argo'
 {{- else }}{{/* Personal */}}
@@ -86,7 +93,6 @@ cask 'plexamp'
 cask 'pock'
 {{- end }}
 cask 'obs'
-cask 'mongodb-realm-studio'
 cask 'cyberduck'
 cask 'google-chrome'
 cask 'firefox'
@@ -97,24 +103,31 @@ cask 'keepassxc'
 cask 'wireshark'
 cask 'syncthing'
 cask 'libreoffice'
-cask 'docker'
 cask 'slack'
 cask 'skype'
 cask 'kobo'
+cask 'macfuse'
+cask 'vagrant'
+cask 'xquartz'
+cask 'virtualbox'
 cask 'homebrew/cask-fonts/font-fira-code-nerd-font'
 cask 'homebrew/cask-drivers/hhkb-pro-driver'
 {{- if .work }}{{/* Work */}}
 cask 'box-drive'
+cask 'box-notes'
 cask 'notion'
-cask 'sequel-pro'
+cask 'dbeaver-community'
+cask 'insomnia'
 cask 'sourcetree'
 cask 'viber'
 {{- else }}{{/* Personal */}}
 cask 'discord'
+cask 'docker'
 cask 'dropbox'
 cask 'veracrypt'
 cask 'darktable'
 cask 'josm'
+cask 'mongodb-realm-studio'
 cask 'android-studio'
 cask 'arduino'
 cask 'steam'
@@ -145,6 +158,7 @@ mas 'ChatSecure Messenger', id: 464200063
 {{- end }}
 EOF
 
+IFS=', ' read -r -a current_login_item_paths <<< "$(osascript -e 'tell application "System Events" to get the path of every login item')"
 login_items=(
     "/Applications/Maccy.app"
     "/Applications/SoundSource.app"
@@ -154,10 +168,11 @@ login_items=(
 {{- end }}
     "${HOME}/Applications/Slack.app"
     "${HOME}/Applications/Syncthing.app"
-    "${HOME}/Applications/Visual Studio Code.app"
 )
 
 for path in "${login_items[@]}"; do
-    osascript -e 'tell application "System Events" to make login item at end with properties {path:"'"${path}"'", hidden:false}' >/dev/null
+    if [[ ! " ${current_login_item_paths[*]} " =~ " ${path} " ]]; then
+        osascript -e 'tell application "System Events" to make login item at end with properties {path:"'"${path}"'", hidden:false}' >/dev/null
+    fi
 done
 {{ end -}}

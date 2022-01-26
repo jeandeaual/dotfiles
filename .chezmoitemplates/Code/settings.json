@@ -298,11 +298,7 @@
   "resmon.show.disk": false,
   "resmon.updatefrequencyms": 5000,
   // ms-vscode-remote.remote-containers
-{{- if lookPath "podman" }}
-  "remote.containers.dockerPath": "podman",
-{{- else if lookPath "docker" }}
-  "remote.containers.dockerPath": "docker",
-{{- end }}
+  "remote.containers.dockerPath": "{{ .dockercmd }}",
   "dotfiles.repository": "jeandeaual/dotfiles",
   "remote.containers.copyGitConfig": true
 }

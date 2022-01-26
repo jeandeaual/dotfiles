@@ -135,6 +135,9 @@ format = ' [$symbol$context]($style)'
 {{- if $plaintext }}
 symbol = "docker "
 {{- end }}
+{{- if and .work (eq .chezmoi.os "darwin") }}{{/* Disable when using Lima */}}
+disabled = true
+{{- end }}
 
 [dotnet]
 format = ' [$symbol($version)({{ if not $plaintext }}🎯{{ end }} $tfm)]($style)'

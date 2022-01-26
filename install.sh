@@ -44,7 +44,7 @@ chezmoi_bin=chezmoi
 
 # Install chezmoi
 if [ ! "$(command -v "${chezmoi_bin}")" ]; then
-    readonly chezmoi_install_script="https://git.io/chezmoi"
+    readonly chezmoi_install_script="https://www.chezmoi.io/get"
     chezmoi_bin="${bin_dir}/chezmoi"
 
     if [ "$(command -v curl)" ]; then

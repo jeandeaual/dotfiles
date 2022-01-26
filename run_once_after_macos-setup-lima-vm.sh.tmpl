@@ -1,0 +1,18 @@
+{{- if and .work (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+set -euo pipefail
+
+readonly VM_DIR="${HOME}/.lima/docker"
+readonly LIMA_CONFIG="https://gist.githubusercontent.com/jeandeaual/5f77ad4486bf727f8d02793ebc974de2/raw/1554d594b71168635b17d46a8e5fba708ffb6ca9/docker.yaml"
+
+if [ ! "$(command -v limactl)" ]; then
+    echo "limactl not found" 1>&2
+    exit 0
+fi
+
+if [[ ! -d "${VM_DIR}" ]]; then
+    limactl start "${LIMA_CONFIG}"
+fi
+
+{{ end -}}
