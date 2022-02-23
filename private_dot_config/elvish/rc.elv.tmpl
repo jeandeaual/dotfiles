@@ -107,6 +107,15 @@ var mysql_cli_path = '/usr/local/opt/mysql-client/bin'
 if (path:is-dir $mysql_cli_path) {
   set paths = [$@paths $mysql_cli_path]
 }
+# MacPorts
+set paths = [/opt/local/bin /opt/local/sbin $@paths]
+if (path:is-dir /usr/local/share/man) {
+  if (eq E:MANPATH '') {
+    set E:MANPATH = /usr/local/share/man
+  } else {
+    set E:MANPATH = (str:join ':' [/usr/local/share/man $E:MANPATH])
+  }
+}
 {{- end }}
 
 # Aliases

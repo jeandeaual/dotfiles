@@ -72,6 +72,11 @@ mysql_cli_path="/usr/local/opt/mysql-client/bin"
 if [ -d "${mysql_cli_path}" ]; then
     export PATH="${PATH}${PATH+:}${mysql_cli_path}"
 fi
+# MacPorts
+export PATH="/opt/local/bin:/opt/local/sbin${PATH+:}${PATH}"
+if [ -d "/opt/local/share/man" ]; then
+    export MANPATH="/opt/local/share/man${MANPATH:+:${MANPATH}}"
+fi
 {{- end }}
 
 # Aliases & functions
@@ -446,14 +451,16 @@ fi
 #------------------------------------------------------------------------------
 export NVM_DIR="${HOME}/.nvm"
 {{- if eq .chezmoi.os "darwin" }}
-nvm_install_dir="$(brew --prefix nvm)"
-# shellcheck disable=SC1091
-[ -s "${nvm_install_dir}/nvm.sh" ] && . "${nvm_install_dir}/nvm.sh"
-# shellcheck disable=SC1091
-[ -s "${nvm_install_dir}/etc/bash_completion.d/nvm" ] && . "${nvm_install_dir}/etc/bash_completion.d/nvm"
-{{- else if $archlinux }}
-# shellcheck disable=SC1091
-[ -s "/usr/share/nvm/init-nvm.sh" ] && . "/usr/share/nvm/init-nvm.sh"
+nvm_install_dir="$(brew --prefix nvm 2>/dev/null)"
+if [ -n "${nvm_install_dir}" ]; then
+    # shellcheck disable=SC1091
+    [ -s "${nvm_install_dir}/nvm.sh" ] && . "${nvm_install_dir}/nvm.sh"
+    # shellcheck disable=SC1091
+    [ -s "${nvm_install_dir}/etc/bash_completion.d/nvm" ] && . "${nvm_install_dir}/etc/bash_completion.d/nvm"
+    {{- else if $archlinux }}
+    # shellcheck disable=SC1091
+    [ -s "/usr/share/nvm/init-nvm.sh" ] && . "/usr/share/nvm/init-nvm.sh"
+fi
 {{- else }}{{- /* Install via https://raw.githubusercontent.com/nvm-sh/nvm/vX.X.X/install.sh */ -}}
 # shellcheck disable=SC1091
 [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"

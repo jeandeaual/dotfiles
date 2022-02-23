@@ -52,14 +52,19 @@ fish_add_path -a /opt/vc/bin
 {{- end }}
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
-set devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+set -l devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
 {{- else }}
-set devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
+set -l devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
 {{- end }}
 fish_add_path -a $devcontainer_cli_path
 {{- if eq .chezmoi.os "darwin" }}
 # MySQL (installed via Homebrew)
 fish_add_path -a /usr/local/opt/mysql-client/bin
+# MacPorts
+fish_add_path /opt/local/bin /opt/local/sbin
+if test -d /opt/local/share/man
+    set -gx MANPATH /opt/local/share/man $MANPATH
+end
 {{- end }}
 
 # Aliases
@@ -101,7 +106,7 @@ if type -q exa
         ls --git -al $argv
     end
 
-    set tree_ignore 'cache|log|logs|node_modules|vendor|__pycache__'
+    set -l tree_ignore 'cache|log|logs|node_modules|vendor|__pycache__'
 
     function lt
         ls --tree -D -L 2 -I $tree_ignore $argv
@@ -333,7 +338,7 @@ if type -q flac
 
     if type -q metaflac
         function flacreencode --description "Reencode FLAC files in the current directory with the highest compression settings if it was encoded with a different version of FLAC"
-            set flac_version (string split " " (flac --version) -f 2)
+            set -l flac_version (string split " " (flac --version) -f 2)
 
             for file in **.flac
                 if test -f $file; and not string match -q -- "*libFLAC $flac_version*" (metaflac --show-vendor-tag $file)
@@ -488,7 +493,7 @@ if type -q go
         go build -ldflags='-s -w' $argv
     end
 
-    set gopath (go env GOPATH 2>/dev/null)
+    set -l gopath (go env GOPATH 2>/dev/null)
     fish_add_path {$_gopath}/bin
 end
 
