@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """Finds duplicates in a .XCompose file."""
 
-import argparse
-import re
-import sys
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
 from os.path import expanduser, isfile
+from re import compile as re_compile
+from sys import exit, stderr
 from typing import Final
 
+
 # Exit codes
-EXIT_SUCCESS: Final = 0
-EXIT_FILE_NOT_FOUND: Final = 1
-EXIT_FILE_FORMAT_ERROR: Final = 2
+EXIT_SUCCESS: Final[int] = 0
+EXIT_FILE_NOT_FOUND: Final[int] = 1
+EXIT_FILE_FORMAT_ERROR: Final[int] = 2
 
 
 @dataclass(frozen=True)
@@ -25,9 +26,9 @@ class Entry:
 
 def main() -> None:
     """Program entrypoint."""
-    parser = argparse.ArgumentParser(
+    parser = ArgumentParser(
         description=__doc__.strip(),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        formatter_class=ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "file",
@@ -38,11 +39,11 @@ def main() -> None:
     args = parser.parse_args()
 
     if not isfile(args.file):
-        print(f"{args.file} does not exist", file=sys.stderr)
-        sys.exit(EXIT_FILE_NOT_FOUND)
+        print(f"{args.file} does not exist", file=stderr)
+        exit(EXIT_FILE_NOT_FOUND)
 
-    key_regex = re.compile(r"<(?P<key>[A-Za-z0-9_]+)>")
-    symbol_regex = re.compile(r'"(?P<symbol>.+)"')
+    key_regex = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
+    symbol_regex = re_compile(r'"(?P<symbol>.+)"')
     # Ignore some small caps, superscript and greek letters since some of them
     # are also defined for IPA
     ipa = [
@@ -82,8 +83,8 @@ def main() -> None:
 
     registered: list[Entry] = []
     found_symbols: set[str] = set()
-    previous_symbol = ""
-    exit_code = EXIT_SUCCESS
+    previous_symbol: str = ""
+    exit_code: int = EXIT_SUCCESS
 
     with open(args.file, encoding="utf8") as fp:
         for n, line in enumerate(fp):  # type: int, str
@@ -94,22 +95,22 @@ def main() -> None:
             ):
                 continue
 
-            keys: list[str] = re.findall(key_regex, line)
+            keys: list[str] = key_regex.findall(line)
             if len(keys) == 0:
-                print(f"Found no key in {line}", file=sys.stderr)
+                print(f"Found no key in {line}", file=stderr)
                 exit_code = EXIT_FILE_FORMAT_ERROR
                 continue
 
-            symbols: list[str] = re.findall(symbol_regex, line)
+            symbols: list[str] = symbol_regex.findall(line)
             if len(symbols) > 1:
                 print(
                     f"Found multiple symbols in {line}: {symbols}",
-                    file=sys.stderr,
+                    file=stderr,
                 )
                 exit_code = EXIT_FILE_FORMAT_ERROR
                 continue
             if len(symbols) == 0:
-                print(f"Found no symbol in {line}", file=sys.stderr)
+                print(f"Found no symbol in {line}", file=stderr)
                 exit_code = EXIT_FILE_FORMAT_ERROR
                 continue
 
@@ -132,7 +133,7 @@ def main() -> None:
             ):
                 print(
                     f"{symbol} (line {line_number}) is already registered",
-                    file=sys.stderr,
+                    file=stderr,
                 )
                 exit_code = EXIT_FILE_FORMAT_ERROR
             else:
@@ -141,7 +142,7 @@ def main() -> None:
             registered.append(Entry(line_number, keys, symbol))
             previous_symbol = symbol
 
-    sys.exit(exit_code)
+    exit(exit_code)
 
 
 if __name__ == "__main__":

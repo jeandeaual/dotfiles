@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """Convert a .XCompose file to a Cocoa keybindings dict file."""
 
-import argparse
-import re
-import sys
-from collections import OrderedDict
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
 from io import StringIO
 from os.path import expanduser, isfile
-from typing import Final, Generator, Optional, TextIO, Tuple
+from re import compile as re_compile
+from sys import exit, stderr
+from typing import Any, Final, Generator, Optional, Pattern, TextIO
+
 
 # Exit codes
-EXIT_SUCCESS: Final = 0
-EXIT_FILE_NOT_FOUND: Final = 1
-EXIT_FILE_FORMAT_ERROR: Final = 2
+EXIT_SUCCESS: Final[int] = 0
+EXIT_FILE_NOT_FOUND: Final[int] = 1
+EXIT_FILE_FORMAT_ERROR: Final[int] = 2
 
-KEY_MAP: Final = {
+KEY_MAP: Final[dict[str, str]] = {
     "multi_key": "§",
     "bracketleft": "[",
     "bracketright": "]",
@@ -71,10 +71,10 @@ KEY_MAP: Final = {
     "return": "\\U000D",
     "enter": "\\U0003",
 }
-KEY_REGEX: Final = re.compile(r"<(?P<key>[A-Za-z0-9_]+)>")
-SYMBOL_REGEX: Final = re.compile(r'"(?P<symbol>.+)"')
-COMMENT_REGEX: Final = re.compile(r"# (?P<comment>.+)$")
-INDENT_SPACES: Final = 4
+KEY_REGEX: Final[Pattern[str]] = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
+SYMBOL_REGEX: Final[Pattern[str]] = re_compile(r'"(?P<symbol>.+)"')
+COMMENT_REGEX: Final[Pattern[str]] = re_compile(r"# (?P<comment>.+)$")
+INDENT_SPACES: Final[int] = 4
 
 
 @dataclass(frozen=True)
@@ -85,6 +85,9 @@ class Entry:
     comment: Optional[str]
     line: int
     keys: list[str]
+
+
+EntryDict = dict[str, Any]
 
 
 class OverlappingEntries(Exception):
@@ -101,38 +104,38 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
     if line.startswith("#") or line.startswith("include") or line.isspace():
         return None
 
-    keys: list[str] = re.findall(KEY_REGEX, line)
+    keys: list[str] = KEY_REGEX.findall(line)
     if len(keys) == 0:
-        print(f"Found no key in {line}", file=sys.stderr)
+        print(f"Found no key in {line}", file=stderr)
         return None
 
-    symbols: list[str] = re.findall(SYMBOL_REGEX, line)
+    symbols: list[str] = SYMBOL_REGEX.findall(line)
     if len(symbols) > 1:
-        print(f"Found multiple symbols in {line}: {symbols}", file=sys.stderr)
+        print(f"Found multiple symbols in {line}: {symbols}", file=stderr)
         return None
     if len(symbols) == 0:
-        print(f"Found no symbol in {line}", file=sys.stderr)
+        print(f"Found no symbol in {line}", file=stderr)
         return None
 
     symbol = symbols[0]
 
-    comments: list[str] = re.findall(COMMENT_REGEX, line)
+    comments: list[str] = COMMENT_REGEX.findall(line)
     if len(comments) > 1:
-        print(
-            f"Found multiple comments in {line}: {comments}", file=sys.stderr
-        )
+        print(f"Found multiple comments in {line}: {comments}", file=stderr)
         return None
     comment = comments[0] if len(comments) > 0 else None
 
     return Entry(symbol, comment, line_number, keys)
 
 
-def parse_xcompose(fp) -> Tuple[dict, int]:
+def parse_xcompose(fp) -> tuple[EntryDict, int]:
     """Parse a .XCompose file and return a nested key / value dictionnary."""
-    entries: dict = OrderedDict()
-    exit_code = EXIT_SUCCESS
+    entries: EntryDict = {}
+    exit_code: int = EXIT_SUCCESS
 
-    for n, line in enumerate(fp):  # type: int, str
+    n: int
+    line: str
+    for n, line in enumerate(fp):
         try:
             entry = parse_xcompose_line(line, n + 1)
 
@@ -147,14 +150,14 @@ def parse_xcompose(fp) -> Tuple[dict, int]:
                 if i == len(entry.keys) - 1:
                     break
                 if key not in last:
-                    last[key] = OrderedDict()
+                    last[key] = {}
                 last = last[key]
 
             last[key] = entry
         except OverlappingEntries as e:
             print(
                 f"Found overlapping entries: {e.first} and {e.second}",
-                file=sys.stderr,
+                file=stderr,
             )
             exit_code = EXIT_FILE_FORMAT_ERROR
 
@@ -162,7 +165,7 @@ def parse_xcompose(fp) -> Tuple[dict, int]:
 
 
 def write_entries(
-    entries: dict, out: TextIO, indent_level: int
+    entries: EntryDict, out: TextIO, indent_level: int
 ) -> Generator[dict, None, None]:
     """Write the Cocoa keybinding dict."""
     for key, value in entries.items():
@@ -192,9 +195,9 @@ def write_entries(
 
 def main() -> None:
     """Program entrypoint."""
-    parser = argparse.ArgumentParser(
+    parser = ArgumentParser(
         description=__doc__.strip(),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        formatter_class=ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "file",
@@ -205,8 +208,8 @@ def main() -> None:
     args = parser.parse_args()
 
     if not isfile(args.file):
-        print(f"{args.file} does not exist", file=sys.stderr)
-        sys.exit(EXIT_FILE_NOT_FOUND)
+        print(f"{args.file} does not exist", file=stderr)
+        exit(EXIT_FILE_NOT_FOUND)
 
     with open(args.file, encoding="utf8") as fp:
         entries, exit_code = parse_xcompose(fp)
@@ -239,7 +242,7 @@ def main() -> None:
 
     print(out.getvalue(), end="")
 
-    sys.exit(exit_code)
+    exit(exit_code)
 
 
 if __name__ == "__main__":

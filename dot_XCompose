@@ -48,44 +48,79 @@ include "%L"
 
 # Typography
 
-<Multi_key> <period> <period>            : "…" U2026 # HORIZONTAL ELLIPSIS
-<Multi_key> <v> <period> <period>        : "⋮" U22EE # VERTICAL ELLIPSIS
-<Multi_key> <grave> <space>              : "‘" U2018 # LEFT SINGLE QUOTATION MARK
-<Multi_key> <6> <apostrophe>             : "‘" U2018 # LEFT SINGLE QUOTATION MARK (high 6)
-<Multi_key> <apostrophe> <space>         : "’" U2019 # RIGHT SINGLE QUOTATION MARK
-<Multi_key> <9> <apostrophe>             : "’" U2019 # RIGHT SINGLE QUOTATION MARK (high 9)
-<Multi_key> <grave> <grave>              : "“" U201C # LEFT DOUBLE QUOTATION MARK
-<Multi_key> <6> <quotedbl>               : "“" U201C # LEFT DOUBLE QUOTATION MARK (66)
-<Multi_key> <apostrophe> <apostrophe>    : "”" U201D # RIGHT DOUBLE QUOTATION MARK
-<Multi_key> <9> <quotedbl>               : "”" U201D # RIGHT DOUBLE QUOTATION MARK (99)
-<Multi_key> <comma> <space>              : "‚" U201A # SINGLE LOW-9 QUOTATION MARK
-<Multi_key> <comma> <comma>              : "„" U201E # DOUBLE LOW-9 QUOTATION MARK
-<Multi_key> <less> <9> <apostrophe>      : "‛" U201B # SINGLE HIGH-REVERSED-9 QUOTATION MARK
-<Multi_key> <less> <9> <quotedbl>        : "‟" U201F # DOUBLE HIGH-REVERSED-9 QUOTATION MARK
-<Multi_key> <less> <minus>              : "‹" U2039 # SINGLE LEFT-POINTING ANGLE QUOTATION MARK
-<Multi_key> <greater> <minus>           : "›" U203A # SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
-<Multi_key> <less> <less>                : "«" U00AB # LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
-<Multi_key> <greater> <greater>          : "»" U00BB # RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-<Multi_key> <i> <m>                      : "⸮" U2E2E # REVERSED QUESTION MARK (irony mark)
-<Multi_key> <slash> <s>                  : "⸮" U2E2E # REVERSED QUESTION MARK (irony mark)
-<Multi_key> <question> <exclam>          : "‽" U203D # INTERROBANG
-<Multi_key> <exclam> <question>          : "⸘" U2E18 # INVERTED INTERROBANG
-<Multi_key> <asterisk> <1>               : "•" U2022 # BULLET
-<Multi_key> <o> <underscore>             : "⁃" U2043 # HYPHEN BULLET
-<Multi_key> <o> <comma>                  : "·" U00B7 # MIDDLE DOT
-<Multi_key> <period> <minus>             : "·" U00B7 # MIDDLE DOT
-<Multi_key> <minus> <space>              : "‐" U2010 # HYPHEN
-<Multi_key> <minus> <backslash>          : "‑" U2011 # NON-BREAKING HYPHEN
-<Multi_key> <asterisk> <asterisk>        : "⁂" U2042 # ASTERISM
-<Multi_key> <d> <t>                      : "〃" U3003 # DITTO MARK
+<Multi_key> <period> <period>         : "…" U2026 # HORIZONTAL ELLIPSIS
+# https://standardebooks.org/manual/1.0.0/8-typography#8.7.6.3
+<Multi_key> <space> <period> <period> : " …" U200A U2026 # HORIZONTAL ELLIPSIS preceded by HAIR SPACE
+<Multi_key> <v> <period> <period>     : "⋮" U22EE # VERTICAL ELLIPSIS
+<Multi_key> <grave> <space>           : "‘" U2018 # LEFT SINGLE QUOTATION MARK
+<Multi_key> <6> <apostrophe>          : "‘" U2018 # LEFT SINGLE QUOTATION MARK (high 6)
+<Multi_key> <apostrophe> <space>      : "’" U2019 # RIGHT SINGLE QUOTATION MARK
+<Multi_key> <9> <apostrophe>          : "’" U2019 # RIGHT SINGLE QUOTATION MARK (high 9)
+<Multi_key> <grave> <grave>           : "“" U201C # LEFT DOUBLE QUOTATION MARK
+<Multi_key> <6> <quotedbl>            : "“" U201C # LEFT DOUBLE QUOTATION MARK (66)
+<Multi_key> <apostrophe> <apostrophe> : "”" U201D # RIGHT DOUBLE QUOTATION MARK
+<Multi_key> <9> <quotedbl>            : "”" U201D # RIGHT DOUBLE QUOTATION MARK (99)
+<Multi_key> <comma> <space>           : "‚" U201A # SINGLE LOW-9 QUOTATION MARK
+<Multi_key> <comma> <comma>           : "„" U201E # DOUBLE LOW-9 QUOTATION MARK
+<Multi_key> <less> <9> <apostrophe>   : "‛" U201B # SINGLE HIGH-REVERSED-9 QUOTATION MARK
+<Multi_key> <less> <9> <quotedbl>     : "‟" U201F # DOUBLE HIGH-REVERSED-9 QUOTATION MARK
+<Multi_key> <less> <minus>            : "‹" U2039 # SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+<Multi_key> <greater> <minus>         : "›" U203A # SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+<Multi_key> <less> <less>             : "«" U00AB # LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+<Multi_key> <greater> <greater>       : "»" U00BB # RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+<Multi_key> <i> <m>                   : "⸮" U2E2E # REVERSED QUESTION MARK (irony mark)
+<Multi_key> <slash> <s>               : "⸮" U2E2E # REVERSED QUESTION MARK (irony mark)
+<Multi_key> <question> <exclam>       : "‽" U203D # INTERROBANG
+<Multi_key> <exclam> <question>       : "⸘" U2E18 # INVERTED INTERROBANG
+<Multi_key> <asterisk> <1>            : "•" U2022 # BULLET
+<Multi_key> <o> <underscore>          : "⁃" U2043 # HYPHEN BULLET
+<Multi_key> <o> <comma>               : "·" U00B7 # MIDDLE DOT
+<Multi_key> <period> <minus>          : "·" U00B7 # MIDDLE DOT
+<Multi_key> <minus> <space>           : "‐" U2010 # HYPHEN
+<Multi_key> <minus> <backslash>       : "‑" U2011 # NON-BREAKING HYPHEN
+<Multi_key> <asterisk> <asterisk>     : "⁂" U2042 # ASTERISM
+<Multi_key> <d> <t>                   : "〃" U3003 # DITTO MARK
+<Multi_key> <x> <x>                   : "×" U007D # MULTIPLICATION SIGN
+# https://standardebooks.org/manual/1.0.0/8-typography#8.8.7.2.5
+<Multi_key> <f> <x>                   : "⁡" U2061 # FUNCTION APPLICATION
+<Multi_key> <f> <parenleft>           : "⁡(" U2061 U0028 # FUNCTION APPLICATION with LEFT PARENTHESIS
 
-# <Multi_key> <space> <space>            : " " U00A0 # NO-BREAK SPACE
-<Multi_key> <space> <n>                  : " " U202F # NARROW NO-BREAK SPACE
-<Multi_key> <space> <h>                  : " " U200A # HAIR SPACE
-<Multi_key> <space> <t>                  : " " U2009 # THIN SPACE
-<Multi_key> <backslash> <minus>          : "­" U00AD # SOFT HYPHEN
+<Multi_key> <space> <space>      : " " U00A0 # NO-BREAK SPACE
+<Multi_key> <2> <space>          : " " U2002 # EN SPACE
+<Multi_key> <3> <space>          : " " U2003 # EM SPACE
+<Multi_key> <1> <3> <space>      : " " U2004 # THREE-PER-EM SPACE (thick space)
+<Multi_key> <1> <4> <space>      : " " U2005 # FOUR-PER-EM SPACE (mid space)
+<Multi_key> <1> <6> <space>      : " " U2006 # SIX-PER-EM SPACE
+<Multi_key> <space> <asterisk>   : " " U2007 # FIGURE SPACE
+<Multi_key> <space> <period>     : " " U2008 # PUNCTUATION SPACE
+<Multi_key> <space> <t>          : " " U2009 # THIN SPACE
+<Multi_key> <space> <h>          : " " U200A # HAIR SPACE
+<Multi_key> <space> <n>          : " " U202F # NARROW NO-BREAK SPACE
+<Multi_key> <space> <numbersign> : " " U205F # MEDIUM MATHEMATICAL SPACE
+<Multi_key> <backslash> <minus>  : "­" U00AD # SOFT HYPHEN
 
-<Multi_key> <slash> <slash>              : "⁄" U2044 # FRACTION SLASH
+# https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+<Multi_key> <slash> <slash>           : "⁄" U2044 # FRACTION SLASH
+<Multi_key> <1> <slash>               : "⅟" U215F # FRACTION NUMERATOR ONE
+<Multi_key> <1> <2>                   : "½" U00BD # VULGAR FRACTION ONE HALF
+<Multi_key> <0> <3>                   : "↉" U2189 # VULGAR FRACTION ZERO THIRDS (used in baseball scoring)
+<Multi_key> <1> <3>                   : "⅓" U2153 # VULGAR FRACTION ONE THIRD
+<Multi_key> <2> <3>                   : "⅔" U2154 # VULGAR FRACTION TWO THIRDS
+<Multi_key> <1> <4>                   : "¼" U00BC # VULGAR FRACTION ONE QUARTER
+<Multi_key> <3> <4>                   : "¾" U00BE # VULGAR FRACTION THREE QUARTERS
+<Multi_key> <1> <5>                   : "⅕" U2155 # VULGAR FRACTION ONE FIFTH
+<Multi_key> <2> <5>                   : "⅖" U2156 # VULGAR FRACTION TWO FIFTHS
+<Multi_key> <3> <5>                   : "⅗" U2157 # VULGAR FRACTION THREE FIFTHS
+<Multi_key> <4> <5>                   : "⅘" U2158 # VULGAR FRACTION FOUR FIFTHS
+<Multi_key> <1> <6>                   : "⅙" U2159 # VULGAR FRACTION ONE SIXTH
+<Multi_key> <5> <6>                   : "⅚" U215A # VULGAR FRACTION FIVE SIXTHS
+<Multi_key> <1> <7>                   : "⅐" U2150 # VULGAR FRACTION ONE SEVENTH
+<Multi_key> <1> <8>                   : "⅛" U215B # VULGAR FRACTION ONE EIGHTH
+<Multi_key> <3> <8>                   : "⅜" U215C # VULGAR FRACTION THREE EIGHTHS
+<Multi_key> <5> <8>                   : "⅝" U215D # VULGAR FRACTION FIVE EIGHTHS
+<Multi_key> <7> <8>                   : "⅞" U215E # VULGAR FRACTION SEVEN EIGHTHS
+<Multi_key> <1> <9>                   : "⅑" U2151 # VULGAR FRACTION ONE NINTH
+<Multi_key> <1> <1> <0>               : "⅒" U2152 # VULGAR FRACTION ONE TENTH
 
 # Can be used to write 5′ 10″ or 35° 41′ 22.2″N., 139° 41′ 30.16″ E.
 <Multi_key> <o> <o>                          : "°" U00B0 DEGREE SIGN
@@ -95,19 +130,26 @@ include "%L"
 <Multi_key> <asterisk> <period> <quotedbl>   : "⁗" U2057 QUADRUPLE PRIME
 
 # Used to indicate a dash in numbers that aren't in a range (e.g. phone numbers)
-<Multi_key> <minus> <minus> <period>     : "–" U2013 # EN DASH
-<Multi_key> <minus> <minus> <minus>      : "—" U2014 # EM DASH
-<Multi_key> <minus> <minus> <asciitilde> : "‒" U2012 # FIGURE DASH
-<Multi_key> <minus> <period>             : "−" U2212 # MINUS SIGN
-<Multi_key> <minus> <asciitilde> <minus> : "―" U2015 # HORIZONTAL BAR
-<Multi_key> <minus> <2>                  : "⸺" U2E3A # TWO-EM DASH
-<Multi_key> <minus> <3>                  : "⸻" U2E3B # THREE-EM DASH
-<Multi_key> <space> <minus>              : " — " # EM DASH surrounded by THIN SPACEs
-<Multi_key> <less> <space>               : "« " # LEFT-POINTING DOUBLE-ANGLE QUOTATION MARK with NARROW NO-BREAK SPACE
-<Multi_key> <space> <greater>            : " »" # NARROW NO-BREAK SPACE with RIGHT-POINTING DOUBLE-ANGLE QUOTATION MARK
+<Multi_key> <minus> <minus> <period>          : "–" U2013 # EN DASH
+<Multi_key> <2> <minus>                       : "–" U2013 # EN DASH
+<Multi_key> <minus> <minus> <minus>           : "—" U2014 # EM DASH
+<Multi_key> <3> <minus>                       : "—" U2014 # EM DASH
+<Multi_key> <minus> <asterisk>                : "‒" U2012 # FIGURE DASH
+<Multi_key> <minus> <period>                  : "−" U2212 # MINUS SIGN
+<Multi_key> <minus> <asciitilde> <minus>      : "―" U2015 # HORIZONTAL BAR
+<Multi_key> <minus> <asciitilde> <asciitilde> : "⁓" U2053 # SWUNG DASH
+<Multi_key> <minus> <2>                       : "⸺" U2E3A # TWO-EM DASH
+<Multi_key> <minus> <3>                       : "⸻" U2E3B # THREE-EM DASH
+<Multi_key> <space> <minus> <space>           : " — " # EM DASH surrounded by THIN SPACEs
+# https://standardebooks.org/manual/1.0.0/8-typography#8.7.7.6.1
+<Multi_key> <space> <minus> <minus>           : "⁠—" # EM DASH preceded by WORD JOINER
+# https://standardebooks.org/manual/1.0.0/8-typography#8.7.7.7.3
+<Multi_key> <space> <minus> <2>               : "⁠⸺" # TWO-EM DASH preceded by WORD JOINER
+<Multi_key> <less> <space>                    : "« " # LEFT-POINTING DOUBLE-ANGLE QUOTATION MARK with NARROW NO-BREAK SPACE
+<Multi_key> <space> <greater>                 : " »" # NARROW NO-BREAK SPACE with RIGHT-POINTING DOUBLE-ANGLE QUOTATION MARK
 
 # Traps
-<Multi_key> <semicolon> <semicolon>      : ";" U037E # GREEK QUESTION MARK
+<Multi_key> <semicolon> <semicolon> : ";" U037E # GREEK QUESTION MARK
 
 # IDS (Ideographic Description Sequences)
 # ⿰ 	U+2FF0 	Ideographic description character left to right
@@ -124,11 +166,11 @@ include "%L"
 # ⿻ 	U+2FFB 	Ideographic description character overlaid
 
 # Expressions
-<Multi_key> <c> <d>     : "c.-à-d." # c.-à-d.
-<Multi_key> <b> <b>     : "b.a.-ba" # b.a.-ba
-<Multi_key> <t> <k> <t> : "t'inquiète pas"
+<Multi_key> <c> <a> <d> : "c.‐à‐d."
+<Multi_key> <b> <a> <b> : "b.a.‐ba"
+<Multi_key> <t> <k> <t> : "t’inquiète pas"
 
-<Multi_key> <N> <o>                      : "№" U2116 # NUMERO SIGN
+<Multi_key> <N> <o> : "№" U2116 # NUMERO SIGN
 
 # Simple arrows
 
@@ -303,10 +345,12 @@ include "%L"
 ## ᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁⱽᵂ
 <Multi_key> <n> <A>          : "ᴬ" U1D2C # SUPERSCRIPT A
 <Multi_key> <n> <B>          : "ᴮ" U1D2E # SUPERSCRIPT B
-# No superscript C (yet)
+# MODIFIER LETTER CAPITAL C was added in Unicode 14.0
+<Multi_key> <n> <C>          : "ꟲ" UA7F2 # SUPERSCRIPT C
 <Multi_key> <n> <D>          : "ᴰ" U1D30 # SUPERSCRIPT D
 <Multi_key> <n> <E>          : "ᴱ" U1D31 # SUPERSCRIPT E
-# No superscript F (yet)
+# MODIFIER LETTER CAPITAL F was added in Unicode 14.0
+<Multi_key> <n> <F>          : "ꟳ" UA7F3 # SUPERSCRIPT F
 <Multi_key> <n> <G>          : "ᴳ" U1D33 # SUPERSCRIPT G
 <Multi_key> <n> <H>          : "ᴴ" U1D34 # SUPERSCRIPT H
 <Multi_key> <n> <I>          : "ᴵ" U1D35 # SUPERSCRIPT I
@@ -317,7 +361,8 @@ include "%L"
 <Multi_key> <n> <N>          : "ᴺ" U1D3A # SUPERSCRIPT N
 <Multi_key> <n> <O>          : "ᴼ" U1D3C # SUPERSCRIPT O
 <Multi_key> <n> <P>          : "ᴾ" U1D3E # SUPERSCRIPT P
-# No superscript Q (yet)
+# MODIFIER LETTER CAPITAL Q was added in Unicode 14.0
+<Multi_key> <n> <Q>          : "ꟴ" UA7F4 # SUPERSCRIPT Q
 <Multi_key> <n> <R>          : "ᴿ" U1D3F # SUPERSCRIPT R
 # No superscript S (yet)
 <Multi_key> <n> <T>          : "ᵀ" U1D40 # SUPERSCRIPT T
@@ -329,32 +374,35 @@ include "%L"
 # No superscript Z (yet)
 
 ## ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ
-<Multi_key> <n> <a>          : "ᵃ" U1D43 # SUPERSCRIPT a
-<Multi_key> <n> <b>          : "ᵇ" U1D47 # SUPERSCRIPT b
-<Multi_key> <n> <c>          : "ᶜ" U1D9C # SUPERSCRIPT c
-<Multi_key> <n> <d>          : "ᵈ" U1D48 # SUPERSCRIPT d
-<Multi_key> <n> <e>          : "ᵉ" U1D49 # SUPERSCRIPT e
-<Multi_key> <n> <f>          : "ᶠ" U1DA0 # SUPERSCRIPT f
-<Multi_key> <n> <g>          : "ᵍ" U1D4D # SUPERSCRIPT g
-<Multi_key> <n> <h>          : "ʰ" U02B0 # SUPERSCRIPT h
-<Multi_key> <n> <i>          : "ⁱ" U2071 # SUPERSCRIPT i
-<Multi_key> <n> <j>          : "ʲ" U02B2 # SUPERSCRIPT j
-<Multi_key> <n> <k>          : "ᵏ" U1D4F # SUPERSCRIPT k
-<Multi_key> <n> <l>          : "ˡ" U02E1 # SUPERSCRIPT l
-<Multi_key> <n> <m>          : "ᵐ" U1D50 # SUPERSCRIPT m
-<Multi_key> <n> <n>          : "ⁿ" U207F # SUPERSCRIPT n
-<Multi_key> <n> <o>          : "ᵒ" U1D52 # SUPERSCRIPT o
-<Multi_key> <n> <p>          : "ᵖ" U1D56 # SUPERSCRIPT p
-# No superscript q (yet)
-<Multi_key> <n> <r>          : "ʳ" U02B3 # SUPERSCRIPT r
-<Multi_key> <n> <s>          : "ˢ" U02E2 # SUPERSCRIPT s
-<Multi_key> <n> <t>          : "ᵗ" U1D57 # SUPERSCRIPT t
-<Multi_key> <n> <u>          : "ᵘ" U1D58 # SUPERSCRIPT u
-<Multi_key> <n> <v>          : "ᵛ" U1D5B # SUPERSCRIPT v
-<Multi_key> <n> <w>          : "ʷ" U02B7 # SUPERSCRIPT w
-<Multi_key> <n> <x>          : "ˣ" U02E3 # SUPERSCRIPT x
-<Multi_key> <n> <y>          : "ʸ" U02B8 # SUPERSCRIPT y
-<Multi_key> <n> <z>          : "ᶻ" U1DBB # SUPERSCRIPT z
+<Multi_key> <n> <a>          : "ᵃ" U1D43  # SUPERSCRIPT a
+<Multi_key> <n> <b>          : "ᵇ" U1D47  # SUPERSCRIPT b
+<Multi_key> <n> <c>          : "ᶜ" U1D9C  # SUPERSCRIPT c
+<Multi_key> <n> <d>          : "ᵈ" U1D48  # SUPERSCRIPT d
+<Multi_key> <n> <e>          : "ᵉ" U1D49  # SUPERSCRIPT e
+<Multi_key> <n> <f>          : "ᶠ" U1DA0  # SUPERSCRIPT f
+<Multi_key> <n> <g>          : "ᵍ" U1D4D  # SUPERSCRIPT g
+<Multi_key> <n> <h>          : "ʰ" U02B0  # SUPERSCRIPT h
+<Multi_key> <n> <i>          : "ⁱ" U2071  # SUPERSCRIPT i
+<Multi_key> <n> <j>          : "ʲ" U02B2  # SUPERSCRIPT j
+<Multi_key> <n> <k>          : "ᵏ" U1D4F  # SUPERSCRIPT k
+<Multi_key> <n> <l>          : "ˡ" U02E1  # SUPERSCRIPT l
+<Multi_key> <n> <m>          : "ᵐ" U1D50  # SUPERSCRIPT m
+<Multi_key> <n> <n>          : "ⁿ" U207F  # SUPERSCRIPT n
+<Multi_key> <n> <o>          : "ᵒ" U1D52  # SUPERSCRIPT o
+<Multi_key> <n> <p>          : "ᵖ" U1D56  # SUPERSCRIPT p
+# MODIFIER LETTER SMALL Q was added in Unicode 14.0
+<Multi_key> <n> <q>          : "𐞥" U107A5 # SUPERSCRIPT q
+<Multi_key> <n> <r>          : "ʳ" U02B3  # SUPERSCRIPT r
+<Multi_key> <n> <s>          : "ˢ" U02E2  # SUPERSCRIPT s
+<Multi_key> <n> <t>          : "ᵗ" U1D57  # SUPERSCRIPT t
+<Multi_key> <n> <u>          : "ᵘ" U1D58  # SUPERSCRIPT u
+<Multi_key> <n> <v>          : "ᵛ" U1D5B  # SUPERSCRIPT v
+<Multi_key> <n> <w>          : "ʷ" U02B7  # SUPERSCRIPT w
+<Multi_key> <n> <x>          : "ˣ" U02E3  # SUPERSCRIPT x
+<Multi_key> <n> <y>          : "ʸ" U02B8  # SUPERSCRIPT y
+<Multi_key> <n> <z>          : "ᶻ" U1DBB  # SUPERSCRIPT z
+
+<Multi_key <P> <K> <M> <N>   : "ᴾᴋᴹɴ" U1D3E U1D0B U1D39 U0274 # PKMN
 
 # TODO
 # Italic:
@@ -1008,7 +1056,7 @@ include "%L"
 <Multi_key> <x> <B>                                   : "β" U03B2 # Voiced bilabial fricative
 <Multi_key> <x> <backslash> <B>                       : "ʙ" U0299 # Bilabial trill
 <Multi_key> <x> <C>                                   : "ç" U00E7 # Voiceless palatal fricative
-<Multi_key> <x> <D>                                   : "ð" U00F0 # Voiced dental fricative
+# <Multi_key> <x> <D>                                   : "ð" U00F0 # Voiced dental fricative
 <Multi_key> <x> <E>                                   : "ɛ" U025B # Open-mid front unrounded vowel
 <Multi_key> <x> <F>                                   : "ɱ" U0271 # Labiodental nasal
 <Multi_key> <x> <G>                                   : "ɣ" U0263 # Voiced velar fricative
@@ -1196,6 +1244,9 @@ include "%L"
 <Multi_key> <less> <semicolon> : "؛" U061B # ARABIC SEMICOLON
 <Multi_key> <less> <question>  : "¿" U00BF # INVERTED QUESTION MARK
 <Multi_key> <less> <exclam>    : "¡" U00A1 # INVERTED EXCLAMATION MARK
+# https://en.wikipedia.org/wiki/Duodecimal
+<Multi_key> <less> <2>         : "↊" U218A # TURNED DIGIT 2
+<Multi_key> <less> <3>         : "↋" U218B # TURNED DIGIT 3
 
 # Esperanto
 ## X-system (https://en.wikipedia.org/wiki/Esperanto_orthography#X-system)
@@ -1224,9 +1275,9 @@ include "%L"
 <Multi_key> <U> <x> : "Ŭ" U016C # LATIN CAPITAL LETTER U WITH BREVE
 
 # Old English / Icelandic
-# <Multi_key> <d> <h> : "ð" U00F0 # LATIN SMALL LETTER ETH
-# <Multi_key> <x> <D> : "ð" U00F0 # LATIN SMALL LETTER ETH
-# <Multi_key> <D> <H> : "Ð" U00d0 # LATIN CAPITAL LETTER ETH
+<Multi_key> <d> <h> : "ð" U00F0 # LATIN SMALL LETTER ETH
+<Multi_key> <x> <D> : "ð" U00F0 # LATIN SMALL LETTER ETH
+<Multi_key> <D> <H> : "Ð" U00d0 # LATIN CAPITAL LETTER ETH
 <Multi_key> <t> <h> : "þ" U00FE # LATIN SMALL LETTER THORN
 <Multi_key> <T> <H> : "Þ" U00DE # LATIN CAPITAL LETTER THORN
 <Multi_key> <y> <g> : "ȝ" U021D # LATIN SMALL LETTER YOGH
@@ -1701,6 +1752,7 @@ include "%L"
 <Multi_key> <P> <D> <F>     : "‬" U202C # POP DIRECTIONAL FORMATTING
 <Multi_key> <L> <R> <O>     : "‭" U202D # LEFT-TO-RIGHT OVERRIDE
 <Multi_key> <R> <L> <O>     : "‮" U202E # RIGHT-TO-LEFT OVERRIDE
+<Multi_key> <W> <J>         : "⁠" U2060 # WORD JOINER
 <Multi_key> <B> <O> <M>     : "﻿" UFEFF # ZERO WIDTH NO-BREAK SPACE (Byte Order Mark)
 <Multi_key> <C> <A> <N>     : "󠁿" UE007F # CANCEL TAG
 <Multi_key> <C> <G> <J>     : "͏" U034F # COMBINING GRAPHEME JOINER
@@ -2128,7 +2180,7 @@ include "%L"
 <Multi_key> <Multi_key> <a> <c> <a> <t>                       : "🐱‍🚀" U1F431 U200D U1F680 # Astro Cat (Microsoft Windows 10 proprietary ZWJ sequence)
 <Multi_key> <Multi_key> <h> <c> <a> <t>                       : "🐱‍💻" U1F431 U200D U1F4BB # Hacker Cat (Microsoft Windows 10 proprietary ZWJ sequence)
 <Multi_key> <Multi_key> <d> <c> <a> <t>                       : "🐱‍🐉" U1F431 U200D U1F409 # Dino Cat (Microsoft Windows 10 proprietary ZWJ sequence)
-<Multi_key> <Multi_key> <h> <c> <a> <t>                       : "🐱‍👓" U1F431 U200D U1F453 # Hipster Cat (Microsoft Windows 10 proprietary ZWJ sequence)
+<Multi_key> <Multi_key> <c> <c> <a> <t>                       : "🐱‍👓" U1F431 U200D U1F453 # Hipster Cat (Microsoft Windows 10 proprietary ZWJ sequence)
 <Multi_key> <Multi_key> <s> <c> <a> <t>                       : "🐱‍🏍" U1F431 U200D U1F3CD # Stunt Cat (Microsoft Windows 10 proprietary ZWJ sequence)
 <Multi_key> <Multi_key> <d> <r> <o> <m> <a>                   : "🐪" U1F42A # DROMEDARY CAMEL
 <Multi_key> <Multi_key> <c> <a> <m> <e> <l>                   : "🐫" U1F42B # BACTRIAN CAMEL
