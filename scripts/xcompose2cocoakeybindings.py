@@ -4,7 +4,7 @@
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
 from io import StringIO
-from os.path import expanduser, isfile
+from pathlib import Path
 from re import compile as re_compile
 from sys import exit, stderr
 from typing import Any, Final, Generator, Optional, Pattern, TextIO
@@ -202,13 +202,14 @@ def main() -> None:
     parser.add_argument(
         "file",
         nargs="?",
-        default=expanduser("~/.XCompose"),
+        type=Path,
+        default=Path.home() / ".XCompose",
         help="Compose file path",
     )
     args = parser.parse_args()
 
-    if not isfile(args.file):
-        print(f"{args.file} does not exist", file=stderr)
+    if not args.file.expanduser().is_file():
+        print(f"{args.file.resolve()} does not exist", file=stderr)
         exit(EXIT_FILE_NOT_FOUND)
 
     with open(args.file, encoding="utf8") as fp:

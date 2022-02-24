@@ -3,7 +3,7 @@
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
-from os.path import expanduser, isfile
+from pathlib import Path
 from re import compile as re_compile
 from sys import exit, stderr
 from typing import Final
@@ -33,13 +33,14 @@ def main() -> None:
     parser.add_argument(
         "file",
         nargs="?",
-        default=expanduser("~/.XCompose"),
+        type=Path,
+        default=Path.home() / ".XCompose",
         help="Compose file path",
     )
     args = parser.parse_args()
 
-    if not isfile(args.file):
-        print(f"{args.file} does not exist", file=stderr)
+    if not args.file.expanduser().is_file():
+        print(f"{args.file.resolve()} does not exist", file=stderr)
         exit(EXIT_FILE_NOT_FOUND)
 
     key_regex = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
