@@ -5,9 +5,10 @@ from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
-from re import compile as re_compile
+from re import compile as re_compile, Pattern
 from sys import exit, stderr
-from typing import Any, Final, Generator, Optional, Pattern, TextIO
+from typing import Any, Final, Optional, TextIO, Union
+from collections.abc import Sequence, Iterator
 
 
 # Exit codes
@@ -24,52 +25,52 @@ KEY_MAP: Final[dict[str, str]] = {
     "period": ".",
     "minus": "-",
     "plus": "+",
-    "dollar": "\\$",  # $ is used for Shift and needs to be escaped
-    "$": "\\$",  # $ is used for Shift and needs to be escaped
-    "at": "\\@",  # @ is used for Command and needs to be escaped
-    "@": "\\@",  # @ is used for Command and needs to be escaped
+    "dollar": r"\\$",  # Used for Shift and needs to be escaped
+    "$": r"\\$",  # Used for Shift and needs to be escaped
+    "at": r"\\@",  # Used for Command and needs to be escaped
+    "@": r"\\@",  # Used for Command and needs to be escaped
     "exclam": "!",
     "less": "<",
     "greater": ">",
     "slash": "/",
-    "backslash": "\\\\",
+    "backslash": r"\134",
     "question": "?",
-    "space": "\\U0020",
+    "space": " ",
     "equal": "=",
-    "asciitilde": "\\~",  # ~ is used for Option and needs to be escaped
-    "~": "\\~",  # ~ is used for Option and needs to be escaped
-    "numbersign": "\\#",  # # is used for numpad keys and needs to be escaped
-    "#": "\\#",  # # is used for numpad keys and needs to be escaped
+    "asciitilde": r"\\~",  # Used for Option and needs to be escaped
+    "~": r"\\~",  # Used for Option and needs to be escaped
+    "numbersign": r"\\#",  # # For numpad keys and needs to be escaped
+    "#": r"\\#",  # # For numpad keys and needs to be escaped
     "asterisk": "*",
     "colon": ":",
     "semicolon": ";",
     "percent": "%",
     "underscore": "_",
-    "asciicircum": "\\^",  # ^ is used for Control and needs to be escaped
-    "^": "\\^",  # ^ is used for Control and needs to be escaped
+    "asciicircum": r"\\^",  # Used for Control and needs to be escaped
+    "^": r"\\^",  # Used for Control and needs to be escaped
     "comma": ",",
     "apostrophe": "'",
-    "quotedbl": '\\"',
+    "quotedbl": r"\"",
     "bar": "|",
     "grave": "`",
     "ampersand": "&",
     "braceright": "}",
     "braceleft": "{",
-    "up": "\\UF700",
-    "down": "\\UF701",
-    "left": "\\UF702",
-    "right": "\\UF703",
-    "delete": "\\UF728",
-    "backspace": "\\U007F",
-    "home": "\\UF729",
-    "end": "\\UF72B",
-    "prior": "\\UF72C",
-    "next": "\\UF72D",
-    "escape": "\\U001B",
-    "tab": "\\U0009",
-    "iso_left_tab": "\\U0019",
-    "return": "\\U000D",
-    "enter": "\\U0003",
+    "up": r"\UF700",
+    "down": r"\UF701",
+    "left": r"\UF702",
+    "right": r"\UF703",
+    "delete": r"\UF728",
+    "backspace": r"\177",
+    "home": r"\UF729",
+    "end": r"\UF72B",
+    "prior": r"\UF72C",
+    "next": r"\UF72D",
+    "escape": r"\033",
+    "tab": r"\011",
+    "iso_left_tab": r"\031",
+    "return": r"\015",
+    "enter": r"\012",
 }
 KEY_REGEX: Final[Pattern[str]] = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
 SYMBOL_REGEX: Final[Pattern[str]] = re_compile(r'"(?P<symbol>.+)"')
@@ -93,10 +94,10 @@ EntryDict = dict[str, Any]
 class OverlappingEntries(Exception):
     """Raised when two .XCompose entries have overlapping keys."""
 
-    def __init__(self, first: Entry, second: Entry):
+    def __init__(self, short: Entry, entries: Union[Entry, Sequence[Entry]]):
         """Initialize the exception."""
-        self.first = first
-        self.second = second
+        self.short = short
+        self.entries = entries
 
 
 def parse_xcompose_line(line, line_number) -> Optional[Entry]:
@@ -128,18 +129,35 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
     return Entry(symbol, comment, line_number, keys)
 
 
+def get_entries(entries: EntryDict) -> Iterator[Entry]:
+    """Iterate over all ``Entry`` in an ``EntryDict``."""
+    for value in entries.values():
+        if isinstance(value, dict):
+            yield from get_entries(value)
+        elif isinstance(value, Entry):
+            yield value
+
+
 def parse_xcompose(fp) -> tuple[EntryDict, int]:
     """Parse a .XCompose file and return a nested key / value dictionnary."""
     entries: EntryDict = {}
     exit_code: int = EXIT_SUCCESS
 
-    n: int
+    line_number: int
     line: str
-    for n, line in enumerate(fp):
+    for line_number, line in enumerate(fp, start=1):
         try:
-            entry = parse_xcompose_line(line, n + 1)
+            entry = parse_xcompose_line(line, line_number)
 
             if not entry:
+                continue
+
+            if entry.keys[0].lower() != "multi_key":
+                print(
+                    f"Entry doesn't start with the compose key: {entry}",
+                    file=stderr,
+                )
+                exit_code = EXIT_FILE_FORMAT_ERROR
                 continue
 
             last = entries
@@ -153,10 +171,14 @@ def parse_xcompose(fp) -> tuple[EntryDict, int]:
                     last[key] = {}
                 last = last[key]
 
+            if key in last:
+                raise OverlappingEntries(entry, list(get_entries(last[key])))
+
             last[key] = entry
         except OverlappingEntries as e:
             print(
-                f"Found overlapping entries: {e.first} and {e.second}",
+                f"The following entries can't be accessed due to {e.short}: "
+                f"{e.entries}",
                 file=stderr,
             )
             exit_code = EXIT_FILE_FORMAT_ERROR
@@ -166,8 +188,10 @@ def parse_xcompose(fp) -> tuple[EntryDict, int]:
 
 def write_entries(
     entries: EntryDict, out: TextIO, indent_level: int
-) -> Generator[dict, None, None]:
+) -> Iterator[dict]:
     """Write the Cocoa keybinding dict."""
+    key: str
+    value: Union[EntryDict, Entry]
     for key, value in entries.items():
         for xcompose_key, keybinding in KEY_MAP.items():
             if key.lower() == xcompose_key.lower():
@@ -177,8 +201,7 @@ def write_entries(
             print(" " * INDENT_SPACES, file=out, end="")
         if isinstance(value, dict):
             print(f'"{key}" = {{', file=out)
-            for d in write_entries(value, out, indent_level + 1):
-                yield d
+            yield from write_entries(value, out, indent_level + 1)
             for _ in range(indent_level):
                 print(" " * INDENT_SPACES, file=out, end="")
             print("};", file=out)
