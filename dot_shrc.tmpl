@@ -457,10 +457,10 @@ if [ -n "${nvm_install_dir}" ]; then
     [ -s "${nvm_install_dir}/nvm.sh" ] && . "${nvm_install_dir}/nvm.sh"
     # shellcheck disable=SC1091
     [ -s "${nvm_install_dir}/etc/bash_completion.d/nvm" ] && . "${nvm_install_dir}/etc/bash_completion.d/nvm"
-    {{- else if $archlinux }}
-    # shellcheck disable=SC1091
-    [ -s "/usr/share/nvm/init-nvm.sh" ] && . "/usr/share/nvm/init-nvm.sh"
 fi
+{{- else if $archlinux }}
+# shellcheck disable=SC1091
+[ -s "/usr/share/nvm/init-nvm.sh" ] && . "/usr/share/nvm/init-nvm.sh"
 {{- else }}{{- /* Install via https://raw.githubusercontent.com/nvm-sh/nvm/vX.X.X/install.sh */ -}}
 # shellcheck disable=SC1091
 [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
