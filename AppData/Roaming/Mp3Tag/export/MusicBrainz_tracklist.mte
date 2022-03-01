@@ -1,0 +1,2 @@
+$filename(txt,utf-8)$loop(%album%)$loop(%discnumber%)%track%. %title% (%_length%)
+$loopend()$loopend()
