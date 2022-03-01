@@ -3,7 +3,13 @@
 [user]
 	name = "Alexis Jeandeau"
 	email = {{ .email | quote }}
+{{- if not .work }}
 	signingkey = 438ED2B0D5E5719F
+{{- else }}
+	signingkey = 4B9CEAB3C697E546
+[commit]
+	gpgsign = true
+{{- end }}
 [merge]
 	tool = vimd
 [diff]
