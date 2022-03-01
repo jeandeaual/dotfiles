@@ -37,10 +37,12 @@ def main() -> None:
         default=Path.home() / ".XCompose",
         help="Compose file path",
     )
-    args = parser.parse_args()
 
-    if not args.file.expanduser().is_file():
-        print(f"{args.file.resolve()} does not exist", file=stderr)
+    args = parser.parse_args()
+    xcompose_file: Path = args.file
+
+    if not xcompose_file.expanduser().is_file():
+        print(f"{xcompose_file.resolve()} does not exist", file=stderr)
         exit(EXIT_FILE_NOT_FOUND)
 
     key_regex = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
@@ -87,7 +89,7 @@ def main() -> None:
     previous_symbol: str = ""
     exit_code: int = EXIT_SUCCESS
 
-    with open(args.file, encoding="utf8") as fp:
+    with xcompose_file.open(encoding="utf8") as fp:
         for n, line in enumerate(fp):  # type: int, str
             if (
                 line.startswith("#")
