@@ -45,6 +45,18 @@ function Add-Path {
 }
 
 {{ if eq .chezmoi.os "windows" -}}
+# On Windows, the console input and output encodings are set to the system locale instead of UTF-8
+# Force UTF-8 encoding for the console
+# https://stackoverflow.com/questions/49476326/displaying-unicode-in-powershell/49481797#49481797
+$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
+
+# Set the default encoding for all cmdlets that support an -Encoding parameter to UTF-8
+# https://stackoverflow.com/questions/40098771/changing-powershells-default-output-encoding-to-utf-8
+$PSDefaultParameterValues["*:Encoding"] = "utf8"
+
+# https://www.python.org/dev/peps/pep-0540/
+$env:PYTHONUTF8 = 1
+
 {{ template "PowerShell/fonts.ps1" . }}
 
 {{ template "PowerShell/shortcut.ps1" . }}
