@@ -83,6 +83,7 @@
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   // Telemetry
   "telemetry.telemetryLevel": "off",
+  "Lua.telemetry.enable": false,
   "redhat.telemetry.enabled": false,
   "vsixViewer.enableTelemetry": false,
   // Ruby

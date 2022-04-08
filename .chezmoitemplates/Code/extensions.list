@@ -9,12 +9,13 @@ bierner.color-info
 bierner.github-markdown-preview
 bierner.markdown-checkbox
 bierner.markdown-emoji
+bierner.markdown-footnotes
 bierner.markdown-preview-github-styles
 bierner.markdown-yaml-preamble
-bungcip.better-toml
 castwide.solargraph
 casualjim.gotemplate
 christian-kohler.npm-intellisense
+codecontemplator.kubeseal
 codezombiech.gitignore
 coolbear.systemd-unit-file
 cschleiden.vscode-github-actions
@@ -31,10 +32,12 @@ ecmel.vscode-html-css
 EditorConfig.EditorConfig
 eg2.vscode-npm-script
 esbenp.prettier-vscode
+exiasr.hadolint
 firefox-devtools.vscode-firefox-debug
 gamunu.vscode-yarn
 GitHub.copilot
 GitHub.vscode-pull-request-github
+GitLab.gitlab-workflow
 golang.go
 GrapeCity.gc-excelviewer
 GraphQL.vscode-graphql
@@ -48,6 +51,7 @@ jeandeaual.lilypond-syntax
 jeandeaual.noir
 jeandeaual.scheme
 jebbs.plantuml
+jeff-hykin.better-cpp-syntax
 jock.svg
 KnisterPeter.vscode-github
 lextudio.restructuredtext
@@ -60,6 +64,7 @@ mattn.Lisp
 me-dutour-mathieu.vscode-github-actions
 mechatroner.rainbow-csv
 mjmcloug.vscode-elixir
+mrorz.language-gettext
 ms-azuretools.vscode-docker
 ms-dotnettools.csharp
 ms-kubernetes-tools.vscode-kubernetes-tools
@@ -70,6 +75,8 @@ ms-toolsai.jupyter
 ms-toolsai.jupyter-keymap
 ms-toolsai.jupyter-renderers
 ms-vscode-remote.remote-containers
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
 ms-vscode-remote.remote-wsl
 ms-vscode.cmake-tools
 ms-vscode.cpptools
@@ -82,6 +89,7 @@ ms-vsliveshare.vsliveshare-audio
 ms-vsliveshare.vsliveshare-pack
 msjsdiag.debugger-for-chrome
 msjsdiag.vscode-react-native
+mtsmfm.vscode-stl-viewer
 mutantdino.resourcemonitor
 naumovs.color-highlight
 nico-castell.linux-desktop-file
@@ -89,6 +97,7 @@ onlyutkarsh.vsix-viewer
 paradox460.elvish-lang
 pepri.subtitles-editor
 pgourlain.erlang
+printfn.gemini-improved
 rebornix.ruby
 redhat.java
 redhat.vscode-commons
@@ -101,13 +110,17 @@ seanwu.vscode-qt-for-python
 shd101wyy.markdown-preview-enhanced
 sissel.shopify-liquid
 skyapps.fish-vscode
+soutaro.rbs-syntax
 speedy37.ascii-plist
 streetsidesoftware.hunspell
+sumneko.lua
 svelte.svelte-vscode
 swimmy4days.brainfuck-syntax-highlighter
-Tim-Koehler.helm-intellisense
+tamasfe.even-better-toml
+timonwong.shellcheck
 Togusa09.tmlanguage
 tomoki1207.pdf
+trond-snekvik.devicetree
 trond-snekvik.simple-rst
 twxs.cmake
 vadimcn.vscode-lldb
@@ -120,7 +133,6 @@ vscjava.vscode-java-test
 vscjava.vscode-maven
 vscode-icons-team.vscode-icons
 vscodevim.vim
-wengerk.highlight-bad-chars
 wingrunr21.vscode-ruby
 XadillaX.viml
 xaver.clang-format
