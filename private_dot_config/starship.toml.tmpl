@@ -278,6 +278,7 @@ format = ' [${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
 {{- if $plaintext }}
 symbol = "py "
 {{- end }}
+python_binary = ["python", "python3"]
 
 [red]
 format = ' [$symbol($version)]($style)'
