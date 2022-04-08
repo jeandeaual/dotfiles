@@ -40,8 +40,10 @@ edit:add-var cd~ $interactive:cd~
 
 try {
   use work
-  edit:add-var airistoken~ $work:airistoken~
-} except {
+  edit:add-var airis-mysql-proxy~ $work:airis-mysql-proxy~
+  edit:add-var airis-create-superuser~ $work:airis-create-superuser~
+  edit:add-var airis-token~ $work:airis-token~
+} catch _ {
   # The work module might not be available on some machines
 }
 
@@ -404,7 +406,7 @@ fn write_iso {|file device|
 if (has-external tsh) {
   # Login to Teleport
   fn tshl {|&env=dev|
-    if (not (has-value [prod stg dev infra sci] $env)) {
+    if (not (has-value [prod stg dev sci] $env)) {
       set env = dev
     }
 

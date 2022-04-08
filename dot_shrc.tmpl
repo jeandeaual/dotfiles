@@ -302,7 +302,7 @@ rmmacdotfiles() {
 if command -v tsh >/dev/null; then
     tshl() {
         case "$1" in
-            prod|stg|dev|infra|sti)
+            prod|stg|dev|sti)
                 env=$1
                 ;;
             *)
