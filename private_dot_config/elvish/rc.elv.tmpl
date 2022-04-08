@@ -195,7 +195,7 @@ fn wip6 {
 fn rmbin { find . -maxdepth 1 -perm /111 -type f -exec rm -v '{}' ';' }
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") }}
 # Find all the .desktop files installed on the system
-fn finddesktop { try { find {/usr/{,local/},$E:HOME/.local/}share/applications -type f 2>/dev/null } except _ { } }
+fn finddesktop { try { find {/usr/{,local/},$E:HOME/.local/}share/applications -type f 2>/dev/null } catch _ { } }
 {{- end }}
 {{- if and (ne .chezmoi.os "windows") (ne .chezmoi.os "darwin") (ne .chezmoi.os "android") (not .wsl) }}
 # Ask GNOME Shell to restart itself through dbus
@@ -257,7 +257,7 @@ fn cal {|@a| ncal -bM -w $@a }
 {{- end }}
 # List zombie processes
 fn zombie {
-  ps -eo state,ppid | eawk {|line type pid| use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } except _ { }
+  ps -eo state,ppid | eawk {|line type pid| use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } catch _ { }
 }
 # Current UNIX timestamp in seconds
 fn ts { date +%s }
@@ -457,10 +457,13 @@ if (has-external git) {
 {{- end }}
 
     if (has-value $a '--amend') {
+      tmp E:GIT_COMMITTER_DATE = $date
       # When amending a commit, GIT_AUTHOR_DATE is ignored in favor of the --date option
-      E:GIT_COMMITTER_DATE=$date git commit --date $date $@a
+      git commit --date $date $@a
     } else {
-      E:GIT_AUTHOR_DATE=$date E:GIT_COMMITTER_DATE=$date git commit $@a
+      tmp E:GIT_AUTHOR_DATE = $date
+      tmp E:GIT_COMMITTER_DATE = $date
+      git commit $@a
     }
   }
 
