@@ -32,7 +32,7 @@
 	spull = !sh -c 'git stash && git pull && git stash pop'
 	df = diff
 	dt = difftool
-	logg = log --color --graph --format=fuller
+	logg = log --color --graph --format=fuller --show-signature
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	headsha = log --format="%H" -n 1
 	who = shortlog -s --

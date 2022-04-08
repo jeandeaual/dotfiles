@@ -1,0 +1,3 @@
+{{- if eq .chezmoi.os "darwin" -}}
+pinentry-program {{ output "brew" "--prefix" | trim }}/bin/pinentry-mac
+{{- end }}
