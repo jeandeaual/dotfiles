@@ -17,6 +17,8 @@ Documents
 .config/nvim
 .config/plover
 .config/powershell
+.config/youtube-dl
+.config/yt-dlp
 {{- else }}
 vimfiles
 {{- end }}

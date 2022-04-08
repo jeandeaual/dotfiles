@@ -87,6 +87,7 @@
     "user-dirs.dirs": "shellscript",
     // youtube-dl
     "**/youtube-dl/config": "properties",
+    "**/yt-dlp/config": "properties",
     // zsh
     "dot_zlogout": "shellscript",
     "dot_zshrc": "shellscript",

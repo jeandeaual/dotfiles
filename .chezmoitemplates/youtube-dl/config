@@ -1,0 +1,47 @@
+# Continue on download errors, for example to skip unavailable videos in a playlist
+--ignore-errors
+
+# Prefer free video formats unless a specific one is requested
+--prefer-free-formats
+
+# Download all the available subtitles of the video
+--all-subs
+
+# Embed subtitles in the video (only for MP4, WebM and MKV videos)
+--embed-subs
+
+# Embed thumbnail in the audio as cover art
+--embed-thumbnail
+
+# Write metadata to the video file
+{{- if eq . "yt-dlp" }}
+--embed-metadata
+{{- else }}
+--add-metadata
+{{- end }}
+
+# Output filename template
+# Don't put the video ID in the output filename
+--output '%(title)s.%(ext)s'
+
+{{- if lookPath "aria2c" }}
+{{-   if eq . "yt-dlp" }}
+# Use the specified external downloader
+# Currently supports native, aria2c, avconv, axel, curl, ffmpeg, httpie, wget
+--downloader aria2c
+--downloader-args "--continue --max-connection-per-server=16 --min-split-size=1M --split=16"
+{{-   else }}
+# Use the specified external downloader
+# Currently supports aria2c, avconv, axel, curl, ffmpeg, httpie, wget
+--external-downloader aria2c
+--external-downloader-args "--continue --max-connection-per-server=16 --min-split-size=1M --split=16"
+{{-   end }}
+{{- end }}
+
+{{- if eq . "yt-dlp" }}
+--sponsorblock-mark all,-filler
+
+# --sponsorblock-remove sponsor
+
+--sponsorblock-chapter-title "[SponsorBlock] %(category_names)l"
+{{- end }}
