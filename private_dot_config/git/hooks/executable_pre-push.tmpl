@@ -1,14 +1,11 @@
-#!/bin/bash
+{{- template "Git/default_local_hook_exec.sh" . }}
 # Ask for confirmation before pushing certain branches
-
-# shellcheck disable=SC1091
-source "$(dirname "$0")/_local-hook-exec"
 
 protected_branches=("master" "main")
 current_branch="$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')"
 
 if [[ " ${protected_branches[*]} " == *" ${current_branch} "* ]]; then
-    read -p "You're about to push ${current_branch}. Is that what you intended? [y/N] " -n 1 -r < /dev/tty
+    read -p "You're about to push ${current_branch}. Are you sure? [y/N] " -n 1 -r < /dev/tty
     echo
 
     if echo "${REPLY}" | grep -E '^[Yy]$' > /dev/null; then
