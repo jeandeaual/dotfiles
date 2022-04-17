@@ -1,10 +1,10 @@
 findline "<h2>Search Results"
 do
-	findline "<a href=\"http://www.gnudb.org/cd/"
+	findline "<a href=\"https://gnudb.org/cd/"
 	findinline "<b>"
 	sayuntil "</b>"
 	say "|"
-	findline "<a href=\"http://www.gnudb.org/gnudb/"
+	findline "<a href=\"https://gnudb.org/gnudb/"
 	findinline "Discid: "
 	sayuntil " / "
 	say "|"
@@ -12,4 +12,4 @@ do
 	sayuntil "<"
 	saynewline
 	moveline 2
-while "<a href=\"http://www.gnudb.org/cd/" 250
+while "<a href=\"https://gnudb.org/cd/" 250

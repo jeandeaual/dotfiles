@@ -7,32 +7,23 @@
 # %APPDATA%\Mp3tag\data\sources
 # and requires Mp3tag v2.97b or above.
 #
-# [2019-09-09] v1.13
-# [2019-09-09]  CHG: moved common Discogs tag source structure to this tag source include file.
-# [2019-05-23] v1.12
-# [2019-05-23]  FIX: titles with pipe symbol were identified as different titles.
-# [2019-03-15] v1.11
-# [2019-03-15]  NEW: added support for subtracks.
-# [2018-11-24] v1.10
-# [2018-11-24]  FIX: artist and albumartist were wrong for releases where albumartist consists of multiple artists.
+# [2022-03-22] v1.14 CHG: renamed CATALOGID to CATALOGNUMBER to improve compatibility with other software.
+# [2019-09-09] v1.13 CHG: moved common Discogs tag source structure to this tag source include file.
+# [2019-05-23] v1.12 FIX: titles with pipe symbol were identified as different titles.
+# [2019-03-15] v1.11 NEW: added support for subtracks.
+# [2018-11-24] v1.10 FIX: artist and albumartist were wrong for releases where albumartist consists of multiple artists.
 # [2018-05-07] v1.09
 # [2018-05-07]  CHG: added all formats and catalog number
 # [2018-04-10]  CHG: added support for track numbers and disc numbers from Discogs
-# [2017-12-20] v1.08
-# [2017-12-20]  FIX: releases with missing year had YEAR set to 0.
-# [2017-10-16] v1.07
-# [2017-10-14]  FIX: format descriptions were not imported into MEDIATYPE field.
+# [2017-12-20] v1.08 FIX: releases with missing year had YEAR set to 0.
+# [2017-10-16] v1.07 FIX: format descriptions were not imported into MEDIATYPE field.
 # [2017-06-30] v1.06
 # [2017-06-30]  CHG: added fallback detection of secondary images if no primary image exists
 # [2017-06-28]  CHG: added check if query gave any results
-# [2017-06-26] v1.05
-# [2017-06-26]  CHG: extended result list to current API maximum of 100 releases
-# [2017-06-15] v1.04
-# [2017-06-15]  FIX: added a workaround for single artists with join
-# [2016-01-31] v1.03
-# [2016-01-31]  CHG: changed to use HTTPS
-# [2014-10-26] v1.02
-# [2014-10-26]  CHG: changed to use %20 as word separator
+# [2017-06-26] v1.05 CHG: extended result list to current API maximum of 100 releases
+# [2017-06-15] v1.04 FIX: added a workaround for single artists with join
+# [2016-01-31] v1.03 CHG: changed to use HTTPS
+# [2014-10-26] v1.02 CHG: changed to use %20 as word separator
 # [2014-10-03] v1.01
 # [2014-10-03]  CHG: added image caching through proxy 
 # [2014-09-28]  FIX: join was not interpreted correctly for artists
@@ -166,7 +157,7 @@ ifoutput "TMP_PRIMARY"
 endif
 
 # Catalog Number
-outputto "CATALOGID"
+outputto "CATALOGNUMBER"
 json_select_many "labels" "catno" ", "
 sayrest
 
