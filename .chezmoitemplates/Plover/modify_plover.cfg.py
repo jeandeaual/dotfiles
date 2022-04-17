@@ -9,8 +9,13 @@ from sys import stdin, stdout
 from typing import Any
 
 
+class StrEnum(str, Enum):
+    def __str__(self):
+        return str(self.value)
+
+
 @unique
-class Section(Enum):
+class Section(StrEnum):
     """Plover configuration file sections."""
 
     MACHINE_CONFIGURATION = "Machine Configuration"
@@ -30,7 +35,7 @@ class Section(Enum):
 
 
 @unique
-class SpacePlacement(Enum):
+class SpacePlacement(StrEnum):
     """Plover output configuration space placement options."""
 
     BEFORE = "Before Output"
@@ -53,7 +58,7 @@ def set_config_value(
         if current_value != str_value:
             config.set(section.value, option, str_value)
     except NoSectionError:
-        config.add_section(section.value)
+        config.add_section(section)
         config.set(section.value, option, str_value)
     except NoOptionError:
         config.set(section.value, option, str_value)
