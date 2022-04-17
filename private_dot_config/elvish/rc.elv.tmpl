@@ -229,7 +229,7 @@ if (has-external brew) {
   edit:add-var brewu~ $brewu~
 
   fn brewua {
-    and (brew update) (brew upgrade) (brew upgrade --casks --greedy)
+    and (brew update) (brew upgrade) (brew upgrade --casks --greedy-auto-updates)
   }
   edit:add-var brewua~ $brewua~
 }
