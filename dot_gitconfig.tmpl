@@ -1,5 +1,6 @@
 [init]
 	defaultBranch = master
+	templateDir = "~/.config/git/template"
 [user]
 	name = "Alexis Jeandeau"
 	email = {{ .email | quote }}
@@ -20,7 +21,6 @@
 	autocrlf = false
 	editor = vim -f
 	filemode = false
-	hooksPath = "~/.config/git/hooks"
 [alias]
 	co = checkout
 	st = status -sb

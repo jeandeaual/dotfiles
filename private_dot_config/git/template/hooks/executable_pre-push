@@ -1,4 +1,4 @@
-{{- template "Git/default_local_hook_exec.sh" . }}
+#!/bin/bash
 # Ask for confirmation before pushing certain branches
 
 protected_branches=("master" "main")
