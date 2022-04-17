@@ -1,4 +1,5 @@
 {
+  "editor.formatOnSave": true,
   // File paths to language mappings
   // These cannot be workspace relative currently
   // See: https://github.com/Microsoft/vscode/issues/12805
@@ -92,5 +93,10 @@
     "dot_zlogout": "shellscript",
     "dot_zshrc": "shellscript",
   },
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }
 }
