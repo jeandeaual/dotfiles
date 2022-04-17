@@ -235,6 +235,8 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
             $env:GIT_AUTHOR_DATE = $Date
             git commit $Arguments
         }
+
+        Remove-Item Env:\GIT_COMMITTER_DATE
     }
 }
 
