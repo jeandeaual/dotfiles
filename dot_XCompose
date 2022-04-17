@@ -192,6 +192,8 @@ include "%L"
 # Expressions
 <Multi_key> <a> <c> <a> <d> : "c.‐à‐d." # C’est-à-dire
 <Multi_key> <a> <b> <a> <b> : "b.a.‐ba"
+<Multi_key> <a> <c> <a> <c> : "c.à.s." # Cuillère à café
+<Multi_key> <a> <c> <a> <s> : "c.à.s." # Cuillère à soupe
 <Multi_key> <a> <t> <k> <t> : "t’inquiète pas"
 <Multi_key> <a> <T> <k> <t> : "T’inquiète pas"
 
@@ -199,20 +201,20 @@ include "%L"
 
 # Simple arrows
 
-<Multi_key> <greater> <Left>  : "←" U2190 # LEFTWARDS ARROW
-<Multi_key> <less> <Left>     : "←" U2190 # LEFTWARDS ARROW
-<Multi_key> <greater> <Up>    : "↑" U2191 # UPWARDS ARROW
-<Multi_key> <less> <Up>       : "↑" U2191 # UPWARDS ARROW
-<Multi_key> <greater> <Right> : "→" U2192 # RIGHTWARDS ARROW
-<Multi_key> <less> <Right>    : "→" U2192 # RIGHTWARDS ARROW
-<Multi_key> <greater> <Down>  : "↓" U2193 # DOWNWARDS ARROW
-<Multi_key> <less> <Down>     : "↓" U2193 # DOWNWARDS ARROW
-<Multi_key> <Left> <Right>    : "↔" U2194 # LEFT RIGHT ARROW
+<Multi_key> <minus> <Up>          : "↑" U2191 # UPWARDS ARROW
+<Multi_key> <minus> <asciicircum> : "↑" U2191 # UPWARDS ARROW
+<Multi_key> <minus> <Left>        : "←" U2190 # LEFTWARDS ARROW
+<Multi_key> <minus> <less>        : "←" U2190 # LEFTWARDS ARROW
+<Multi_key> <minus> <Right>       : "→" U2192 # RIGHTWARDS ARROW
+<Multi_key> <minus> <greater>     : "→" U2192 # RIGHTWARDS ARROW
+<Multi_key> <minus> <Down>        : "↓" U2193 # DOWNWARDS ARROW
+<Multi_key> <minus> <d>           : "↓" U2193 # DOWNWARDS ARROW
+<Multi_key> <Left> <Right>        : "↔" U2194 # LEFT RIGHT ARROW
 
 # Double arrows
 
-<Multi_key> <equal> <less>        : "⇐" U21D0 # LEFTWARDS DOUBLE ARROW
 <Multi_key> <equal> <asciicircum> : "⇑" U21D1 # UPWARDS DOUBLE ARROW
+<Multi_key> <equal> <less>        : "⇐" U21D0 # LEFTWARDS DOUBLE ARROW
 <Multi_key> <equal> <greater>     : "⇒" U21D2 # RIGHTWARDS DOUBLE ARROW
 <Multi_key> <equal> <d>           : "⇓" U21D3 # DOWNWARDS DOUBLE ARROW
 <Multi_key> <less> <greater>      : "⇔" U21D4 # LEFT RIGHT DOUBLE ARROW
@@ -241,14 +243,15 @@ include "%L"
 
 
 # Kaomoji
-
 <Multi_key> <t> <f> : "(ノ°Д°）ノ︵ ┻━┻" # Table flip
 <Multi_key> <l> <f> : "( ͡° ͜ʖ ͡°)"         # Lenny face
 <Multi_key> <s> <f> : "¯\\_(ツ)_/¯"      # Shrug face
 
-# Math
-
+# Maths
+<Multi_key> <plus> <minus>                     : "±" U00B1 # PLUS-MINUS SIGN
+<Multi_key> <minus> <plus>                     : "±" U00B1 # PLUS-MINUS SIGN
 <Multi_key> <colon> <minus>                    : "÷" U00F7 # DIVISION SIGN
+<Multi_key> <minus> <colon>                    : "÷" U00F7 # DIVISION SIGN
 <Multi_key> <8> <8>                            : "∞" U221E # INFINITY
 <Multi_key> <0> <0>                            : "∞" U221E # INFINITY
 <Multi_key> <slash> <v>                        : "√" U221A # SQUARE ROOT
@@ -304,7 +307,7 @@ include "%L"
 <Multi_key> <r> <8>                     : "Ⅷ" U2167 # ROMAN NUMERAL EIGHT
 <Multi_key> <r> <9>                     : "Ⅸ" U2168 # ROMAN NUMERAL NINE
 <Multi_key> <r> <0>                     : "Ⅹ" U2169 # ROMAN NUMERAL TEN
-<Multi_key> <r> <plus> <1>              : "Ⅺ" U216A # ROMAN NUMERAL ELEVEL
+<Multi_key> <r> <plus> <1>              : "Ⅺ" U216A # ROMAN NUMERAL ELEVEN
 <Multi_key> <r> <plus> <2>              : "Ⅻ" U216B # ROMAN NUMERAL TWELVE
 <Multi_key> <r> <L>                     : "Ⅼ" U216C # ROMAN NUMERAL FIFTY
 <Multi_key> <r> <C>                     : "Ⅽ" U216D # ROMAN NUMERAL ONE HUNDRED
@@ -1011,6 +1014,27 @@ include "%L"
 <Multi_key> <comma> <c>       : "ç" U00E7 # LATIN SMALL LETTER C WITH CEDILLA
 <Multi_key> <C> <comma>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
 <Multi_key> <comma> <C>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
+# Combining
+<Multi_key> <asciicircum> <apostrophe>  : "́" U0301 # COMBINING ACUTE ACCENT
+# <Multi_key> <underscore> <apostrophe>   : "̗" U0317 # COMBINING ACUTE ACCENT BELOW
+<Multi_key> <asciicircum> <grave>       : "̀" U0300 # COMBINING GRAVE ACCENT
+# <Multi_key> <underscore> <grave>        : "̖" U0316 # COMBINING GRAVE ACCENT BELOW
+<Multi_key> <asciicircum> <less>        : "͑" U0351 # COMBINING LEFT HALF RING ABOVE
+<Multi_key> <underscore> <less>         : "̜" U031C # COMBINING LEFT HALF RING BELOW
+<Multi_key> <asciicircum> <greater>     : "͗" U0357 # COMBINING RIGHT HALF RING ABOVE
+<Multi_key> <underscore> <greater>      : "̹" U0339 # COMBINING RIGHT HALF RING BELOW
+<Multi_key> <asciicircum> <period>      : "̇" U0307 # COMBINING DOT ABOVE
+<Multi_key> <underscore> <period>       : "̣" U0323 # COMBINING DOT BELOW
+<Multi_key> <asciicircum> <asciicircum> : "̂" U0302 # COMBINING CIRCUMFLEX ACCENT
+# <Multi_key> <underscore> <asciicircum>  : "̭" U032D # COMBINING CIRCUMFLEX ACCENT BELOW
+<Multi_key> <asciicircum> <v>           : "̌" U030C # COMBINING CARON
+# <Multi_key> <underscore> <v>            : "̬" U032C # COMBINING CARON BELOW
+<Multi_key> <asciicircum> <minus>       : "̄" U0304 # COMBINING MACRON
+# <Multi_key> <underscore> <minus>        : "̱" U0331 # COMBINING MACRON BELOW
+<Multi_key> <asciicircum> <b>           : "̆" U0306 # COMBINING BREVE
+# <Multi_key> <underscore> <b>            : "̮" U032E # COMBINING BREVE BELOW
+<Multi_key> <asciicircum> <asciitilde>   : "̃" U0303 # COMBINING TILDE
+<Multi_key> <underscore> <asciitilde>    : "̰" U0330 # COMBINING TILDE BELOW
 
 # German
 <Multi_key> <s> <s> : "ß" U00DF # LATIN SMALL LETTER SHARP S
@@ -1380,39 +1404,39 @@ include "%L"
 <Multi_key> <x> <underscore> <quotedbl>               : "̈" U0308 # Centralized
 <Multi_key> <x> <underscore> <plus>                   : "̟" U031F # Advanced
 <Multi_key> <x> <underscore> <minus>                  : "̠" U0320 # Retracted
-<Multi_key> <x> <underscore> <slash>                  : "̌" U030C # Rising tone
+# <Multi_key> <x> <underscore> <slash>                  : "̌" U030C # Rising tone
 <Multi_key> <x> <underscore> <0>                      : "̥" U0325 # Voiceless
 <Multi_key> <x> <equal>                               : "̩" U0329 # Syllabic
 <Multi_key> <x> <underscore> <greater>                : "ʼ" U02BC # Ejective
 <Multi_key> <x> <underscore> <question>               : "ˤ" U02E4 # Pharyngealized
 # <Multi_key> <x> <underscore> <question> <backslash>   : "ˤ" U02E4 # Pharyngealized
-<Multi_key> <x> <underscore> <backslash>              : "̂" U0302 # Falling tone
+# <Multi_key> <x> <underscore> <backslash>              : "̂" U0302 # Falling tone
 <Multi_key> <x> <underscore> <asciicircum>            : "̯" U032F # Non-syllabic
 <Multi_key> <x> <underscore> <bracketright>           : "̚" U031A # No audible release
 <Multi_key> <x> <underscore> <grave>                  : "˞" U02DE # Rhotacization in vowels, retroflexion in consonants (IPA uses separate symbols for consonants)
-<Multi_key> <x> <underscore> <asciitilde>             : "̃" U0303 # Nasalization
+# <Multi_key> <x> <underscore> <asciitilde>             : "̃" U0303 # Nasalization
 <Multi_key> <x> <underscore> <A>                      : "̘" U0318 # Advanced tongue root
 <Multi_key> <x> <underscore> <a>                      : "̺" U033A # Apical
 <Multi_key> <x> <underscore> <B>                      : "̏" U030F # Extra low tone
 <Multi_key> <x> <underscore> <underscore> <B> <L>     : "᷅" U1DC5 # Low rising tone
-<Multi_key> <x> <underscore> <c>                      : "̜" U031C # Less rounded
+# <Multi_key> <x> <underscore> <c>                      : "̜" U031C # Less rounded
 <Multi_key> <x> <underscore> <d>                      : "̪" U032A # Dental
 <Multi_key> <x> <underscore> <e>                      : "̴" U0334 # Velarized or pharyngealized; also see 5
 <Multi_key> <x> <less> <F> <greater>                  : "↘" U2198 # Global fall
 # <Multi_key> <x> <underscore> <F>                      : "̂" U0302 # Falling tone
 <Multi_key> <x> <underscore> <G>                      : "ˠ" U02E0 # Velarized
-<Multi_key> <x> <underscore> <H>                      : "́" U0301 # High tone
+# <Multi_key> <x> <underscore> <H>                      : "́" U0301 # High tone
 <Multi_key> <x> <underscore> <underscore> <H> <T>     : "᷄" U1DC4 # High rising tone
 <Multi_key> <x> <underscore> <h>                      : "ʰ" U02B0 # Aspirated
 <Multi_key> <x> <underscore> <j>                      : "ʲ" U02B2 # Palatalized
-<Multi_key> <x> <underscore> <k>                      : "̰" U0330 # Creaky voice
-<Multi_key> <x> <underscore> <L>                      : "̀" U0300 # Low tone
+# <Multi_key> <x> <underscore> <k>                      : "̰" U0330 # Creaky voice
+# <Multi_key> <x> <underscore> <L>                      : "̀" U0300 # Low tone
 <Multi_key> <x> <underscore> <l>                      : "ˡ" U02E1 # Lateral release
-<Multi_key> <x> <underscore> <M>                      : "̄" U0304 # Mid tone
+# <Multi_key> <x> <underscore> <M>                      : "̄" U0304 # Mid tone
 <Multi_key> <x> <underscore> <m>                      : "̻" U033B # Laminal
 <Multi_key> <x> <underscore> <N>                      : "̼" U033C # Linguolabial
 <Multi_key> <x> <underscore> <n>                      : "ⁿ" U207F # Nasal release
-<Multi_key> <x> <underscore> <O>                      : "̹" U0339 # More rounded
+# <Multi_key> <x> <underscore> <O>                      : "̹" U0339 # More rounded
 <Multi_key> <x> <underscore> <o>                      : "̞" U031E # Lowered
 <Multi_key> <x> <underscore> <q>                      : "̙" U0319 # Retracted tongue root
 <Multi_key> <x> <less> <R> <greater>                  : "↗" U2197 # Global rise
@@ -1423,7 +1447,7 @@ include "%L"
 <Multi_key> <x> <underscore> <t>                      : "̤" U0324 # Breathy voice
 <Multi_key> <x> <underscore> <v>                      : "̬" U032C # Voiced
 <Multi_key> <x> <underscore> <w>                      : "ʷ" U02B7 # Labialized
-<Multi_key> <x> <underscore> <X>                      : "̆" U0306 # Extra-short
+# <Multi_key> <x> <underscore> <X>                      : "̆" U0306 # Extra-short
 <Multi_key> <x> <underscore> <x>                      : "̽" U033D # Mid-centralized
 
 # Turned letters
@@ -1520,15 +1544,15 @@ include "%L"
 <Multi_key> <U> <x> : "Ŭ" U016C # LATIN CAPITAL LETTER U WITH BREVE
 
 # Old English / Icelandic
-<Multi_key> <d> <h> : "ð" U00F0 # LATIN SMALL LETTER ETH
-<Multi_key> <x> <D> : "ð" U00F0 # LATIN SMALL LETTER ETH
-<Multi_key> <D> <H> : "Ð" U00d0 # LATIN CAPITAL LETTER ETH
-<Multi_key> <t> <h> : "þ" U00FE # LATIN SMALL LETTER THORN
-<Multi_key> <T> <H> : "Þ" U00DE # LATIN CAPITAL LETTER THORN
-<Multi_key> <y> <g> : "ȝ" U021D # LATIN SMALL LETTER YOGH
-<Multi_key> <Y> <G> : "Ȝ" U021C # LATIN CAPITAL LETTER YOGH
-<Multi_key> <w> <y> : "ƿ" U01BF # LATIN LETTER WYNN
-<Multi_key> <W> <Y> : "Ƿ" U01F7 # LATIN CAPITAL LETTER WYNN
+<Multi_key> <d> <minus> : "ð" U00F0 # LATIN SMALL LETTER ETH
+<Multi_key> <x> <D>     : "ð" U00F0 # LATIN SMALL LETTER ETH
+<Multi_key> <D> <minus> : "Ð" U00d0 # LATIN CAPITAL LETTER ETH
+<Multi_key> <t> <h>     : "þ" U00FE # LATIN SMALL LETTER THORN
+<Multi_key> <T> <H>     : "Þ" U00DE # LATIN CAPITAL LETTER THORN
+<Multi_key> <y> <g>     : "ȝ" U021D # LATIN SMALL LETTER YOGH
+<Multi_key> <Y> <G>     : "Ȝ" U021C # LATIN CAPITAL LETTER YOGH
+<Multi_key> <w> <y>     : "ƿ" U01BF # LATIN LETTER WYNN
+<Multi_key> <W> <Y>     : "Ƿ" U01F7 # LATIN CAPITAL LETTER WYNN
 
 # Pinyin
 <Multi_key> <c>          <a> : "ǎ" U01CE # LATIN SMALL LETTER A WITH CARON
@@ -1549,6 +1573,183 @@ include "%L"
 <Multi_key> <apostrophe> <V> : "Ǘ" U01D7 # LATIN CAPITAL LETTER U WITH DIAERESIS AND ACUTE
 <Multi_key> <c>          <V> : "Ǚ" U01D9 # LATIN CAPITAL LETTER U WITH DIAERESIS AND CARON
 <Multi_key> <grave>      <V> : "Ǜ" U01DB # LATIN CAPITAL LETTER U WITH DIAERESIS AND GRAVE
+
+# Duployé shorthand
+# Non-joining consonants
+<Multi_key> <D> <h>                            : "𛰀" U1BC00 # DUPLOYAN LETTER H
+<Multi_key> <D> <x>                            : "𛰁" U1BC01 # DUPLOYAN LETTER X
+# Line consonants
+<Multi_key> <D> <p>                            : "𛰂" U1BC02 # DUPLOYAN LETTER P
+<Multi_key> <D> <t>                            : "𛰃" U1BC03 # DUPLOYAN LETTER T
+<Multi_key> <D> <f>                            : "𛰄" U1BC04 # DUPLOYAN LETTER F
+<Multi_key> <D> <k>                            : "𛰅" U1BC05 # DUPLOYAN LETTER K
+<Multi_key> <D> <l>                            : "𛰆" U1BC06 # DUPLOYAN LETTER L
+<Multi_key> <D> <b>                            : "𛰇" U1BC07 # DUPLOYAN LETTER B
+<Multi_key> <D> <d>                            : "𛰈" U1BC08 # DUPLOYAN LETTER D
+<Multi_key> <D> <v>                            : "𛰉" U1BC09 # DUPLOYAN LETTER V
+<Multi_key> <D> <g>                            : "𛰊" U1BC0A # DUPLOYAN LETTER G
+<Multi_key> <D> <r>                            : "𛰋" U1BC0B # DUPLOYAN LETTER R
+<Multi_key> <D> <P> <n>                        : "𛰌" U1BC0C # DUPLOYAN LETTER P N
+<Multi_key> <D> <D> <s>                        : "𛰍" U1BC0D # DUPLOYAN LETTER D S
+<Multi_key> <D> <F> <n>                        : "𛰎" U1BC0E # DUPLOYAN LETTER F N
+<Multi_key> <D> <K> <m>                        : "𛰏" U1BC0F # DUPLOYAN LETTER K M
+<Multi_key> <D> <R> <s>                        : "𛰐" U1BC10 # DUPLOYAN LETTER R S
+<Multi_key> <D> <T> <h>                        : "𛰑" U1BC11 # DUPLOYAN LETTER TH
+# <Multi_key> <D> <D> <h>                        : "𛰒" U1BC12 # DUPLOYAN LETTER SLOAN DH
+<Multi_key> <D> <D> <h>                        : "𛰓" U1BC13 # DUPLOYAN LETTER DH
+<Multi_key> <D> <K> <k>                        : "𛰔" U1BC14 # DUPLOYAN LETTER KK
+# <Multi_key> <D> <S> <j>                        : "𛰕" U1BC15 # DUPLOYAN LETTER SLOAN J
+<Multi_key> <D> <H> <l>                        : "𛰖" U1BC16 # DUPLOYAN LETTER HL
+<Multi_key> <D> <L> <h>                        : "𛰗" U1BC17 # DUPLOYAN LETTER LH
+<Multi_key> <D> <R> <h>                        : "𛰘" U1BC18 # DUPLOYAN LETTER RH
+# Arc consonants
+<Multi_key> <D> <m>                            : "𛰙" U1BC19 # DUPLOYAN LETTER M
+<Multi_key> <D> <n>                            : "𛰚" U1BC1A # DUPLOYAN LETTER N
+<Multi_key> <D> <j>                            : "𛰛" U1BC1B # DUPLOYAN LETTER J
+<Multi_key> <D> <s>                            : "𛰜" U1BC1C # DUPLOYAN LETTER S
+<Multi_key> <D> <M> <n>                        : "𛰝" U1BC1D # DUPLOYAN LETTER M N
+<Multi_key> <D> <N> <m>                        : "𛰞" U1BC1E # DUPLOYAN LETTER N M
+<Multi_key> <D> <J> <m>                        : "𛰟" U1BC1F # DUPLOYAN LETTER J M
+<Multi_key> <D> <S> <j>                        : "𛰠" U1BC20 # DUPLOYAN LETTER S J
+<Multi_key> <D> <M> <period>                   : "𛰡" U1BC21 # DUPLOYAN LETTER M WITH DOT
+<Multi_key> <D> <N> <period>                   : "𛰢" U1BC22 # DUPLOYAN LETTER N WITH DOT
+<Multi_key> <D> <J> <period>                   : "𛰣" U1BC23 # DUPLOYAN LETTER J WITH DOT
+<Multi_key> <D> <C> <h>                        : "𛰣" U1BC23 # DUPLOYAN LETTER J WITH DOT
+<Multi_key> <D> <J> <colon>                    : "𛰤" U1BC24 # DUPLOYAN LETTER J WITH DOTS INSIDE AND ABOVE
+<Multi_key> <D> <S> <period>                   : "𛰥" U1BC25 # DUPLOYAN LETTER S WITH DOT
+<Multi_key> <D> <z>                            : "𛰥" U1BC25 # DUPLOYAN LETTER S WITH DOT
+<Multi_key> <D> <S> <underscore>               : "𛰦" U1BC26 # DUPLOYAN LETTER S WITH DOT BELOW
+<Multi_key> <D> <M> <s>                        : "𛰧" U1BC27 # DUPLOYAN LETTER M S
+<Multi_key> <D> <N> <s>                        : "𛰨" U1BC28 # DUPLOYAN LETTER N S
+<Multi_key> <D> <J> <s>                        : "𛰩" U1BC29 # DUPLOYAN LETTER J S
+<Multi_key> <D> <S> <s>                        : "𛰪" U1BC2A # DUPLOYAN LETTER S S
+<Multi_key> <D> <M> <N> <s>                    : "𛰫" U1BC2B # DUPLOYAN LETTER M N S
+<Multi_key> <D> <N> <M> <s>                    : "𛰬" U1BC2C # DUPLOYAN LETTER N M S
+<Multi_key> <D> <J> <M> <s>                    : "𛰭" U1BC2D # DUPLOYAN LETTER J M S
+<Multi_key> <D> <S> <J> <s>                    : "𛰮" U1BC2E # DUPLOYAN LETTER S J S
+<Multi_key> <D> <J> <S> <period>               : "𛰯" U1BC2F # DUPLOYAN LETTER J S WITH DOT
+<Multi_key> <D> <J> <n>                        : "𛰰" U1BC30 # DUPLOYAN LETTER J N
+<Multi_key> <D> <J> <N> <s>                    : "𛰱" U1BC31 # DUPLOYAN LETTER J N S
+# Quarter-arc consonants written downwards
+<Multi_key> <D> <S> <t>                        : "𛰲" U1BC32 # DUPLOYAN LETTER S T
+<Multi_key> <D> <S> <T> <r>                    : "𛰳" U1BC33 # DUPLOYAN LETTER S T R
+<Multi_key> <D> <S> <p>                        : "𛰴" U1BC34 # DUPLOYAN LETTER S P
+<Multi_key> <D> <S> <P> <r>                    : "𛰵" U1BC35 # DUPLOYAN LETTER S P R
+<Multi_key> <D> <T> <s>                        : "𛰶" U1BC36 # DUPLOYAN LETTER T S
+<Multi_key> <D> <T> <R> <s>                    : "𛰷" U1BC37 # DUPLOYAN LETTER T R S
+<Multi_key> <D> <w>                            : "𛰸" U1BC38 # DUPLOYAN LETTER W
+<Multi_key> <D> <W> <h>                        : "𛰹" U1BC39 # DUPLOYAN LETTER WH
+<Multi_key> <D> <W> <r>                        : "𛰺" U1BC3A # DUPLOYAN LETTER W R
+# Quarter-arc consonants written upwards
+<Multi_key> <D> <S> <n>                        : "𛰻" U1BC3B # DUPLOYAN LETTER S N
+<Multi_key> <D> <S> <m>                        : "𛰼" U1BC3C # DUPLOYAN LETTER S M
+<Multi_key> <D> <K> <R> <s>                    : "𛰽" U1BC3D # DUPLOYAN LETTER K R S
+<Multi_key> <D> <G> <R> <s>                    : "𛰾" U1BC3E # DUPLOYAN LETTER G R S
+<Multi_key> <D> <S> <k>                        : "𛰿" U1BC3F # DUPLOYAN LETTER S K
+<Multi_key> <D> <S> <K> <r>                    : "𛱀" U1BC40 # DUPLOYAN LETTER S K R
+# Circle vowels
+<Multi_key> <D> <a>                            : "𛱁" U1BC41 # DUPLOYAN LETTER A
+# <Multi_key> <D> <O> <w>                        : "𛱂" U1BC42 # DUPLOYAN LETTER SLOAN OW
+<Multi_key> <D> <O> <a>                        : "𛱃" U1BC43 # DUPLOYAN LETTER OA
+<Multi_key> <D> <o>                            : "𛱄" U1BC44 # DUPLOYAN LETTER O
+<Multi_key> <D> <A> <O> <u>                    : "𛱅" U1BC45 # DUPLOYAN LETTER AOU
+# Semi-circle vowels
+<Multi_key> <D> <i>                            : "𛱆" U1BC46 # DUPLOYAN LETTER I
+<Multi_key> <D> <e>                            : "𛱇" U1BC47 # DUPLOYAN LETTER E
+<Multi_key> <D> <I> <e>                        : "𛱈" U1BC48 # DUPLOYAN LETTER IE
+<Multi_key> <D> <I> <period>                   : "𛱉" U1BC49 # DUPLOYAN LETTER SHORT I
+<Multi_key> <D> <U> <i>                        : "𛱊" U1BC4A # DUPLOYAN LETTER UI
+<Multi_key> <D> <E> <e>                        : "𛱋" U1BC4B # DUPLOYAN LETTER EE
+# <Multi_key> <D> <E> <h>                        : "𛱌" U1BC4C # DUPLOYAN LETTER SLOAN EH
+<Multi_key> <D> <I> <r>                        : "𛱍" U1BC4D # DUPLOYAN LETTER ROMANIAN I
+# <Multi_key> <D> <E> <e>                        : "𛱎" U1BC4E # DUPLOYAN LETTER SLOAN EE
+# Diagonal-line vowels
+<Multi_key> <D> <I> <i>                        : "𛱏" U1BC4F # DUPLOYAN LETTER LONG I
+<Multi_key> <D> <Y> <e>                        : "𛱐" U1BC50 # DUPLOYAN LETTER YE
+<Multi_key> <D> <L> <l>                        : "𛱐" U1BC50 # DUPLOYAN LETTER YE
+# Quarter-circle vowels
+<Multi_key> <D> <u>                            : "𛱑" U1BC51 # DUPLOYAN LETTER U
+<Multi_key> <D> <E> <u>                        : "𛱒" U1BC52 # DUPLOYAN LETTER EU
+<Multi_key> <D> <X> <w>                        : "𛱓" U1BC53 # DUPLOYAN LETTER XW
+<Multi_key> <D> <U> <n>                        : "𛱔" U1BC54 # DUPLOYAN LETTER U N
+# Other vowels
+<Multi_key> <D> <U> <u>                        : "𛱕" U1BC55 # DUPLOYAN LETTER LONG U
+<Multi_key> <D> <U> <r>                        : "𛱖" U1BC56 # DUPLOYAN LETTER ROMANIAN U
+<Multi_key> <D> <U> <h>                        : "𛱗" U1BC57 # DUPLOYAN LETTER UH
+# <Multi_key> <D> <U> <s>                        : "𛱘" U1BC58 # DUPLOYAN LETTER SLOAN U
+<Multi_key> <D> <O> <O> <h>                    : "𛱙" U1BC59 # DUPLOYAN LETTER OOH
+# Dotted-circle vowels
+<Multi_key> <D> <O> <w>                        : "𛱚" U1BC5A # DUPLOYAN LETTER OW
+<Multi_key> <D> <O> <u>                        : "𛱛" U1BC5B # DUPLOYAN LETTER OU
+# Compound vowels
+<Multi_key> <D> <W> <a>                        : "𛱜" U1BC5C # DUPLOYAN LETTER WA
+<Multi_key> <D> <O> <i>                        : "𛱜" U1BC5C # DUPLOYAN LETTER WA
+<Multi_key> <D> <W> <o>                        : "𛱝" U1BC5D # DUPLOYAN LETTER WO
+<Multi_key> <D> <W> <i>                        : "𛱞" U1BC5E # DUPLOYAN LETTER WI
+<Multi_key> <D> <W> <E> <i>                    : "𛱟" U1BC5F # DUPLOYAN LETTER WEI
+<Multi_key> <D> <W> <O> <w>                    : "𛱠" U1BC60 # DUPLOYAN LETTER WOW
+# Basic nasal vowels
+<Multi_key> <D> <U> <N>                        : "𛱡" U1BC61 # DUPLOYAN LETTER NASAL U
+<Multi_key> <D> <O> <N>                        : "𛱢" U1BC62 # DUPLOYAN LETTER NASAL O
+<Multi_key> <D> <I> <N>                        : "𛱣" U1BC63 # DUPLOYAN LETTER NASAL I
+<Multi_key> <D> <A> <N>                        : "𛱤" U1BC64 # DUPLOYAN LETTER NASAL A
+# Additional nasal vowels
+# <Multi_key> <D> <>                             : "𛱥" U1BC65 # DUPLOYAN LETTER PERNIN AN
+# <Multi_key> <D> <>                             : "𛱦" U1BC66 # DUPLOYAN LETTER PERNIN AM
+# <Multi_key> <D> <>                             : "𛱧" U1BC67 # DUPLOYAN LETTER SLOAN EN
+# <Multi_key> <D> <>                             : "𛱨" U1BC68 # DUPLOYAN LETTER SLOAN AN
+# <Multi_key> <D> <>                             : "𛱩" U1BC69 # DUPLOYAN LETTER SLOAN ON
+# <Multi_key> <D> <>                             : "𛱪" U1BC6A # DUPLOYAN LETTER VOCALIC M
+# Attached affixes
+<Multi_key> <D> <slash> <l>                    : "𛱰" U1BC70 # DUPLOYAN AFFIX LEFT HORIZONTAL SECANT
+<Multi_key> <D> <slash> <m>                    : "𛱱" U1BC71 # DUPLOYAN AFFIX MID HORIZONTAL SECANT
+<Multi_key> <D> <slash> <r>                    : "𛱲" U1BC72 # DUPLOYAN AFFIX RIGHT HORIZONTAL SECANT
+<Multi_key> <D> <backslash> <l>                : "𛱳" U1BC73 # DUPLOYAN AFFIX LOW VERTICAL SECANT
+<Multi_key> <D> <backslash> <m>                : "𛱴" U1BC74 # DUPLOYAN AFFIX MID VERTICAL SECANT
+<Multi_key> <D> <backslash> <h>                : "𛱵" U1BC75 # DUPLOYAN AFFIX HIGH VERTICAL SECANT
+# <Multi_key> <D> <>                             : "𛱶" U1BC76 # DUPLOYAN AFFIX ATTACHED SECANT
+# <Multi_key> <D> <>                             : "𛱷" U1BC77 # DUPLOYAN AFFIX ATTACHED LEFT-TO-RIGHT SECANT
+# <Multi_key> <D> <>                             : "𛱸" U1BC78 # DUPLOYAN AFFIX ATTACHED TANGENT
+# <Multi_key> <D> <>                             : "𛱹" U1BC79 # DUPLOYAN AFFIX ATTACHED TAIL
+# <Multi_key> <D> <>                             : "𛱺" U1BC7A # DUPLOYAN AFFIX ATTACHED E HOOK
+# <Multi_key> <D> <>                             : "𛱻" U1BC7B # DUPLOYAN AFFIX ATTACHED I HOOK
+# <Multi_key> <D> <>                             : "𛱼" U1BC7C # DUPLOYAN AFFIX ATTACHED TANGENT HOOK
+# High affixes
+<Multi_key> <D> <asciicircum> <apostrophe>     : "𛲀" U1BC80 # DUPLOYAN AFFIX HIGH ACUTE
+<Multi_key> <D> <asciicircum> <t> <apostrophe> : "𛲁" U1BC81 # DUPLOYAN AFFIX HIGH TIGHT ACUTE
+<Multi_key> <D> <asciicircum> <grave>          : "𛲂" U1BC82 # DUPLOYAN AFFIX HIGH GRAVE
+<Multi_key> <D> <asciicircum> <l> <grave>      : "𛲃" U1BC83 # DUPLOYAN AFFIX HIGH LONG GRAVE
+<Multi_key> <D> <asciicircum> <period>         : "𛲄" U1BC84 # DUPLOYAN AFFIX HIGH DOT
+<Multi_key> <D> <asciicircum> <o>              : "𛲅" U1BC85 # DUPLOYAN AFFIX HIGH CIRCLE
+<Multi_key> <D> <asciicircum> <minus>          : "𛲆" U1BC86 # DUPLOYAN AFFIX HIGH LINE
+<Multi_key> <D> <asciicircum> <asciitilde>     : "𛲇" U1BC87 # DUPLOYAN AFFIX HIGH WAVE
+# <Multi_key> <D> <>                             : "𛲈" U1BC88 # DUPLOYAN AFFIX HIGH VERTICAL
+# Low affixes
+<Multi_key> <D> <underscore> <apostrophe>      : "𛲐" U1BC90 # DUPLOYAN AFFIX LOW ACUTE
+<Multi_key> <D> <underscore> <t> <apostrophe>  : "𛲑" U1BC91 # DUPLOYAN AFFIX LOW TIGHT ACUTE
+<Multi_key> <D> <underscore> <grave>           : "𛲒" U1BC92 # DUPLOYAN AFFIX LOW GRAVE
+<Multi_key> <D> <underscore> <l> <grave>       : "𛲓" U1BC93 # DUPLOYAN AFFIX LOW LONG GRAVE
+<Multi_key> <D> <underscore> <period>          : "𛲔" U1BC94 # DUPLOYAN AFFIX LOW DOT
+<Multi_key> <D> <underscore> <o>               : "𛲕" U1BC95 # DUPLOYAN AFFIX LOW CIRCLE
+<Multi_key> <D> <underscore> <minus>           : "𛲖" U1BC96 # DUPLOYAN AFFIX LOW LINE
+<Multi_key> <D> <underscore> <asciitilde>      : "𛲗" U1BC97 # DUPLOYAN AFFIX LOW WAVE
+# <Multi_key> <D> <>                             : "𛲘" U1BC98 # DUPLOYAN AFFIX LOW VERTICAL
+# <Multi_key> <D> <>                             : "𛲙" U1BC99 # DUPLOYAN AFFIX LOW ARROW
+# Miscellaneous sign
+<Multi_key> <D> <plus>                         : "𛲜" U1BC9C # DUPLOYAN SIGN O WITH CROSS (Chinook Likalisti (eucharist) sign)
+# Sloan R-form selector
+<Multi_key> <D> <S> <S>                        : "𛲝" U1BC9D # DUPLOYAN THICK LETTER SELECTOR
+# Shorthand double mark
+# <Multi_key> <D> <>                             : "𛲞" U1BC9E # DUPLOYAN DOUBLE MARK
+# Punctuation
+<Multi_key> <D> <period>                         : "⸼" U2E3C # STENOGRAPHIC FULL STOP
+# Chinook punctuation
+<Multi_key> <D> <equal>                          : "𛲟" U1BC9F # DUPLOYAN PUNCTUATION CHINOOK FULL STOP
+# Shorthand format controls
+# <Multi_key> <D> <>                             : "𛲠" U1BCA0 # SHORTHAND FORMAT LETTER OVERLAP
+# <Multi_key> <D> <>                             : "𛲡" U1BCA1 # SHORTHAND FORMAT CONTINUING OVERLAP
+# <Multi_key> <D> <>                             : "𛲢" U1BCA2 # SHORTHAND FORMAT DOWN STEP
+# <Multi_key> <D> <>                             : "𛲣" U1BCA3 # SHORTHAND FORMAT UP STEP
 
 # Music
 <Multi_key> <numbersign> <numbersign>        : "♯" U266F # MUSIC SHARP SIGN
@@ -2051,9 +2252,13 @@ include "%L"
 <Multi_key> <Multi_key> <parenleft> <n> <parenright> : "👎" U1F44E # THUMBS DOWN SIGN
 <Multi_key> <Multi_key> <parenleft> <N> <parenright> : "👎" U1F44E # THUMBS DOWN SIGN
 <Multi_key> <Multi_key> <f> <Up>                     : "☝️" U261D UFE0F # WHITE UP POINTING INDEX
+<Multi_key> <Multi_key> <minus> <Up>                 : "👆" U1F446 # WHITE UP POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <minus> <asciicircum>        : "👆" U1F446 # WHITE UP POINTING BACKHAND INDEX
+<Multi_key> <Multi_key> <minus> <Left>               : "👈" U1F448 # WHITE LEFT POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <minus> <less>               : "👈" U1F448 # WHITE LEFT POINTING BACKHAND INDEX
+<Multi_key> <Multi_key> <minus> <Right>              : "👉" U1F449 # WHITE RIGHT POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <minus> <greater>            : "👉" U1F449 # WHITE RIGHT POINTING BACKHAND INDEX
+<Multi_key> <Multi_key> <minus> <Down>               : "👇" U1F447 # WHITE DOWN POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <minus> <d>                  : "👇" U1F447 # WHITE DOWN POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <y> <o> <u>                  : "🫵" U1FAF5 # INDEX POINTING AT THE VIEWER
 <Multi_key> <Multi_key> <f> <i> <s> <t>              : "✊" U270A # RAISED FIST
@@ -2683,7 +2888,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <n> <e> <e> <z> <e>                  : "🤧" U1F927 # SNEEZING FACE
 <Multi_key> <Multi_key> <b> <e> <u> <r> <k>                      : "🤢" U1F922 # NAUSEATED FACE
 <Multi_key> <Multi_key> <k> <i> <m> <o> <i>                      : "🤢" U1F922 # NAUSEATED FACE
-<Multi_key> <Multi_key> <v> <o> <m> <i> <t>                      : "🤮" U1F92E # FACE WITH OPEN MOUTH VOMITING
+<Multi_key> <Multi_key> <v> <o> <m> <i>                          : "🤮" U1F92E # FACE WITH OPEN MOUTH VOMITING
 <Multi_key> <Multi_key> <period> <underscore> <period>           : "😐" U1F610 # NEUTRAL FACE
 <Multi_key> <Multi_key> <colon> <bar>                            : "😐" U1F610 # NEUTRAL FACE
 <Multi_key> <Multi_key> <colon> <minus> <bar>                    : "😐" U1F610 # NEUTRAL FACE
@@ -2963,6 +3168,8 @@ include "%L"
 <Multi_key> <Multi_key> <p> <u> <n> <a> <i> <s> <e>         : "📌" U1F4CC # PUSHPIN
 <Multi_key> <Multi_key> <m> <e> <m> <o>                     : "📝" U1F4DD # MEMO
 <Multi_key> <Multi_key> <c> <h> <a> <n> <g> <e> <l> <o> <g> : "📝" U1F4DD # MEMO
+<Multi_key> <Multi_key> <a> <n> <n> <o> <n> <c> <e>         : "📢" U1F4E2 # PUBLIC ADDRESS LOUDSPEAKER
+<Multi_key> <Multi_key> <a> <n> <n> <o> <u> <n> <c> <e>     : "📢" U1F4E2 # PUBLIC ADDRESS LOUDSPEAKER
 <Multi_key> <Multi_key> <l> <i> <n> <k>                     : "🔗" U1F517 # LINK SYMBOL
 <Multi_key> <Multi_key> <c> <l> <i> <p>                     : "📎" U1F4CE # PAPERCLIP
 <Multi_key> <Multi_key> <s> <e> <a> <r> <c> <h>             : "🔍" U1F50D # LEFT-POINTING MAGNIFYING GLASS
