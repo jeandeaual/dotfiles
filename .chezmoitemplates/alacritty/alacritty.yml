@@ -60,11 +60,19 @@ window:
 font:
   # Normal font face - Also used to draw glyphs on tmux & VIM
   normal:
+{{- if eq .chezmoi.os "windows" }}
+    family: FiraCode NF
+{{- else }}
     family: FiraCode Nerd Font
     style: Retina
+{{- end }}
 
   bold:
+{{- if eq .chezmoi.os "windows" }}
+    family: FiraCode NF
+{{- else }}
     family: FiraCode Nerd Font
+{{- end }}
     style: Bold
 
 #   italic:
