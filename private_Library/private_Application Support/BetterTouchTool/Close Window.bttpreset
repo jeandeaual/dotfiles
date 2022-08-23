@@ -1,0 +1,64 @@
+{
+  "BTTPresetCreatorNotes" : "Close windows with Ctrl+Q or 3 finger double-tap",
+  "BTTPresetInfoURL" : "",
+  "BTTPresetName" : "Close Window",
+  "BTTPresetColor" : "255.000000, 147.416814, 0.000000, 255.000000",
+  "BTTPresetUUID" : "D9943F64-06A4-4F9E-8A84-D47E5A0998A3",
+  "BTTPresetContent" : [
+    {
+      "BTTAppBundleIdentifier" : "BT.G",
+      "BTTAppName" : "Global",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+        {
+          "BTTTriggerType" : 163,
+          "BTTTriggerTypeDescription" : "3 Finger Double-Tap",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTPredefinedActionType" : 102,
+          "BTTPredefinedActionName" : "Close Window Under Cursor (Works in Mission Control)",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "8AEFB52E-A177-458F-9CE6-EF38FD53A336",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 0,
+          "BTTDisplayOrder" : 0
+        },
+        {
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 102,
+          "BTTPredefinedActionName" : "Close Window Under Cursor (Works in Mission Control)",
+          "BTTAdditionalConfiguration" : "1048584",
+          "BTTEnabled2" : 1,
+          "BTTKeyboardShortcutKeyboardType" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "C90EC614-09F9-42DC-8FB5-E3BFC5322B99",
+          "BTTTriggerOnDown" : 1,
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTLayoutIndependentChar" : "q",
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTShortcutKeyCode" : 7,
+          "BTTShortcutModifierKeys" : 1048576,
+          "BTTOrder" : 0,
+          "BTTDisplayOrder" : 0,
+          "BTTAutoAdaptToKeyboardLayout" : 0
+        }
+      ]
+    },
+    {
+      "BTTAppBundleIdentifier" : "com.apple.finder",
+      "BTTAppName" : "Finder",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+
+      ]
+    }
+  ],
+  "BTTPresetSnapAreas" : [
+
+  ]
+}
