@@ -294,9 +294,16 @@ function tsns --description "Current UNIX timestamp in nanoseconds"
 end
 {{- end }}
 
+{{- if eq .chezmoi.os "darwin" }}
+function flushdns --description "Flush the macOS DNS cache"
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
+end
+{{- end }}
+
 # AWS
 if type -q aws
-    function lambdalist
+    function lambdalist --description "List the AWS Lambda functions"
         aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
     end
 end

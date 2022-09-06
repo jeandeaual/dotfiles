@@ -272,8 +272,13 @@ fn tsms { str:split '' (date +%s%N) | take 13 | str:join '' }
 # Current UNIX timestamp in nanoseconds
 fn tsns { date +%s%N }
 {{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+# Flush the macOS DNS cache
+fn flushdns { sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder }
+{{- end }}
 # AWS
 if (has-external aws) {
+  # List the AWS Lambda functions
   fn lambdalist {
     aws --output json lambda list-functions |
       from-json |

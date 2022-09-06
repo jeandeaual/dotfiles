@@ -194,8 +194,13 @@ alias tsms='date +%s%N | cut -b1-13'
 # Current UNIX timestamp in nanoseconds
 alias tsns='date +%s%N'
 {{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+# Flush the macOS DNS cache
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+{{- end }}
 # AWS
 if command -v aws >/dev/null; then
+    # List the AWS Lambda functions
     alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
 fi
 # Python
