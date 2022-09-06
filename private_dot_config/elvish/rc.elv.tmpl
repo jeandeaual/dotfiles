@@ -104,6 +104,11 @@ if (path:is-dir $devcontainer_cli_path) {
   set paths = [$@paths $devcontainer_cli_path]
 }
 {{- if eq .chezmoi.os "darwin" }}
+# GNU Make (installed via Homebrew)
+var gnubin_path = '/usr/local/opt/make/libexec/gnubin'
+if (path:is-dir $gnubin_path) {
+  set paths = [$gnubin_path $@paths]
+}
 # MySQL (installed via Homebrew)
 var mysql_cli_path = '/usr/local/opt/mysql-client/bin'
 if (path:is-dir $mysql_cli_path) {

@@ -58,6 +58,8 @@ set -l devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-re
 {{- end }}
 fish_add_path -a $devcontainer_cli_path
 {{- if eq .chezmoi.os "darwin" }}
+# GNU Make (installed via Homebrew)
+fish_add_path /usr/local/opt/make/libexec/gnubin
 # MySQL (installed via Homebrew)
 fish_add_path -a /usr/local/opt/mysql-client/bin
 # MacPorts

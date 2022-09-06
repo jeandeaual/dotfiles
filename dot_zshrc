@@ -1,5 +1,8 @@
+# shellcheck disable=SC2148
+
 # Source global configuration between bash and zsh
 if [[ -f "${HOME}/.shrc" ]]; then
+    # shellcheck disable=SC1091
     source "${HOME}/.shrc"
 fi
 
@@ -16,40 +19,51 @@ export ZSH_CACHE_DIR="${HOME}/.cache/zsh"
 
 # Use hyphen-insensitive completion.
 # Case sensitive completion must be off. _ and - will be interchangeable.
+# shellcheck disable=SC2034
 HYPHEN_INSENSITIVE="true"
 # Disable bi-weekly auto-update checks.
+# shellcheck disable=SC2034
 DISABLE_AUTO_UPDATE='true'
 # Disable marking untracked files under VCS as dirty.
 # This makes repository status check for large repositories much, much faster.
+# shellcheck disable=SC2034
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Change the command execution time stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# shellcheck disable=SC2034
 HIST_STAMPS="yyyy-mm-dd"
 # Disable auto setting the terminal title.
+# shellcheck disable=SC2034
 DISABLE_AUTO_TITLE="true"
 
+# shellcheck disable=SC2034
 plugins=(zsh-syntax-highlighting)
 
+# shellcheck disable=SC1091
 source "${ZSH}/oh-my-zsh.sh"
 
 # kubectl completions
-if [[ $commands[kubectl] ]]; then
+# shellcheck disable=SC2154
+if (( $+commands[kubectl] )); then
+    # shellcheck disable=SC1090
     source <(kubectl completion zsh)
 fi
 
-if command -v rbenv >/dev/null; then
+# shellcheck disable=SC2154
+if (( $+commands[rbenv] )); then
     eval "$(rbenv init - zsh)"
 fi
 
 # Prompt
-if command -v starship >/dev/null; then
+# shellcheck disable=SC2154
+if (( $+commands[starship] )); then
     eval "$(starship init zsh)"
 else
     # export PS1='%n@%m %1~ %# '
     autoload -U colors && colors
-    local user_char='$'
+    user_char='$'
     if [[ $UID == 0 || $EUID == 0 ]]; then
         user_char='#'
     fi
-    export PS1="%B%{$fg[green]%}%n%{$reset_color%}%B@%{$fg[blue]%}%m%{$reset_color%} %B%{$fg[yellow]%}%~%{$reset_color%} $user_char "
+    export PS1="%B%{${fg[green]}%}%n%{${reset_color}%}%B@%{${fg[blue]}%}%m%{${reset_color}%} %B%{${fg[yellow]}%}%~%{${reset_color}%} ${user_char} "
 fi
