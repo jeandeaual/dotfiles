@@ -516,7 +516,7 @@ if type -q go
     end
 
     set -l gopath (go env GOPATH 2>/dev/null)
-    fish_add_path {$_gopath}/bin
+    fish_add_path {$gopath}/bin
 end
 
 # Rust
