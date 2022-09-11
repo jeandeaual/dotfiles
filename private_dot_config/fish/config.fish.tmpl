@@ -316,6 +316,19 @@ function pipenv2requirements
     jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
 end
 
+# PlantUML
+if type -q plantuml
+    function plantuml-svg --description "Generate a SVG file using PlantUML"
+        plantuml -tsvg $argv
+    end
+    function plantuml-png --description "Generate a PNG file with a DPI of 300 using PlantUML"
+        plantuml -tpng -Sdpi=300 $argv
+    end
+    function plantuml-pdf --description "Generate a PDF file using PlantUML"
+        plantuml -tpdf $argv
+    end
+end
+
 # DBus
 if type -q dbus-send
     function secretservicepid --description "Get the PID of the currently running DBus Secret Service daemon"

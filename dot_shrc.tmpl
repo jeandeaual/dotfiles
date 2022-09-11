@@ -206,6 +206,15 @@ fi
 # Python
 alias activate='source ./venv/bin/activate'
 alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
+# PlantUML
+if command -v plantuml >/dev/null; then
+    # Generate a SVG file using PlantUML
+    alias plantuml-svg="plantuml -tsvg"
+    # Generate a PNG file with a DPI of 300 using PlantUML
+    alias plantuml-png="plantuml -tpng -Sdpi=300"
+    # Generate a PDF file using PlantUML
+    alias plantuml-pdf="plantuml -tpdf"
+fi
 # DBus
 if command -v dbus-send >/dev/null; then
     # Get the PID of the currently running DBus Secret Service daemon

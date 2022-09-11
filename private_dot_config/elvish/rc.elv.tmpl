@@ -296,6 +296,18 @@ fn pipenv2requirements {
     echo &sep='' $k $default[$k][version]
   }
 }
+# PlantUML
+if (has-external plantuml) {
+  # Generate a SVG file using PlantUML
+  fn plantuml-svg {|@a| plantuml -tsvg $@a }
+  edit:add-var plantuml-svg~ $plantuml-svg~
+  # Generate a PNG file with a DPI of 300 using PlantUML
+  fn plantuml-png {|@a| plantuml -tpng -Sdpi=300 $@a }
+  edit:add-var plantuml-png~ $plantuml-png~
+  # Generate a PDF file using PlantUML
+  fn plantuml-pdf {|@a| plantuml -tpdf $@a }
+  edit:add-var plantuml-pdf~ $plantuml-pdf~
+}
 # DBus
 if (has-external dbus-send) {
   # Get the PID of the currently running DBus Secret Service daemon
