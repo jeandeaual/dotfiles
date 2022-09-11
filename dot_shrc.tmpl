@@ -68,6 +68,10 @@ if [ -d "${devcontainer_cli_path}" ]; then
     export PATH="${PATH:+${PATH}:}${devcontainer_cli_path}"
 fi
 {{- if eq .chezmoi.os "darwin" }}
+sbin_path="/usr/local/sbin"
+if [ -d "${sbin_path}" ]; then
+    export PATH="${PATH:+${PATH}:}${sbin_path}"
+fi
 # GNU Make (installed via Homebrew)
 gnubin_path="/usr/local/opt/make/libexec/gnubin"
 if [ -d "${gnubin_path}" ]; then

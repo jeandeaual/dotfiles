@@ -104,6 +104,10 @@ if (path:is-dir $devcontainer_cli_path) {
   set paths = [$@paths $devcontainer_cli_path]
 }
 {{- if eq .chezmoi.os "darwin" }}
+var sbin_path = '/usr/local/sbin'
+if (path:is-dir $sbin_path) {
+  set paths = [$@paths $sbin_path]
+}
 # GNU Make (installed via Homebrew)
 var gnubin_path = '/usr/local/opt/make/libexec/gnubin'
 if (path:is-dir $gnubin_path) {
