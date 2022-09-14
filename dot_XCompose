@@ -2286,7 +2286,7 @@ include "%L"
 <Multi_key> <Multi_key> <m> <a> <c> <h> <e>          : "🤌" U1F90C # PINCHED FINGERS
 <Multi_key> <Multi_key> <l> <o> <v> <e>              : "🫰" U1FAF0 # HAND WITH INDEX FINGER AND THUMB CROSSED
 <Multi_key> <Multi_key> <h> <h> <a> <n> <d> <s>      : "🫶" U1FAF6 # HEART HANDS
-<Multi_key> <Multi_key> <s> <h> <a> <k> <e>          : "🤝" U1F91D # HANDSHAKE
+<Multi_key> <Multi_key> <h> <a> <n> <d> <s>          : "🤝" U1F91D # HANDSHAKE
 <Multi_key> <Multi_key> <Right> <h> <a> <n> <d>      : "🫱" U1FAF1 # RIGHTWARDS HAND
 <Multi_key> <Multi_key> <Left> <h> <a> <n> <d>       : "🫲" U1FAF2 # LEFTWARDS HAND
 <Multi_key> <Multi_key> <Down> <h> <a> <n> <d>       : "🫳" U1FAF3 # PALM DOWN HAND
@@ -2475,6 +2475,7 @@ include "%L"
 <Multi_key> <Multi_key> <C> <B>                 : "💳" 1F4B3 # CREDIT CARD
 <Multi_key> <Multi_key> <s> <t> <o> <n> <k> <s> : "📈" 1F4C8 # CHART WITH UPWARD TREND
 <Multi_key> <Multi_key> <s> <t> <i> <n> <k> <s> : "📉" 1F4C9 # CHART WITH DOWNWARD TREND
+<Multi_key> <Multi_key> <c> <h> <a> <r> <t>     : "📊" U1F4CA # BAR CHART
 
 ## People
 <Multi_key> <Multi_key> <O> <K>                         : "🙆" U1F646 # FACE WITH OK GESTURE
@@ -2883,7 +2884,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <i> <c> <k>                          : "😷" U1F637 # FACE WITH MEDICAL MASK
 <Multi_key> <Multi_key> <m> <a> <s> <k>                          : "😷" U1F637 # FACE WITH MEDICAL MASK
 <Multi_key> <Multi_key> <f> <e> <v> <e> <r>                      : "🤒" U1F912 # FACE WITH THERMOMETER
-<Multi_key> <Multi_key> <f> <l> <u>                              : "🤒" U1F912 # FACE WITH THERMOMETER
+<Multi_key> <Multi_key> <m> <a> <l> <a> <d> <e>                  : "🤒" U1F912 # FACE WITH THERMOMETER
 <Multi_key> <Multi_key> <h> <u> <r> <t>                          : "🤕" U1F915 # FACE WITH HEAD-BANDAGE
 <Multi_key> <Multi_key> <s> <n> <e> <e> <z> <e>                  : "🤧" U1F927 # SNEEZING FACE
 <Multi_key> <Multi_key> <b> <e> <u> <r> <k>                      : "🤢" U1F922 # NAUSEATED FACE
@@ -3088,6 +3089,7 @@ include "%L"
 # "💻" U1F4BB PERSONAL COMPUTER is registered in "Jobs"
 <Multi_key> <Multi_key> <m> <o> <b> <i> <l> <e>             : "📱" U1F4F1 # MOBILE PHONE
 <Multi_key> <Multi_key> <s> <m> <a> <r> <t> <p>             : "📱" U1F4F1 # MOBILE PHONE
+<Multi_key> <Multi_key> <s> <i> <g> <n> <a> <l>             : "📶" U1F4F6 # ANTENNA WITH BARS
 <Multi_key> <Multi_key> <p> <a> <g> <e> <r>                 : "📟" U1F4DF # PAGER
 <Multi_key> <Multi_key> <p> <h> <o> <n> <e>                 : "☎️" U260E UFE0F # BLACK TELEPHONE
 <Multi_key> <Multi_key> <p> <r> <i> <n> <t>                 : "🖨️" U1F5A8 UFE0F # PRINTER (emoji version of 🖨)
@@ -3171,7 +3173,10 @@ include "%L"
 <Multi_key> <Multi_key> <a> <n> <n> <o> <n> <c> <e>         : "📢" U1F4E2 # PUBLIC ADDRESS LOUDSPEAKER
 <Multi_key> <Multi_key> <a> <n> <n> <o> <u> <n> <c> <e>     : "📢" U1F4E2 # PUBLIC ADDRESS LOUDSPEAKER
 <Multi_key> <Multi_key> <l> <i> <n> <k>                     : "🔗" U1F517 # LINK SYMBOL
-<Multi_key> <Multi_key> <c> <l> <i> <p>                     : "📎" U1F4CE # PAPERCLIP
+<Multi_key> <Multi_key> <p> <c> <l> <i> <p>                 : "📎" U1F4CE # PAPERCLIP
+<Multi_key> <Multi_key> <t> <r> <o> <m> <b> <o> <n> <e>     : "📎" U1F4CE # PAPERCLIP
+<Multi_key> <Multi_key> <c> <l> <i> <p>                     : "📋" U1F4CB # CLIPBOARD
+<Multi_key> <Multi_key> <s> <c> <i> <s> <s> <o> <r>         : "✂️" U2702 UFE0F # BLACK SCISSORS (emoji version of ✂)
 <Multi_key> <Multi_key> <s> <e> <a> <r> <c> <h>             : "🔍" U1F50D # LEFT-POINTING MAGNIFYING GLASS
 <Multi_key> <Multi_key> <s> <p> <e> <e> <c> <h>             : "💬" U1F4AC # SPEECH BALLOON
 <Multi_key> <Multi_key> <t> <h> <o> <u> <g> <h> <t>         : "💭" U1F4AD # THOUGHT BALLOON
@@ -3442,6 +3447,8 @@ include "%L"
 <Multi_key> <Multi_key> <1> <0> <colon> <0> <0>     : "🕙" U1F559 # CLOCK FACE TEN OCLOCK
 <Multi_key> <Multi_key> <1> <1> <colon> <0> <0>     : "🕚" U1F55A # CLOCK FACE ELEVEN OCLOCK
 <Multi_key> <Multi_key> <1> <2> <colon> <0> <0>     : "🕛" U1F55B # CLOCK FACE TWELVE OCLOCK
+
+<Multi_key> <Multi_key> <a> <c> <l> <o> <c> <k>     : "🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛" U1F550 U1F551 U1F552 U1F553 U1F554 U1F555 U1F556 U1F557 U1F558 U1F559 U1F55A U1F55B # Clock faces
 
 <Multi_key> <Multi_key> <1> <colon> <3> <0>         : "🕜" U1F55C # CLOCK FACE ONE-THIRTY
 <Multi_key> <Multi_key> <2> <colon> <3> <0>         : "🕝" U1F55D # CLOCK FACE TWO-THIRTY
