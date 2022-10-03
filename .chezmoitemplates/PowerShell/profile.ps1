@@ -166,7 +166,7 @@ if (Get-Command {{ . }} -ErrorAction SilentlyContinue) {
 
     Set-Alias {{ . }}resetclock {{ . | title }}-ResetClock
 
-    function {{ . }}-Cleanup() {
+    function {{ . | title }}-Cleanup() {
         <#
             .SYNOPSIS
                 Cleanup {{ . | title }} dangling images, exited containers, unused networks and build cache.
@@ -177,7 +177,7 @@ if (Get-Command {{ . }} -ErrorAction SilentlyContinue) {
 
     Set-Alias {{ . }}cleanup {{ . | title }}-Cleanup
 
-    function {{ . }}-Nuke() {
+    function {{ . | title }}-Nuke() {
         <#
             .SYNOPSIS
                 Delete all {{ . | title }} images, containers, networks, volumes and build cache
