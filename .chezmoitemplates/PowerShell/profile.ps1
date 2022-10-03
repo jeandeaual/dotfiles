@@ -240,6 +240,34 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     }
 }
 
+{{- /* https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7.2#-algorithm */ -}}
+{{- range list "MD5" "SHA1" "SHA256" "SHA384" "SHA512" }}
+
+function {{ . }}-Sum {
+    <#
+        .SYNOPSIS
+            Perform a {{ . }} checksum on the provided file.
+    #>
+    param (
+        [Parameter(Mandatory=$True)]
+        [ValidateScript({
+            if (-Not (Test-Path -Path $_ ) ) { throw "File not found." }
+            elseif (-Not (Test-Path -Path $_ -PathType Leaf) ) { throw "File should be a file." }
+            return $true
+        })]
+        [System.IO.FileInfo]
+        $File
+    )
+
+    $Path = (Resolve-Path -Path $File).Path
+    $Hash = (Get-FileHash -Path $Path -Algorithm {{ . }}).Hash.ToLower()
+
+    Write-Host ($Hash, $File) -Separator " "
+}
+
+Set-Alias {{ . | lower }}sum {{ . }}-Sum
+{{- end }}
+
 function Get-Timestamp {
     return [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
 }
