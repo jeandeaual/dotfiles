@@ -139,6 +139,22 @@ if (has-external xdg-open) {
   edit:add-var o~ $o~
 }
 {{- end }}
+if (has-external kubectl) {
+  fn k {|@a| kubectl $@a }
+  edit:add-var k~ $k~
+}
+if (has-external helm) {
+  fn h {|@a| helm $@a }
+  edit:add-var h~ $h~
+}
+if (has-external docker) {
+  fn d {|@a| docker $@a }
+  edit:add-var d~ $d~
+}
+if (has-external podman) {
+  fn p {|@a| podman $@a }
+  edit:add-var p~ $p~
+}
 fn cp {|@a| e:cp -v $@a }
 fn mv {|@a| e:mv -v $@a }
 fn rm {|@a| e:rm -v $@a }

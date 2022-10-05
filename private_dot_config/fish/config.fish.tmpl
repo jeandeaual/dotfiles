@@ -84,6 +84,30 @@ if type -q xdg-open
 end
 {{- end }}
 
+if type -q kubectl
+    function k
+        kubectl $argv
+    end
+end
+
+if type -q helm
+    function h
+        helm $argv
+    end
+end
+
+if type -q docker
+    function d
+        docker $argv
+    end
+end
+
+if type -q podman
+    function p
+        podman $argv
+    end
+end
+
 function cp
     command cp -v $argv
 end

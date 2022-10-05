@@ -81,14 +81,24 @@ try { Get-ChildItem -Directory -Path "${env:ProgramFiles}\Open Steno Project" -E
 # Aliases & functions
 #------------------------------------------------------------------------------
 
-if (Get-Command vim -ErrorAction SilentlyContinue) {
-    Set-Alias vi vim
+if (Get-Command kubectl -ErrorAction SilentlyContinue) {
+    Set-Alias k kubectl
 }
 
-if (Get-Command go -ErrorAction SilentlyContinue) {
-    function gor {
-        go build -ldflags='-s -w' $args
-    }
+if (Get-Command helm -ErrorAction SilentlyContinue) {
+    Set-Alias h helm
+}
+
+if (Get-Command docker -ErrorAction SilentlyContinue) {
+    Set-Alias d docker
+}
+
+if (Get-Command podman -ErrorAction SilentlyContinue) {
+    Set-Alias p podman
+}
+
+if (Get-Command vim -ErrorAction SilentlyContinue) {
+    Set-Alias vi vim
 }
 
 if (Get-Command flac -ErrorAction SilentlyContinue) {
@@ -324,8 +334,6 @@ function Req {
             }
             $completed = $true
         } catch {
-            # New-Item -ItemType Directory -Force -Path C:\logs\
-            # "$(Get-Date -Format G): Request to $url failed. $_" | Out-File -FilePath 'C:\logs\myscript.log' -Encoding utf8 -Append
             if ($retrycount -ge $Retries) {
                 Write-Warning "Request to $url failed the maximum number of $retryCount times.`n"
                 throw
@@ -380,5 +388,17 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
         Write-Host " $userChar" -NoNewLine
 
         return ' '
+    }
+}
+
+# Go
+if (Get-Command go -ErrorAction SilentlyContinue) {
+    function gor {
+        go build -ldflags='-s -w' $args
+    }
+
+    $private:gopath = go env GOPATH 2> $null
+    if ($gopath) {
+        Add-Path -Path $gopath/bin -Before
     }
 }
