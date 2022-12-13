@@ -2,5 +2,9 @@
   {
     "key": "ctrl+f5",
     "command": "workbench.files.action.refreshFilesExplorer"
+  },
+  {
+    "key": "cmd+alt+shift+i",
+    "command": "editor.action.inspectTMScopes"
   }
 ]

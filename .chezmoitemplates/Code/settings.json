@@ -16,6 +16,37 @@
   "editor.matchBrackets": "never", // Never auto-close brackets
   "editor.autoClosingBrackets": "never",
   "editor.renderControlCharacters": true,
+  "explorer.autoRevealExclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/__pycache__": true,
+    "**/.mypy_cache": true,
+    "**/.bundle": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": true,
+  "explorer.fileNesting.patterns": {
+    // JavaScript / TypeScript
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock",
+    // Go
+    "go.mod": "go.sum",
+    // Ruby
+    "Gemfile": "Gemfile.lock",
+    // Python
+    "pyproject.toml": "poetry.lock",
+    "*.in": "${capture}.txt",
+    // Rust
+    "Cargo.toml": "Cargo.lock",
+    // Erlang
+    "rebar.config": "rebar.lock",
+    // Elixir
+    "mix.exs": "mix.lock"
+  },
   "files.associations": {
     "*.latexmkrc": "perl",
     "mix.lock": "elixir",
@@ -81,6 +112,8 @@
     }
   },
   "terminal.integrated.defaultProfile.windows": "PowerShell",
+  // Window
+  "window.commandCenter": true,
   // Telemetry
   "telemetry.telemetryLevel": "off",
   "Lua.telemetry.enable": false,
@@ -92,6 +125,7 @@
   },
   // Python
   "python.analysis.completeFunctionParens": true,
+  "python.interpreter.infoVisibility": "always",
   "python.languageServer": "Pylance",
   "python.linting.pylintEnabled": true,
   "python.linting.flake8Enabled": true,
@@ -108,6 +142,7 @@
   // Go
   "go.buildOnSave": "off",
   "go.vetOnSave": "off",
+  "go.survey.prompt": false,
   "[go]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
@@ -119,7 +154,7 @@
   "[go.mod]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true,
+      "source.organizeImports": true
     }
   },
   "gopls": {
@@ -127,7 +162,7 @@
     "usePlaceholders": true,
     // If true, enable additional analyses with staticcheck.
     // Warning: This will significantly increase memory usage.
-    "staticcheck": false,
+    "staticcheck": false
   },
   "go.delveConfig": {
     "dlvLoadConfig": {
@@ -253,12 +288,16 @@
   },
   // AutoHotKey
   "[ahk]": {
-    "files.eol": "\r\n",
+    "files.eol": "\r\n"
   },
   // Extensions
   "extensions.ignoreRecommendations": false,
   // Git
   "git.autofetch": "all",
+  "git.branchProtection": [
+    "master",
+    "main"
+  ],
   // eamodio.gitlens
   "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
   "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
@@ -301,5 +340,16 @@
   // ms-vscode-remote.remote-containers
   "remote.containers.dockerPath": "{{ .dockercmd }}",
   "dotfiles.repository": "jeandeaual/dotfiles",
-  "remote.containers.copyGitConfig": true
+  "remote.containers.copyGitConfig": true,
+  {{- if eq .chezmoi.os "darwin" }}
+  // codecontemplator.kubeseal
+  "kubeseal.executablePath": "/usr/local/bin/kubeseal",
+  {{- if .work }}
+  "kubeseal.useLocalCertificate": false,
+  {{- end }}
+  {{- end }}
+  // vivaxy.vscode-conventional-commits
+  "conventionalCommits.emojiFormat": "emoji",
+  "conventionalCommits.gitmoji": false,
+  "conventionalCommits.showNewVersionNotes": false
 }
