@@ -68,6 +68,20 @@ fish_add_path /opt/local/bin /opt/local/sbin
 if test -d /opt/local/share/man
     set -gx MANPATH /opt/local/share/man $MANPATH
 end
+# Android build tools
+{{- if eq .chezmoi.os "darwin" }}
+set -l android_build_tools_folders ~/Library/Android/sdk/build-tools/*
+set -l android_platform_tools_path ~/Library/Android/sdk/platform-tools
+{{- else }}
+set -l android_build_tools_folders ~/Android/sdk/build-tools/*
+set -l android_platform_tools_path ~/Android/sdk/platform-tools
+{{- end }}
+if test -n "$android_build_tools_folders[-1]"
+    fish_add_path -a $android_build_tools_folders[-1]
+end
+if test -n $android_platform_tools_path
+    fish_add_path -a $android_platform_tools_path
+end
 {{- end }}
 
 # Aliases

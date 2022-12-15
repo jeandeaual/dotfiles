@@ -127,6 +127,20 @@ if (path:is-dir /usr/local/share/man) {
     set E:MANPATH = (str:join ':' [/usr/local/share/man $E:MANPATH])
   }
 }
+# Android build tools
+{{- if eq .chezmoi.os "windows" }}
+put $E:LOCALAPPDATA'/Android/sdk/build-tools/'*[nomatch-ok][type:dir] | order &reverse=$true | take 1 | each {|folder| set paths = [$@paths $folder] }
+var android_platform_tools_path = $E:LOCALAPPDATA'/Android/sdk/platform-tools'
+{{- else if eq .chezmoi.os "darwin" }}
+put ~/Library/Android/sdk/build-tools/*[nomatch-ok][type:dir] | order &reverse=$true | take 1 | each {|folder| set paths = [$@paths $folder] }
+var android_platform_tools_path = ~/Library/Android/sdk/platform-tools
+{{- else }}
+put ~/Android/sdk/build-tools/*[nomatch-ok][type:dir] | order &reverse=$true | take 1 | each {|folder| set paths = [$@paths $folder] }
+var android_platform_tools_path = ~/Android/sdk/platform-tools
+{{- end }}
+if (path:is-dir $android_platform_tools_path) {
+  set paths = [$@paths $android_platform_tools_path]
+}
 {{- end }}
 
 # Aliases

@@ -87,6 +87,20 @@ export PATH="/opt/local/bin:/opt/local/sbin${PATH:+:${PATH}}"
 if [ -d "/opt/local/share/man" ]; then
     export MANPATH="/opt/local/share/man${MANPATH:+:${MANPATH}}"
 fi
+# Android build tools
+{{- if eq .chezmoi.os "darwin" }}
+android_build_tools_folders=(~/Library/Android/sdk/build-tools/*)
+android_platform_tools_path=~/Library/Android/sdk/platform-tools
+{{- else }}
+android_build_tools_folders=(~/Android/sdk/build-tools/*)
+android_platform_tools_path=~/Android/sdk/platform-tools
+{{- end }}
+if [ -d "${android_build_tools_folders[-1]}" ]; then
+    export PATH="${PATH:+${PATH}:}${android_build_tools_folders[-1]}"
+fi
+if [ -d "${android_platform_tools_path}" ]; then
+    export PATH="${PATH:+${PATH}:}${android_platform_tools_path}"
+fi
 {{- end }}
 
 # Aliases & functions
