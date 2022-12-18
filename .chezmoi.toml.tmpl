@@ -96,7 +96,7 @@ encryption = "gpg"
     email = {{ promptString "E-mail" $email | quote }}
     work = {{ promptBool "Is this a work environment" $work }}
 {{- end }}
-{{- if and .devcontainer (lookPath "code") }}
+{{- if and $devcontainer (lookPath "code") }}
     editor = "code --wait"
 {{- else if lookPath "vim" }}
     editor = "vim"
