@@ -4,24 +4,24 @@ on:
     branches:
       - master
     paths:
-      - 'scripts/*.py'
-      - 'dot_XCompose'
+      - scripts/*.py
+      - dot_XCompose
   push:
     branches:
       - master
     paths:
-      - 'scripts/*.py'
-      - 'dot_XCompose'
+      - scripts/*.py
+      - dot_XCompose
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '^3.9'
+          python-version: "3.11"
       - name: Check for duplicate entries in .XCompose
         run: python scripts/xcompose-find-duplicates.py dot_XCompose
       - name: Check if .XCompose can be converted to a Cocoa keybinding dict

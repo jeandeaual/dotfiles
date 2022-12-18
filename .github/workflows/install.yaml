@@ -4,27 +4,29 @@ on:
     branches:
       - master
     paths-ignore:
-      - 'LICENSE'
-      - 'README.md'
-      - '.git*'
+      - LICENSE
+      - README.md
+      - .git*
   push:
     branches:
       - master
     paths-ignore:
-      - 'LICENSE'
-      - 'README.md'
-      - '.git*'
+      - LICENSE
+      - README.md
+      - .git*
 jobs:
   install:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os:
+          - ubuntu-latest
+          - windows-latest
     runs-on: ${{ matrix.os }}
     env:
       CODESPACES: true
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install chezmoi and the dotfiles
         run: ./install.sh --without-starship
         if: "!startsWith(matrix.os, 'windows')"
@@ -32,4 +34,4 @@ jobs:
         run: .\install.ps1 -WithoutStarship
         if: startsWith(matrix.os, 'windows')
       - name: Run chezmoi data
-        run: '~/.local/bin/chezmoi data'
+        run: ~/.local/bin/chezmoi data
