@@ -79,9 +79,6 @@
   "editor.guides.indentation": true,
   "workbench.tree.renderIndentGuides": "always",
   // General
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
-  },
   "workbench.list.horizontalScrolling": true,
   "files.watcherExclude": {
     "**/vendor/**": true
@@ -236,7 +233,6 @@
   // SVG
   "svg.preview.mode": "svg",
   // C / C++
-  "C_Cpp.updateChannel": "Insiders",
   "cmake.configureOnOpen": false,
   "[cpp]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
@@ -251,8 +247,6 @@
   "arduino.ignoreBoards": [
     "Adafruit HUZZAH ESP8266"
   ],
-  // Java
-  "java.configuration.checkProjectSettingsExclusions": false,
   // JavaScript
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -338,9 +332,9 @@
   "resmon.show.disk": false,
   "resmon.updatefrequencyms": 5000,
   // ms-vscode-remote.remote-containers
-  "remote.containers.dockerPath": "{{ .dockercmd }}",
+  "dev.containers.dockerPath": "{{ .dockercmd }}",
+  "dev.containers.copyGitConfig": true,
   "dotfiles.repository": "jeandeaual/dotfiles",
-  "remote.containers.copyGitConfig": true,
   {{- if eq .chezmoi.os "darwin" }}
   // codecontemplator.kubeseal
   "kubeseal.executablePath": "/usr/local/bin/kubeseal",
@@ -351,5 +345,7 @@
   // vivaxy.vscode-conventional-commits
   "conventionalCommits.emojiFormat": "emoji",
   "conventionalCommits.gitmoji": false,
-  "conventionalCommits.showNewVersionNotes": false
+  "conventionalCommits.showNewVersionNotes": false,
+  // mshdinsight.azure-hdinsight
+  "hdinsight.disableOpenSurveyLink": true
 }
