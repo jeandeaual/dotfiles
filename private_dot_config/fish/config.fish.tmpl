@@ -455,6 +455,33 @@ if type -q paru
 end
 {{- end }}
 
+{{- if .steamos }}
+
+# SteamOS
+
+function vim
+    flatpak run org.vim.Vim $argv
+end
+
+function vi
+    vim $argv
+end
+
+function gvim
+    flatpak run org.vim.Vim -g $argv
+end
+
+function nvim
+    flatpak run io.neovim.nvim $argv
+end
+
+function code
+    flatpak run com.visualstudio.code
+end
+
+fish_add_path {$HOME}/.local/podman/bin
+{{- end }}
+
 if type -q chezmoi
     function chezmoicd --description "Change directory to the chezmoi folder without creating a subshell"
         cd (chezmoi source-path)

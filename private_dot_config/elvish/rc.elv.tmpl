@@ -410,6 +410,21 @@ if (has-external paru) {
 }
 {{- end }}
 
+{{- if .steamos }}
+
+# SteamOS
+
+fn vim {|@a| flatpak run org.vim.Vim $@a }
+fn vi {|@a| vim $@a }
+fn gvim {|@a| flatpak run org.vim.Vim -g $@a }
+fn nvim {|@a| flatpak run io.neovim.nvim $@a }
+fn code {|@a| flatpak run com.visualstudio.code $@a }
+
+if (path:is-dir $E:HOME'/.local/podman/bin') {
+  set paths = [$E:HOME'/.local/podman/bin' $@paths]
+}
+{{- end }}
+
 # Custom functions
 #------------------------------------------------------------------------------
 # Create a directory and enter it

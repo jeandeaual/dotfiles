@@ -109,6 +109,46 @@
     }
   },
   "terminal.integrated.defaultProfile.windows": "PowerShell",
+  {{- if .flatpak }}
+  // Flatpak terminal configuration
+  // See https://github.com/flathub/com.visualstudio.code#usage
+  "terminal.integrated.defaultProfile.linux": "Host: Bash",
+  "terminal.integrated.profiles.linux": {
+    "Host: Bash": {
+      "path": "/usr/bin/flatpak-spawn",
+      "args": [
+        "--env=TERM=xterm-256color",
+        "--host",
+        "script",
+        "--quiet",
+        "/dev/null"
+      ],
+      "icon": "terminal-bash"
+    },
+    "Host: ZSH": {
+      "path": "/usr/bin/flatpak-spawn",
+      "args": [
+        "--env=TERM=xterm-256color",
+        "--env=SHELL=zsh",
+        "--host",
+        "script",
+        "--quiet",
+        "/dev/null"
+      ]
+    },
+    "Host: Fish": {
+      "path": "/usr/bin/flatpak-spawn",
+      "args": [
+        "--env=TERM=xterm-256color",
+        "--env=SHELL=fish",
+        "--host",
+        "script",
+        "--quiet",
+        "/dev/null",
+      ]
+    }
+  },
+  {{- end }}
   // Window
   "window.commandCenter": true,
   // Telemetry
@@ -248,6 +288,19 @@
   "arduino.ignoreBoards": [
     "Adafruit HUZZAH ESP8266"
   ],
+  // Java
+  {{- if .flatpak }}
+  {{- if output "flatpak" "list" "--columns=app" | contains "org.freedesktop.Sdk.Extension.openjdk17" }}
+  "java.jdt.ls.java.home": "/usr/lib/sdk/openjdk17/jvm/openjdk-17/",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "/usr/lib/sdk/openjdk17/jvm/openjdk-17/",
+      "default": true
+    }
+  ],
+  {{- end }}
+  {{- end }}
   // JavaScript
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -333,13 +386,19 @@
   "resmon.show.disk": false,
   "resmon.updatefrequencyms": 5000,
   // ms-vscode-remote.remote-containers
-  "dev.containers.dockerPath": "{{ .dockercmd }}",
   "dev.containers.copyGitConfig": true,
+  {{- if .flatpak }}
+  // Requires `flatpak install flathub com.visualstudio.code.tool.podman` and
+  // `flatpak override com.visualstudio.code --filesystem=xdg-run/podman`
+  "dev.containers.dockerPath": "/app/tools/podman/bin/podman-remote",
+  {{- else }}
+  "dev.containers.dockerPath": "{{ .data.dockercmd }}",
+  {{- end }}
   "dotfiles.repository": "jeandeaual/dotfiles",
-  {{- if eq .chezmoi.os "darwin" }}
+  {{- if eq .data.chezmoi.os "darwin" }}
   // codecontemplator.kubeseal
   "kubeseal.executablePath": "/usr/local/bin/kubeseal",
-  {{- if .work }}
+  {{- if .data.work }}
   "kubeseal.useLocalCertificate": false,
   {{- end }}
   {{- end }}

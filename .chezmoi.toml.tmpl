@@ -26,7 +26,7 @@
 {{- $chassisType := "desktop" -}}
 {{- $touchBar := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") (output "cat" "/proc/1/sched" | hasPrefix "init" | not) -}}
+{{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") (and (output "head" "-n" "1" "/proc/1/sched" | hasPrefix "init" | not) (output "head" "-n" "1" "/proc/1/sched" | hasPrefix "systemd" | not)) -}}
 {{-     $chassisType = "container" -}}
 {{-   else if and (lookPath "hostnamectl") (not $wsl) (not $devcontainer) -}}
 {{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis | trimSuffix "\"" | trimPrefix "\"" -}}
@@ -44,6 +44,8 @@
 {{-   $chassisType = output "powershell.exe" "-NoProfile" "-Command" "if (Get-CimInstance -ClassName CIM_Battery) { Write-Host laptop -NoNewLine } else { Write-Host desktop -NoNewLine }" -}}
 {{- end -}}
 
+{{- $ephemeral := or $devcontainer (eq $chassisType "container") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+
 {{- $serial := "" -}}
 {{- if eq .chezmoi.os "darwin" -}}
 {{-   $serial = index ioreg "IORegistryEntryChildren" 0 "IOPlatformSerialNumber" -}}
@@ -58,7 +60,7 @@
 
 sourceDir = {{ quote .chezmoi.sourceDir }}
 
-{{- if and (not $devcontainer) (ne $chassisType "container") }}{{/* Disable encryption on containers */}}
+{{- if not $ephemeral }}{{/* Disable encryption on containers */}}
 encryption = "gpg"
 
 [gpg]
@@ -87,10 +89,19 @@ encryption = "gpg"
     wsl = {{ $wsl }}
     embedded = {{ $embedded }}
     chassistype = {{ quote $chassisType }}
-    ephemeral = {{ or $devcontainer (eq $chassisType "container") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") }}
+    ephemeral = {{ $ephemeral }}
     touchbar = {{ quote $touchBar }}
     serial = {{ quote $serial }}
+{{- with .chezmoi.osRelease }}
+    steamos = {{ and (eq .id "steamos") (semverCompare "^3" .versionID) }}
+{{- else }}
+    steamos = false
+{{- end }}
+{{- if and (lookPath "podman") (not (lookPath "docker")) }}
+    dockercmd = "podman"
+{{- else }}
     dockercmd = "docker"
+{{- end }}
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
     display = 0

@@ -1,0 +1,17 @@
+{{- if .steamos -}}
+{{- /* This assumes Podman was installed with https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman */ -}}
+[Unit]
+Description=Podman Service
+Requires=podman.socket
+After=podman.socket
+StartLimitIntervalSec=0
+
+[Service]
+Type=notify
+KillMode=process
+ExecStart={{ .chezmoi.homeDir }}/.local/podman/bin/podman system service -t 0
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
+{{- end }}

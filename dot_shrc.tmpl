@@ -298,6 +298,20 @@ if command -v paru >/dev/null; then
 fi
 {{- end }}
 
+{{- if .steamos }}
+
+# SteamOS
+alias vim="flatpak run org.vim.Vim"
+alias vi="vim"
+alias gvim="flatpak run org.vim.Vim -g"
+alias nvim="flatpak run io.neovim.nvim"
+alias code="flatpak run com.visualstudio.code"
+
+if [ -d "${HOME}/.local/podman/bin" ]; then
+    export PATH="${HOME}/.local/podman/bin${PATH:+:${PATH}}"
+fi
+{{- end }}
+
 # Create a directory and enter it
 # Usage: mkcd FOLDER
 mkcd() {

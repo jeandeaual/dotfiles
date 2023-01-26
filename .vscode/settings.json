@@ -16,6 +16,7 @@
     "**/.chezmoitemplates/**/*.js": "gojs",
     "**/.chezmoitemplates/**/*.ts": "gots",
     "**/.chezmoitemplates/**/*.json": "gojson",
+    "**/.chezmoitemplates/**/*.jsonc": "gojson",
     "**/.chezmoitemplates/**/*.code-snippets": "gojson",
     "**/.chezmoitemplates/**/*.yaml": "goyaml",
     "**/.chezmoitemplates/**/*.yml": "goyaml",
