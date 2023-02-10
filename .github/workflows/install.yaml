@@ -23,6 +23,8 @@ jobs:
           - windows-latest
     runs-on: ${{ matrix.os }}
     env:
+      # https://www.chezmoi.io/reference/templates/github-functions/
+      CHEZMOI_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CODESPACES: true
     steps:
       - name: Checkout the code
