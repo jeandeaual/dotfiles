@@ -44,99 +44,99 @@ StyleMarkLine:
 #   "ctrl+c"
 KeyBind:
   exit:
-    - "Escape"
-    - "q"
+    - Escape
+    - q
   cancel:
-    - "ctrl+c"
+    - ctrl+c
   write_exit:
     - "Q"
   sync:
-    - "ctrl+l"
+    - ctrl+l
   follow_mode:
-    - "ctrl+f"
+    - ctrl+f
   follow_all:
-    - "ctrl+a"
+    - ctrl+a
   help:
-    - "h"
-    - "ctrl+alt+c"
+    - h
+    - ctrl+alt+c
   logdoc:
-    - "ctrl+alt+e"
+    - ctrl+alt+e
   down:
-    - "Enter"
-    - "Down"
-    - "ctrl+N"
-    - "j"
+    - Enter
+    - Down
+    - ctrl+N
+    - j
   up:
-    - "Up"
-    - "ctrl+p"
-    - "k"
+    - Up
+    - ctrl+p
+    - k
   top:
-    - "Home"
-    - "g"
+    - Home
+    - g
   bottom:
-    - "End"
-    - "G"
+    - End
+    - G
   left:
-    - "left"
+    - left
   right:
-    - "right"
+    - right
   half_left:
-    - "ctrl+left"
+    - ctrl+left
   half_right:
-    - "ctrl+right"
+    - ctrl+right
   page_up:
-    - "PageUp"
-    - "ctrl+b"
+    - PageUp
+    - ctrl+b
   page_down:
-    - "PageDown"
-    - "ctrl+v"
-    - "ctrl+f"
-    - "space"
+    - PageDown
+    - ctrl+v
+    - ctrl+f
+    - space
   page_half_up:
-    - "ctrl+u"
+    - ctrl+u
   page_half_down:
-    - "ctrl+d"
+    - ctrl+d
   mark:
-    - "m"
+    - m
   remove_mark:
-    - "M"
+    - M
   remove_all_mark:
-    - "ctrl+delete"
+    - ctrl+delete
   next_mark:
     - ">"
   previous_mark:
-    - "<"
+    - <
   alter_rows_mode:
-    - "C"
+    - C
   line_number_mode:
-    - "l"
+    - l
   search:
-    - "/"
+    - /
   wrap_mode:
-    - "w"
-    - "W"
+    - w
+    - W
   column_mode:
-    - "c"
+    - c
   backsearch:
     - "?"
   delimiter:
-    - "d"
+    - d
   header:
-    - "H"
+    - H
   tabwidth:
-    - "t"
+    - t
   goto:
-    - "ctrl+g"
+    - ctrl+g
   next_search:
-    - "n"
+    - n
   next_backsearch:
-    - "N"
+    - N
   next_doc:
     - "]"
   previous_doc:
     - "["
   toggle_mouse:
-    - "ctrl+alt+r"
+    - ctrl+alt+r
 
 Mode:
   Psql:

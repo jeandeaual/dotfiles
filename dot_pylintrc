@@ -1,1 +1,10 @@
-good-names=i,j,k,ex,R,pk,x,y,os
+[BASIC]
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,
+           j,
+           k,
+           ex,
+           x,
+           y,
+           _
