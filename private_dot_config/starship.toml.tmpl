@@ -94,6 +94,14 @@ symbol = "aws "
 {{- end }}
 disabled = true
 
+[c]
+format = ' [$symbol($version(-$name))]($style)'
+{{- if or $plaintext (not $nerdfont) }}
+symbol = "C "
+{{- else if $nerdfont }}
+symbol = " "
+{{- end }}
+
 [cmake]
 format = ' [$symbol($version)]($style)'
 {{- if $plaintext }}
