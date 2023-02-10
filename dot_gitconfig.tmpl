@@ -12,6 +12,7 @@
 	gpgsign = true
 {{- end }}
 [merge]
+	conflictStyle = zdiff3
 	tool = vimd
 [diff]
 	guitool = gvimdiff
@@ -21,6 +22,7 @@
 	autocrlf = false
 	editor = vim -f
 	filemode = false
+	fsmonitor = true
 [alias]
 	co = checkout
 	st = status -sb
@@ -36,7 +38,7 @@
 	logg = log --color --graph --format=fuller --show-signature
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	headsha = log --format="%H" -n 1
-	who = shortlog -s --
+	who = shortlog -s -n --no-merges
 	pushf = push --force-with-lease
 	sdcommit = !sh -c 'git stash && git svn dcommit && git stash pop'
 	srebase = !sh -c 'git stash && git svn rebase && git stash pop'
@@ -45,6 +47,8 @@
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	serve2 = !sh -c 'git daemon --reuseaddr --verbose \"$@\" --base-path=. --export-all ./.git' sh
 	plfs = !git -c filter.lfs.smudge= -c filter.lfs.required=false pull && git lfs pull
+	brshow = config --get-regexp 'branch.*.description'
+	brdesc = !git config --get "branch.$(git branch --show-current).description"
 [color]
 	ui = true
 	branch = auto
