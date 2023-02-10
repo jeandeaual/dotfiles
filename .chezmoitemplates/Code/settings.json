@@ -116,6 +116,8 @@
   "Lua.telemetry.enable": false,
   "redhat.telemetry.enabled": false,
   "vsixViewer.enableTelemetry": false,
+  // Updates
+  "update.showReleaseNotes": false,
   // Ruby
   "[ruby]": {
     "editor.tabSize": 2
@@ -136,6 +138,9 @@
   "python.linting.prospectorEnabled": false,
   "python.linting.pylamaEnabled": false,
   "python.linting.banditEnabled": false,
+  "[python]": {
+    "editor.formatOnType": true,
+  },
   // Go
   "go.buildOnSave": "off",
   "go.vetOnSave": "off",
@@ -217,19 +222,15 @@
   },
   // Markdown
   "markdown.preview.fontSize": 12,
-  "markdownlint.config": {
-    "default": true,
-    "MD007": {
-      // 4 space indent for bullet lists
-      "indent": 4
-    },
-    "MD010": {
-      // No hard tabs, except in code blocks
-      "code_blocks": false
-    },
-    // Allow multiple top level headings in the same document
-    "MD025": false
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": true
+    }
   },
+  // DavidAnson.vscode-markdownlint
+  "markdownlint.config": {{ includeTemplate "markdownlint/markdownlintrc.jsonc" . | indent 2 | trim }},
   // SVG
   "svg.preview.mode": "svg",
   // C / C++
