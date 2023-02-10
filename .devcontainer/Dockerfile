@@ -38,7 +38,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Install some Python tools
 # hadolint ignore=DL3013
-RUN pip --disable-pip-version-check --no-cache-dir install \
+RUN pip install --disable-pip-version-check --no-cache-dir --ignore-installed \
     autoflake \
     black \
     flake8 \

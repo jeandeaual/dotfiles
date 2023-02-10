@@ -5,7 +5,7 @@ from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from dataclasses import dataclass
 from pathlib import Path
 from re import compile as re_compile
-from sys import exit, stderr
+from sys import exit as sys_exit, stderr
 from typing import Final
 
 
@@ -43,7 +43,7 @@ def main() -> None:
 
     if not xcompose_file.expanduser().is_file():
         print(f"{xcompose_file.resolve()} does not exist", file=stderr)
-        exit(EXIT_FILE_NOT_FOUND)
+        sys_exit(EXIT_FILE_NOT_FOUND)
 
     key_regex = re_compile(r"<(?P<key>[A-Za-z0-9_]+)>")
     symbol_regex = re_compile(r'"(?P<symbol>.+)"')
@@ -89,8 +89,8 @@ def main() -> None:
     previous_symbol: str = ""
     exit_code: int = EXIT_SUCCESS
 
-    with xcompose_file.open(encoding="utf8") as fp:
-        for n, line in enumerate(fp):  # type: int, str
+    with xcompose_file.open(encoding="utf8") as file:
+        for line_number, line in enumerate(file, start=1):
             if (
                 line.startswith("#")
                 or line.startswith("include")
@@ -118,7 +118,6 @@ def main() -> None:
                 continue
 
             symbol = symbols[0]
-            line_number = n + 1
 
             # Check for duplicates
             for entry in registered:
@@ -145,7 +144,7 @@ def main() -> None:
             registered.append(Entry(line_number, keys, symbol))
             previous_symbol = symbol
 
-    exit(exit_code)
+    sys_exit(exit_code)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Check for duplicate entries in .XCompose
-        run: python scripts/xcompose-find-duplicates.py dot_XCompose
+        run: python scripts/xcompose_find_duplicates.py dot_XCompose
       - name: Check if .XCompose can be converted to a Cocoa keybinding dict
         run: python scripts/xcompose2cocoakeybindings.py dot_XCompose

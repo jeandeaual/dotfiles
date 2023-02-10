@@ -2,12 +2,13 @@
 """Convert a .XCompose file to a Cocoa keybindings dict file."""
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
-from collections.abc import Iterator, Sequence
+from collections import defaultdict
+from collections.abc import Generator, Sequence
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 from re import Pattern, compile as re_compile
-from sys import exit, stderr
+from sys import exit as sys_exit, stderr
 from typing import Any, Final, Optional, TextIO, Union
 
 
@@ -132,7 +133,7 @@ class Entry:
     keys: list[str]
 
 
-EntryDict = dict[str, Any]
+EntryDict = defaultdict[str, Union[Entry, "EntryDict"]]
 
 
 class OverlappingEntries(Exception):
@@ -144,7 +145,7 @@ class OverlappingEntries(Exception):
         self.entries = entries
 
 
-def parse_xcompose_line(line, line_number) -> Optional[Entry]:
+def parse_xcompose_line(line: str, line_number: int) -> Optional[Entry]:
     """Parse aline of a .XCompose file and return an Entry."""
     if line.startswith("#") or line.startswith("include") or line.isspace():
         return None
@@ -170,7 +171,9 @@ def parse_xcompose_line(line, line_number) -> Optional[Entry]:
     return Entry(symbol, comment, line_number, keys)
 
 
-def get_entries(entries: Union[EntryDict, Entry]) -> Iterator[Entry]:
+def get_entries(
+    entries: Union[EntryDict, Entry]
+) -> Generator[Entry, None, None]:
     """Iterate over all ``Entry`` in an ``EntryDict``."""
     if isinstance(entries, Entry):
         yield entries
@@ -183,14 +186,17 @@ def get_entries(entries: Union[EntryDict, Entry]) -> Iterator[Entry]:
             yield value
 
 
-def parse_xcompose(fp) -> tuple[EntryDict, int]:
+def nested_defaultdict() -> defaultdict[str, Any]:
+    """Return a defaultdict using defaultdicts for missing keys."""
+    return defaultdict(nested_defaultdict)
+
+
+def parse_xcompose(file: TextIO) -> tuple[EntryDict, int]:
     """Parse a .XCompose file and return a nested key / value dictionnary."""
-    entries: EntryDict = {}
+    entries: EntryDict = nested_defaultdict()
     exit_code: int = EXIT_SUCCESS
 
-    line_number: int
-    line: str
-    for line_number, line in enumerate(fp, start=1):
+    for line_number, line in enumerate(file, start=1):
         try:
             entry = parse_xcompose_line(line, line_number)
 
@@ -210,24 +216,23 @@ def parse_xcompose(fp) -> tuple[EntryDict, int]:
                 continue
 
             last = entries
+            key = None
 
             for i, key in enumerate(entry.keys):
                 if isinstance(last, Entry):
                     raise OverlappingEntries(last, entry)
                 if i == len(entry.keys) - 1:
                     break
-                if key not in last:
-                    last[key] = {}
-                last = last[key]
+                last = last[key]  # type: ignore
 
             if key in last:
                 raise OverlappingEntries(entry, list(get_entries(last[key])))
 
             last[key] = entry
-        except OverlappingEntries as e:
+        except OverlappingEntries as ex:
             print(
-                f"The following entries can't be accessed due to {e.short}: "
-                f"{e.entries}",
+                f"The following entries can't be accessed due to {ex.short}: "
+                f"{ex.entries}",
                 file=stderr,
             )
             exit_code = EXIT_FILE_FORMAT_ERROR
@@ -241,10 +246,8 @@ def write_entries(
     compose_key: str,
     indent_spaces: int,
     indent_level: int,
-) -> Iterator[dict]:
+) -> None:
     """Write the Cocoa keybinding dict."""
-    key: str
-    value: Union[EntryDict, Entry]
     for key, value in entries.items():
         downcase_key = key.lower()
         if downcase_key == "multi_key":
@@ -252,13 +255,13 @@ def write_entries(
         elif downcase_key in KEY_MAP:
             key = KEY_MAP[downcase_key]
         elif downcase_key.startswith("u") and len(key) > 1:
-            key = fr"\U{key[1:]}"
+            key = rf"\U{key[1:]}"
 
         for _ in range(indent_level):
             print(" " * indent_spaces, file=out, end="")
         if isinstance(value, dict):
             print(f'"{key}" = {{', file=out)
-            yield from write_entries(
+            write_entries(
                 value, out, compose_key, indent_spaces, indent_level + 1
             )
             for _ in range(indent_level):
@@ -307,10 +310,10 @@ def main() -> None:
 
     if not xcompose_file.expanduser().is_file():
         print(f"{xcompose_file.resolve()} does not exist", file=stderr)
-        exit(EXIT_FILE_NOT_FOUND)
+        sys_exit(EXIT_FILE_NOT_FOUND)
 
-    with xcompose_file.open(encoding="utf8") as fp:
-        entries, exit_code = parse_xcompose(fp)
+    with xcompose_file.open(encoding="utf8") as file:
+        entries, exit_code = parse_xcompose(file)
 
     out = StringIO()
     print("{", file=out)
@@ -333,14 +336,13 @@ def main() -> None:
     )
     print(f'{" " * indent_spaces}' "*/", file=out)
 
-    # Go through the generator, we only care about the side effects
-    list(write_entries(entries, out, compose_key, indent_spaces, 1))
+    write_entries(entries, out, compose_key, indent_spaces, 1)
 
     print("}", file=out)
 
     print(out.getvalue(), end="")
 
-    exit(exit_code)
+    sys_exit(exit_code)
 
 
 if __name__ == "__main__":

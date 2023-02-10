@@ -24,6 +24,7 @@
 {{- end -}}
 
 {{- $chassisType := "desktop" -}}
+{{- $touchBar := false -}}
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") -}}
 {{-     $chassisType = "container" -}}
@@ -33,6 +34,9 @@
 {{- else if eq .chezmoi.os "darwin" -}}
 {{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
 {{-     $chassisType = "laptop" -}}
+{{-     if contains "/TouchBarServer" (output "ps" "axo" "command") -}}
+{{-       $touchBar = true -}}
+{{-     end -}}
 {{-   else -}}
 {{-     $chassisType = "desktop" -}}
 {{-   end -}}
@@ -52,13 +56,13 @@
 {{-   $serial = regexReplaceAll "[^0-9A-Za-z]" (output "cat" "/sys/firmware/devicetree/base/serial-number") "" -}}
 {{- end -}}
 
-sourceDir = {{ .chezmoi.sourceDir | quote }}
+sourceDir = {{ quote .chezmoi.sourceDir }}
 
 {{- if and (not $devcontainer) (ne $chassisType "container") }}{{/* Disable encryption on containers */}}
 encryption = "gpg"
 
 [gpg]
-    recipient = {{ $email | quote }}
+    recipient = {{ quote $email }}
 {{- end }}
 
 {{- if lookPath "pwsh" }}
@@ -82,15 +86,16 @@ encryption = "gpg"
     devcontainer = {{ $devcontainer }}
     wsl = {{ $wsl }}
     embedded = {{ $embedded }}
-    chassistype = {{ $chassisType | quote }}
-    serial = {{ $serial | quote }}
+    chassistype = {{ quote $chassisType }}
+    touchbar = {{ quote $touchBar }}
+    serial = {{ quote $serial }}
     dockercmd = "docker"
 {{- if eq .chezmoi.os "linux" }}
     uid = 1000
     display = 0
 {{- end }}
 {{- if or (not stdinIsATTY) $devcontainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive */}}
-    email = {{ $email | quote }}
+    email = {{ quote $email }}
     work = {{ $work }}
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
     email = {{ promptString "E-mail" $email | quote }}

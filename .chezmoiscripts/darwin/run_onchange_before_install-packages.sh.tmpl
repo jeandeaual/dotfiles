@@ -41,10 +41,19 @@ brew 'exa'
 brew 'jq'
 brew 'yq'
 brew 'wget'
+brew 'cmake'
+brew 'ninja'
+brew 'go-task/tap/go-task'
+brew 'ansible'
+brew 'ansible-lint'
+brew 'perkons/homebrew-sshpass/sshpass'
 brew 'go'
 brew 'golangci-lint'
 brew 'shellcheck'
+brew 'shfmt'
 brew 'hadolint'
+brew 'prettier'
+brew 'markdownlint-cli'
 brew 'python'
 brew 'pipx'
 brew 'poetry'
@@ -59,7 +68,6 @@ brew 'docker-compose'
 brew 'kubectx'
 brew 'kubeseal'
 brew 'gh'  # GitHub CLI
-brew 'heroku/brew/heroku'
 {{- if .work }}{{/* Work */}}
 brew 'tfenv'
 brew 'TylerBrock/saw/saw'
@@ -72,6 +80,7 @@ brew 'k9s'
 brew 'okteto'
 brew 'helm'
 brew 'argo'
+brew 'lastpass-cli'
 {{- else }}{{/* Personal */}}
 brew 'arduino-cli'
 brew 'qmk/qmk/qmk'
@@ -91,10 +100,9 @@ cask 'maccy'
 cask 'soundsource'
 cask 'vlc'
 cask 'plexamp'
-{{- if eq .chassistype "laptop" }}
+{{- if .touchbar }}
 cask 'pock'
 {{- end }}
-cask 'obs'
 cask 'cyberduck'
 cask 'google-chrome'
 cask 'firefox'
@@ -116,12 +124,13 @@ cask 'homebrew/cask-fonts/font-fira-code-nerd-font'
 cask 'homebrew/cask-drivers/hhkb-pro-driver'
 {{- if .work }}{{/* Work */}}
 cask 'box-drive'
-cask 'box-notes'
 cask 'notion'
 cask 'dbeaver-community'
 cask 'insomnia'
 cask 'sourcetree'
 cask 'viber'
+cask 'lastpass'
+cask 'grammarly-desktop'
 {{- else }}{{/* Personal */}}
 cask 'discord'
 cask 'docker'
@@ -134,6 +143,7 @@ cask 'android-studio'
 cask 'arduino'
 cask 'steam'
 cask 'mumble'
+cask 'obs'
 cask 'quodlibet'
 cask 'zoom'
 {{- end }}
@@ -172,7 +182,7 @@ login_items=(
     "/Applications/Maccy.app"
     "/Applications/SoundSource.app"
     "/Applications/BetterSnapTool.app"
-{{- if eq .chassistype "laptop" }}
+{{- if .touchbar }}
     "${HOME}/Applications/Pock.app"
 {{- end }}
     "${HOME}/Applications/Slack.app"

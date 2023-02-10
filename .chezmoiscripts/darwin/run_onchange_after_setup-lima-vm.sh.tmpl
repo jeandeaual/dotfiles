@@ -1,14 +1,19 @@
-{{- if and .work (eq .chezmoi.os "darwin") -}}
+{{- if and .work (eq .chezmoi.os "darwin") (lookPath "limactl") -}}
 #!/bin/bash
 
 set -euo pipefail
 
+{{- if eq .dockercmd "podman" }}
+readonly VM_DIR="${HOME}/.lima/podman"
+readonly LIMA_CONFIG="https://gist.githubusercontent.com/jeandeaual/b797a1ca446b985a93ad6b17886afaa5/raw/d2a01f9d87441b3b605c9c66caeb7f8b2155584a/podman.yaml"
+{{- else }}
 readonly VM_DIR="${HOME}/.lima/docker"
 readonly LIMA_CONFIG="https://gist.githubusercontent.com/jeandeaual/5f77ad4486bf727f8d02793ebc974de2/raw/1554d594b71168635b17d46a8e5fba708ffb6ca9/docker.yaml"
+{{- end }}
 
 if [ ! "$(command -v limactl)" ]; then
     echo "limactl not found" 1>&2
-    exit 0
+    exit 1
 fi
 
 if [[ ! -d "${VM_DIR}" ]]; then

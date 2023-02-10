@@ -13,7 +13,7 @@
 {{-   end -}}
 {{- end -}}
 
-{{- if and (eq .chezmoi.os "linux") (ne .chassistype "server") (ne .chassistype "container") (not .devcontainer) (not $wsl) (not $alpine) -}}
+{{- if and (eq .chezmoi.os "linux") (ne .chassistype "server") (ne .chassistype "container") (not .devcontainer) (not $wsl) (not $alpine) (not .steamos) -}}
 #!/bin/sh
 
 set -eu

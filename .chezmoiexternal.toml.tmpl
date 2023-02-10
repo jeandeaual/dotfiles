@@ -9,7 +9,7 @@
     exact = true
     stripComponents = 1
 
-{{- /* Plover Grandjean dictionnaries */ -}}
+{{- /* Plover dictionnaries */ -}}
 {{- if and (not .devcontainer) (ne .chassistype "container") -}}
 {{-   $ploverFolder := ".config/plover" -}}
 {{-   if eq .chezmoi.os "darwin" -}}

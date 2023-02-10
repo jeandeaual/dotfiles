@@ -5,6 +5,7 @@ install.ps1
 pyproject.toml
 scripts/
 AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/winget-export.json
+*.bttpreset
 {{- if ne .chezmoi.os "windows" }}
 AppData
 Documents
@@ -34,6 +35,7 @@ Library
 {{- if or (eq .chezmoi.os "windows") (eq .chezmoi.os "darwin") }}
 # Visual Studio Code data is stored under ~/Library on macOS, ~/AppData on Windows and ~/.config otherwise
 .config/Code*
+.config/go
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
 .config/pacman
