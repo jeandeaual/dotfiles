@@ -114,6 +114,17 @@ fi
 {{- end }}
 if command -v kubectl >/dev/null; then
     alias k=kubectl
+
+    # Decode a Kubernetes secret
+    if command -v yq >/dev/null && ! command -v jq >/dev/null; then
+        kgetsecret() {
+            kubectl get secret -o yaml "$@" | yq -o json '.data | map_values(@base64d)'
+        }
+    else
+        kgetsecret() {
+            kubectl get secret -o json "$@" | jq '.data | map_values(@base64d)'
+        }
+    fi
 fi
 if command -v helm >/dev/null; then
     alias h=helm
@@ -231,11 +242,19 @@ alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 # AWS
 if command -v aws >/dev/null; then
     # List the AWS Lambda functions
-    alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
+    if command -v yq >/dev/null && ! command -v jq >/dev/null; then
+        alias lambdalist="aws --output yaml lambda list-functions | yq '.Functions[].FunctionName'"
+    else
+        alias lambdalist="aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'"
+    fi
 fi
 # Python
 alias activate='source ./venv/bin/activate'
-alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
+if command -v yq >/dev/null && ! command -v jq >/dev/null; then
+    alias pipenv2requirements ="yq '.default | to_entries | .[] | .key + .value.version' Pipfile.lock"
+else
+    alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
+fi
 # PlantUML
 if command -v plantuml >/dev/null; then
     # Generate a SVG file using PlantUML

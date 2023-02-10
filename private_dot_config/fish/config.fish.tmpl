@@ -102,6 +102,16 @@ if type -q kubectl
     function k
         kubectl $argv
     end
+
+    if type -q yq && not type -q jq
+        function kgetsecret --description "Decode a Kubernetes secret"
+            kubectl get secret -o yaml $argv | yq -o json '.data | map_values(@base64d)'
+        end
+    else
+        function kgetsecret --description "Decode a Kubernetes secret"
+            kubectl get secret -o json $argv | jq '.data | map_values(@base64d)'
+        end
+    end
 end
 
 if type -q helm
@@ -342,8 +352,14 @@ end
 
 # AWS
 if type -q aws
-    function lambdalist --description "List the AWS Lambda functions"
-        aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
+    if type -q yq && not type -q jq
+        function lambdalist --description "List the AWS Lambda functions"
+            aws --output yaml lambda list-functions | yq '.Functions[].FunctionName'
+        end
+    else
+        function lambdalist --description "List the AWS Lambda functions"
+            aws --output json lambda list-functions | jq -r '.Functions[].FunctionName'
+        end
     end
 end
 
@@ -351,8 +367,14 @@ end
 function activate
     source ./venv/bin/activate.fish
 end
-function pipenv2requirements
-    jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
+if type -q yq && not type -q jq
+    function pipenv2requirements
+        yq '.default | to_entries | .[] | .key + .value.version' Pipfile.lock
+    end
+else
+    function pipenv2requirements
+        jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock
+    end
 end
 
 # PlantUML

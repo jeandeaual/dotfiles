@@ -41,6 +41,8 @@ edit:add-var cd~ $interactive:cd~
 try {
   use work
   edit:add-var airis-mysql-proxy~ $work:airis-mysql-proxy~
+  edit:add-var aws~ $work:aws~
+  edit:add-var step~ $work:step~
   edit:add-var airis-create-superuser~ $work:airis-create-superuser~
   edit:add-var airis-token~ $work:airis-token~
 } catch _ {
@@ -156,6 +158,14 @@ if (has-external xdg-open) {
 if (has-external kubectl) {
   fn k {|@a| kubectl $@a }
   edit:add-var k~ $k~
+
+  # Decode a Kubernetes secret
+  fn kgetsecret {|@a|
+    var data = (kubectl get secret -o json $@a | from-json)[data]
+    keys $data | each {|k|
+      put [$k (echo $data[$k] | base64 --decode)]
+    } | make-map
+  }
 }
 if (has-external helm) {
   fn h {|@a| helm $@a }
@@ -324,8 +334,7 @@ if (has-external aws) {
 }
 # Python
 fn pipenv2requirements {
-  var pipfile = (cat Pipfile.lock | from-json)
-  var default = $pipfile[default]
+  var default = (cat Pipfile.lock | from-json)[default]
   keys $default | each {|k|
     echo &sep='' $k $default[$k][version]
   }
