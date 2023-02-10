@@ -28,7 +28,8 @@ include "%L"
 # Control Pictures
 
 <Multi_key> <less> <bar>            : "↵" U21B5 # DOWNWARDS ARROW WITH CORNER LEFTWARDS
-# <Multi_key> <less> <bar>            : "⏎" U23CE # CARRIAGE RETURN SYMBOL
+# <Multi_key> <less> <bar>            : "⏎" U23CE # RETURN SYMBOL
+<Multi_key> <b> <a> <c> <k>         : "↩" U21A9 # LEFTWARDS ARROW WITH HOOK
 <Multi_key> <d> <i> <a>             : "◇" U25C7 # WHITE DIAMOND
 <Multi_key> <C> <m> <d>             : "⌘" U2318 # PLACE OF INTEREST SIGN
 <Multi_key> <o> <p> <t>             : "⌥" U2325 # OPTION KEY
@@ -1015,26 +1016,27 @@ include "%L"
 <Multi_key> <C> <comma>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
 <Multi_key> <comma> <C>       : "Ç" U00C7 # LATIN CAPITAL LETTER C WITH CEDILLA
 # Combining
-<Multi_key> <asciicircum> <apostrophe>  : "́" U0301 # COMBINING ACUTE ACCENT
-# <Multi_key> <underscore> <apostrophe>   : "̗" U0317 # COMBINING ACUTE ACCENT BELOW
-<Multi_key> <asciicircum> <grave>       : "̀" U0300 # COMBINING GRAVE ACCENT
-# <Multi_key> <underscore> <grave>        : "̖" U0316 # COMBINING GRAVE ACCENT BELOW
-<Multi_key> <asciicircum> <less>        : "͑" U0351 # COMBINING LEFT HALF RING ABOVE
-<Multi_key> <underscore> <less>         : "̜" U031C # COMBINING LEFT HALF RING BELOW
-<Multi_key> <asciicircum> <greater>     : "͗" U0357 # COMBINING RIGHT HALF RING ABOVE
-<Multi_key> <underscore> <greater>      : "̹" U0339 # COMBINING RIGHT HALF RING BELOW
-<Multi_key> <asciicircum> <period>      : "̇" U0307 # COMBINING DOT ABOVE
-<Multi_key> <underscore> <period>       : "̣" U0323 # COMBINING DOT BELOW
-<Multi_key> <asciicircum> <asciicircum> : "̂" U0302 # COMBINING CIRCUMFLEX ACCENT
-# <Multi_key> <underscore> <asciicircum>  : "̭" U032D # COMBINING CIRCUMFLEX ACCENT BELOW
-<Multi_key> <asciicircum> <v>           : "̌" U030C # COMBINING CARON
-# <Multi_key> <underscore> <v>            : "̬" U032C # COMBINING CARON BELOW
-<Multi_key> <asciicircum> <minus>       : "̄" U0304 # COMBINING MACRON
-# <Multi_key> <underscore> <minus>        : "̱" U0331 # COMBINING MACRON BELOW
-<Multi_key> <asciicircum> <b>           : "̆" U0306 # COMBINING BREVE
-# <Multi_key> <underscore> <b>            : "̮" U032E # COMBINING BREVE BELOW
-<Multi_key> <asciicircum> <asciitilde>   : "̃" U0303 # COMBINING TILDE
-<Multi_key> <underscore> <asciitilde>    : "̰" U0330 # COMBINING TILDE BELOW
+<Multi_key> <asciicircum> <apostrophe>    : "́" U0301 # COMBINING ACUTE ACCENT
+# <Multi_key> <underscore> <apostrophe>     : "̗" U0317 # COMBINING ACUTE ACCENT BELOW
+<Multi_key> <asciicircum> <grave>         : "̀" U0300 # COMBINING GRAVE ACCENT
+# <Multi_key> <underscore> <grave>          : "̖" U0316 # COMBINING GRAVE ACCENT BELOW
+<Multi_key> <asciicircum> <less>          : "͑" U0351 # COMBINING LEFT HALF RING ABOVE
+<Multi_key> <underscore> <less>           : "̜" U031C # COMBINING LEFT HALF RING BELOW
+<Multi_key> <asciicircum> <greater>       : "͗" U0357 # COMBINING RIGHT HALF RING ABOVE
+<Multi_key> <underscore> <greater>        : "̹" U0339 # COMBINING RIGHT HALF RING BELOW
+<Multi_key> <asciicircum> <period>        : "̇" U0307 # COMBINING DOT ABOVE
+<Multi_key> <underscore> <period>         : "̣" U0323 # COMBINING DOT BELOW
+<Multi_key> <asciicircum> <asciicircum>   : "̂" U0302 # COMBINING CIRCUMFLEX ACCENT
+# <Multi_key> <underscore> <asciicircum>    : "̭" U032D # COMBINING CIRCUMFLEX ACCENT BELOW
+<Multi_key> <asciicircum> <v>             : "̌" U030C # COMBINING CARON
+# <Multi_key> <underscore> <v>              : "̬" U032C # COMBINING CARON BELOW
+<Multi_key> <asciicircum> <minus>         : "̄" U0304 # COMBINING MACRON
+# <Multi_key> <underscore> <minus>          : "̱" U0331 # COMBINING MACRON BELOW
+<Multi_key> <asciicircum> <b>             : "̆" U0306 # COMBINING BREVE
+# <Multi_key> <underscore> <b>              : "̮" U032E # COMBINING BREVE BELOW
+<Multi_key> <asciicircum> <asciitilde>    : "̃" U0303 # COMBINING TILDE
+<Multi_key> <x> <underscore> <asciitilde> : "̃" U0303 # Nasalization
+<Multi_key> <underscore> <asciitilde>     : "̰" U0330 # COMBINING TILDE BELOW
 
 # German
 <Multi_key> <s> <s> : "ß" U00DF # LATIN SMALL LETTER SHARP S
@@ -1460,7 +1462,7 @@ include "%L"
 <Multi_key> <less> <g> : "ᵷ" U1D77 # LATIN SMALL LETTER TURNED G
 <Multi_key> <less> <h> : "ɥ" U0265 # LATIN SMALL LETTER TURNED H
 <Multi_key> <less> <i> : "ᴉ" U1D09 # LATIN SMALL LETTER TURNED I
-<Multi_key> <less> <j> : "ſ̣" U017f U0303 # LATIN SMALL LETTER LONG S + COMBINING DOT BELOW
+<Multi_key> <less> <j> : "ſ̣" U017f U0323 # LATIN SMALL LETTER LONG S + COMBINING DOT BELOW
 <Multi_key> <less> <k> : "ʞ" U029E # LATIN SMALL LETTER TURNED K
 <Multi_key> <less> <l> : "ן" U05DF # HEBREW LETTER FINAL NUN
 <Multi_key> <less> <m> : "ɯ" U026F # LATIN SMALL LETTER TURNED M
@@ -2385,6 +2387,7 @@ include "%L"
 <Multi_key> <Multi_key> <m> <e> <d>                 : "⚕️" U2695 UFE0F # STAFF OF AESCULAPIUS (emoji version of ⚕)
 <Multi_key> <Multi_key> <m> <i> <c>                 : "🎤" U1F3A4 # MICROPHONE
 <Multi_key> <Multi_key> <s> <c> <o> <p> <e>         : "🔬" U1F52C # MICROSCOPE
+<Multi_key> <Multi_key> <s> <c> <i> <e> <n> <c> <e> : "🔬" U1F52C # MICROSCOPE
 <Multi_key> <Multi_key> <a> <r> <t>                 : "🎨" U1F3A8 # ARTIST PALETTE
 # <Multi_key> <Multi_key> <r> <o> <c> <k> <e> <t>     : "🚀" U1F680 # ROCKET
 # <Multi_key> <Multi_key> <f> <t> <r> <u> <c> <k>     : "🚒" U1F692 # FIRE ENGINE
@@ -2828,6 +2831,7 @@ include "%L"
 <Multi_key> <Multi_key> <colon> <minus> <parenright>             : "🙂" U1F642 # SLIGHTLY SMILING FACE
 <Multi_key> <Multi_key> <semicolon> <parenright>                 : "😉" U1F609 # WINKING FACE
 <Multi_key> <Multi_key> <semicolon> <minus> <parenright>         : "😉" U1F609 # WINKING FACE
+<Multi_key> <Multi_key> <w> <i> <n> <k>                          : "😉" U1F609 # WINKING FACE
 <Multi_key> <Multi_key> <asciicircum> <asciicircum>              : "😊" U1F60A # SMILING FACE WITH SMILING EYES
 <Multi_key> <Multi_key> <6> <6>                                  : "😊" U1F60A # SMILING FACE WITH SMILING EYES
 <Multi_key> <Multi_key> <6> <underscore> <6>                     : "😊" U1F60A # SMILING FACE WITH SMILING EYES
@@ -2857,6 +2861,7 @@ include "%L"
 <Multi_key> <Multi_key> <at> <o>                                 : "😵‍💫" U1F635 U200D U1F4AB # FACE WITH SPIRAL EYES
 <Multi_key> <Multi_key> <at> <O>                                 : "😵‍💫" U1F635 U200D U1F4AB # FACE WITH SPIRAL EYES
 <Multi_key> <Multi_key> <c> <o> <n> <f> <o> <u> <n> <d> <e> <d>  : "😖" U1F616 # CONFOUNDED FACE
+<Multi_key> <Multi_key> <c> <o> <n> <f> <u> <s>                  : "😖" U1F616 # CONFOUNDED FACE
 <Multi_key> <Multi_key> <colon> <parenleft>                      : "🙁" U1F641 # SLIGHTLY FROWNING FACE
 <Multi_key> <Multi_key> <colon> <minus> <parenleft>              : "🙁" U1F641 # SLIGHTLY FROWNING FACE
 <Multi_key> <Multi_key> <greater> <colon> <parenleft>            : "😠" U1F620 # ANGRY FACE
