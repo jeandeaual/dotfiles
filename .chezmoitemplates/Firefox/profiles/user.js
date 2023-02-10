@@ -84,6 +84,10 @@ user_pref("browser.uidensity", 1);
  * SECTION: Extensions / plugins                                              *
  ******************************************************************************/
 
+// PREF: Don't process incoming add-on enabled/disabled status
+// https://wiki.mozilla.org/Services/Sync/Addon_Sync#Can_I_have_different_enabled_states_on_different_machines.3F
+user_pref("services.sync.addons.ignoreUserEnabledChanges", true);
+
 // PREF: Ensure you have a security delay when installing add-ons (milliseconds)
 // http://kb.mozillazine.org/Disable_extension_install_delay_-_Firefox
 // http://www.squarefree.com/2004/07/01/race-conditions-in-security-dialogs/
@@ -96,28 +100,6 @@ user_pref("security.dialog_enable_delay", 1000);
 // PREF: Opt-out of themes (Persona) updates
 // https://support.mozilla.org/t5/Firefox/how-do-I-prevent-autoamtic-updates-in-a-50-user-environment/td-p/144287
 // user_pref("lightweightThemes.update.enabled", false);
-
-// PREF: Disable Flash Player NPAPI plugin
-// http://kb.mozillazine.org/Flash_plugin
-// user_pref("plugin.state.flash", 0);
-
-// PREF: Disable Java NPAPI plugin
-// user_pref("plugin.state.java", 0);
-
-// PREF: Disable sending Flash Player crash reports
-user_pref("dom.ipc.plugins.flash.subprocess.crashreporter.enabled", false);
-
-// PREF: When Flash crash reports are enabled, don't send the visited URL in the crash report
-user_pref("dom.ipc.plugins.reportCrashURL", false);
-
-// PREF: When Flash is enabled, download and use Mozilla SWF URIs blocklist
-// https://bugzilla.mozilla.org/show_bug.cgi?id=1237198
-// https://github.com/mozilla-services/shavar-plugin-blocklist
-user_pref("browser.safebrowsing.blockedURIs.enabled", true);
-
-// PREF: Disable Shumway (Mozilla Flash renderer)
-// https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Shumway
-// user_pref("shumway.disabled", true);
 
 // PREF: Disable Gnome Shell Integration NPAPI plugin
 // user_pref("plugin.state.libgnome-shell-browser-plugin", 0);
