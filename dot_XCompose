@@ -2837,6 +2837,7 @@ include "%L"
 <Multi_key> <Multi_key> <colon> <D>                              : "😀" U1F600 # GRINNING FACE
 <Multi_key> <Multi_key> <colon> <minus> <D>                      : "😀" U1F600 # GRINNING FACE
 <Multi_key> <Multi_key> <g> <r> <i> <n>                          : "😁" U1F601 # GRINNING FACE WITH SMILING EYES
+<Multi_key> <Multi_key> <z> <a> <n> <y>                          : "🤪" U1F92A # GRINNING FACE WITH ONE LARGE AND ONE SMALL EYE
 <Multi_key> <Multi_key> <equal> <D>                              : "😃" U1F603 # SMILING FACE WITH OPEN MOUTH
 <Multi_key> <Multi_key> <X> <D>                                  : "😆" U1F606 # SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES
 <Multi_key> <Multi_key> <x> <D>                                  : "😆" U1F606 # SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES
@@ -3303,6 +3304,7 @@ include "%L"
 <Multi_key> <Multi_key> <c> <r> <o> <i> <s> <s> <a> <n> <t> : "🥐" U1F950 # CROISSANT
 <Multi_key> <Multi_key> <c> <h> <o> <c> <o>                 : "🍫" U1F36B # CHOCOLATE BAR
 <Multi_key> <Multi_key> <b> <a> <g> <u> <e> <t> <t> <e>     : "🥖" U1F956 # BAGUETTE BREAD
+<Multi_key> <Multi_key> <p> <r> <e> <t> <z> <e> <l>         : "🥨" U1F968 # PRETZEL
 <Multi_key> <Multi_key> <p> <a> <n> <c> <a> <k> <e> <s>     : "🥞" U1F95E # PANCAKES
 <Multi_key> <Multi_key> <b> <a> <g> <e> <l>                 : "🥯" U1F96F # BAGEL
 <Multi_key> <Multi_key> <d> <o> <n> <u> <t>                 : "🍩" U1F369 # DOUGHNUT
@@ -3353,6 +3355,7 @@ include "%L"
 <Multi_key> <Multi_key> <p> <e> <p> <p> <e> <r>             : "🌶️" U1F336 UFE0F # HOT PEPPER (emoji version of 🌶)
 <Multi_key> <Multi_key> <p> <o> <t> <a> <t> <o>             : "🥔" U1F954 # POTATO
 <Multi_key> <Multi_key> <s> <a> <t> <s> <u> <m> <a>         : "🍠" U1F360 # ROASTED SWEET POTATO
+<Multi_key> <Multi_key> <y> <a> <k> <i> <i> <m> <o>         : "🍠" U1F360 # ROASTED SWEET POTATO
 <Multi_key> <Multi_key> <a> <u> <b> <e> <r> <g>             : "🍆" U1F346 # AUBERGINE
 <Multi_key> <Multi_key> <t> <o> <m> <a> <t> <o>             : "🍅" U1F345 # TOMATO
 <Multi_key> <Multi_key> <s> <a> <l> <a> <d>                 : "🥬" U1F96C # LEAFY GREEN
@@ -3362,12 +3365,15 @@ include "%L"
 <Multi_key> <Multi_key> <g> <a> <r> <l> <i> <c>             : "🧄" U1F9C4 # GARLIC
 <Multi_key> <Multi_key> <o> <i> <g> <n> <o> <n>             : "🧅" U1F9C5 # ONION
 <Multi_key> <Multi_key> <m> <u> <s> <h> <r> <o> <o> <m>     : "🍄" U1F344 # MUSHROOM
+<Multi_key> <Multi_key> <p> <e> <a> <n> <u> <t>             : "🥜" U1F95C # PEANUTS
 <Multi_key> <Multi_key> <m> <a> <r> <r> <o> <n>             : "🌰" U1F330 # CHESTNUT
 <Multi_key> <Multi_key> <k> <u> <r> <i>                     : "🌰" U1F330 # CHESTNUT
 <Multi_key> <Multi_key> <a> <p> <p> <l> <e>                 : "🍎" U1F34E # RED APPLE
 <Multi_key> <Multi_key> <r> <a> <p> <p> <l> <e>             : "🍎" U1F34E # RED APPLE
 <Multi_key> <Multi_key> <g> <a> <p> <p> <l> <e>             : "🍏" U1F34F # GREEN APPLE
 <Multi_key> <Multi_key> <p> <e> <a> <r>                     : "🍐" U1F350 # PEAR
+<Multi_key> <Multi_key> <g> <r> <a> <p> <e> <s>             : "🍇" U1F347 # GRAPES
+<Multi_key> <Multi_key> <r> <a> <i> <s> <i> <n>             : "🍇" U1F347 # GRAPES
 <Multi_key> <Multi_key> <m> <e> <l> <o> <n>                 : "🍈" U1F348 # MELON
 <Multi_key> <Multi_key> <s> <u> <i> <c> <a>                 : "🍉" U1F349 # WATERMELON
 <Multi_key> <Multi_key> <t> <a> <n> <g> <e> <r> <i> <n> <e> : "🍊" U1F34A # TANGERINE
@@ -3385,6 +3391,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <t> <r> <a> <w> <b>             : "🍓" U1F353 # STRAWBERRY
 <Multi_key> <Multi_key> <f> <r> <a> <i> <s> <e>             : "🍓" U1F353 # STRAWBERRY
 <Multi_key> <Multi_key> <b> <a> <n> <a> <n> <a>             : "🍌" U1F34C # BANANA
+<Multi_key> <Multi_key> <k> <i> <w> <i>                     : "🥝" U1F95D # KIWIFRUIT
 <Multi_key> <Multi_key> <b> <b> <e> <r> <r> <y>             : "🫐" U1FAD0 # BLUEBERRIES
 <Multi_key> <Multi_key> <b> <p> <e> <p> <p> <e> <r>         : "🫑" U1FAD1 # BELL PEPPER
 <Multi_key> <Multi_key> <o> <l> <i> <v> <e>                 : "🫒" U1FAD2 # OLIVE
