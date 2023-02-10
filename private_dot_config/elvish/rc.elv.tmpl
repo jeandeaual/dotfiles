@@ -205,7 +205,7 @@ fn du {|@a| e:du -h $@a }
 fn df {|@a| e:df -Th $@a }
 fn gzip {|@a| e:gzip -v9N $@a }
 fn zip {|@a| e:zip -9 -r $@a }
-fn 7z {|@a| e:7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $@a }
+fn 7z {|@a| e:7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0 $@a }
 fn j {|@a| jobs -l $@a }
 # Show which process is using which port
 fn ports { sudo lsof +M -i4 -n -P }
