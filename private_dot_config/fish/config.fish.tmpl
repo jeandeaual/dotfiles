@@ -68,6 +68,10 @@ fish_add_path /opt/local/bin /opt/local/sbin
 if test -d /opt/local/share/man
     set -gx MANPATH /opt/local/share/man $MANPATH
 end
+
+# Disable Homebrew telemetry
+# https://docs.brew.sh/Analytics
+set -gx HOMEBREW_NO_ANALYTICS 1
 # Android build tools
 {{- if eq .chezmoi.os "darwin" }}
 set -l android_build_tools_folders ~/Library/Android/sdk/build-tools/*
@@ -82,7 +86,6 @@ end
 if test -n $android_platform_tools_path
     fish_add_path -a $android_platform_tools_path
 end
-{{- end }}
 
 # Aliases
 #------------------------------------------------------------------------------

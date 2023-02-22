@@ -58,6 +58,7 @@ if [ -d "/opt/vc/bin" ]; then
     export PATH="${PATH:+${PATH}:}/opt/vc/bin"
 fi
 {{- end }}
+
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
 devcontainer_cli_path="${HOME}/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
@@ -67,6 +68,7 @@ devcontainer_cli_path="${XDG_CONFIG_HOME:-${HOME}/.config}/Code/User/globalStora
 if [ -d "${devcontainer_cli_path}" ]; then
     export PATH="${PATH:+${PATH}:}${devcontainer_cli_path}"
 fi
+
 {{- if eq .chezmoi.os "darwin" }}
 sbin_path="/usr/local/sbin"
 if [ -d "${sbin_path}" ]; then
@@ -87,6 +89,12 @@ export PATH="/opt/local/bin:/opt/local/sbin${PATH:+:${PATH}}"
 if [ -d "/opt/local/share/man" ]; then
     export MANPATH="/opt/local/share/man${MANPATH:+:${MANPATH}}"
 fi
+
+# Disable Homebrew telemetry
+# https://docs.brew.sh/Analytics
+export HOMEBREW_NO_ANALYTICS=1
+{{- end }}
+
 # Android build tools
 {{- if eq .chezmoi.os "darwin" }}
 android_build_tools_folders=(~/Library/Android/sdk/build-tools/*)
@@ -101,7 +109,6 @@ fi
 if [ -d "${android_platform_tools_path}" ]; then
     export PATH="${PATH:+${PATH}:}${android_platform_tools_path}"
 fi
-{{- end }}
 
 # Aliases & functions
 #------------------------------------------------------------------------------

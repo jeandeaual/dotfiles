@@ -105,6 +105,7 @@ var devcontainer_cli_path = $config_path'/Code/User/globalStorage/ms-vscode-remo
 if (path:is-dir $devcontainer_cli_path) {
   set paths = [$@paths $devcontainer_cli_path]
 }
+
 {{- if eq .chezmoi.os "darwin" }}
 var sbin_path = '/usr/local/sbin'
 if (path:is-dir $sbin_path) {
@@ -129,6 +130,12 @@ if (path:is-dir /usr/local/share/man) {
     set E:MANPATH = (str:join ':' [/usr/local/share/man $E:MANPATH])
   }
 }
+
+# Disable Homebrew telemetry
+# https://docs.brew.sh/Analytics
+set E:HOMEBREW_NO_ANALYTICS = 1
+{{- end }}
+
 # Android build tools
 {{- if eq .chezmoi.os "windows" }}
 put $E:LOCALAPPDATA'/Android/sdk/build-tools/'*[nomatch-ok][type:dir] | order &reverse=$true | take 1 | each {|folder| set paths = [$@paths $folder] }
@@ -143,7 +150,6 @@ var android_platform_tools_path = ~/Android/sdk/platform-tools
 if (path:is-dir $android_platform_tools_path) {
   set paths = [$@paths $android_platform_tools_path]
 }
-{{- end }}
 
 # Aliases
 #------------------------------------------------------------------------------
@@ -166,6 +172,7 @@ if (has-external kubectl) {
       put [$k (echo $data[$k] | base64 --decode)]
     } | make-map
   }
+  edit:add-var kgetsecret~ $kgetsecret~
 }
 if (has-external helm) {
   fn h {|@a| helm $@a }
