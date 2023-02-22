@@ -43,7 +43,7 @@ Library
 .Xresources
 .xprofile
 {{- end }}
-{{- if or .devcontainer (eq .chassistype "container") }}
+{{- if .ephemeral }}
 .config/alacritty
 .config/Code*
 .config/firefox

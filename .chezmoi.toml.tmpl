@@ -26,7 +26,7 @@
 {{- $chassisType := "desktop" -}}
 {{- $touchBar := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") -}}
+{{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") (output "cat" "/proc/1/sched" | hasPrefix "init" | not) -}}
 {{-     $chassisType = "container" -}}
 {{-   else if and (lookPath "hostnamectl") (not $wsl) (not $devcontainer) -}}
 {{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis | trimSuffix "\"" | trimPrefix "\"" -}}
@@ -34,7 +34,7 @@
 {{- else if eq .chezmoi.os "darwin" -}}
 {{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
 {{-     $chassisType = "laptop" -}}
-{{-     if contains "/TouchBarServer" (output "ps" "axo" "command") -}}
+{{-     if contains "/TouchBarServer" (output "ps" "-axo" "command") -}}
 {{-       $touchBar = true -}}
 {{-     end -}}
 {{-   else -}}
@@ -87,6 +87,7 @@ encryption = "gpg"
     wsl = {{ $wsl }}
     embedded = {{ $embedded }}
     chassistype = {{ quote $chassisType }}
+    ephemeral = {{ or $devcontainer (eq $chassisType "container") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") }}
     touchbar = {{ quote $touchBar }}
     serial = {{ quote $serial }}
     dockercmd = "docker"
