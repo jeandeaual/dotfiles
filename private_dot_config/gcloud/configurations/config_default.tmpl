@@ -1,0 +1,5 @@
+{{- $caCertsFile := "/Library/Application Support/Netskope/STAgent/data/nscacert_combined.pem" -}}
+{{- if and .work (eq .chezmoi.os "darwin") (stat $caCertsFile) -}}
+[core]
+custom_ca_certs_file = {{ $caCertsFile }}
+{{- end }}

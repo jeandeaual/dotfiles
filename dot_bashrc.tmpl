@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# If not running interactively, don't do anything
+if [[ -z "${PS1}" ]]; then
+    return
+fi
+
+# Source global configuration between bash and zsh
+if [[ -r "${HOME}/.shrc" ]]; then
+    # shellcheck disable=SC1091
+    source "${HOME}/.shrc"
+fi
+
+# Source global definitions
+if [[ -r "/etc/bashrc" ]]; then
+    # shellcheck disable=SC1091
+    source "/etc/bashrc"
+fi
+
+# kubectl completions
+# https://kubernetes.io/docs/reference/kubectl/cheatsheet/#bash
+if command -v kubectl >/dev/null; then
+    # shellcheck disable=SC1090
+    source <(kubectl completion bash)
+
+    # Add kubectl completions to "alias k=kubectl"
+    complete -o default -F __start_kubectl k
+fi
+
+{{- if eq .chezmoi.os "darwin" }}
+
+# Bash completions on macOS
+# https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/bash-completion%402.rb#L50
+readonly bash_completion_path="/usr/local/etc/profile.d/bash_completion.sh"
+if [[ -r "${bash_completion_path}" ]]; then
+    # shellcheck disable=SC1090
+    source "${bash_completion_path}"
+fi
+
+# Google Cloud SDK tools and completions
+readonly gcloud_cask_path="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+readonly gcloud_inc_path="${gloud_cask_path}/path.zsh.inc"
+readonly gcloud_completion_path="${gloud_cask_path}/completion.zsh.inc"
+
+if [[ -r "${gcloud_inc_path}" ]]; then
+    # shellcheck disable=SC1090
+    source "${gcloud_inc_path}"
+fi
+
+if [[ -r "${gcloud_completion_path}" ]]; then
+    # shellcheck disable=SC1090
+    source "${gcloud_completion_path}"
+fi
+{{- end }}
+
+if command -v rbenv >/dev/null; then
+    eval "$(rbenv init - bash)"
+fi
+
+# Don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Prompt
+if command -v starship >/dev/null; then
+    eval "$(starship init bash)"
+fi

@@ -130,6 +130,7 @@ cask 'insomnia'
 cask 'sourcetree'
 cask 'viber'
 cask 'lastpass'
+cask 'google-cloud-sdk'
 cask 'grammarly-desktop'
 {{- else }}{{/* Personal */}}
 cask 'discord'
@@ -177,7 +178,7 @@ if [[ ! -d "/Library/Java/JavaVirtualMachines/openjdk.jdk" ]]; then
 fi
 
 # Startup applications setup
-IFS=', ' read -r -a current_login_item_paths <<< "$(osascript -e 'tell application "System Events" to get the path of every login item')"
+IFS=', ' read -r -a current_login_item_paths <<<"$(osascript -e 'tell application "System Events" to get the path of every login item')"
 login_items=(
     "/Applications/Maccy.app"
     "/Applications/SoundSource.app"

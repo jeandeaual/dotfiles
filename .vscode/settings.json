@@ -9,7 +9,7 @@
     // AWS
     "**/dot_aws/config": "properties",
     // Bash
-    "dot_bashrc": "shellscript",
+    "dot_bashrc*": "shellscript",
     // chezmoi
     ".chezmoiignore": "gogo",
     ".chezmoiremove": "gogo",
@@ -73,6 +73,7 @@
     "**/termite/config": "properties",
     // TOML
     "*.toml.tmpl": "toml",
+    "**/gcloud/configurations/*": "toml",
     // Vim
     "vimrc": "viml",
     "*.vim.tmpl": "viml",
@@ -86,12 +87,14 @@
     "dot_XCompose": "xcompose",
     // xdg-user-dir
     "user-dirs.dirs": "shellscript",
+    // YAML
+    "*.yaml.tmpl": "goyaml",
     // youtube-dl
     "**/youtube-dl/config": "properties",
     "**/yt-dlp/config": "properties",
     // zsh
     "dot_zlogout": "shellscript",
-    "dot_zshrc": "shellscript",
+    "dot_zshrc*": "shellscript",
   },
   "python.formatting.provider": "black",
   "[python]": {

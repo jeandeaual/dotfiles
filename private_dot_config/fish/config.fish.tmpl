@@ -57,6 +57,7 @@ set -l devcontainer_cli_path "$HOME/Library/Application Support/Code/User/global
 set -l devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
 {{- end }}
 fish_add_path -a $devcontainer_cli_path
+
 {{- if eq .chezmoi.os "darwin" }}
 fish_add_path -a /usr/local/sbin
 # GNU Make (installed via Homebrew)
@@ -72,6 +73,15 @@ end
 # Disable Homebrew telemetry
 # https://docs.brew.sh/Analytics
 set -gx HOMEBREW_NO_ANALYTICS 1
+
+# Google Cloud SDK tools and completions
+set -l gcloud_inc_path /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+
+if test -r $gcloud_inc_path
+    source $gcloud_inc_path
+end
+{{- end }}
+
 # Android build tools
 {{- if eq .chezmoi.os "darwin" }}
 set -l android_build_tools_folders ~/Library/Android/sdk/build-tools/*
