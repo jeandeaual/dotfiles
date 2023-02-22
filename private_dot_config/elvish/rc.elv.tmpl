@@ -166,12 +166,7 @@ if (has-external kubectl) {
   edit:add-var k~ $k~
 
   # Decode a Kubernetes secret
-  fn kgetsecret {|@a|
-    var data = (kubectl get secret -o json $@a | from-json)[data]
-    keys $data | each {|k|
-      put [$k (echo $data[$k] | base64 --decode)]
-    } | make-map
-  }
+  fn kgetsecret {|@a| kubectl get secret -o go-template='{{ "{{" }}range $k,$v := .data}}{{ "{{" }}printf "%s: " $k}}{{ "{{" }}if not $v}}{{ "{{" }}$v}}{{ "{{" }}else}}{{ "{{" }}$v | base64decode}}{{ "{{" }}end}}{{ "{{" }}"\n"}}{{ "{{" }}end}}' $@a }
   edit:add-var kgetsecret~ $kgetsecret~
 }
 if (has-external helm) {

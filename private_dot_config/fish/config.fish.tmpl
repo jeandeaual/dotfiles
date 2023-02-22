@@ -106,15 +106,11 @@ if type -q kubectl
         kubectl $argv
     end
 
-    if type -q yq && not type -q jq
-        function kgetsecret --description "Decode a Kubernetes secret"
-            kubectl get secret -o yaml $argv | yq -o json '.data | map_values(@base64d)'
-        end
-    else
-        function kgetsecret --description "Decode a Kubernetes secret"
-            kubectl get secret -o json $argv | jq '.data | map_values(@base64d)'
-        end
+    function kgetsecret --description "Decode a Kubernetes secret"
+        kubectl get secret -o go-template='{{ "{{" }}range $k,$v := .data}}{{ "{{" }}printf "%s: " $k}}{{ "{{" }}if not $v}}{{ "{{" }}$v}}{{ "{{" }}else}}{{ "{{" }}$v | base64decode}}{{ "{{" }}end}}{{ "{{" }}"\n"}}{{ "{{" }}end}}' $argv
     end
+
+    status --is-interactive; and kubectl completion fish | source
 end
 
 if type -q helm
