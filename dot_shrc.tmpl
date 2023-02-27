@@ -419,9 +419,9 @@ if command -v git >/dev/null; then
         shift
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
         if [ "${diff%"${diff#?}"}" = "-" ]; then
-            date="$(date -d "${diff#-} ${unit} ago")"
+            date="$(LC_ALL=C date -d "${diff#-} ${unit} ago")"
         else
-            date="$(date -d "${diff} ${unit}")"
+            date="$(LC_ALL=C date -d "${diff} ${unit}")"
         fi
 {{- else }}
         case "${unit}" in
@@ -455,7 +455,7 @@ if command -v git >/dev/null; then
             diff="+${diff}"
         fi
 
-        date="$(date -v"${diff}${unit}")"
+        date="$(LC_ALL=C date -v"${diff}${unit}")"
 {{- end }}
 
         amend=false

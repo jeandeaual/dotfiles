@@ -531,9 +531,9 @@ if type -q git
 
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
         if string match -q -- "-*" $diff
-            set date (date -d (string sub -s 2 -- $diff)" $unit ago")
+            set date (LC_ALL=C date -d (string sub -s 2 -- $diff)" $unit ago")
         else
-            set date (date -d $diff" "$unit)
+            set date (LC_ALL=C date -d $diff" "$unit)
         end
 {{- else }}
         switch $unit
@@ -560,7 +560,7 @@ if type -q git
             set diff +$diff
         end
 
-        set date (date -v$diff$unit)
+        set date (LC_ALL=C date -v$diff$unit)
 {{- end }}
 
         set -lx GIT_COMMITTER_DATE $date

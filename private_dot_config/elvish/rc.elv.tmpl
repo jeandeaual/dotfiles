@@ -505,6 +505,8 @@ if (has-external tsh) {
 
 if (has-external git) {
   fn gitc {|diff unit @a|
+    tmp E:LC_ALL = C
+
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows") (eq .chezmoi.os "android") }}
     var date
     if (str:has-prefix $diff '-') {
