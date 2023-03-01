@@ -487,9 +487,10 @@ fn write_iso {|file device|
 
 if (has-external tsh) {
   # Login to Teleport
-  fn tshl {|&env=dev|
-    if (not (has-value [prod stg dev sci] $env)) {
-      set env = dev
+  fn tshl {|&env={{ index .envs 0 }}|
+    {{ $lastIdx := sub (len .envs) 1 -}}
+    if (not (has-value [{{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }} {{ end }}{{ end }}] $env)) {
+      set env = {{ index .envs 0 }}
     }
 
     if (and (not-eq $E:TELEPORT_PROXY '') ^

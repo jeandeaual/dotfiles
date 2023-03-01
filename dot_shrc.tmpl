@@ -386,11 +386,12 @@ rmmacdotfiles() {
 if command -v tsh >/dev/null; then
     tshl() {
         case "$1" in
-            prod|stg|dev|sti)
+            {{ $lastIdx := sub (len .envs) 1 -}}
+            {{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }}|{{ end }}{{ end }})
                 env=$1
                 ;;
             *)
-                env=dev
+                env={{ index .envs 0 }}
                 ;;
         esac
 

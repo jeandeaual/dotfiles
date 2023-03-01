@@ -1,0 +1,7 @@
+envs:
+  - dev
+  - stg
+  - prod
+  - sci
+  - lab
+  - etc

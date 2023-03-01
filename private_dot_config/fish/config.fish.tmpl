@@ -508,9 +508,10 @@ end
 if type -q tsh
     function tshl --argument-names 'env' --description "Login to Teleport"
         switch $env
-            case prod stg dev sci
+            {{ $lastIdx := sub (len .envs) 1 -}}
+            case {{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }} {{ end }}{{ end }}
             case '*'
-                set env dev
+                set env {{ index .envs 0 }}
         end
 
         if test -n $TELEPORT_PROXY; and test -n $TELEPORT_USER; and test ! -f {$HOME}/.tsh/(string split ':' $TELEPORT_PROXY -f 1).yaml
