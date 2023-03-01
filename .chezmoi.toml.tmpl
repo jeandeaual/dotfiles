@@ -102,10 +102,6 @@ encryption = "gpg"
 {{- else }}
     dockercmd = "docker"
 {{- end }}
-{{- if eq .chezmoi.os "linux" }}
-    uid = 1000
-    display = 0
-{{- end }}
 {{- if or (not stdinIsATTY) $devcontainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive */}}
     email = {{ quote $email }}
     work = {{ $work }}
