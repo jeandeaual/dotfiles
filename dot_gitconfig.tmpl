@@ -23,6 +23,8 @@
 	editor = vim -f
 	filemode = false
 	fsmonitor = true
+	# Force symlinks (not set by default on Windows)
+	symlinks = true
 [alias]
 	co = checkout
 	st = status -sb
@@ -49,6 +51,12 @@
 	plfs = !git -c filter.lfs.smudge= -c filter.lfs.required=false pull && git lfs pull
 	brshow = config --get-regexp 'branch.*.description'
 	brdesc = !git config --get "branch.$(git branch --show-current).description"
+{{- if ne .chezmoi.os "darwin" }}
+	# Find duplicate files from root
+	alldupes = !"git ls-tree -r HEAD | cut -c 13- | sort | uniq -D -w 40"
+	# Find duplicate files from the current folder (can also be root)
+	dupes = !"cd `pwd`/$GIT_PREFIX && git ls-tree -r HEAD | cut -c 13- | sort | uniq -D -w 40"
+{{- end }}
 [color]
 	ui = true
 	branch = auto
@@ -59,10 +67,10 @@
 	command = bzip2
 [tar "tar.xz"]
 	command = xz -c
-; Use the SSH instead of HTTPS for Bitbucket (required for 2FA)
+# Use the SSH instead of HTTPS for Bitbucket (required for 2FA)
 [url "git@bitbucket.org:"]
 	insteadOf = https://bitbucket.org/
-; Clone and push to AUR using the "aur:" prefix
+# Clone and push to AUR using the "aur:" prefix
 [url "https://aur.archlinux.org/"]
 	insteadOf = "aur:"
 [url "ssh://aur@aur.archlinux.org/"]
