@@ -288,6 +288,7 @@
   "arduino.ignoreBoards": [
     "Adafruit HUZZAH ESP8266"
   ],
+  "arduino.useArduinoCli": true,
   // Java
   {{- if .flatpak }}
   {{- if output "flatpak" "list" "--columns=app" | contains "org.freedesktop.Sdk.Extension.openjdk17" }}
