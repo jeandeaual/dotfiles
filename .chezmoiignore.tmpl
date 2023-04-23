@@ -38,8 +38,10 @@ Library
 .config/go
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
+.config/dolphin-emu
 .config/pacman
 .local/share/fonts
+.var
 .Xresources
 .xprofile
 {{- end }}
@@ -67,6 +69,10 @@ vimfiles
 .gitconfig
 {{- end }}
 {{- if .work }}{{/* Work */}}
+.config/dolphin-emu
+.var/app/org.DolphinEmu.dolphin-emu
+Library/Application Support/Dolphin
+AppData/Roaming/Dolphin Emulator
 {{- else }}{{/* Personal */}}
 .shrc.work
 .config/fish/conf.d/work.fish
