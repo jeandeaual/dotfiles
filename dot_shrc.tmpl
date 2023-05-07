@@ -97,14 +97,17 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # Android build tools
 {{- if eq .chezmoi.os "darwin" }}
-android_build_tools_folders=(~/Library/Android/sdk/build-tools/*)
+android_build_tools_dir=~/Library/Android/sdk/build-tools
 android_platform_tools_path=~/Library/Android/sdk/platform-tools
 {{- else }}
-android_build_tools_folders=(~/Android/sdk/build-tools/*)
+android_build_tools_dir=~/Android/sdk/build-tools
 android_platform_tools_path=~/Android/sdk/platform-tools
 {{- end }}
-if [ -d "${android_build_tools_folders[-1]}" ]; then
-    export PATH="${PATH:+${PATH}:}${android_build_tools_folders[-1]}"
+if [ -d "${android_build_tools_dir}" ]; then
+    for dir in "${android_build_tools_dir}"/*; do
+        latest_build_tools_path="${dir}"
+    done
+    export PATH="${PATH:+${PATH}:}${latest_build_tools_path}"
 fi
 if [ -d "${android_platform_tools_path}" ]; then
     export PATH="${PATH:+${PATH}:}${android_platform_tools_path}"
@@ -251,7 +254,7 @@ fi
 # Python
 alias activate='source ./venv/bin/activate'
 if command -v yq >/dev/null && ! command -v jq >/dev/null; then
-    alias pipenv2requirements ="yq '.default | to_entries | .[] | .key + .value.version' Pipfile.lock"
+    alias pipenv2requirements="yq '.default | to_entries | .[] | .key + .value.version' Pipfile.lock"
 else
     alias pipenv2requirements="jq -r '.default | to_entries[] | .key + .value.version' Pipfile.lock"
 fi
@@ -313,13 +316,13 @@ fi
 {{- end }}
 
 # Create a directory and enter it
-# Usage: mkcd FOLDER
+# Usage: mkcd DIR
 mkcd() {
     mkdir -p -- "$1" && cd -P -- "$1" || return
 }
 
 if command -v chezmoi >/dev/null; then
-    # Change directory to the chezmoi folder without creating a subshell
+    # Change the working directory to the chezmoi directory without creating a subshell
     chezmoicd() {
         cd "$(chezmoi source-path)" || return
     }

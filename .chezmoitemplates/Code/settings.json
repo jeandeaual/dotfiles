@@ -395,7 +395,7 @@
   {{- else }}
   "dev.containers.dockerPath": "{{ .data.dockercmd }}",
   {{- end }}
-  "dotfiles.repository": "jeandeaual/dotfiles",
+  "dotfiles.repository": "{{ .data.github }}/dotfiles",
   {{- if eq .data.chezmoi.os "darwin" }}
   // codecontemplator.kubeseal
   "kubeseal.executablePath": "/usr/local/bin/kubeseal",
