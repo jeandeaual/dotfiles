@@ -32,6 +32,9 @@ user_pref("browser.safebrowsing.downloads.enabled", false);
  * SECTION: Misc                                                              *
  ******************************************************************************/
 
+// PREF: Enable the use of userChrome.css
+user_pref("toolkit.legacyUserProfileCustomizations.enabled", true);
+
 // PREF: Disable extension recommendations
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 
