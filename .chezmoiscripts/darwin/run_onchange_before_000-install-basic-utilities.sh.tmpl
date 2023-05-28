@@ -1,0 +1,9 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -euo pipefail
+
+brew --version >/dev/null 2>&1 || (/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)")
+wget --version >/dev/null 2>&1 || brew install wget
+xcode-select --install >/dev/null 2>&1 || echo "XCode CLI tools already installed"
+{{ end -}}
