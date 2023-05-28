@@ -32,7 +32,7 @@
 {{-     $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis | trimSuffix "\"" | trimPrefix "\"" -}}
 {{-   end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
-{{-   if contains "MacBook" (output "sysctl" "-n" "hw.model") -}}
+{{-   if contains "MacBook" (output "/usr/sbin/system_profiler" "SPHardwareDataType") -}}
 {{-     $chassisType = "laptop" -}}
 {{-     if contains "/TouchBarServer" (output "ps" "-axo" "command") -}}
 {{-       $touchBar = true -}}
