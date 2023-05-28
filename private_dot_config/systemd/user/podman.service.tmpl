@@ -1,9 +1,10 @@
 {{- if .steamos -}}
 {{- /* This assumes Podman was installed with https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman */ -}}
+{{- $target := "podman.socket" }}
 [Unit]
-Description=Podman Service
-Requires=podman.socket
-After=podman.socket
+Description=Podman API service.
+After={{ $target }}
+Requires={{ $target }}
 StartLimitIntervalSec=0
 
 [Service]

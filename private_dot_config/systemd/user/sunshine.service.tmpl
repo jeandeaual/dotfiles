@@ -1,0 +1,21 @@
+{{- if .steamos -}}
+{{- /* This assumes Sunshine was installed with `flatpak run dev.lizardbyte.app.Sunshine` */ -}}
+{{- /* See https://github.com/LizardByte/Sunshine/discussions/497 */ -}}
+{{- $appName := "dev.lizardbyte.app.Sunshine" -}}
+{{- $target := "network-online.target" -}}
+[Unit]
+Description=Sunshine - a self-hosted game stream host for Moonlight.
+After={{ $target }}
+Wants={{ $target }}
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+ExecStart=flatpak run {{ $appName }}
+ExecStop=flatpak kill {{ $appName }}
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
+{{- end }}
