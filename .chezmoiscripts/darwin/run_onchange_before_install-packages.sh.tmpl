@@ -104,9 +104,6 @@ cask 'maccy'
 cask 'soundsource'
 cask 'vlc'
 cask 'plexamp'
-{{- if .touchbar }}
-cask 'pock'
-{{- end }}
 cask 'cyberduck'
 cask 'google-chrome'
 cask 'firefox'
@@ -185,13 +182,15 @@ fi
 IFS=', ' read -r -a current_login_item_paths <<<"$(osascript -e 'tell application "System Events" to get the path of every login item')"
 login_items=(
     "/Applications/Maccy.app"
-    "/Applications/SoundSource.app"
     "/Applications/BetterSnapTool.app"
-{{- if .touchbar }}
-    "${HOME}/Applications/Pock.app"
+{{- if .work }}{{/* Work */}}
+    "/Applications/Slack.app"
+    "/Applications/Microsoft Outlook.app"
+    "/Applications/Microsoft Teams.app"
+{{- else }}{{/* Personal */}}
+    "/Applications/SoundSource.app"
+    "/Applications/Syncthing.app"
 {{- end }}
-    "${HOME}/Applications/Slack.app"
-    "${HOME}/Applications/Syncthing.app"
 )
 
 for path in "${login_items[@]}"; do

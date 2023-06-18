@@ -24,7 +24,6 @@
 {{- end -}}
 
 {{- $chassisType := "desktop" -}}
-{{- $touchBar := false -}}
 {{- if eq .chezmoi.os "linux" -}}
 {{-   if or (stat "/run/.containerenv") (output "cat" "/proc/1/cgroup" | regexMatch "(docker|kubepods)") (and (output "head" "-n" "1" "/proc/1/sched" | hasPrefix "init" | not) (output "head" "-n" "1" "/proc/1/sched" | hasPrefix "systemd" | not)) -}}
 {{-     $chassisType = "container" -}}
@@ -34,9 +33,6 @@
 {{- else if eq .chezmoi.os "darwin" -}}
 {{-   if contains "MacBook" (output "/usr/sbin/system_profiler" "SPHardwareDataType") -}}
 {{-     $chassisType = "laptop" -}}
-{{-     if contains "/TouchBarServer" (output "ps" "-axo" "command") -}}
-{{-       $touchBar = true -}}
-{{-     end -}}
 {{-   else -}}
 {{-     $chassisType = "desktop" -}}
 {{-   end -}}
@@ -90,7 +86,6 @@ encryption = "gpg"
     embedded = {{ $embedded }}
     chassistype = {{ quote $chassisType }}
     ephemeral = {{ $ephemeral }}
-    touchbar = {{ quote $touchBar }}
     serial = {{ quote $serial }}
 {{- with .chezmoi.osRelease }}
     steamos = {{ and (eq .id "steamos") (semverCompare "^3" .versionID) }}
