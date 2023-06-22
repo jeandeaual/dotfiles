@@ -60,6 +60,17 @@ fish_add_path -a $devcontainer_cli_path
 
 {{- if eq .chezmoi.os "darwin" }}
 fish_add_path -a /usr/local/sbin
+
+{{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
+
+# https://docs.brew.sh/Installation#installation
+eval (/opt/homebrew/bin/brew shellenv)
+{{-   else if lookPath "/usr/local/bin/brew" }}
+
+# https://docs.brew.sh/Installation#installation
+eval (/usr/local/bin/brew shellenv)
+{{-   end }}
+
 # GNU Make (installed via Homebrew)
 fish_add_path /usr/local/opt/make/libexec/gnubin
 # MySQL (installed via Homebrew)

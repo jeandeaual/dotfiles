@@ -108,17 +108,57 @@ if (path:is-dir $devcontainer_cli_path) {
 }
 
 {{- if eq .chezmoi.os "darwin" }}
+
 var sbin_path = '/usr/local/sbin'
 if (path:is-dir $sbin_path) {
   set paths = [$@paths $sbin_path]
 }
+
+{{- $homebrew := false }}
+{{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
+{{-     $homebrew = true }}
+# gcloud components
+var gcloud_bin_path = /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+
+# https://docs.brew.sh/Installation#installation
+set E:HOMEBREW_PREFIX = /opt/homebrew
+{{-   else if lookPath "/usr/local/bin/brew" }}
+# gcloud components
+var gcloud_bin_path = /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+
+{{-     $homebrew = true }}
+
+# https://docs.brew.sh/Installation#installation
+set E:HOMEBREW_PREFIX = /usr/local/bin/brew
+{{-   end }}
+{{-   if $homebrew }}
+{{- /* Port of https://github.com/Homebrew/brew/blob/master/Library/Homebrew/cmd/shellenv.sh for Elvish */}}
+set E:HOMEBREW_CELLAR = $E:HOMEBREW_PREFIX'/Cellar'
+set E:HOMEBREW_REPOSITORY = $E:HOMEBREW_PREFIX
+set paths = [$E:HOMEBREW_PREFIX'/bin' $E:HOMEBREW_PREFIX'/sbin' $@paths]
+if (eq E:MANPATH '') {
+  set E:MANPATH = $E:HOMEBREW_PREFIX'/share/man'
+} else {
+  set E:MANPATH = (str:join ':' [$E:HOMEBREW_PREFIX'/share/man' $E:MANPATH])
+}
+if (eq E:INFOPATH '') {
+  set E:INFOPATH = $E:HOMEBREW_PREFIX'/share/info'
+} else {
+  set E:INFOPATH = (str:join ':' [$E:HOMEBREW_PREFIX'/share/info' $E:INFOPATH])
+}
+{{-   end }}
+
+if (path:is-dir $gcloud_bin_path) {
+  set paths = [$@paths $gcloud_bin_path]
+}
+
 # GNU Make (installed via Homebrew)
-var gnubin_path = '/usr/local/opt/make/libexec/gnubin'
+var gnubin_path = /usr/local/opt/make/libexec/gnubin
 if (path:is-dir $gnubin_path) {
   set paths = [$gnubin_path $@paths]
 }
 # MySQL (installed via Homebrew)
-var mysql_cli_path = '/usr/local/opt/mysql-client/bin'
+var mysql_cli_path = /usr/local/opt/mysql-client/bin
 if (path:is-dir $mysql_cli_path) {
   set paths = [$@paths $mysql_cli_path]
 }

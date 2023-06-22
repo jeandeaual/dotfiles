@@ -70,9 +70,29 @@ if [ -d "${devcontainer_cli_path}" ]; then
 fi
 
 {{- if eq .chezmoi.os "darwin" }}
+
 sbin_path="/usr/local/sbin"
 if [ -d "${sbin_path}" ]; then
     export PATH="${PATH:+${PATH}:}${sbin_path}"
+fi
+
+{{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
+
+# https://docs.brew.sh/Installation#installation
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# gcloud components
+gcloud_bin_path="/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
+{{-   else if lookPath "/usr/local/bin/brew" }}
+
+# https://docs.brew.sh/Installation#installation
+eval "$(/usr/local/bin/brew shellenv)"
+
+# gcloud components
+gcloud_bin_path="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
+{{-   end }}
+if [ -d "${gcloud_bin_path}" ]; then
+    export PATH="${PATH:+${PATH}:}${gcloud_bin_path}"
 fi
 # GNU Make (installed via Homebrew)
 gnubin_path="/usr/local/opt/make/libexec/gnubin"

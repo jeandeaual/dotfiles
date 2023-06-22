@@ -1,6 +1,11 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 {{- $shell := env "SHELL" | default "/bin/sh" -}}
+{{- $tmux := "tmux" -}}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
+{{- /* Programs install via Homebrew on Apple Silicon are not on the PATH by default */ -}}
+{{-   $tmux = "/opt/homebrew/bin/tmux" -}}
+{{- end -}}
 {{- if regexMatch "elvish$" $shell }}
 
 # Start tmux when launching alacritty
@@ -8,7 +13,7 @@ shell:
   program: {{ $shell | quote }}
   args:
     - -c
-    - or (tmux attach) (tmux)
+    - or ({{ $tmux }} attach) ({{ $tmux }})
 {{- else if regexMatch "(ba|z|da|a|fi)sh$" $shell }}
 
 # Start tmux when launching alacritty
@@ -17,7 +22,7 @@ shell:
   args:
     - -l
     - -c
-    - tmux attach || tmux
+    - {{ $tmux }} attach || {{ $tmux }}
 {{- end }}
 
 window:
