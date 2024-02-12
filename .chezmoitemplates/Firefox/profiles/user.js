@@ -34,6 +34,7 @@ user_pref("browser.safebrowsing.downloads.enabled", false);
 
 // PREF: Enable the use of userChrome.css
 user_pref("toolkit.legacyUserProfileCustomizations.enabled", true);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
 // PREF: Disable extension recommendations
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
@@ -50,9 +51,8 @@ user_pref("camera.control.face_detection.enabled", false);
 // PREF: Disable GeoIP lookup on your address to set default search engine region
 // https://trac.torproject.org/projects/tor/ticket/16254
 // https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections#w_geolocation-for-default-search-engine
-// user_pref("browser.search.countryCode", "US");
+user_pref("browser.search.geoip.url", "");
 // user_pref("browser.search.region", "US");
-// user_pref("browser.search.geoip.url", "");
 
 // PREF: Set Accept-Language HTTP header to en-US regardless of Firefox localization
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
