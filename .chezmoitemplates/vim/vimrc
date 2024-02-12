@@ -232,7 +232,9 @@ if has('multi_byte')
 endif
 
 " https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
-set nomodeline
+if !has('nvim-0.3.7') && (v:version < 801 || (v:version == 801 && !has('patch1366')))
+  set nomodeline
+endif
 
 " Use Unix as the standard file type
 set fileformat=unix
@@ -498,8 +500,6 @@ endif
 
 " Use only 1 space after "." when joining lines instead of 2
 set nojoinspaces
-
-" {{"}}}"}}2
 
 " Remapping {{"{{{"}}1
 "------------------------------------------------------------------------------
@@ -1074,34 +1074,38 @@ if has('digraphs')
   digraph fa 8289 " ⁡
 
   " Lower case superscript letters
-  " (ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ)
-  digraph aS 7491
-  digraph bS 7495
-  digraph cS 7580
-  digraph dS 7496
-  digraph eS 7497
-  digraph fS 7584
-  digraph gS 7501
-  digraph hS 688
-  digraph iS 8305
-  digraph jS 690
-  digraph kS 7503
-  digraph lS 737
-  digraph mS 7504
-  digraph nS 8319
-  digraph oS 7506
-  digraph pS 7510
-  " No superscript “q” in unicode
-  " :digraph qS
-  digraph rS 691
-  digraph sS 738
-  digraph tS 7511
-  digraph uS 7512
-  digraph vS 7515
-  digraph wS 695
-  digraph xS 739
-  digraph yS 696
-  digraph zS 7611
+  digraph aS 7491  " ᵃ
+  digraph bS 7495  " ᵇ
+  digraph cS 7580  " ᶜ
+  digraph dS 7496  " ᵈ
+  digraph eS 7497  " ᵉ
+  digraph fS 7584  " ᶠ
+  digraph gS 7501  " ᵍ
+  digraph hS 688   " ʰ
+  digraph iS 8305  " ⁱ
+  digraph jS 690   " ʲ
+  digraph kS 7503  " ᵏ
+  digraph lS 737   " ˡ
+  digraph mS 7504  " ᵐ
+  digraph nS 8319  " ⁿ
+  digraph oS 7506  " ᵒ
+  digraph pS 7510  " ᵖ
+  digraph qS 67493 " 𐞥
+  digraph rS 691   " ʳ
+  digraph sS 738   " ˢ
+  digraph tS 7511  " ᵗ
+  digraph uS 7512  " ᵘ
+  digraph vS 7515  " ᵛ
+  digraph wS 695   " ʷ
+  digraph xS 739   " ˣ
+  digraph yS 696   " ʸ
+  digraph zS 7611  " ᶻ
+
+  " Romaji
+  digraph o- 333 " ō
+  digraph u- 363 " ū
+  digraph O- 332 " Ō
+  digraph U- 362 " Ū
 
   " Pinyin
   digraph v- 470 " ǖ
@@ -1112,56 +1116,6 @@ if has('digraphs')
   digraph V' 471 " Ǘ
   digraph V< 473 " Ǚ
   digraph V` 475 " Ǜ
-
-  " Mahjong tiles
-  digraph 1m 126983 " 🀇
-  digraph 2m 126984 " 🀈
-  digraph 3m 126985 " 🀉
-  digraph 4m 126986 " 🀊
-  digraph 5m 126987 " 🀋
-  digraph 6m 126988 " 🀌
-  digraph 7m 126989 " 🀍
-  digraph 8m 126990 " 🀎
-  digraph 9m 126991 " 🀏
-  digraph 1s 126992 " 🀐
-  digraph 2s 126993 " 🀑
-  digraph 3s 126994 " 🀒
-  digraph 4s 126995 " 🀓
-  digraph 5s 126996 " 🀔
-  digraph 6s 126997 " 🀕
-  digraph 7s 126998 " 🀖
-  digraph 8s 126999 " 🀗
-  digraph 9s 127000 " 🀘
-  digraph 1p 127001 " 🀙
-  digraph 2p 127002 " 🀚
-  digraph 3p 127003 " 🀛
-  digraph 4p 127004 " 🀜
-  digraph 5p 127005 " 🀝
-  digraph 6p 127006 " 🀞
-  digraph 7p 127007 " 🀟
-  digraph 8p 127008 " 🀠
-  digraph 9p 127009 " 🀡
-  digraph 1z 126976 " 🀀
-  digraph 2z 126977 " 🀁
-  digraph 3z 126978 " 🀂
-  digraph 4z 126979 " 🀃
-  digraph 5z 126982 " 🀆
-  digraph 6z 126981 " 🀅
-  digraph 7z 126980 " 🀄
-  digraph 1f 127010 " 🀢 (Plum)
-  digraph 2f 127011 " 🀣 (Orchid)
-  digraph 3f 127013 " 🀥 (Chrysanthemum)
-  digraph 4f 127012 " 🀤 (Bamboo)
-  digraph 5f 127014 " 🀦 (Spring)
-  digraph 6f 127015 " 🀧 (Summer)
-  digraph 7f 127016 " 🀨 (Autumn)
-  digraph 8f 127017 " 🀩 (Winter)
-  digraph 9f 127018 " 🀪 (Joker)
-  digraph 0z 127019 " 🀫 (Back)
-
-  " Shogi
-  digraph sw 9750 " ☖ (White Shogi piece)
-  digraph sb 9751 " ☗ (Black Shogi piece)
 endif
 
 " {{"}}}"}}1

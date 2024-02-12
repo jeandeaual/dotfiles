@@ -6,11 +6,15 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
 hook_add = '''
-  let g:hybrid_custom_term_colors = 1
-
   if &background !=# 'dark'
     set background=dark
   endif
+
+{{- if eq .chezmoi.os "linux" }}{{/* Use the palette set in ~/.Xresources */}}
+
+  let g:hybrid_custom_term_colors = 1
+  let g:hybrid_reduced_contrast = 1
+{{- end }}
 
   colorscheme hybrid
 '''
