@@ -74,13 +74,15 @@ set E:DOWNLOADER = 'wget -S'
 if (path:is-regular &follow-symlink=$true $config_path'/ripgrep/ripgreprc') {
   set E:RIPGREP_CONFIG_PATH = $config_path'/ripgrep/ripgreprc'
 }
-if (path:is-dir /usr/local/man) {
+{{- range $path := list "/usr/local/man" "${E:HOME}'/.local/share/man'" }}
+if (path:is-dir {{ $path }}) {
   if (eq E:MANPATH '') {
-    set E:MANPATH = /usr/local/man
+    set E:MANPATH = {{ $path }}
   } else {
-    set E:MANPATH = (str:join ':' [/usr/local/man $E:MANPATH])
+    set E:MANPATH = (str:join ':' [{{ $path }} $E:MANPATH])
   }
 }
+{{- end }}
 # Add ~/.local/bin to the PATH if it exists
 if (path:is-dir $E:HOME'/.local/bin') {
   set paths = [$E:HOME'/.local/bin' $@paths]
@@ -164,11 +166,11 @@ if (path:is-dir $mysql_cli_path) {
 }
 # MacPorts
 set paths = [/opt/local/bin /opt/local/sbin $@paths]
-if (path:is-dir /usr/local/share/man) {
+if (path:is-dir /opt/local/share/man) {
   if (eq E:MANPATH '') {
-    set E:MANPATH = /usr/local/share/man
+    set E:MANPATH = /opt/local/share/man
   } else {
-    set E:MANPATH = (str:join ':' [/usr/local/share/man $E:MANPATH])
+    set E:MANPATH = (str:join ':' [/opt/local/share/man $E:MANPATH])
   }
 }
 
@@ -209,6 +211,18 @@ if (has-external kubectl) {
   # Decode a Kubernetes secret
   fn kgetsecret {|@a| kubectl get secret -o go-template='{{ "{{" }}range $k,$v := .data}}{{ "{{" }}printf "%s: " $k}}{{ "{{" }}if not $v}}{{ "{{" }}$v}}{{ "{{" }}else}}{{ "{{" }}$v | base64decode}}{{ "{{" }}end}}{{ "{{" }}"\n"}}{{ "{{" }}end}}' $@a }
   edit:add-var kgetsecret~ $kgetsecret~
+
+  # Delete all evicted Pods
+  fn kdeleteevicted {|@a|
+    kubectl $@a get pods --field-selector=status.phase==Failed -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.reason}{"\n"}{end}' | each {|pod_status|
+      if (re:match 'Evicted$' $pod_status) {
+        put (str:split ' ' $pod_status) | take 1
+      }
+    } | each {|pod|
+      kubectl $@a delete pod $pod
+    }
+  }
+  edit:add-var kdeleteevicted~ $kdeleteevicted~
 }
 if (has-external helm) {
   fn h {|@a| helm $@a }
@@ -528,12 +542,7 @@ fn write_iso {|file device|
 
 if (has-external tsh) {
   # Login to Teleport
-  fn tshl {|&env={{ index .envs 0 }}|
-    {{ $lastIdx := sub (len .envs) 1 -}}
-    if (not (has-value [{{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }} {{ end }}{{ end }}] $env)) {
-      set env = {{ index .envs 0 }}
-    }
-
+  fn tshl {
     if (and (not-eq $E:TELEPORT_PROXY '') ^
             (not-eq $E:TELEPORT_USER '') ^
             (not (path:is-regular &follow-symlink=$true $E:HOME"/.tsh/"(str:split ':' $E:TELEPORT_PROXY | take 1)".yaml"))) {

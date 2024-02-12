@@ -16,6 +16,8 @@
   "editor.matchBrackets": "never", // Never auto-close brackets
   "editor.autoClosingBrackets": "never",
   "editor.renderControlCharacters": true,
+  "editor.showFoldingControls": "always",
+  "notebook.showFoldingControls": "always",
   "explorer.autoRevealExclude": {
     "**/node_modules": true,
     "**/bower_components": true,
@@ -67,6 +69,7 @@
   // Appearence
   "workbench.colorTheme": "Noir",
   "workbench.iconTheme": "vscode-icons",
+  "workbench.editor.empty.hint": "hidden",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.activityBar.visible": true,
   "editor.renderFinalNewline": false,
@@ -186,18 +189,14 @@
   "go.vetOnSave": "off",
   "go.survey.prompt": false,
   "[go]": {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
     // Disable snippets, as they conflict with completion ranking.
     "editor.snippetSuggestions": "none"
   },
-  "[go.mod]": {
+  "[go][go.mod]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
+      "source.organizeImports": "explicit"
+    },
   },
   "gopls": {
     // Add parameter placeholders when completing a function.
@@ -398,7 +397,11 @@
   "dotfiles.repository": "{{ .data.github }}/dotfiles",
   {{- if eq .data.chezmoi.os "darwin" }}
   // codecontemplator.kubeseal
+  {{-   if eq .data.chezmoi.arch "arm64" -}}
+  "kubeseal.executablePath": "/opt/homebrew/bin/kubeseal",
+  {{-   else -}}
   "kubeseal.executablePath": "/usr/local/bin/kubeseal",
+  {{-   end -}}
   {{- if .data.work }}
   "kubeseal.useLocalCertificate": false,
   {{- end }}
@@ -408,5 +411,9 @@
   "conventionalCommits.gitmoji": false,
   "conventionalCommits.showNewVersionNotes": false,
   // mshdinsight.azure-hdinsight
-  "hdinsight.disableOpenSurveyLink": true
+  "hdinsight.disableOpenSurveyLink": true,
+  // geequlim.godot-tools
+  // Change the port for Godot 4
+  // https://github.com/godotengine/godot-vscode-plugin#why-does-it-fail-to-connect-to-the-language-server
+  "godot_tools.gdscript_lsp_server_port": 6005
 }

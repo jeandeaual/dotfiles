@@ -7,6 +7,8 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 brew 'coreutils'
 brew 'moreutils'
 brew 'findutils'
+brew 'curl'
+brew 'trurl'
 brew 'bash'
 brew 'bash-completion@2'
 brew 'zsh'
@@ -18,6 +20,7 @@ brew 'ctags'
 brew 'ack'
 brew 'ripgrep'
 brew 'fzf'
+brew 'htop'
 brew 'neofetch'
 brew 'pandoc'
 brew 'git'
@@ -36,6 +39,7 @@ brew 'lsusb'
 brew 'watch'
 brew 'noborus/tap/ov'
 brew 'exa'
+brew 'awscli'
 brew 'jq'
 brew 'yq'
 brew 'wget'
@@ -65,6 +69,8 @@ brew 'node'
 brew 'yarn'
 brew 'rustup-init'
 brew 'openjdk'
+brew 'oxipng'
+brew 'svgo'
 brew 'gromgit/fuse/sshfs-mac'
 brew 'gh'  # GitHub CLI
 brew 'podman'
@@ -83,6 +89,8 @@ brew 'k9s'
 brew 'okteto'
 brew 'helm'
 brew 'argo'
+brew 'pulumi/tap/pulumi'
+brew 'minio-mc'
 brew 'operator-sdk'
 brew 'lastpass-cli'
 {{- else }}{{/* Personal */}}
@@ -91,9 +99,6 @@ brew 'qmk/qmk/qmk'
 {{- end }}
 
 # Install GUI applications
-tap 'homebrew/cask'
-cask_args appdir: '~/Applications'
-
 cask 'macvim'
 cask 'emacs'
 cask 'plover'
@@ -101,43 +106,44 @@ cask 'karabiner-elements'
 cask 'bettertouchtool'
 cask 'steermouse'
 cask 'maccy'
-cask 'soundsource'
 cask 'vlc'
 cask 'plexamp'
 cask 'cyberduck'
-cask 'google-chrome'
-cask 'firefox'
 cask 'thunderbird'
 cask 'gimp'
+cask 'krita'
 cask 'visual-studio-code'
 cask 'keepassxc'
 cask 'wireshark'
 cask 'syncthing'
 cask 'libreoffice'
 cask 'slack'
-cask 'skype'
 cask 'kobo'
 cask 'macfuse'
 cask 'vagrant'
 cask 'xquartz'
+cask 'docker'
+{{- if ne .chezmoi.arch "arm64" }}{{/* The VirtualBox Cask is not available on ARM */}}
 cask 'virtualbox'
+{{- end }}
 cask 'homebrew/cask-fonts/font-fira-code-nerd-font'
-cask 'homebrew/cask-drivers/hhkb-pro-driver'
 {{- if .work }}{{/* Work */}}
-cask 'box-drive'
 cask 'notion'
 cask 'dbeaver-community'
-cask 'insomnia'
 cask 'sourcetree'
 cask 'viber'
-cask 'lastpass'
+cask 'openlens'
 cask 'google-cloud-sdk'
 cask 'grammarly-desktop'
 {{- else }}{{/* Personal */}}
+cask 'firefox'
+cask 'google-chrome'
+cask 'homebrew/cask-drivers/hhkb-pro-driver'
 cask 'discord'
-cask 'docker'
 cask 'dropbox'
+cask 'skype'
 cask 'veracrypt'
+cask 'blender'
 cask 'darktable'
 cask 'josm'
 cask 'mongodb-realm-studio'
@@ -148,7 +154,10 @@ cask 'mumble'
 cask 'obs'
 cask 'quodlibet'
 cask 'zoom'
+cask 'soundsource'
 {{- end }}
+
+{{- if not .work }}
 
 brew 'mas'
 
@@ -161,8 +170,6 @@ mas 'Microsoft Excel', id: 409203825
 mas 'Microsoft PowerPoint', id: 462062816
 mas 'Keka', id: 470158793
 mas 'BetterSnapTool', id: 417375580
-{{- if .work }}{{/* Work */}}
-{{- else }}{{/* Personal */}}
 mas 'GarageBand', id: 682658836
 mas 'LINE', id: 539883307
 mas 'WhatsApp Desktop', id: 1147396723
@@ -183,14 +190,14 @@ IFS=', ' read -r -a current_login_item_paths <<<"$(osascript -e 'tell applicatio
 login_items=(
     "/Applications/Maccy.app"
     "/Applications/BetterSnapTool.app"
-{{- if .work }}{{/* Work */}}
+    {{- if .work }}{{/* Work */}}
     "/Applications/Slack.app"
     "/Applications/Microsoft Outlook.app"
     "/Applications/Microsoft Teams.app"
-{{- else }}{{/* Personal */}}
+    {{- else }}{{/* Personal */}}
     "/Applications/SoundSource.app"
     "/Applications/Syncthing.app"
-{{- end }}
+    {{- end }}
 )
 
 for path in "${login_items[@]}"; do

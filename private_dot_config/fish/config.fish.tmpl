@@ -37,9 +37,11 @@ set -gx DOWNLOADER wget -S
 if test -f {$config_path}/ripgrep/ripgreprc
     set -gx RIPGREP_CONFIG_PATH {$config_path}/ripgrep/ripgreprc
 end
-if test -d /usr/local/man
-    set -gx MANPATH /usr/local/man $MANPATH
+{{- range $path := list "/usr/local/man" "{$HOME}/.local/share/man" }}
+if test -d {{ $path }}
+    set -gx MANPATH {{ $path }} $MANPATH
 end
+{{- end }}
 # Add ~/.local/bin to the PATH if it exists
 fish_add_path {$HOME}/.local/bin
 # GPG
@@ -129,6 +131,25 @@ if type -q kubectl
 
     function kgetsecret --description "Decode a Kubernetes secret"
         kubectl get secret -o go-template='{{ "{{" }}range $k,$v := .data}}{{ "{{" }}printf "%s: " $k}}{{ "{{" }}if not $v}}{{ "{{" }}$v}}{{ "{{" }}else}}{{ "{{" }}$v | base64decode}}{{ "{{" }}end}}{{ "{{" }}"\n"}}{{ "{{" }}end}}' $argv
+    end
+
+    function kforcedeletens --argument-names 'namespace' --description "Force delete a namespace by removing its finalizer and calling the Kubernetes API"
+        if test (count $argv) -lt 1
+            echo "usage: kforcedeletens NAMESPACE" 1>&2
+            return 1
+        end
+
+        kubectl proxy >/dev/null 2>&1 &
+
+        kubectl get namespace $namespace -o json |
+            jq '.spec = {"finalizers":[]}' |
+            curl -k -H "Content-Type: application/json" -X PUT --data-binary @- 127.0.0.1:8001/api/v1/namespaces/{$namespace}/finalize
+
+        kill $last_pid
+    end
+
+    function kdeleteevicted --description "Delete all evicted Pods"
+        kubectl $argv get pods --field-selector=status.phase==Failed -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.reason}{"\n"}{end}' | grep 'Evicted$' | cut -d' ' -f1 | xargs kubectl $argv delete pod
     end
 
     status --is-interactive; and kubectl completion fish | source
@@ -517,19 +538,12 @@ end
 {{- end }}
 
 if type -q tsh
-    function tshl --argument-names 'env' --description "Login to Teleport"
-        switch $env
-            {{ $lastIdx := sub (len .envs) 1 -}}
-            case {{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }} {{ end }}{{ end }}
-            case '*'
-                set env {{ index .envs 0 }}
-        end
-
+    function tshl --description "Login to Teleport"
         if test -n $TELEPORT_PROXY; and test -n $TELEPORT_USER; and test ! -f {$HOME}/.tsh/(string split ':' $TELEPORT_PROXY -f 1).yaml
             tsh login
         end
 
-        tsh kube login $env
+        tsh kube login --all
     end
 end
 

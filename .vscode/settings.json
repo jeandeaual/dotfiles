@@ -100,7 +100,13 @@
   "python.formatting.provider": "black",
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     }
+  },
+  "[tsv]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false
+  },
+  "[xcompose]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false
   }
 }

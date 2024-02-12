@@ -41,6 +41,7 @@ fcrespo82.markdown-table-formatter
 firefox-devtools.vscode-firefox-debug
 gamunu.vscode-yarn
 Garmin.monkey-c
+geequlim.godot-tools
 GitHub.vscode-pull-request-github
 GitLab.gitlab-workflow
 golang.go
@@ -114,6 +115,7 @@ mtxr.sqltools-driver-mysql
 mtxr.sqltools-driver-pg
 mutantdino.resourcemonitor
 naumovs.color-highlight
+neikeq.godot-csharp-vscode
 nico-castell.linux-desktop-file
 oderwat.indent-rainbow
 onlyutkarsh.vsix-viewer
@@ -122,7 +124,6 @@ pedro-w.tmlanguage
 pepri.subtitles-editor
 pgourlain.erlang
 printfn.gemini-improved
-rebornix.ruby
 redhat.ansible
 redhat.java
 redhat.vscode-commons
@@ -130,6 +131,7 @@ redhat.vscode-xml
 redhat.vscode-yaml
 ritwickdey.LiveServer
 rstuven.iferrblocks
+Shopify.ruby-lsp
 RubenVerg.xcompose
 rust-lang.rust-analyzer
 ryanluker.vscode-coverage-gutters
@@ -169,7 +171,6 @@ vscjava.vscode-maven
 vscode-icons-team.vscode-icons
 vscode-org-mode.org-mode
 vscodevim.vim
-wingrunr21.vscode-ruby
 XadillaX.viml
 xaver.clang-format
 ziyasal.vscode-open-in-github

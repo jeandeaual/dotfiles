@@ -23,26 +23,28 @@ function Add-Path {
         $FullPath = $Path.FullName
 
         if (Test-Path -Path $FullPath) {
-{{- if eq .chezmoi.os "windows" }}
-            if ($FullPath -notin ${env:Path}.Split(';')) {
+            if ($FullPath -notin ${env:Path}.Split('{{ .chezmoi.pathListSeparator }}')) {
                 if ($Before) {
-                    $env:Path = "${FullPath};${env:Path}"
+                    $env:Path = "${FullPath}{{ .chezmoi.pathListSeparator }}${env:Path}"
                 } else {
-                    $env:Path += ";${FullPath}"
+                    $env:Path += "{{ .chezmoi.pathListSeparator }}${FullPath}"
                 }
             }
-{{- else }}
-            if ($FullPath -notin ${env:PATH}.Split(':')) {
-                if ($Before) {
-                    $env:PATH = "${FullPath}:${env:PATH}"
-                } else {
-                    $env:PATH += ":${FullPath}"
-                }
-            }
-{{- end }}
         }
     }
 }
+
+{{- if eq .chezmoi.os "darwin" }}
+{{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
+
+# https://docs.brew.sh/Installation#installation
+Invoke-Expression (& '/opt/homebrew/bin/brew' shellenv | Out-String)
+{{-   else if lookPath "/usr/local/bin/brew" }}
+
+# https://docs.brew.sh/Installation#installation
+Invoke-Expression (& '/usr/local/bin/brew' shellenv | Out-String)
+{{-   end }}
+{{- end }}
 
 {{ if eq .chezmoi.os "windows" -}}
 # On Windows, the console input and output encodings are set to the system locale instead of UTF-8
@@ -376,7 +378,7 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
 {{- end }}
         $path = switch -Wildcard ($executionContext.SessionState.Path.CurrentLocation.Path) {
             "$HOME" { "~" }
-            "$HOME{{ if eq .chezmoi.os "windows" }}\{{ else }}/{{ end }}*" { $executionContext.SessionState.Path.CurrentLocation.Path.Replace($HOME, "~") }
+            "$HOME{{ .chezmoi.pathSeparator }}*" { $executionContext.SessionState.Path.CurrentLocation.Path.Replace($HOME, "~") }
             default { $executionContext.SessionState.Path.CurrentLocation.Path }
         }
 

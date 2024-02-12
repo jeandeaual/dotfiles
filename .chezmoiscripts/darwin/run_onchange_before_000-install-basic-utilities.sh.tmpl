@@ -3,7 +3,11 @@
 
 set -euo pipefail
 
-brew --version >/dev/null 2>&1 || (/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)")
+brew --version >/dev/null 2>&1 || (/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)")
 wget --version >/dev/null 2>&1 || brew install wget
-xcode-select --install >/dev/null 2>&1 || echo "XCode CLI tools already installed"
+if xcode-select --install >/dev/null 2>&1; then
+    sudo xcodebuild -license accept
+else
+    echo "XCode CLI tools already installed"
+fi
 {{ end -}}

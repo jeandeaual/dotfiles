@@ -8,9 +8,9 @@
 	signingkey = 7BD79C2E53F866DB
 {{- else }}
 	signingkey = 0B0DB8BEF26C467F
+{{- end }}
 [commit]
 	gpgsign = true
-{{- end }}
 [merge]
 	conflictStyle = zdiff3
 	tool = vimd
@@ -67,6 +67,11 @@
 	command = bzip2
 [tar "tar.xz"]
 	command = xz -c
+{{- if .work }}
+# Use HTTPS instead of the Git protocol for GitHub
+[url "https://github.com"]
+	insteadOf = git://github.com
+{{- end }}
 # Use the SSH instead of HTTPS for Bitbucket (required for 2FA)
 [url "git@bitbucket.org:"]
 	insteadOf = https://bitbucket.org/

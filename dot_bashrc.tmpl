@@ -29,6 +29,9 @@ fi
 
 {{- if eq .chezmoi.os "darwin" }}
 
+# https://support.apple.com/en-us/HT208050
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Bash completions on macOS
 # https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/bash-completion%402.rb#L50
 readonly bash_completion_path="/usr/local/etc/profile.d/bash_completion.sh"

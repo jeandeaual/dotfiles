@@ -40,9 +40,11 @@ export DOWNLOADER='wget -S'
 if [ -f "${XDG_CONFIG_HOME:-${HOME}/.config}/ripgrep/ripgreprc" ]; then
     export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/ripgrep/ripgreprc"
 fi
-if [ -d "/usr/local/man" ]; then
-    export MANPATH="/usr/local/man${MANPATH:+:${MANPATH}}"
+{{- range $path := list "/usr/local/man" "${HOME}/.local/share/man" }}
+if [ -d {{ quote $path }} ]; then
+    export MANPATH="{{ $path }}${MANPATH:+:${MANPATH}}"
 fi
+{{- end }}
 # Add ~/.local/bin to the PATH if it exists
 if [ -d "${HOME}/.local/bin" ]; then
     export PATH="${HOME}/.local/bin${PATH:+:${PATH}}"
@@ -52,13 +54,12 @@ if command -v tty >/dev/null; then
     GPG_TTY="$(tty)"
     export GPG_TTY
 fi
-# Raspberry Pi
 {{- if .embedded }}
+# Raspberry Pi
 if [ -d "/opt/vc/bin" ]; then
     export PATH="${PATH:+${PATH}:}/opt/vc/bin"
 fi
 {{- end }}
-
 # Visual Studio Code devcontainer CLI
 {{- if eq .chezmoi.os "darwin" }}
 devcontainer_cli_path="${HOME}/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
@@ -148,7 +149,37 @@ if command -v kubectl >/dev/null; then
     # Decode a Kubernetes secret
     # shellcheck disable=SC2154
     alias kgetsecret='kubectl get secret -o go-template='\''{{ "{{" }}range $k,$v := .data}}{{ "{{" }}printf "%s: " $k}}{{ "{{" }}if not $v}}{{ "{{" }}$v}}{{ "{{" }}else}}{{ "{{" }}$v | base64decode}}{{ "{{" }}end}}{{ "{{" }}"\n"}}{{ "{{" }}end}}'\'''
+
+    # Force delete a namespace by removing its finalizer and calling the Kubernetes API
+    kforcedeletens() {
+        if [ $# -lt 1 ]; then
+            echo "usage: kforcedeletens NAMESPACE" 1>&2
+            return 1
+        fi
+
+        namespace=$1
+
+        kubectl proxy >/dev/null 2>&1 &
+
+        kubectl get namespace "${namespace}" -o json |
+            jq '.spec = {"finalizers":[]}' |
+            curl -k -H "Content-Type: application/json" -X PUT --data-binary @- "127.0.0.1:8001/api/v1/namespaces/${namespace}/finalize"
+
+        kill $!
+    }
+
+    # Delete all evicted Pods
+    kdeleteevicted() {
+        kubectl "$@" get pods --field-selector=status.phase==Failed -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.reason}{"\n"}{end}' | grep 'Evicted$' | cut -d' ' -f1 | xargs kubectl "$@" delete pod
+    }
 fi
+{{- if eq .chezmoi.os "linux" }}
+openport() {
+    LOW_BOUND=$1
+    UPPER_BOUND=$2
+    comm -23 <(seq ${LOW_BOUND} ${UPPER_BOUND} | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf | head -n 1
+}
+{{- end }}
 if command -v helm >/dev/null; then
     alias h=helm
 fi
@@ -168,10 +199,10 @@ if command -v exa >/dev/null; then
 
     tree_ignore="cache|log|logs|node_modules|vendor|__pycache__"
 
-    alias lt='ls --tree -D -L 2 -I ${tree_ignore}'
-    alias ltt='ls --tree -D -L 3 -I ${tree_ignore}'
-    alias lttt='ls --tree -D -L 4 -I ${tree_ignore}'
-    alias ltttt='ls --tree -D -L 5 -I ${tree_ignore}'
+    alias lt="ls --tree -D -L 2 -I '${tree_ignore}'"
+    alias ltt="ls --tree -D -L 3 -I '${tree_ignore}'"
+    alias lttt="ls --tree -D -L 4 -I '${tree_ignore}'"
+    alias ltttt="ls --tree -D -L 5 -I '${tree_ignore}'"
 else
 {{- if eq .chezmoi.os "darwin" }}
     alias ls='ls -G'
@@ -286,6 +317,16 @@ if command -v plantuml >/dev/null; then
     alias plantuml-png="plantuml -tpng -Sdpi=300"
     # Generate a PDF file using PlantUML
     alias plantuml-pdf="plantuml -tpdf"
+    plantuml-files() {
+        find . -type f \
+            -not -path '*/\.git/*' \
+            -not -path 'node_modules' \
+            -not -path '*/\.DS_Store' \
+            -print | \
+        sort | \
+        sed -e 's/^\.\.*//' -e '1s/^/@startfiles\n/' -e '$s/$/\n@endfiles/' | \
+        plantuml -pipe > diagram.png
+    }
 fi
 # DBus
 if command -v dbus-send >/dev/null; then
@@ -408,23 +449,13 @@ rmmacdotfiles() {
 
 if command -v tsh >/dev/null; then
     tshl() {
-        case "$1" in
-            {{ $lastIdx := sub (len .envs) 1 -}}
-            {{ range $idx, $env := .envs }}{{ $env }}{{ if lt $idx $lastIdx }}|{{ end }}{{ end }})
-                env=$1
-                ;;
-            *)
-                env={{ index .envs 0 }}
-                ;;
-        esac
-
         if [ -n "${TELEPORT_PROXY}" ] && \
            [ -n "${TELEPORT_USER}" ] && \
            [ ! -f "${HOME}/.tsh/$(echo "$TELEPORT_PROXY" | cut -d':' -f 1).yaml" ]; then
             tsh login
         fi
 
-        tsh kube login "${env}"
+        tsh kube login --all
     }
 fi
 
