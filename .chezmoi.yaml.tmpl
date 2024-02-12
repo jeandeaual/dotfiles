@@ -54,60 +54,61 @@
 {{-   $serial = regexReplaceAll "[^0-9A-Za-z]" (output "cat" "/sys/firmware/devicetree/base/serial-number") "" -}}
 {{- end -}}
 
-sourceDir = {{ quote .chezmoi.sourceDir }}
+sourceDir: {{ quote .chezmoi.sourceDir }}
 
 {{- if not $ephemeral }}{{/* Disable encryption on containers */}}
-encryption = "gpg"
 
-[gpg]
-    recipient = {{ quote $email }}
+encryption: gpg
+gpg:
+  recipient: {{ quote $email }}
+{{- end }}
+
+interpreters:
+  py:
+{{- if and (ne .chezmoi.os "windows") (lookPath "python3") }}
+    command: python3
+{{- else }}
+    command: python
 {{- end }}
 
 {{- if lookPath "pwsh" }}
-
-[interpreters.ps1]
-    command = "pwsh"
-    arguments = "-NoLogo"
+  ps1:
+    command: pwsh
+    arguments: -NoLogo
 {{- end }}
 
-{{- if and (ne .chezmoi.os "windows") (lookPath "python3") }}
+data:
+  devcontainer: {{ $devcontainer }}
+  wsl: {{ $wsl }}
+  embedded: {{ $embedded }}
+  chassistype: {{ quote $chassisType }}
+  ephemeral: {{ $ephemeral }}
+  serial: {{ quote $serial }}
 
-[interpreters.py]
-    command = "python3"
-{{- else }}
-
-[interpreters.py]
-    command = "python"
-{{- end }}
-
-[data]
-    devcontainer = {{ $devcontainer }}
-    wsl = {{ $wsl }}
-    embedded = {{ $embedded }}
-    chassistype = {{ quote $chassisType }}
-    ephemeral = {{ $ephemeral }}
-    serial = {{ quote $serial }}
 {{- with .chezmoi.osRelease }}
-    steamos = {{ and (eq .id "steamos") (semverCompare "^3" .versionID) }}
+  steamos: {{ and (eq .id "steamos") (semverCompare "^3" .versionID) }}
 {{- else }}
-    steamos = false
+  steamos: false
 {{- end }}
+
 {{- if and (lookPath "podman") (not (lookPath "docker")) }}
-    dockercmd = "podman"
+  dockercmd: podman
 {{- else }}
-    dockercmd = "docker"
+  dockercmd: docker
 {{- end }}
+
 {{- if or (not stdinIsATTY) $devcontainer }}{{/* Codespaces and Remote - Containers dotfiles setup is non-interactive */}}
-    email = {{ quote $email }}
-    work = {{ $work }}
+  email: {{ quote $email }}
+  work: {{ $work }}
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
-    email = {{ promptString "E-mail" $email | quote }}
-    work = {{ promptBool "Is this a work environment" $work }}
+  email: {{ promptString "E-mail" $email | quote }}
+  work: {{ promptBool "Is this a work environment" $work }}
 {{- end }}
+
 {{- if and $devcontainer (lookPath "code") }}
-    editor = "code --wait"
+  editor: code --wait
 {{- else if lookPath "vim" }}
-    editor = "vim"
+  editor: vim
 {{- else }}
-    editor = "vi"
+  editor: vi
 {{- end }}

@@ -1,0 +1,84 @@
+{{- /* Yomichan/Yomitan dictionnaries */ -}}
+{{- if and (or (eq .chassistype "laptop") (eq .chassistype "desktop")) (not .devcontainer) -}}
+
+{{-   $folder := ".local/share/yomitan" -}}
+{{-   if eq .chezmoi.os "windows" -}}
+{{-     $folder = "AppData/Local/yomitan" -}}
+{{-   end -}}
+
+# Default dictionaries
+{{    range list
+        (list "JMdict (English)"
+              "jmdict_english"
+              "2583ad84ffc446122230aace230a8c5979751aaf19b28593ab7853c04a48e4f5")
+        (list "JMdict (French)"
+              "jmdict_french"
+              "791e1c5d00aa0a1c88c4ca8d9106ab859ecb6a8425becfe15bfc0e591e734ab5")
+        (list "JMnedict (Japanese names)"
+              "jmnedict"
+              "e24c41d21f409fd4f26dbe2d41002ef5a48cae3c2e33e7919c04d3bf72648149")
+        (list "KireiCake (Japanese slang)"
+              "kireicake"
+              "5882bae13b41de651fa496c082a671b244ee8743fdb16c6ba4ca69fe9fd98988")
+        (list "KANJIDIC (English)"
+              "kanjidic_english"
+              "e7e928c84625797679e80c9f00fa613b9ee4bf6804402e611b047e98cf6148fe")
+        (list "KANJIDIC (French)"
+              "kanjidic_french"
+              "a346ef409403d27b4cf07615f31e8262bf2edb8a14c3efbaabc4123076b29dc7")
+        (list "Innocent Corpus (term and kanji frequencies across 5000+ novels)"
+              "innocent_corpus"
+              "a8a3143e6da092f5a4566606757440dba098056f463da003444158ba04a97b50")
+        (list "Kanjium (Pitch dictionary)"
+              "kanjium_pitch_accents"
+              "90d05ad6efc6f44a495bcc01db6b9d3a0f2f1c42ba38adcbefda0ddfaec8b8c2")
+}}
+# {{ index . 0 }}
+{{ $folder }}/{{ index . 1 }}.zip:
+  type: file
+  url: https://github.com/FooSoft/yomichan/raw/dictionaries/{{ index . 1 | replace " " "%20" }}.zip
+  checksum:
+    sha256: {{ index . 2 }}
+{{-   end }}
+
+# CC-CEDICT (rev.cc_cedict_2022-01-11)
+# https://github.com/anttipham/cc-cedict-for-yomichan
+{{ $folder }}/CC-CEDICT.zip:
+  type: file
+  url: https://github.com/anttipham/cc-cedict-for-yomichan/releases/download/v1.1/CC-CEDICT.bullet.points.zip
+  checksum:
+    sha256: 546fd8be109c8eed4cb464345ac5d720830ec62b18302791c337bc907f18de83
+
+# Yomichan setup for Chinese
+# https://gist.github.com/shoui520/25460fd2e9fb194d3e5152fa2ce42ca2
+
+# 中日大辞典　第二版 (rev.chuunichi1)
+{{ $folder }}/[ZH-JA] 中日大辞典 第二版.zip:
+  type: file
+  url: https://drive.google.com/uc?export=download&id=1XT10Liz_6ZpewvhN2x2ebdLiaSjFhM7C
+  checksum:
+    sha256: c04a550a228875d2ee51606819501effba655a1379e4925330f193d542269309
+
+# Yomichan for Korean
+# https://github.com/Lyroxide/yomichan-korean#dictionaries
+
+# KRDICT (rev.krdict_4_9_2023)
+{{ $folder }}/[KO-EN] KRDICT.zip:
+  type: file
+  url: https://drive.google.com/uc?export=download&id=1LChNFXFrhJfTAUm-D10-XrFuoOjzDDfd
+  checksum:
+    sha256: b8dea096787cdc3cd2aa6befd0e497da5fbb19ea5d30948ef916a3df12a1a3b5
+# KRDICT JP (rev.krdictjp_290123)
+{{ $folder }}/[KO-JA] KRDICT.zip:
+  type: file
+  url: https://drive.google.com/uc?export=download&id=1mb56wGF8B-iZFAgUlr0T2MKNh1P1pXxB
+  checksum:
+    sha256: 9286a6b94265184f61d29043e82dab843d1007d95eda61530c99fc4f8055908f
+# Naver KR-JP (rev.naver_ver3_290123)
+{{ $folder }}/[KR-JP] Naver-2.4.2.zip:
+  type: file
+  url: https://drive.google.com/uc?export=download&id=1ncRboooYjyZ_QBxKnFV-nLi9QVpC_lDK
+  checksum:
+    sha256: 04f7c4a185651fbef4d7abaebdcce2790f421b461b72cbd8326276b9e0f7dfe3
+
+{{- end }}

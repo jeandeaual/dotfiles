@@ -1,0 +1,17 @@
+{{- if and (ne .chezmoi.os "darwin") (or (eq .chassistype "laptop") (eq .chassistype "desktop")) (not .devcontainer) -}}
+{{-   $fontFolder := ".local/share/fonts" -}}
+{{-   $suffix := "" -}}
+{{-   if eq .chezmoi.os "windows" -}}
+{{-     $fontFolder = "AppData/Local/Microsoft/Windows/Fonts" -}}
+{{-     $suffix = " Windows Compatible" -}}
+{{-   end -}}
+
+# Download all the variants of the Fira Code Nerd Font
+{{-   range $_, $face := list "Regular" "Light" "Medium" "Bold" "Retina" "SemiBold" -}}
+{{-     range $_, $variant := list "" " Mono" }}
+{{ $fontFolder }}/Fira Code {{ $face }} Nerd Font Complete{{ $variant }}.ttf:
+  type: file
+  url: https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/{{ $face }}/complete/Fira%20Code%20{{ $face }}%20Nerd%20Font%20Complete{{ $variant | replace " " "%20" }}{{ $suffix | replace " " "%20" }}.ttf
+{{-     end -}}
+{{-   end -}}
+{{- end }}

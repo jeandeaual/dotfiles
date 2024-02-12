@@ -1,0 +1,22 @@
+{{- if and (or (eq .chassistype "laptop") (eq .chassistype "desktop")) (not .devcontainer) -}}
+{{-   $ploverFolder := ".config/plover" -}}
+{{-   if eq .chezmoi.os "darwin" -}}
+{{-     $ploverFolder = "Library/Application Support/plover" -}}
+{{-   else if eq .chezmoi.os "windows" -}}
+{{-     $ploverFolder = "AppData/Local/plover/plover" -}}
+{{-   end }}
+
+# Download the Typey Type dictionaries from https://github.com/didoesdigital/steno-dictionaries
+{{-   range list "dict" "fingerspelling" "numbers" "punctuation" "emoji" "condensed-strokes" "condensed-strokes-fingerspelled" }}
+{{ $ploverFolder }}/{{ . }}.json:
+  type: file
+  url: https://github.com/didoesdigital/steno-dictionaries/raw/HEAD/dictionaries/{{ . | replace " " "%20" }}.json
+{{-   end }}
+
+# Download the Plover Grandjean dictionaries from https://github.com/azizyemloul/plover-france-dict
+{{-   range list "01_French_SION" "02_French_Chiffres" "03_French_Adverbes" "04_French_Adjectifs" "05_French_Noms" "06_French_Verbes" "07_French_User" }}
+{{ $ploverFolder }}/{{ . }}.json:
+  type: file
+  url: https://github.com/azizyemloul/plover-france-dict/raw/HEAD/{{ . | replace " " "%20" }}.json
+{{-   end -}}
+{{- end }}
