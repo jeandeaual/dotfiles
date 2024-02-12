@@ -5,7 +5,7 @@ https://unicode.org/emoji/charts/full-emoji-list.html
 and check if .XCompose is missing any.
 """
 
-from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser, FileType
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from html.parser import HTMLParser
 from http.client import HTTPResponse
 from pathlib import Path
@@ -61,6 +61,7 @@ class HTMLTableParser(HTMLParser):
             self._current_cell.append(data.strip())
 
     def handle_cell_end(self) -> None:
+        """Cell end handler."""
         final_cell = self._data_separator.join(self._current_cell).strip()
         self._current_row.append(final_cell)
         self._current_cell = []
@@ -107,9 +108,11 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-
-    args = parser.parse_args()
     xcompose_file: Path = args.file
+
+    if not xcompose_file.is_file():
+        print(f"{xcompose_file} is not a file or doesn't exist", file=stderr)
+        sys_exit(1)
 
     parser = HTMLTableParser()
 
@@ -180,7 +183,8 @@ def main() -> None:
                 existing_codepoints := existing_emojis.get(symbol)
             ) and existing_codepoints != codepoints:
                 print(
-                    f"Found different codepoint for {symbol} on {line}: {codepoints} != {existing_codepoints}",
+                    f"Found different codepoint for {symbol} on {line}: "
+                    f"{codepoints} != {existing_codepoints}",
                     file=stderr,
                 )
                 continue
@@ -211,7 +215,8 @@ def main() -> None:
 
         if not existing:
             print(
-                f"{character} - {name} ({codepoint}) not found in {xcompose_file}"
+                f"{character} - {name} ({codepoint}) "
+                f"not found in {xcompose_file}"
             )
             continue
 
@@ -225,7 +230,8 @@ def main() -> None:
             and existing_codepoint.removeprefix("U+200D ") != codepoint
         ):
             print(
-                f"{character} found but with codepoint {existing_codepoint} instead of {codepoint}",
+                f"{character} found but with codepoint {existing_codepoint} "
+                f"instead of {codepoint}",
                 file=stderr,
             )
 
