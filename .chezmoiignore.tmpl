@@ -9,6 +9,7 @@ AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/wi
 {{- if ne .chezmoi.os "windows" }}
 AppData
 Documents
+.rsgain
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .vim
@@ -40,6 +41,7 @@ Library
 {{- if ne .chezmoi.os "linux" }}
 .config/dolphin-emu
 .config/pacman
+.config/rsgain
 .local/share/fonts
 .var
 .Xresources
