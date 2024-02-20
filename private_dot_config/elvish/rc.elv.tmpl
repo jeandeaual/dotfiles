@@ -74,7 +74,7 @@ set E:DOWNLOADER = 'wget -S'
 if (path:is-regular &follow-symlink=$true $config_path'/ripgrep/ripgreprc') {
   set E:RIPGREP_CONFIG_PATH = $config_path'/ripgrep/ripgreprc'
 }
-{{- range $path := list "/usr/local/man" "${E:HOME}'/.local/share/man'" }}
+{{- range $path := list "/usr/local/man" "$E:HOME'/.local/share/man'" }}
 if (path:is-dir {{ $path }}) {
   if (eq E:MANPATH '') {
     set E:MANPATH = {{ $path }}
@@ -272,7 +272,7 @@ fn du {|@a| e:du -h $@a }
 fn df {|@a| e:df -Th $@a }
 fn gzip {|@a| e:gzip -v9N $@a }
 fn zip {|@a| e:zip -9 -r $@a }
-fn 7z {|@a| e:7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0 $@a }
+fn 7za {|@a| 7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0 $@a }
 fn j {|@a| jobs -l $@a }
 # Show which process is using which port
 fn ports { sudo lsof +M -i4 -n -P }
@@ -363,7 +363,7 @@ fn cal {|@a| ncal -bM -w $@a }
 {{- end }}
 # List zombie processes
 fn zombie {
-  ps -eo state,ppid | eawk {|line type pid| use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } catch _ { }
+  ps -eo state,ppid | re:awk {|line type pid| use str; if (str:has-prefix $type 'Z') { put $pid } } | try { ps -f {{ if eq .chezmoi.os "linux" }}--ppid{{ else }}-o ppid{{ end }} (all) } catch _ { }
 }
 # Current UNIX timestamp in seconds
 fn ts { date +%s }
@@ -496,6 +496,16 @@ if (has-external chezmoi) {
   edit:add-var chezmoicd~ $chezmoicd~
 }
 
+# Check if a JPEG-XL file was losslessly created from a JPEG file
+fn jxl_is_lossless_jpeg {|file|
+  if (or (not (path:is-regular &follow-symlink=$true $file)) (not (re:match '.jxl$' $file))) {
+    fail 'The argument needs to be a JPEG-XL file'
+  }
+
+  # https://github.com/libjxl/libjxl/blob/main/doc/format_overview.md#jpeg-bitstream-reconstruction-data
+  head -c 64 $file | slurp | each {|contents| re:match 'jbrd' $contents }
+}
+
 {{- range list "docker" "podman" }}
 
 if (has-external {{ . }}) {
@@ -549,7 +559,7 @@ if (has-external tsh) {
       tsh login
     }
 
-    tsh kube login $env
+    tsh kube login --all
   }
   edit:add-var tshl~ $tshl~
 }

@@ -215,7 +215,7 @@ alias du='du -h'
 alias df='df -Th'
 alias gzip='gzip -v9N'
 alias zip='zip -9 -r'
-alias 7z='7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0'
+alias 7za='7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0'
 alias j='jobs -l'
 # Show which process is using which port
 alias ports='sudo lsof +M -i4 -n -P'
@@ -388,6 +388,17 @@ if command -v chezmoi >/dev/null; then
         cd "$(chezmoi source-path)" || return
     }
 fi
+
+# Check if a JPEG-XL file was losslessly created from a JPEG file
+jxl_is_lossless_jpeg() {
+    if [ ! -f "$1" ] || ! echo "$1" | grep -q '.jxl$'; then
+        echo "The argument needs to be a JPEG-XL file" 1>&2
+        return 1
+    fi
+
+    # https://github.com/libjxl/libjxl/blob/main/doc/format_overview.md#jpeg-bitstream-reconstruction-data
+    head -c 64 "$1" | grep -q jbrd
+}
 
 {{- range list "docker" "podman" }}
 

@@ -247,8 +247,8 @@ function zip
     command zip -9 -r $argv
 end
 
-function 7z
-    command 7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0 $argv
+function 7za
+    7z a -t7z -mx=9 -mfb=273 -ms -md=31 -myx=9 -mtm=- -mmt -mmtf -md=1536m -mmf=bt3 -mmc=10000 -mpb=0 -mlc=0 $argv
 end
 
 function j
@@ -520,6 +520,16 @@ if type -q chezmoi
     end
 end
 
+function jxl_is_lossless_jpeg --argument-names 'file' --description "Check if a JPEG-XL file was losslessly created from a JPEG file"
+    if test -z $file; or not test (string match '*.jxl' $file)
+        echo "The argument needs to be a JPEG-XL file" 1>&2
+        return 1
+    end
+
+    # https://github.com/libjxl/libjxl/blob/main/doc/format_overview.md#jpeg-bitstream-reconstruction-data
+    head -c 64 $file | grep -q jbrd
+end
+
 {{- range list "docker" "podman" }}
 
 if type -q {{ . }}
@@ -536,6 +546,31 @@ if type -q {{ . }}
     end
 end
 {{- end }}
+
+function inc_version --argument-names 'version' --description "Increment a version number"
+    # Usage:
+    # echo "1.2.3" | inc_version 3
+    # 1.2.4
+    # echo "1.2.3" | inc_version 2
+    # 1.3.0
+    # echo "1.2.3" | inc_version 1
+    # 2.0.0
+    awk -F. -vOFS=. '{ $ver++; while(ver++<NF) $ver=0; print $0 }' ver=$version
+end
+
+function write_iso --argument-names 'file' 'device' --description "Write an ISO image to a device"
+    if not test -f $file; or not test (string match '*.iso' $file)
+        echo "The first argument needs to be an ISO file" 1>&2
+        return 1
+    end
+
+    if not test -f $device; or not test (string match '/dev/sd*' $device)
+        echo "The second argument needs to be a device" 1>&2
+        return 1
+    end
+
+    sudo dd if=$file of=$device bs=4{{ if eq .chezmoi.os "linux" }}M{{ else }}m{{ end }} conv=fdatasync status=progress
+end
 
 if type -q tsh
     function tshl --description "Login to Teleport"
