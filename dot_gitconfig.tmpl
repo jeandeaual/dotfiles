@@ -1,3 +1,12 @@
+{{- $gitPath := "git" }}
+{{- /* Binaries installed by Homebrew on Apple Silicon are under /opt/homebrew/bin and might not be on the path */ -}}
+{{- if and (eq .chezmoi.os "darwin" ) (eq .chezmoi.arch "arm64") (not (lookPath $gitPath)) -}}
+{{-   $gitPath = "/opt/homebrew/bin/git" -}}
+{{- end -}}
+{{- $gitVersion := semver "0" -}}
+{{- if lookPath $gitPath -}}
+{{-   $gitVersion = output $gitPath "--version" | trimSuffix "\n" | splitList " " | last | semver -}}
+{{- end -}}
 [init]
 	defaultBranch = master
 	templateDir = "~/.config/git/template"
@@ -12,7 +21,9 @@
 [commit]
 	gpgsign = true
 [merge]
+{{- if ge (semver "2.35" | $gitVersion.Compare) 0 }}
 	conflictStyle = zdiff3
+{{- end }}
 	tool = vimd
 [diff]
 	guitool = gvimdiff
@@ -25,6 +36,17 @@
 	fsmonitor = true
 	# Force symlinks (not set by default on Windows)
 	symlinks = true
+{{- if ge (semver "2.31" | $gitVersion.Compare) 0 }}
+[maintenance]
+	auto = false
+	strategy = incremental
+{{- end }}
+{{- if ge (semver "2.42" | $gitVersion.Compare) 0 }}
+[pack]
+	useBitmapBoundaryTraversal = true
+{{- end }}
+[rerere]
+	enabled = true
 [alias]
 	co = checkout
 	st = status -sb
