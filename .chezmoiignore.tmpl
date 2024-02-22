@@ -25,7 +25,6 @@ Documents
 vimfiles
 {{- end }}
 {{- if ne .chezmoi.os "darwin" }}
-.Brewfile*
 .config/karabiner
 .hushlogin
 Library
@@ -40,6 +39,7 @@ Library
 {{- end }}
 {{- if ne .chezmoi.os "linux" }}
 .config/dolphin-emu
+.config/kritarc
 .config/pacman
 .config/rsgain
 .local/share/fonts
@@ -51,6 +51,7 @@ Library
 .ansible.cfg
 .config/alacritty
 .config/Code*
+.config/kritarc
 .config/firefox
 .config/i3*
 .config/libreoffice

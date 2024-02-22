@@ -21,7 +21,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - name: Check for duplicate entries in .XCompose
         run: python scripts/xcompose_find_duplicates.py dot_XCompose
       - name: Check if .XCompose can be converted to a Cocoa keybinding dict
