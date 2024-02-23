@@ -407,7 +407,7 @@ if has('autocmd')
     \ endif
 
   " Some file types use real tabs
-  autocmd FileType {make,gitconfig} setlocal noexpandtab shiftwidth=4
+  autocmd FileType {make,gitconfig,gdscript,gdshader} setlocal noexpandtab shiftwidth=4
 endif
 
 " Automatically enable Doxygen syntax highlighting for C, C++, C#, IDL and
@@ -764,7 +764,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.mdwn,*.mkd,*.md,*.markdown nested
         \ setlocal filetype=markdown textwidth=79
     autocmd FileType markdown nested
-        \ setlocal tabstop=4 shiftwidth=4 softtabstop=4 spell
+        \ setlocal tabstop=2 shiftwidth=2 softtabstop=2 spell
   augroup END
 endif
 
