@@ -1,10 +1,10 @@
-{{- if and .work (lookPath "lima") (eq .dockercmd "docker") -}}
+{{- if and .work (lookPath "lima") (eq .dockercmd "podman") -}}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>startup.lima-docker</string>
+	<string>startup.lima-podman</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>AbandonProcessGroup</key>
@@ -18,13 +18,13 @@
 	<array>
 		<string>sh</string>
 		<string>-c</string>
-		<!-- `limactl create docker` needs to be run first to create the docker VM -->
-		<string>limactl start docker && launchctl setenv LIMA_INSTANCE docker && launchctl setenv DOCKER_HOST "$(limactl list docker --format 'unix://{{"{{"}}.Dir{{"}}"}}/sock/docker.sock')"</string>
+		<!-- `limactl create podman` needs to be run first to create the podman VM -->
+		<string>limactl start podman && launchctl setenv LIMA_INSTANCE podman && export PODMAN_SOCK="$(limactl list podman --format 'unix://{{"{{"}}.Dir{{"}}"}}/sock/podman.sock')" && launchctl setenv CONTAINER_HOST "${PODMAN_SOCK}" && launchctl setenv DOCKER_HOST "${PODMAN_SOCK}"</string>
 	</array>
 	<!-- <key>StandardErrorPath</key> -->
-	<!-- <string>/tmp/startup.lima-docker.err</string> -->
+	<!-- <string>/tmp/startup.podman.err</string> -->
 	<!-- <key>StandardOutPath</key> -->
-	<!-- <string>/tmp/startup.lima-docker.out</string> -->
+	<!-- <string>/tmp/startup.podman.out</string> -->
 </dict>
 </plist>
 {{ end -}}
