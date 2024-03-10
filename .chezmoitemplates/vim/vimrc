@@ -415,8 +415,10 @@ endif
 " See :help doxygen-syntax
 let g:load_doxygen_syntax = 1
 
-" Print the line number when using :hardcopy
-set printoptions=number:y
+if !has('nvim')
+  " Print the line number when using :hardcopy
+  set printoptions=number:y
+endif
 
 " Omnicompletion
 "-----------------------------------------------------------------------------

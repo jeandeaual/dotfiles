@@ -265,7 +265,12 @@ repo = 'Raimondi/delimitMate'
 
 # Lean & mean status/tabline for Vim that's light as air
 [[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+if = 'has("statusline")'
+
+[[plugins]]
 repo = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
 if = 'has("statusline")'
 hook_add = '''
   let g:airline_theme = 'bubblegum'
@@ -283,10 +288,6 @@ hook_add = '''
   " Show just the filename
   let g:airline#extensions#tabline#fnamemod = ':t'
 '''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
-depends = ['vim-airline']
 
 # Visually display indent levels in code
 [[plugins]]
