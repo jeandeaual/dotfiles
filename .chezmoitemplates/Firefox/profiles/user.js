@@ -397,4 +397,14 @@ user_pref("security.ssl3.rsa_aes_128_sha", true);
 user_pref("mousebutton.4th.enabled", false);
 user_pref("mousebutton.5th.enabled", false);
 
+/******************************************************************************
+ * SECTION: DevTools                                                       *
+ ******************************************************************************/
+
+// PREF: Keep the network monitor entries on refresh
+user_pref("devtools.netmonitor.persistlog", true);
+
+// PREF: Keep the console logs on refresh
+user_pref("devtools.webconsole.persistlog", true);
+
 /* jshint ignore:end */
