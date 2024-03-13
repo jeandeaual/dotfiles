@@ -28,7 +28,7 @@ jobs:
       CODESPACES: true
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install chezmoi and the dotfiles
         run: ./install.sh --without-starship
         if: "!startsWith(matrix.os, 'windows')"

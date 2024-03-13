@@ -24,7 +24,7 @@ $ChezmoiBin = "chezmoi.exe"
 if (-not (Get-Command $ChezmoiBin -ErrorAction SilentlyContinue)) {
     $ChezmoiBin = [IO.Path]::Combine($BinDir, "chezmoi.exe")
 
-    "`$params = `"-BinDir $BinDir`"", (Invoke-WebRequest -Uri "https://git.io/chezmoi.ps1").Content | powershell -c -
+    Invoke-Expression "&{$(Invoke-RestMethod 'https://get.chezmoi.io/ps1')} -b '$BinDir'"
 }
 
 # Install Starship
