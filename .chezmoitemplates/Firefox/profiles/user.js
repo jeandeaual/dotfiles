@@ -83,6 +83,9 @@ user_pref("browser.display.use_document_fonts", 0);
 // PREF: Set the UI density to "compact"
 user_pref("browser.uidensity", 1);
 
+// PREF: Enable JPEG-XL support
+user_pref("image.jxl.enabled", true);
+
 /******************************************************************************
  * SECTION: Extensions / plugins                                              *
  ******************************************************************************/
