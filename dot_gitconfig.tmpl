@@ -20,6 +20,11 @@
 {{- end }}
 [commit]
 	gpgsign = true
+{{- if lookPath "git-credential-keepassxc" }}
+[credential]
+	# https://github.com/frederick888/git-credential-keepassxc
+	helper = keepassxc
+{{- end }}
 [merge]
 {{- if ge (semver "2.35" | $gitVersion.Compare) 0 }}
 	conflictStyle = zdiff3
@@ -79,6 +84,8 @@
 	# Find duplicate files from the current folder (can also be root)
 	dupes = !"cd `pwd`/$GIT_PREFIX && git ls-tree -r HEAD | cut -c 13- | sort | uniq -D -w 40"
 {{- end }}
+[rebase]
+	autoSquash = true
 [color]
 	ui = true
 	branch = auto
