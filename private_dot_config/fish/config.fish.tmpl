@@ -48,17 +48,11 @@ fish_add_path {$HOME}/.local/bin
 if type -q tty
     set -gx GPG_TTY (tty)
 end
-# Raspberry Pi
+
 {{- if .embedded }}
+# Raspberry Pi
 fish_add_path -a /opt/vc/bin
 {{- end }}
-# Visual Studio Code devcontainer CLI
-{{- if eq .chezmoi.os "darwin" }}
-set -l devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
-{{- else }}
-set -l devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
-{{- end }}
-fish_add_path -a $devcontainer_cli_path
 
 {{- if eq .chezmoi.os "darwin" }}
 fish_add_path -a /usr/local/sbin
@@ -66,11 +60,11 @@ fish_add_path -a /usr/local/sbin
 {{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
 
 # https://docs.brew.sh/Installation#installation
-eval (/opt/homebrew/bin/brew shellenv)
+eval (/opt/homebrew/bin/brew shellenv | string replace -- -gP -g)
 {{-   else if lookPath "/usr/local/bin/brew" }}
 
 # https://docs.brew.sh/Installation#installation
-eval (/usr/local/bin/brew shellenv)
+eval (/usr/local/bin/brew shellenv | string replace -- -gP -g)
 {{-   end }}
 
 # GNU Make (installed via Homebrew)
@@ -94,6 +88,14 @@ if test -r $gcloud_inc_path
     source $gcloud_inc_path
 end
 {{- end }}
+
+# Visual Studio Code devcontainer CLI
+{{- if eq .chezmoi.os "darwin" }}
+set -l devcontainer_cli_path "$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+{{- else }}
+set -l devcontainer_cli_path {$config_path}/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin
+{{- end }}
+fish_add_path -a $devcontainer_cli_path
 
 # Android build tools
 {{- if eq .chezmoi.os "darwin" }}
