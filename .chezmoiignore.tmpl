@@ -74,13 +74,14 @@ vimfiles
 {{- end }}
 {{- if .work }}{{/* Work */}}
 .config/dolphin-emu
+.ssh/authorized_keys
 .var/app/org.DolphinEmu.dolphin-emu
 Library/Application Support/Dolphin
 AppData/Roaming/Dolphin Emulator
 {{- else }}{{/* Personal */}}
-.shrc.work
+.aws/credentials
 .config/fish/conf.d/work.fish
 .config/elvish/lib/work.elv
-.aws/credentials
 .mc
+.shrc.work
 {{- end }}

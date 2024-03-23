@@ -159,8 +159,6 @@ cask 'zoom'
 cask 'soundsource'
 {{- end }}
 
-{{- if not .work }}
-
 brew 'mas'
 
 mas 'Xcode', id: 497799835
@@ -170,7 +168,9 @@ mas 'Keynote', id: 409203825
 mas 'Microsoft Word', id: 462054704
 mas 'Microsoft Excel', id: 409203825
 mas 'Microsoft PowerPoint', id: 462062816
+mas 'Strongbox Pro', id: 1481853033
 mas 'Keka', id: 470158793
+{{- if not .work }}
 mas 'BetterSnapTool', id: 417375580
 mas 'GarageBand', id: 682658836
 mas 'LINE', id: 539883307
