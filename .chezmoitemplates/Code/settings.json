@@ -205,15 +205,6 @@
     // Warning: This will significantly increase memory usage.
     "staticcheck": false
   },
-  "go.delveConfig": {
-    "dlvLoadConfig": {
-      "followPointers": true,
-      "maxVariableRecurse": 1,
-      "maxStringLen": 24800,
-      "maxArrayValues": 64,
-      "maxStructFields": -1
-    }
-  },
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
     "--fast",
