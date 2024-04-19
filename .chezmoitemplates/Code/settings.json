@@ -169,20 +169,9 @@
   "python.analysis.completeFunctionParens": true,
   "python.interpreter.infoVisibility": "always",
   "python.languageServer": "Pylance",
-  "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": true,
-  "python.linting.mypyEnabled": true,
-  "python.linting.pydocstyleEnabled": true,
-  "python.linting.pycodestyleArgs": [
-    "--ignore=E701", // Doesn't work with Python typing
-    "--max-line-length",
-    "120"
-  ],
-  "python.linting.prospectorEnabled": false,
-  "python.linting.pylamaEnabled": false,
-  "python.linting.banditEnabled": false,
   "[python]": {
     "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   // Go
   "go.buildOnSave": "off",
@@ -401,6 +390,9 @@
   "conventionalCommits.emojiFormat": "emoji",
   "conventionalCommits.gitmoji": false,
   "conventionalCommits.showNewVersionNotes": false,
+  // tamasfe.even-better-toml
+  "evenBetterToml.formatter.arrayAutoCollapse": false,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
   // mshdinsight.azure-hdinsight
   "hdinsight.disableOpenSurveyLink": true,
   // geequlim.godot-tools
