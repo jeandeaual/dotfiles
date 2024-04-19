@@ -250,6 +250,7 @@ hook_source = '''
     augroup END
   endif
 '''
+hook_post_update = ':GoUpdateBinaries'
 
 [[plugins]]
 repo = 'cespare/vim-go-templates'
@@ -320,6 +321,11 @@ on_ft = ['vue']
 [[plugins]]
 repo = 'ledger/vim-ledger.git'
 on_ft = ['ledger']
+
+# Beancount
+[[plugins]]
+repo = 'nathangrigg/vim-beancount'
+on_ft = ['beancount']
 
 # Python requirements.txt
 [[plugins]]

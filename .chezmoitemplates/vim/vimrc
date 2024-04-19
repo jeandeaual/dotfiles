@@ -750,6 +750,8 @@ if has('autocmd')
   augroup filetype_javascript
     autocmd!
     autocmd FileType javascript nested setlocal smartindent
+    autocmd BufNewFile,BufRead *.passkey nested
+        \ setlocal filetype=json
     if has('conceal')
       autocmd FileType json nested setlocal concealcursor= conceallevel=1
     endif
