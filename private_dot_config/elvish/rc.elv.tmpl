@@ -119,19 +119,13 @@ if (path:is-dir $sbin_path) {
 {{- $homebrew := false }}
 {{-   if and (eq .chezmoi.arch "arm64") (lookPath "/opt/homebrew/bin/brew") }}{{/* Homebrew is installed under /opt/homebrew on Apple Silicon */}}
 {{-     $homebrew = true }}
-# gcloud components
-var gcloud_bin_path = /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-
 # https://docs.brew.sh/Installation#installation
 set E:HOMEBREW_PREFIX = /opt/homebrew
 {{-   else if lookPath "/usr/local/bin/brew" }}
-# gcloud components
-var gcloud_bin_path = /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-
 {{-     $homebrew = true }}
 
 # https://docs.brew.sh/Installation#installation
-set E:HOMEBREW_PREFIX = /usr/local/bin/brew
+set E:HOMEBREW_PREFIX = /usr/local
 {{-   end }}
 {{-   if $homebrew }}
 {{- /* Port of https://github.com/Homebrew/brew/blob/master/Library/Homebrew/cmd/shellenv.sh for Elvish */}}
@@ -148,11 +142,19 @@ if (eq E:INFOPATH '') {
 } else {
   set E:INFOPATH = (str:join ':' [$E:HOMEBREW_PREFIX'/share/info' $E:INFOPATH])
 }
+
 {{-   end }}
 
+# gcloud components
+var gcloud_bin_path = $E:HOMEBREW_PREFIX'/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin'
 if (path:is-dir $gcloud_bin_path) {
   set paths = [$@paths $gcloud_bin_path]
 }
+
+# asdf
+# https://asdf-vm.com/guide/getting-started.html
+use asdf _asdf; var asdf~ = $_asdf:asdf~
+set edit:completion:arg-completer[asdf] = $_asdf:arg-completer~
 
 # GNU Make (installed via Homebrew)
 var gnubin_path = /usr/local/opt/make/libexec/gnubin
