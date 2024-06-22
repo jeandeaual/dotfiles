@@ -60,6 +60,12 @@ if command -v rbenv >/dev/null; then
     eval "$(rbenv init - bash)"
 fi
 
+# GitHub Copilot CLI aliases (ghcs, ghce)
+if command -v gh >/dev/null; then
+    eval "$(gh copilot alias -- bash)"
+fi
+
+
 # Don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

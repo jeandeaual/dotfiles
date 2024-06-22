@@ -361,6 +361,11 @@ function activate {
 {{- end }}
 }
 
+# GitHub Copilot CLI aliases (ghcs, ghce)
+if (Get-Command gh -ErrorAction SilentlyContinue) {
+    . gh copilot alias -- pwsh
+}
+
 # Prompt
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)

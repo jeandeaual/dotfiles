@@ -73,6 +73,12 @@ if (($+commands[rbenv])); then
     eval "$(rbenv init - zsh)"
 fi
 
+# GitHub Copilot CLI aliases (ghcs, ghce)
+# shellcheck disable=SC2154
+if (($+commands[gh])); then
+    eval "$(gh copilot alias -- zsh)"
+fi
+
 # Prompt
 # shellcheck disable=SC2154
 if (($+commands[starship])); then
