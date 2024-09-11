@@ -99,7 +99,7 @@ fi
 # https://asdf-vm.com/guide/getting-started.html
 asdf_inc_path="${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
 if [ -f "${asdf_inc_path}" ]; then
-    # shellcheck disable=SC1091
+    # shellcheck disable=SC1090
     . "${asdf_inc_path}"
 fi
 
@@ -209,9 +209,13 @@ if command -v exa >/dev/null; then
 
     tree_ignore="cache|log|logs|node_modules|vendor|__pycache__"
 
+    # shellcheck disable=SC2139
     alias lt="ls --tree -D -L 2 -I '${tree_ignore}'"
+    # shellcheck disable=SC2139
     alias ltt="ls --tree -D -L 3 -I '${tree_ignore}'"
+    # shellcheck disable=SC2139
     alias lttt="ls --tree -D -L 4 -I '${tree_ignore}'"
+    # shellcheck disable=SC2139
     alias ltttt="ls --tree -D -L 5 -I '${tree_ignore}'"
 else
 {{- if eq .chezmoi.os "darwin" }}
@@ -322,12 +326,12 @@ fi
 # PlantUML
 if command -v plantuml >/dev/null; then
     # Generate a SVG file using PlantUML
-    alias plantuml-svg="plantuml -tsvg"
+    alias plantuml-svg='plantuml -tsvg'
     # Generate a PNG file with a DPI of 300 using PlantUML
-    alias plantuml-png="plantuml -tpng -Sdpi=300"
+    alias plantuml-png='plantuml -tpng -Sdpi=300'
     # Generate a PDF file using PlantUML
-    alias plantuml-pdf="plantuml -tpdf"
-    plantuml-files() {
+    alias plantuml-pdf='plantuml -tpdf'
+    plantuml_files() {
         find . -type f \
             -not -path '*/\.git/*' \
             -not -path 'node_modules' \
@@ -337,6 +341,7 @@ if command -v plantuml >/dev/null; then
         sed -e 's/^\.\.*//' -e '1s/^/@startfiles\n/' -e '$s/$/\n@endfiles/' | \
         plantuml -pipe > diagram.png
     }
+    alias plantuml-files='plantuml_files'
 fi
 # DBus
 if command -v dbus-send >/dev/null; then
