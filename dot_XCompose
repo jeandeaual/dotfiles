@@ -389,7 +389,7 @@ include "%L"
 <Multi_key> <m> <r> <s>                        : "⊂" U2282 # SUBSET OF (real subset)
 <Multi_key> <m> <U>                            : "∪" U222A # UNION
 <Multi_key> <m> <I>                            : "∩" U2229 # INTERSECTION
-<Multi_key> <m> <m>                            : "≡" U2261 # IDENTICAL TO (modulo)
+<Multi_key> <m> <M>                            : "≡" U2261 # IDENTICAL TO (modulo)
 <Multi_key> <m> <A>                            : "∀" U2200 # FOR ALL
 <Multi_key> <m> <E>                            : "∃" U2203 # THERE EXISTS
 <Multi_key> <minus> <comma>                    : "¬" U00AC # NOT SIGN
@@ -965,7 +965,7 @@ include "%L"
 <Multi_key> <backslash> <backslash> <y> : "𝔂" U1D502 # MATHEMATICAL BOLD SCRIPT SMALL Y
 <Multi_key> <backslash> <backslash> <z> : "𝔃" U1D503 # MATHEMATICAL BOLD SCRIPT SMALL Z
 
-# Gothic {{{1
+# Fraktur (gothic) {{{1
 
 <Multi_key> <g> <g> <A> : "𝔄" U1D504 # MATHEMATICAL FRAKTUR CAPITAL A
 <Multi_key> <g> <g> <B> : "𝔅" U1D505 # MATHEMATICAL FRAKTUR CAPITAL B
@@ -1020,7 +1020,7 @@ include "%L"
 <Multi_key> <g> <g> <y> : "𝔶" U1D536 # MATHEMATICAL FRAKTUR SMALL Y
 <Multi_key> <g> <g> <z> : "𝔷" U1D537 # MATHEMATICAL FRAKTUR SMALL Z
 
-# Gothic bold {{{2
+# Fraktur (gothic) bold {{{2
 
 <Multi_key> <G> <G> <A> : "𝕬" U1D56C # MATHEMATICAL BOLD FRAKTUR CAPITAL A
 <Multi_key> <G> <G> <B> : "𝕭" U1D56D # MATHEMATICAL BOLD FRAKTUR CAPITAL B
@@ -1074,6 +1074,136 @@ include "%L"
 <Multi_key> <G> <G> <x> : "𝖝" U1D59D # MATHEMATICAL BOLD FRAKTUR SMALL X
 <Multi_key> <G> <G> <y> : "𝖞" U1D59E # MATHEMATICAL BOLD FRAKTUR SMALL Y
 <Multi_key> <G> <G> <z> : "𝖟" U1D59F # MATHEMATICAL BOLD FRAKTUR SMALL Z
+
+# Monospace {{{1
+
+<Multi_key> <m> <m> <A> : "𝙰" U1D670 # MATHEMATICAL MONOSPACE CAPITAL A
+<Multi_key> <m> <m> <B> : "𝙱" U1D671 # MATHEMATICAL MONOSPACE CAPITAL B
+<Multi_key> <m> <m> <C> : "𝙲" U1D672 # MATHEMATICAL MONOSPACE CAPITAL C
+<Multi_key> <m> <m> <D> : "𝙳" U1D673 # MATHEMATICAL MONOSPACE CAPITAL D
+<Multi_key> <m> <m> <E> : "𝙴" U1D674 # MATHEMATICAL MONOSPACE CAPITAL E
+<Multi_key> <m> <m> <F> : "𝙵" U1D675 # MATHEMATICAL MONOSPACE CAPITAL F
+<Multi_key> <m> <m> <G> : "𝙶" U1D676 # MATHEMATICAL MONOSPACE CAPITAL G
+<Multi_key> <m> <m> <H> : "𝙷" U1D677 # MATHEMATICAL MONOSPACE CAPITAL H
+<Multi_key> <m> <m> <I> : "𝙸" U1D678 # MATHEMATICAL MONOSPACE CAPITAL I
+<Multi_key> <m> <m> <J> : "𝙹" U1D679 # MATHEMATICAL MONOSPACE CAPITAL J
+<Multi_key> <m> <m> <K> : "𝙺" U1D67A # MATHEMATICAL MONOSPACE CAPITAL K
+<Multi_key> <m> <m> <L> : "𝙻" U1D67B # MATHEMATICAL MONOSPACE CAPITAL L
+<Multi_key> <m> <m> <M> : "𝙼" U1D67C # MATHEMATICAL MONOSPACE CAPITAL M
+<Multi_key> <m> <m> <N> : "𝙽" U1D67D # MATHEMATICAL MONOSPACE CAPITAL N
+<Multi_key> <m> <m> <O> : "𝙾" U1D67E # MATHEMATICAL MONOSPACE CAPITAL O
+<Multi_key> <m> <m> <P> : "𝙿" U1D67F # MATHEMATICAL MONOSPACE CAPITAL P
+<Multi_key> <m> <m> <Q> : "𝚀" U1D680 # MATHEMATICAL MONOSPACE CAPITAL Q
+<Multi_key> <m> <m> <R> : "𝚁" U1D681 # MATHEMATICAL MONOSPACE CAPITAL R
+<Multi_key> <m> <m> <S> : "𝚂" U1D682 # MATHEMATICAL MONOSPACE CAPITAL S
+<Multi_key> <m> <m> <T> : "𝚃" U1D683 # MATHEMATICAL MONOSPACE CAPITAL T
+<Multi_key> <m> <m> <U> : "𝚄" U1D684 # MATHEMATICAL MONOSPACE CAPITAL U
+<Multi_key> <m> <m> <V> : "𝚅" U1D685 # MATHEMATICAL MONOSPACE CAPITAL V
+<Multi_key> <m> <m> <W> : "𝚆" U1D686 # MATHEMATICAL MONOSPACE CAPITAL W
+<Multi_key> <m> <m> <X> : "𝚇" U1D687 # MATHEMATICAL MONOSPACE CAPITAL X
+<Multi_key> <m> <m> <Y> : "𝚈" U1D688 # MATHEMATICAL MONOSPACE CAPITAL Y
+<Multi_key> <m> <m> <Z> : "𝚉" U1D689 # MATHEMATICAL MONOSPACE CAPITAL Z
+<Multi_key> <m> <m> <a> : "𝚊" U1D68A # MATHEMATICAL MONOSPACE SMALL A
+<Multi_key> <m> <m> <b> : "𝚋" U1D68B # MATHEMATICAL MONOSPACE SMALL B
+<Multi_key> <m> <m> <c> : "𝚌" U1D68C # MATHEMATICAL MONOSPACE SMALL C
+<Multi_key> <m> <m> <d> : "𝚍" U1D68D # MATHEMATICAL MONOSPACE SMALL D
+<Multi_key> <m> <m> <e> : "𝚎" U1D68E # MATHEMATICAL MONOSPACE SMALL E
+<Multi_key> <m> <m> <f> : "𝚏" U1D68F # MATHEMATICAL MONOSPACE SMALL F
+<Multi_key> <m> <m> <g> : "𝚐" U1D690 # MATHEMATICAL MONOSPACE SMALL G
+<Multi_key> <m> <m> <h> : "𝚑" U1D691 # MATHEMATICAL MONOSPACE SMALL H
+<Multi_key> <m> <m> <i> : "𝚒" U1D692 # MATHEMATICAL MONOSPACE SMALL I
+<Multi_key> <m> <m> <j> : "𝚓" U1D693 # MATHEMATICAL MONOSPACE SMALL J
+<Multi_key> <m> <m> <k> : "𝚔" U1D694 # MATHEMATICAL MONOSPACE SMALL K
+<Multi_key> <m> <m> <l> : "𝚕" U1D695 # MATHEMATICAL MONOSPACE SMALL L
+<Multi_key> <m> <m> <m> : "𝚖" U1D696 # MATHEMATICAL MONOSPACE SMALL M
+<Multi_key> <m> <m> <n> : "𝚗" U1D697 # MATHEMATICAL MONOSPACE SMALL N
+<Multi_key> <m> <m> <o> : "𝚘" U1D698 # MATHEMATICAL MONOSPACE SMALL O
+<Multi_key> <m> <m> <p> : "𝚙" U1D699 # MATHEMATICAL MONOSPACE SMALL P
+<Multi_key> <m> <m> <q> : "𝚚" U1D69A # MATHEMATICAL MONOSPACE SMALL Q
+<Multi_key> <m> <m> <r> : "𝚛" U1D69B # MATHEMATICAL MONOSPACE SMALL R
+<Multi_key> <m> <m> <s> : "𝚜" U1D69C # MATHEMATICAL MONOSPACE SMALL S
+<Multi_key> <m> <m> <t> : "𝚝" U1D69D # MATHEMATICAL MONOSPACE SMALL T
+<Multi_key> <m> <m> <u> : "𝚞" U1D69E # MATHEMATICAL MONOSPACE SMALL U
+<Multi_key> <m> <m> <v> : "𝚟" U1D69F # MATHEMATICAL MONOSPACE SMALL V
+<Multi_key> <m> <m> <w> : "𝚠" U1D6A0 # MATHEMATICAL MONOSPACE SMALL W
+<Multi_key> <m> <m> <x> : "𝚡" U1D6A1 # MATHEMATICAL MONOSPACE SMALL X
+<Multi_key> <m> <m> <y> : "𝚢" U1D6A2 # MATHEMATICAL MONOSPACE SMALL Y
+<Multi_key> <m> <m> <z> : "𝚣" U1D6A3 # MATHEMATICAL MONOSPACE SMALL Z
+<Multi_key> <m> <m> <0> : "𝟶" U1D7F6 # MATHEMATICAL MONOSPACE DIGIT 0
+<Multi_key> <m> <m> <1> : "𝟷" U1D7F7 # MATHEMATICAL MONOSPACE DIGIT 1
+<Multi_key> <m> <m> <2> : "𝟸" U1D7F8 # MATHEMATICAL MONOSPACE DIGIT 2
+<Multi_key> <m> <m> <3> : "𝟹" U1D7F9 # MATHEMATICAL MONOSPACE DIGIT 3
+<Multi_key> <m> <m> <4> : "𝟺" U1D7FA # MATHEMATICAL MONOSPACE DIGIT 4
+<Multi_key> <m> <m> <5> : "𝟻" U1D7FB # MATHEMATICAL MONOSPACE DIGIT 5
+<Multi_key> <m> <m> <6> : "𝟼" U1D7FC # MATHEMATICAL MONOSPACE DIGIT 6
+<Multi_key> <m> <m> <7> : "𝟽" U1D7FD # MATHEMATICAL MONOSPACE DIGIT 7
+<Multi_key> <m> <m> <8> : "𝟾" U1D7FE # MATHEMATICAL MONOSPACE DIGIT 8
+<Multi_key> <m> <m> <9> : "𝟿" U1D7FF # MATHEMATICAL MONOSPACE DIGIT 9
+
+# Double-struck {{{1
+
+<Multi_key> <m> <bar> <A> : "𝔸" U1D538 # MATHEMATICAL DOUBLE-STRUCK CAPITAL A
+<Multi_key> <m> <bar> <B> : "𝔹" U1D539 # MATHEMATICAL DOUBLE-STRUCK CAPITAL B
+<Multi_key> <m> <bar> <C> : "ℂ" U2102  # DOUBLE-STRUCK CAPITAL C (complex numbers)
+<Multi_key> <m> <bar> <D> : "𝔻" U1D53B # MATHEMATICAL DOUBLE-STRUCK CAPITAL D
+<Multi_key> <m> <bar> <E> : "𝔼" U1D53C # MATHEMATICAL DOUBLE-STRUCK CAPITAL E
+<Multi_key> <m> <bar> <F> : "𝔽" U1D53D # MATHEMATICAL DOUBLE-STRUCK CAPITAL F
+<Multi_key> <m> <bar> <G> : "𝔾" U1D53E # MATHEMATICAL DOUBLE-STRUCK CAPITAL G
+<Multi_key> <m> <bar> <H> : "ℍ" U210D  # DOUBLE-STRUCK CAPITAL H (quaternions)
+<Multi_key> <m> <bar> <I> : "𝕀" U1D540 # MATHEMATICAL DOUBLE-STRUCK CAPITAL I
+<Multi_key> <m> <bar> <J> : "𝕁" U1D541 # MATHEMATICAL DOUBLE-STRUCK CAPITAL J
+<Multi_key> <m> <bar> <K> : "𝕂" U1D542 # MATHEMATICAL DOUBLE-STRUCK CAPITAL K
+<Multi_key> <m> <bar> <L> : "𝕃" U1D543 # MATHEMATICAL DOUBLE-STRUCK CAPITAL L
+<Multi_key> <m> <bar> <M> : "𝕄" U1D544 # MATHEMATICAL DOUBLE-STRUCK CAPITAL M
+<Multi_key> <m> <bar> <N> : "ℕ" U2115  # DOUBLE-STRUCK CAPITAL N (natural numbers)
+<Multi_key> <m> <bar> <O> : "𝕆" U1D546 # MATHEMATICAL DOUBLE-STRUCK CAPITAL O
+<Multi_key> <m> <bar> <P> : "ℙ" U2119  # DOUBLE-STRUCK CAPITAL P (probability, prime numbers)
+<Multi_key> <m> <bar> <Q> : "ℚ" U211A  # DOUBLE-STRUCK CAPITAL Q (rational numbers)
+<Multi_key> <m> <bar> <R> : "ℝ" U211D  # DOUBLE-STRUCK CAPITAL R (prime numbers)
+<Multi_key> <m> <bar> <S> : "𝕊" U1D54A # MATHEMATICAL DOUBLE-STRUCK CAPITAL S
+<Multi_key> <m> <bar> <T> : "𝕋" U1D54B # MATHEMATICAL DOUBLE-STRUCK CAPITAL T
+<Multi_key> <m> <bar> <U> : "𝕌" U1D54C # MATHEMATICAL DOUBLE-STRUCK CAPITAL U
+<Multi_key> <m> <bar> <V> : "𝕍" U1D54D # MATHEMATICAL DOUBLE-STRUCK CAPITAL V
+<Multi_key> <m> <bar> <W> : "𝕎" U1D54E # MATHEMATICAL DOUBLE-STRUCK CAPITAL W
+<Multi_key> <m> <bar> <X> : "𝕏" U1D54F # MATHEMATICAL DOUBLE-STRUCK CAPITAL X
+<Multi_key> <m> <bar> <Y> : "𝕐" U1D550 # MATHEMATICAL DOUBLE-STRUCK CAPITAL Y
+<Multi_key> <m> <bar> <Z> : "ℤ" U2124  # DOUBLE-STRUCK CAPITAL Z (integers)
+<Multi_key> <m> <bar> <a> : "𝕒" U1D552 # MATHEMATICAL DOUBLE-STRUCK SMALL A
+<Multi_key> <m> <bar> <b> : "𝕓" U1D553 # MATHEMATICAL DOUBLE-STRUCK SMALL B
+<Multi_key> <m> <bar> <c> : "𝕔" U1D554 # MATHEMATICAL DOUBLE-STRUCK SMALL C
+<Multi_key> <m> <bar> <d> : "𝕕" U1D555 # MATHEMATICAL DOUBLE-STRUCK SMALL D
+<Multi_key> <m> <bar> <e> : "𝕖" U1D556 # MATHEMATICAL DOUBLE-STRUCK SMALL E
+<Multi_key> <m> <bar> <f> : "𝕗" U1D557 # MATHEMATICAL DOUBLE-STRUCK SMALL F
+<Multi_key> <m> <bar> <g> : "𝕘" U1D558 # MATHEMATICAL DOUBLE-STRUCK SMALL G
+<Multi_key> <m> <bar> <h> : "𝕙" U1D559 # MATHEMATICAL DOUBLE-STRUCK SMALL H
+<Multi_key> <m> <bar> <i> : "𝕚" U1D55A # MATHEMATICAL DOUBLE-STRUCK SMALL I
+<Multi_key> <m> <bar> <j> : "𝕛" U1D55B # MATHEMATICAL DOUBLE-STRUCK SMALL J
+<Multi_key> <m> <bar> <k> : "𝕜" U1D55C # MATHEMATICAL DOUBLE-STRUCK SMALL K
+<Multi_key> <m> <bar> <l> : "𝕝" U1D55D # MATHEMATICAL DOUBLE-STRUCK SMALL L
+<Multi_key> <m> <bar> <m> : "𝕞" U1D55E # MATHEMATICAL DOUBLE-STRUCK SMALL M
+<Multi_key> <m> <bar> <n> : "𝕟" U1D55F # MATHEMATICAL DOUBLE-STRUCK SMALL N
+<Multi_key> <m> <bar> <o> : "𝕠" U1D560 # MATHEMATICAL DOUBLE-STRUCK SMALL O
+<Multi_key> <m> <bar> <p> : "𝕡" U1D561 # MATHEMATICAL DOUBLE-STRUCK SMALL P
+<Multi_key> <m> <bar> <q> : "𝕢" U1D562 # MATHEMATICAL DOUBLE-STRUCK SMALL Q
+<Multi_key> <m> <bar> <r> : "𝕣" U1D563 # MATHEMATICAL DOUBLE-STRUCK SMALL R
+<Multi_key> <m> <bar> <s> : "𝕤" U1D564 # MATHEMATICAL DOUBLE-STRUCK SMALL S
+<Multi_key> <m> <bar> <t> : "𝕥" U1D565 # MATHEMATICAL DOUBLE-STRUCK SMALL T
+<Multi_key> <m> <bar> <u> : "𝕦" U1D566 # MATHEMATICAL DOUBLE-STRUCK SMALL U
+<Multi_key> <m> <bar> <v> : "𝕧" U1D567 # MATHEMATICAL DOUBLE-STRUCK SMALL V
+<Multi_key> <m> <bar> <w> : "𝕨" U1D568 # MATHEMATICAL DOUBLE-STRUCK SMALL W
+<Multi_key> <m> <bar> <x> : "𝕩" U1D569 # MATHEMATICAL DOUBLE-STRUCK SMALL X
+<Multi_key> <m> <bar> <y> : "𝕪" U1D56A # MATHEMATICAL DOUBLE-STRUCK SMALL Y
+<Multi_key> <m> <bar> <z> : "𝕫" U1D56B # MATHEMATICAL DOUBLE-STRUCK SMALL Z
+<Multi_key> <m> <bar> <0> : "𝟘" U1D7D8 # MATHEMATICAL DOUBLE-STRUCK DIGIT 0
+<Multi_key> <m> <bar> <1> : "𝟙" U1D7D9 # MATHEMATICAL DOUBLE-STRUCK DIGIT 1
+<Multi_key> <m> <bar> <2> : "𝟚" U1D7DA # MATHEMATICAL DOUBLE-STRUCK DIGIT 2
+<Multi_key> <m> <bar> <3> : "𝟛" U1D7DB # MATHEMATICAL DOUBLE-STRUCK DIGIT 3
+<Multi_key> <m> <bar> <4> : "𝟜" U1D7DC # MATHEMATICAL DOUBLE-STRUCK DIGIT 4
+<Multi_key> <m> <bar> <5> : "𝟝" U1D7DD # MATHEMATICAL DOUBLE-STRUCK DIGIT 5
+<Multi_key> <m> <bar> <6> : "𝟞" U1D7DE # MATHEMATICAL DOUBLE-STRUCK DIGIT 6
+<Multi_key> <m> <bar> <7> : "𝟟" U1D7DF # MATHEMATICAL DOUBLE-STRUCK DIGIT 7
+<Multi_key> <m> <bar> <8> : "𝟠" U1D7E0 # MATHEMATICAL DOUBLE-STRUCK DIGIT 8
+<Multi_key> <m> <bar> <9> : "𝟡" U1D7E1 # MATHEMATICAL DOUBLE-STRUCK DIGIT 9
 
 # Squared latin letters {{{1
 
@@ -1561,6 +1691,230 @@ include "%L"
 <Multi_key> <asterisk> <X>      : "Χ" U03A7 # GREEK CAPITAL LETTER CHI
 <Multi_key> <asterisk> <Y>      : "Ψ" U03A8 # GREEK CAPITAL LETTER PSI
 <Multi_key> <asterisk> <W>      : "Ω" U03A9 # GREEK CAPITAL LETTER OMEGA
+
+# Hieroglyphs {{{1
+
+# A. Man and his occupations {{{2
+
+<Multi_key> <H> <A> <0> <0> <1>     : "𓀀" U13000 # EGYPTIAN HIEROGLYPH A001
+<Multi_key> <H> <A> <0> <0> <2>     : "𓀁" U13001 # EGYPTIAN HIEROGLYPH A002
+<Multi_key> <H> <A> <0> <0> <3>     : "𓀂" U13002 # EGYPTIAN HIEROGLYPH A003
+<Multi_key> <H> <A> <0> <0> <4>     : "𓀃" U13003 # EGYPTIAN HIEROGLYPH A004
+<Multi_key> <H> <A> <0> <0> <5>     : "𓀄" U13004 # EGYPTIAN HIEROGLYPH A005
+<Multi_key> <H> <A> <A> <0> <0> <5> : "𓀅" U13005 # EGYPTIAN HIEROGLYPH A005A
+<Multi_key> <H> <A> <0> <0> <6>     : "𓀆" U13006 # EGYPTIAN HIEROGLYPH A006
+<Multi_key> <H> <A> <A> <0> <0> <6> : "𓀇" U13007 # EGYPTIAN HIEROGLYPH A006A
+<Multi_key> <H> <A> <B> <0> <0> <6> : "𓀈" U13008 # EGYPTIAN HIEROGLYPH A006B
+<Multi_key> <H> <A> <0> <0> <7>     : "𓀉" U13009 # EGYPTIAN HIEROGLYPH A007
+<Multi_key> <H> <A> <0> <0> <8>     : "𓀊" U1300A # EGYPTIAN HIEROGLYPH A008
+<Multi_key> <H> <A> <0> <0> <9>     : "𓀋" U1300B # EGYPTIAN HIEROGLYPH A009
+<Multi_key> <H> <A> <0> <1> <0>     : "𓀌" U1300C # EGYPTIAN HIEROGLYPH A010
+<Multi_key> <H> <A> <0> <1> <1>     : "𓀍" U1300D # EGYPTIAN HIEROGLYPH A011
+<Multi_key> <H> <A> <0> <1> <2>     : "𓀎" U1300E # EGYPTIAN HIEROGLYPH A012
+<Multi_key> <H> <A> <0> <1> <3>     : "𓀏" U1300F # EGYPTIAN HIEROGLYPH A013
+<Multi_key> <H> <A> <0> <1> <4>     : "𓀐" U13010 # EGYPTIAN HIEROGLYPH A014
+<Multi_key> <H> <A> <A> <0> <1> <4> : "𓀑" U13011 # EGYPTIAN HIEROGLYPH A014A
+<Multi_key> <H> <A> <0> <1> <5>     : "𓀒" U13012 # EGYPTIAN HIEROGLYPH A015
+<Multi_key> <H> <A> <0> <1> <6>     : "𓀓" U13013 # EGYPTIAN HIEROGLYPH A016
+<Multi_key> <H> <A> <0> <1> <7>     : "𓀔" U13014 # EGYPTIAN HIEROGLYPH A017
+<Multi_key> <H> <A> <A> <0> <1> <7> : "𓀕" U13015 # EGYPTIAN HIEROGLYPH A017A
+<Multi_key> <H> <A> <0> <1> <8>     : "𓀖" U13016 # EGYPTIAN HIEROGLYPH A018
+<Multi_key> <H> <A> <0> <1> <9>     : "𓀗" U13017 # EGYPTIAN HIEROGLYPH A019
+<Multi_key> <H> <A> <0> <2> <0>     : "𓀘" U13018 # EGYPTIAN HIEROGLYPH A020
+<Multi_key> <H> <A> <0> <2> <1>     : "𓀙" U13019 # EGYPTIAN HIEROGLYPH A021
+<Multi_key> <H> <A> <0> <2> <2>     : "𓀚" U1301A # EGYPTIAN HIEROGLYPH A022
+<Multi_key> <H> <A> <0> <2> <3>     : "𓀛" U1301B # EGYPTIAN HIEROGLYPH A023
+<Multi_key> <H> <A> <0> <2> <4>     : "𓀜" U1301C # EGYPTIAN HIEROGLYPH A024
+<Multi_key> <H> <A> <0> <2> <5>     : "𓀝" U1301D # EGYPTIAN HIEROGLYPH A025
+<Multi_key> <H> <A> <0> <2> <6>     : "𓀞" U1301E # EGYPTIAN HIEROGLYPH A026
+<Multi_key> <H> <A> <0> <2> <7>     : "𓀟" U1301F # EGYPTIAN HIEROGLYPH A027
+<Multi_key> <H> <A> <0> <2> <8>     : "𓀠" U13020 # EGYPTIAN HIEROGLYPH A028
+<Multi_key> <H> <A> <0> <2> <9>     : "𓀡" U13021 # EGYPTIAN HIEROGLYPH A029
+<Multi_key> <H> <A> <0> <3> <0>     : "𓀢" U13022 # EGYPTIAN HIEROGLYPH A030
+<Multi_key> <H> <A> <0> <3> <1>     : "𓀣" U13023 # EGYPTIAN HIEROGLYPH A031
+<Multi_key> <H> <A> <0> <3> <2>     : "𓀤" U13024 # EGYPTIAN HIEROGLYPH A032
+<Multi_key> <H> <A> <A> <0> <3> <2> : "𓀥" U13025 # EGYPTIAN HIEROGLYPH A032A
+<Multi_key> <H> <A> <0> <3> <3>     : "𓀦" U13026 # EGYPTIAN HIEROGLYPH A033
+<Multi_key> <H> <A> <0> <3> <4>     : "𓀧" U13027 # EGYPTIAN HIEROGLYPH A034
+<Multi_key> <H> <A> <0> <3> <5>     : "𓀨" U13028 # EGYPTIAN HIEROGLYPH A035
+<Multi_key> <H> <A> <0> <3> <6>     : "𓀩" U13029 # EGYPTIAN HIEROGLYPH A036
+<Multi_key> <H> <A> <0> <3> <7>     : "𓀪" U1302A # EGYPTIAN HIEROGLYPH A037
+<Multi_key> <H> <A> <0> <3> <8>     : "𓀫" U1302B # EGYPTIAN HIEROGLYPH A038
+<Multi_key> <H> <A> <0> <3> <9>     : "𓀬" U1302C # EGYPTIAN HIEROGLYPH A039
+<Multi_key> <H> <A> <0> <4> <0>     : "𓀭" U1302D # EGYPTIAN HIEROGLYPH A040
+<Multi_key> <H> <A> <A> <0> <4> <0> : "𓀮" U1302E # EGYPTIAN HIEROGLYPH A040A
+<Multi_key> <H> <A> <0> <4> <1>     : "𓀯" U1302F # EGYPTIAN HIEROGLYPH A041
+<Multi_key> <H> <A> <0> <4> <2>     : "𓀰" U13030 # EGYPTIAN HIEROGLYPH A042
+<Multi_key> <H> <A> <A> <0> <4> <2> : "𓀱" U13031 # EGYPTIAN HIEROGLYPH A042A
+<Multi_key> <H> <A> <0> <4> <3>     : "𓀲" U13032 # EGYPTIAN HIEROGLYPH A043
+<Multi_key> <H> <A> <A> <0> <4> <3> : "𓀳" U13033 # EGYPTIAN HIEROGLYPH A043A
+<Multi_key> <H> <A> <0> <4> <4>     : "𓀴" U13034 # EGYPTIAN HIEROGLYPH A044
+<Multi_key> <H> <A> <0> <4> <5>     : "𓀵" U13035 # EGYPTIAN HIEROGLYPH A045
+<Multi_key> <H> <A> <A> <0> <4> <5> : "𓀶" U13036 # EGYPTIAN HIEROGLYPH A045A
+<Multi_key> <H> <A> <0> <4> <6>     : "𓀷" U13037 # EGYPTIAN HIEROGLYPH A046
+<Multi_key> <H> <A> <0> <4> <7>     : "𓀸" U13038 # EGYPTIAN HIEROGLYPH A047
+<Multi_key> <H> <A> <0> <4> <8>     : "𓀹" U13039 # EGYPTIAN HIEROGLYPH A048
+<Multi_key> <H> <A> <0> <4> <9>     : "𓀺" U1303A # EGYPTIAN HIEROGLYPH A049
+<Multi_key> <H> <A> <0> <5> <0>     : "𓀻" U1303B # EGYPTIAN HIEROGLYPH A050
+<Multi_key> <H> <A> <0> <5> <1>     : "𓀼" U1303C # EGYPTIAN HIEROGLYPH A051
+<Multi_key> <H> <A> <0> <5> <2>     : "𓀽" U1303D # EGYPTIAN HIEROGLYPH A052
+<Multi_key> <H> <A> <0> <5> <3>     : "𓀾" U1303E # EGYPTIAN HIEROGLYPH A053
+<Multi_key> <H> <A> <0> <5> <4>     : "𓀿" U1303F # EGYPTIAN HIEROGLYPH A054
+<Multi_key> <H> <A> <0> <5> <5>     : "𓁀" U13040 # EGYPTIAN HIEROGLYPH A055
+<Multi_key> <H> <A> <0> <5> <6>     : "𓁁" U13041 # EGYPTIAN HIEROGLYPH A056
+<Multi_key> <H> <A> <0> <5> <7>     : "𓁂" U13042 # EGYPTIAN HIEROGLYPH A057
+<Multi_key> <H> <A> <0> <5> <8>     : "𓁃" U13043 # EGYPTIAN HIEROGLYPH A058
+<Multi_key> <H> <A> <0> <5> <9>     : "𓁄" U13044 # EGYPTIAN HIEROGLYPH A059
+<Multi_key> <H> <A> <0> <6> <0>     : "𓁅" U13045 # EGYPTIAN HIEROGLYPH A060
+<Multi_key> <H> <A> <0> <6> <1>     : "𓁆" U13046 # EGYPTIAN HIEROGLYPH A061
+<Multi_key> <H> <A> <0> <6> <2>     : "𓁇" U13047 # EGYPTIAN HIEROGLYPH A062
+<Multi_key> <H> <A> <0> <6> <3>     : "𓁈" U13048 # EGYPTIAN HIEROGLYPH A063
+<Multi_key> <H> <A> <0> <6> <4>     : "𓁉" U13049 # EGYPTIAN HIEROGLYPH A064
+<Multi_key> <H> <A> <0> <6> <5>     : "𓁊" U1304A # EGYPTIAN HIEROGLYPH A065
+<Multi_key> <H> <A> <0> <6> <6>     : "𓁋" U1304B # EGYPTIAN HIEROGLYPH A066
+<Multi_key> <H> <A> <0> <6> <7>     : "𓁌" U1304C # EGYPTIAN HIEROGLYPH A067
+<Multi_key> <H> <A> <0> <6> <8>     : "𓁍" U1304D # EGYPTIAN HIEROGLYPH A068
+<Multi_key> <H> <A> <0> <6> <9>     : "𓁎" U1304E # EGYPTIAN HIEROGLYPH A069
+<Multi_key> <H> <A> <0> <7> <0>     : "𓁏" U1304F # EGYPTIAN HIEROGLYPH A070
+
+# B. Woman and her occupations {{{2
+
+<Multi_key> <H> <B> <0> <0> <1>     : "𓁐" U13050 # EGYPTIAN HIEROGLYPH B001
+<Multi_key> <H> <B> <0> <0> <2>     : "𓁑" U13051 # EGYPTIAN HIEROGLYPH B002
+<Multi_key> <H> <B> <0> <0> <3>     : "𓁒" U13052 # EGYPTIAN HIEROGLYPH B003
+<Multi_key> <H> <B> <0> <0> <4>     : "𓁓" U13053 # EGYPTIAN HIEROGLYPH B004
+<Multi_key> <H> <B> <0> <0> <5>     : "𓁔" U13054 # EGYPTIAN HIEROGLYPH B005
+<Multi_key> <H> <B> <A> <0> <0> <5> : "𓁕" U13055 # EGYPTIAN HIEROGLYPH B005A
+<Multi_key> <H> <B> <0> <0> <6>     : "𓁖" U13056 # EGYPTIAN HIEROGLYPH B006
+<Multi_key> <H> <B> <0> <0> <7>     : "𓁗" U13057 # EGYPTIAN HIEROGLYPH B007
+<Multi_key> <H> <B> <0> <0> <8>     : "𓁘" U13058 # EGYPTIAN HIEROGLYPH B008
+<Multi_key> <H> <B> <0> <0> <9>     : "𓁙" U13059 # EGYPTIAN HIEROGLYPH B009
+
+# C. Anthropomorphic deities {{{2
+
+<Multi_key> <H> <C> <0> <0> <1>     : "𓁚" U1305A # EGYPTIAN HIEROGLYPH C001
+<Multi_key> <H> <C> <0> <0> <2>     : "𓁛" U1305B # EGYPTIAN HIEROGLYPH C002
+<Multi_key> <H> <C> <A> <0> <0> <2> : "𓁜" U1305C # EGYPTIAN HIEROGLYPH C002A
+<Multi_key> <H> <C> <B> <0> <0> <2> : "𓁝" U1305D # EGYPTIAN HIEROGLYPH C002B
+<Multi_key> <H> <C> <C> <0> <0> <2> : "𓁞" U1305E # EGYPTIAN HIEROGLYPH C002C
+<Multi_key> <H> <C> <0> <0> <3>     : "𓁟" U1305F # EGYPTIAN HIEROGLYPH C003
+<Multi_key> <H> <C> <0> <0> <4>     : "𓁠" U13060 # EGYPTIAN HIEROGLYPH C004
+<Multi_key> <H> <C> <0> <0> <5>     : "𓁡" U13061 # EGYPTIAN HIEROGLYPH C005
+<Multi_key> <H> <C> <0> <0> <6>     : "𓁢" U13062 # EGYPTIAN HIEROGLYPH C006
+<Multi_key> <H> <C> <0> <0> <7>     : "𓁣" U13063 # EGYPTIAN HIEROGLYPH C007
+<Multi_key> <H> <C> <0> <0> <8>     : "𓁤" U13064 # EGYPTIAN HIEROGLYPH C008
+<Multi_key> <H> <C> <0> <0> <9>     : "𓁥" U13065 # EGYPTIAN HIEROGLYPH C009
+<Multi_key> <H> <C> <0> <1> <0>     : "𓁦" U13066 # EGYPTIAN HIEROGLYPH C010
+<Multi_key> <H> <C> <A> <0> <1> <0> : "𓁧" U13067 # EGYPTIAN HIEROGLYPH C010A
+<Multi_key> <H> <C> <0> <1> <1>     : "𓁨" U13068 # EGYPTIAN HIEROGLYPH C011 (1,000,000)
+<Multi_key> <H> <C> <0> <1> <2>     : "𓁩" U13069 # EGYPTIAN HIEROGLYPH C012
+<Multi_key> <H> <C> <0> <1> <3>     : "𓁪" U1306A # EGYPTIAN HIEROGLYPH C013
+<Multi_key> <H> <C> <0> <1> <4>     : "𓁫" U1306B # EGYPTIAN HIEROGLYPH C014
+<Multi_key> <H> <C> <0> <1> <5>     : "𓁬" U1306C # EGYPTIAN HIEROGLYPH C015
+<Multi_key> <H> <C> <0> <1> <6>     : "𓁭" U1306D # EGYPTIAN HIEROGLYPH C016
+<Multi_key> <H> <C> <0> <1> <7>     : "𓁮" U1306E # EGYPTIAN HIEROGLYPH C017
+<Multi_key> <H> <C> <0> <1> <8>     : "𓁯" U1306F # EGYPTIAN HIEROGLYPH C018
+<Multi_key> <H> <C> <0> <1> <9>     : "𓁰" U13070 # EGYPTIAN HIEROGLYPH C019
+<Multi_key> <H> <C> <0> <2> <0>     : "𓁱" U13071 # EGYPTIAN HIEROGLYPH C020
+<Multi_key> <H> <C> <0> <2> <1>     : "𓁲" U13072 # EGYPTIAN HIEROGLYPH C021
+<Multi_key> <H> <C> <0> <2> <2>     : "𓁳" U13073 # EGYPTIAN HIEROGLYPH C022
+<Multi_key> <H> <C> <0> <2> <3>     : "𓁴" U13074 # EGYPTIAN HIEROGLYPH C023
+<Multi_key> <H> <C> <0> <2> <4>     : "𓁵" U13075 # EGYPTIAN HIEROGLYPH C024
+
+# D. Parts of the human body {{{2
+
+<Multi_key> <H> <D> <0> <0> <1>     : "𓁶" U13076 # EGYPTIAN HIEROGLYPH D001
+<Multi_key> <H> <D> <0> <0> <2>     : "𓁷" U13077 # EGYPTIAN HIEROGLYPH D002
+<Multi_key> <H> <D> <0> <0> <3>     : "𓁸" U13078 # EGYPTIAN HIEROGLYPH D003
+<Multi_key> <H> <D> <0> <0> <4>     : "𓁹" U13079 # EGYPTIAN HIEROGLYPH D004
+<Multi_key> <H> <D> <0> <0> <5>     : "𓁺" U1307A # EGYPTIAN HIEROGLYPH D005
+<Multi_key> <H> <D> <0> <0> <6>     : "𓁻" U1307B # EGYPTIAN HIEROGLYPH D006
+<Multi_key> <H> <D> <0> <0> <7>     : "𓁼" U1307C # EGYPTIAN HIEROGLYPH D007
+<Multi_key> <H> <D> <0> <0> <8>     : "𓁽" U1307D # EGYPTIAN HIEROGLYPH D008
+<Multi_key> <H> <D> <A> <0> <0> <8> : "𓁾" U1307E # EGYPTIAN HIEROGLYPH D008A
+<Multi_key> <H> <D> <0> <0> <9>     : "𓁿" U1307F # EGYPTIAN HIEROGLYPH D009
+<Multi_key> <H> <D> <0> <1> <0>     : "𓂀" U13080 # EGYPTIAN HIEROGLYPH D010
+<Multi_key> <H> <D> <0> <1> <1>     : "𓂁" U13081 # EGYPTIAN HIEROGLYPH D011
+<Multi_key> <H> <D> <0> <1> <2>     : "𓂂" U13082 # EGYPTIAN HIEROGLYPH D012
+<Multi_key> <H> <D> <0> <1> <3>     : "𓂃" U13083 # EGYPTIAN HIEROGLYPH D013
+<Multi_key> <H> <D> <0> <1> <4>     : "𓂄" U13084 # EGYPTIAN HIEROGLYPH D014
+<Multi_key> <H> <D> <0> <1> <5>     : "𓂅" U13085 # EGYPTIAN HIEROGLYPH D015
+<Multi_key> <H> <D> <0> <1> <6>     : "𓂆" U13086 # EGYPTIAN HIEROGLYPH D016
+<Multi_key> <H> <D> <0> <1> <7>     : "𓂇" U13087 # EGYPTIAN HIEROGLYPH D017
+<Multi_key> <H> <D> <0> <1> <8>     : "𓂈" U13088 # EGYPTIAN HIEROGLYPH D018
+<Multi_key> <H> <D> <0> <1> <9>     : "𓂉" U13089 # EGYPTIAN HIEROGLYPH D019
+<Multi_key> <H> <D> <0> <2> <0>     : "𓂊" U1308A # EGYPTIAN HIEROGLYPH D020
+<Multi_key> <H> <D> <0> <2> <1>     : "𓂋" U1308B # EGYPTIAN HIEROGLYPH D021
+<Multi_key> <H> <D> <0> <2> <2>     : "𓂌" U1308C # EGYPTIAN HIEROGLYPH D022
+<Multi_key> <H> <D> <0> <2> <3>     : "𓂍" U1308D # EGYPTIAN HIEROGLYPH D023
+<Multi_key> <H> <D> <0> <2> <4>     : "𓂎" U1308E # EGYPTIAN HIEROGLYPH D024
+<Multi_key> <H> <D> <0> <2> <5>     : "𓂏" U1308F # EGYPTIAN HIEROGLYPH D025
+<Multi_key> <H> <D> <0> <2> <6>     : "𓂐" U13090 # EGYPTIAN HIEROGLYPH D026
+<Multi_key> <H> <D> <0> <2> <7>     : "𓂑" U13091 # EGYPTIAN HIEROGLYPH D027
+<Multi_key> <H> <D> <A> <0> <2> <7> : "𓂒" U13092 # EGYPTIAN HIEROGLYPH D027A
+<Multi_key> <H> <D> <0> <2> <8>     : "𓂓" U13093 # EGYPTIAN HIEROGLYPH D028
+<Multi_key> <H> <D> <0> <2> <9>     : "𓂔" U13094 # EGYPTIAN HIEROGLYPH D029
+<Multi_key> <H> <D> <0> <3> <0>     : "𓂕" U13095 # EGYPTIAN HIEROGLYPH D030
+<Multi_key> <H> <D> <0> <3> <1>     : "𓂖" U13096 # EGYPTIAN HIEROGLYPH D031
+<Multi_key> <H> <D> <A> <0> <3> <1> : "𓂗" U13097 # EGYPTIAN HIEROGLYPH D031A
+<Multi_key> <H> <D> <0> <3> <2>     : "𓂘" U13098 # EGYPTIAN HIEROGLYPH D032
+<Multi_key> <H> <D> <0> <3> <3>     : "𓂙" U13099 # EGYPTIAN HIEROGLYPH D033
+<Multi_key> <H> <D> <0> <3> <4>     : "𓂚" U1309A # EGYPTIAN HIEROGLYPH D034
+<Multi_key> <H> <D> <A> <0> <3> <4> : "𓂛" U1309B # EGYPTIAN HIEROGLYPH D034A
+<Multi_key> <H> <D> <0> <3> <5>     : "𓂜" U1309C # EGYPTIAN HIEROGLYPH D035
+<Multi_key> <H> <D> <0> <3> <6>     : "𓂝" U1309D # EGYPTIAN HIEROGLYPH D036
+<Multi_key> <H> <D> <0> <3> <7>     : "𓂞" U1309E # EGYPTIAN HIEROGLYPH D037
+<Multi_key> <H> <D> <0> <3> <8>     : "𓂟" U1309F # EGYPTIAN HIEROGLYPH D038
+<Multi_key> <H> <D> <0> <3> <9>     : "𓂠" U130A0 # EGYPTIAN HIEROGLYPH D039
+<Multi_key> <H> <D> <0> <4> <0>     : "𓂡" U130A1 # EGYPTIAN HIEROGLYPH D040
+<Multi_key> <H> <D> <0> <4> <1>     : "𓂢" U130A2 # EGYPTIAN HIEROGLYPH D041
+<Multi_key> <H> <D> <0> <4> <2>     : "𓂣" U130A3 # EGYPTIAN HIEROGLYPH D042
+<Multi_key> <H> <D> <0> <4> <3>     : "𓂤" U130A4 # EGYPTIAN HIEROGLYPH D043
+<Multi_key> <H> <D> <0> <4> <4>     : "𓂥" U130A5 # EGYPTIAN HIEROGLYPH D044
+<Multi_key> <H> <D> <0> <4> <5>     : "𓂦" U130A6 # EGYPTIAN HIEROGLYPH D045
+<Multi_key> <H> <D> <0> <4> <6>     : "𓂧" U130A7 # EGYPTIAN HIEROGLYPH D046
+<Multi_key> <H> <D> <A> <0> <4> <6> : "𓂨" U130A8 # EGYPTIAN HIEROGLYPH D046A
+<Multi_key> <H> <D> <0> <4> <7>     : "𓂩" U130A9 # EGYPTIAN HIEROGLYPH D047
+<Multi_key> <H> <D> <0> <4> <8>     : "𓂪" U130AA # EGYPTIAN HIEROGLYPH D048
+<Multi_key> <H> <D> <A> <0> <4> <8> : "𓂫" U130AB # EGYPTIAN HIEROGLYPH D048A
+<Multi_key> <H> <D> <0> <4> <9>     : "𓂬" U130AC # EGYPTIAN HIEROGLYPH D049
+<Multi_key> <H> <D> <0> <5> <0>     : "𓂭" U130AD # EGYPTIAN HIEROGLYPH D050
+<Multi_key> <H> <D> <A> <0> <5> <0> : "𓂮" U130AE # EGYPTIAN HIEROGLYPH D050A
+<Multi_key> <H> <D> <B> <0> <5> <0> : "𓂯" U130AF # EGYPTIAN HIEROGLYPH D050B
+<Multi_key> <H> <D> <C> <0> <5> <0> : "𓂰" U130B0 # EGYPTIAN HIEROGLYPH D050C
+<Multi_key> <H> <D> <D> <0> <5> <0> : "𓂱" U130B1 # EGYPTIAN HIEROGLYPH D050D
+<Multi_key> <H> <D> <E> <0> <5> <0> : "𓂲" U130B2 # EGYPTIAN HIEROGLYPH D050E
+<Multi_key> <H> <D> <F> <0> <5> <0> : "𓂳" U130B3 # EGYPTIAN HIEROGLYPH D050F
+<Multi_key> <H> <D> <G> <0> <5> <0> : "𓂴" U130B4 # EGYPTIAN HIEROGLYPH D050G
+<Multi_key> <H> <D> <H> <0> <5> <0> : "𓂵" U130B5 # EGYPTIAN HIEROGLYPH D050H
+<Multi_key> <H> <D> <I> <0> <5> <0> : "𓂶" U130B6 # EGYPTIAN HIEROGLYPH D050I
+<Multi_key> <H> <D> <0> <5> <1>     : "𓂷" U130B7 # EGYPTIAN HIEROGLYPH D051
+<Multi_key> <H> <D> <0> <5> <2>     : "𓂸" U130B8 # EGYPTIAN HIEROGLYPH D052
+<Multi_key> <H> <D> <A> <0> <5> <2> : "𓂹" U130B9 # EGYPTIAN HIEROGLYPH D052A
+<Multi_key> <H> <D> <0> <5> <3>     : "𓂺" U130BA # EGYPTIAN HIEROGLYPH D053
+<Multi_key> <H> <D> <0> <5> <4>     : "𓂻" U130BB # EGYPTIAN HIEROGLYPH D054
+<Multi_key> <H> <D> <A> <0> <5> <4> : "𓂼" U130BC # EGYPTIAN HIEROGLYPH D054A
+<Multi_key> <H> <D> <0> <5> <5>     : "𓂽" U130BD # EGYPTIAN HIEROGLYPH D055
+<Multi_key> <H> <D> <0> <5> <6>     : "𓂾" U130BE # EGYPTIAN HIEROGLYPH D056
+<Multi_key> <H> <D> <0> <5> <7>     : "𓂿" U130BF # EGYPTIAN HIEROGLYPH D057
+<Multi_key> <H> <D> <0> <5> <8>     : "𓃀" U130C0 # EGYPTIAN HIEROGLYPH D058
+<Multi_key> <H> <D> <0> <5> <9>     : "𓃁" U130C1 # EGYPTIAN HIEROGLYPH D059
+<Multi_key> <H> <D> <0> <6> <0>     : "𓃂" U130C2 # EGYPTIAN HIEROGLYPH D060
+<Multi_key> <H> <D> <0> <6> <1>     : "𓃃" U130C3 # EGYPTIAN HIEROGLYPH D061
+<Multi_key> <H> <D> <0> <6> <2>     : "𓃄" U130C4 # EGYPTIAN HIEROGLYPH D062
+<Multi_key> <H> <D> <0> <6> <3>     : "𓃅" U130C5 # EGYPTIAN HIEROGLYPH D063
+<Multi_key> <H> <D> <0> <6> <4>     : "𓃆" U130C6 # EGYPTIAN HIEROGLYPH D064
+<Multi_key> <H> <D> <0> <6> <5>     : "𓃇" U130C7 # EGYPTIAN HIEROGLYPH D065
+<Multi_key> <H> <D> <0> <6> <6>     : "𓃈" U130C8 # EGYPTIAN HIEROGLYPH D066
+<Multi_key> <H> <D> <0> <6> <7>     : "𓃉" U130C9 # EGYPTIAN HIEROGLYPH D067
+<Multi_key> <H> <D> <A> <0> <6> <7> : "𓃊" U130CA # EGYPTIAN HIEROGLYPH D067A
+<Multi_key> <H> <D> <B> <0> <6> <7> : "𓃋" U130CB # EGYPTIAN HIEROGLYPH D067B
+<Multi_key> <H> <D> <C> <0> <6> <7> : "𓃌" U130CC # EGYPTIAN HIEROGLYPH D067C
+<Multi_key> <H> <D> <D> <0> <6> <7> : "𓃍" U130CD # EGYPTIAN HIEROGLYPH D067D
+<Multi_key> <H> <D> <E> <0> <6> <7> : "𓃎" U130CE # EGYPTIAN HIEROGLYPH D067E
+<Multi_key> <H> <D> <F> <0> <6> <7> : "𓃏" U130CF # EGYPTIAN HIEROGLYPH D067F
+<Multi_key> <H> <D> <G> <0> <6> <7> : "𓃐" U130D0 # EGYPTIAN HIEROGLYPH D067G
+<Multi_key> <H> <D> <H> <0> <6> <7> : "𓃑" U130D1 # EGYPTIAN HIEROGLYPH D067H
 
 # Small-caps {{{1
 
@@ -2680,6 +3034,11 @@ include "%L"
 <Multi_key> <C> <A> <N>     : "󠁿" UE007F # CANCEL TAG
 <Multi_key> <C> <G> <J>     : "͏" U034F # COMBINING GRAPHEME JOINER
 <Multi_key> <N> <O>         : "⃠" U20E0 # COMBINING ENCLOSING CIRCLE BACKSLASH
+<Multi_key> <v> <0> <1>     : "︀" UFE00 # VARIATION SELECTOR-1
+<Multi_key> <v> <0> <2>     : "︁" UFE01 # VARIATION SELECTOR-2
+<Multi_key> <v> <0> <3>     : "︂" UFE02 # VARIATION SELECTOR-3
+# VS4-VS14 are not used anywhere in Unicode
+# https://en.wikipedia.org/wiki/Variation_Selectors_(Unicode_block)
 <Multi_key> <v> <1> <5>     : "︎" UFE0E # VARIATION SELECTOR-15 (force text style)
 <Multi_key> <v> <1> <6>     : "️" UFE0F # VARIATION SELECTOR-16 (force emoji style)
 <Multi_key> <r> <bar> <0>   : "￹" UFFF9 # INTERLINEAR ANNOTATION ANCHOR (for ruby text)
@@ -2722,6 +3081,58 @@ include "%L"
 <Multi_key> <bar> <bar> <y> : "󠁹" UE0079 # TAG LATIN SMALL LETTER Y
 <Multi_key> <bar> <bar> <z> : "󠁺" UE007A # TAG LATIN SMALL LETTER Z
 
+# IRC formatting {{{2
+# https://modern.ircdocs.horse/formatting.html
+
+# Bold
+<Multi_key> <I> <b>     : "" U0002 # IRC bold
+<Multi_key> <S> <X>     : "" U0002 # START OF TEXT
+# Italics
+<Multi_key> <I> <i>     : "" U001D # IRC italics
+<Multi_key> <G> <S>     : "" U001D # INFORMATION SEPARATOR THREE
+# Underline
+<Multi_key> <I> <u>     : "" U001F # IRC underline
+<Multi_key> <U> <S>     : "" U001F # INFORMATION SEPARATOR ONE
+# Strickthrough
+<Multi_key> <I> <tilde> : "" U001E # IRC strikethrough
+<Multi_key> <R> <S>     : "" U001E # INFORMATION SEPARATOR TWO
+# Monospace
+<Multi_key> <I> <m>     : "" U0011 # IRC monospace
+<Multi_key> <D> <C> <1> : "" U0011 # DEVICE CONTROL ONE
+# Color
+<Multi_key> <I> <c>     : "" U0003 # IRC color
+<Multi_key> <E> <X>     : "" U0003 # END OF TEXT
+# Hex color
+<Multi_key> <I> <h>     : "" U0004 # IRC hex color
+<Multi_key> <E> <T>     : "" U0004 # END OF TRANSMISSION
+# Reverse colors
+<Multi_key> <I> <r>     : "" U0016 # IRC reverse color
+<Multi_key> <S> <Y>     : "" U0016 # SYNCHRONOUS IDLE
+# Reset all formatting
+<Multi_key> <I> <0>     : "" U000F # IRC reset formatting
+<Multi_key> <S> <I>     : "" U000F # SHIFT IN
+
+# IRC colors {{{3
+
+<Multi_key> <I> <C> <w>     : "00" U0003 U0030 U0030 # IRC foreground color white
+<Multi_key> <I> <C> <x>     : "01" U0003 U0030 U0031 # IRC foreground color black
+<Multi_key> <I> <C> <b>     : "02" U0003 U0030 U0032 # IRC foreground color blue
+<Multi_key> <I> <C> <v>     : "03" U0003 U0030 U0033 # IRC foreground color green
+<Multi_key> <I> <C> <r>     : "04" U0003 U0030 U0034 # IRC foreground color red
+<Multi_key> <I> <C> <n>     : "05" U0003 U0030 U0035 # IRC foreground color brown
+<Multi_key> <I> <C> <m>     : "06" U0003 U0030 U0036 # IRC foreground color magenta
+<Multi_key> <I> <C> <o>     : "07" U0003 U0030 U0037 # IRC foreground color orange
+<Multi_key> <I> <C> <y>     : "08" U0003 U0030 U0038 # IRC foreground color yellow
+<Multi_key> <I> <C> <l> <v> : "09" U0003 U0030 U0039 # IRC foreground color light green
+<Multi_key> <I> <C> <c>     : "10" U0003 U0031 U0030 # IRC foreground color cyan
+<Multi_key> <I> <C> <l> <c> : "11" U0003 U0031 U0031 # IRC foreground color light cyan
+<Multi_key> <I> <C> <l> <b> : "12" U0003 U0031 U0032 # IRC foreground color light blue
+<Multi_key> <I> <C> <p>     : "13" U0003 U0031 U0033 # IRC foreground color pink
+<Multi_key> <I> <C> <g>     : "14" U0003 U0031 U0034 # IRC foreground color grey
+<Multi_key> <I> <C> <l> <g> : "15" U0003 U0031 U0035 # IRC foreground color light grey
+<Multi_key> <I> <C> <0>     : "99" U0003 U0039 U0039 # IRC default foreground/background
+<Multi_key> <I> <s> <p>     : "1,0199,99" U0003 U0031 U002C U0030 U0031 U0003 U0039 U0039 U002C U0039 U0039 # IRC spoiler (black foreground/black background)
+
 # Emoji {{{1
 
 # Arrows {{{2
@@ -2738,6 +3149,7 @@ include "%L"
 <Multi_key> <Multi_key> <minus> <l> <u>         : "↖️" U2196 UFE0F # UP-LEFT ARROW (emoji version of ↖)
 <Multi_key> <Multi_key> <minus> <Up> <Down>     : "↕️" U2195 UFE0F # UP-DOWN ARROW (emoji version of ↕)
 <Multi_key> <Multi_key> <minus> <Left> <Right>  : "↔️" U2194 UFE0F # LEFT-RIGHT ARROW (emoji version of ↔)
+<Multi_key> <Multi_key> <Left> <b> <a> <c> <k>  : "↩️" U21A9 UFE0F # RIGHT ARROW CURVING LEFT - LEFTWARDS ARROW WITH HOOK (emoji version of ↩)
 <Multi_key> <Multi_key> <Left> <h> <o> <o> <k>  : "↩️" U21A9 UFE0F # RIGHT ARROW CURVING LEFT - LEFTWARDS ARROW WITH HOOK (emoji version of ↩)
 <Multi_key> <Multi_key> <Right> <h> <o> <o> <k> : "↪️" U21AA UFE0F # LEFT ARROW CURVING RIGHT - RIGHTWARDS ARROW WITH HOOK (emoji version of ↪)
 <Multi_key> <Multi_key> <Right> <Up>            : "⤴️" U2934 UFE0F # RIGHT ARROW CURVING UP (emoji version of ⤴)
@@ -2759,6 +3171,8 @@ include "%L"
 <Multi_key> <Multi_key> <f> <Up>                     : "☝️" U261D UFE0F # WHITE UP POINTING INDEX (emoji version of ☝)
 <Multi_key> <Multi_key> <t> <h> <i> <s>              : "☝️" U261D UFE0F # WHITE UP POINTING INDEX (emoji version of ☝)
 <Multi_key> <Multi_key> <Up> <Up>                    : "👆" U1F446 # WHITE UP POINTING BACKHAND INDEX
+<Multi_key> <Multi_key> <c> <l> <i> <c> <k>          : "👆" U1F446 # WHITE UP POINTING BACKHAND INDEX
+<Multi_key> <Multi_key> <p> <r> <e> <s> <s>          : "👆" U1F446 # WHITE UP POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <Left> <Left>                : "👈" U1F448 # WHITE LEFT POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <Right> <Right>              : "👉" U1F449 # WHITE RIGHT POINTING BACKHAND INDEX
 <Multi_key> <Multi_key> <Down> <Down>                : "👇" U1F447 # WHITE DOWN POINTING BACKHAND INDEX
@@ -2781,6 +3195,7 @@ include "%L"
 <Multi_key> <Multi_key> <f> <u> <c> <k>              : "🖕" U1F595 # REVERSED HAND WITH MIDDLE FINGER EXTENDED
 <Multi_key> <Multi_key> <o> <l> <e>                  : "🙌" U1F64C # PERSON RAISING BOTH HANDS IN CELEBRATION
 <Multi_key> <Multi_key> <b> <a> <n> <z> <a> <i>      : "🙌" U1F64C # PERSON RAISING BOTH HANDS IN CELEBRATION
+<Multi_key> <Multi_key> <w> <a> <i>                  : "🙌" U1F64C # PERSON RAISING BOTH HANDS IN CELEBRATION
 <Multi_key> <Multi_key> <c> <l> <a> <p>              : "👏" U1F44F # CLAPPING HANDS SIGN
 <Multi_key> <Multi_key> <a> <l> <l> <a> <h>          : "🤲" U1F932 # PALMS UP TOGETHER
 <Multi_key> <Multi_key> <p> <a> <l> <m> <s>          : "🤲" U1F932 # PALMS UP TOGETHER
@@ -2860,7 +3275,7 @@ include "%L"
 <Multi_key> <Multi_key> <f> <C> <I>                         : "💚" U1F49A # GREEN HEART
 <Multi_key> <Multi_key> <b> <h> <e> <a> <r> <t>             : "💙" U1F499 # BLUE HEART
 <Multi_key> <Multi_key> <p> <h> <e> <a> <r> <t>             : "💜" U1F49C # PURPLE HEART
-<Multi_key> <Multi_key> <m> <h> <e> <a> <r> <t>             : "🤎" U1F90E # BROWN HEART
+<Multi_key> <Multi_key> <n> <h> <e> <a> <r> <t>             : "🤎" U1F90E # BROWN HEART
 <Multi_key> <Multi_key> <x> <h> <e> <a> <r> <t>             : "🖤" U1F5A4 # BLACK HEART
 <Multi_key> <Multi_key> <w> <h> <e> <a> <r> <t>             : "🤍" U1F90D # WHITE HEART
 <Multi_key> <Multi_key> <b> <b> <h> <e> <a> <r> <t>         : "🩵" U1FA75 # LIGHT BLUE HEART
@@ -2873,7 +3288,7 @@ include "%L"
 <Multi_key> <Multi_key> <g> <c> <i> <r> <c> <l> <e>         : "🟢" U1F7E2 # LARGE GREEN CIRCLE
 <Multi_key> <Multi_key> <b> <c> <i> <r> <c> <l> <e>         : "🔵" U1F535 # LARGE BLUE CIRCLE
 <Multi_key> <Multi_key> <p> <c> <i> <r> <c> <l> <e>         : "🟣" U1F7E3 # LARGE PURPLE CIRCLE
-<Multi_key> <Multi_key> <m> <c> <i> <r> <c> <l> <e>         : "🟤" U1F7E4 # LARGE BROWN CIRCLE
+<Multi_key> <Multi_key> <n> <c> <i> <r> <c> <l> <e>         : "🟤" U1F7E4 # LARGE BROWN CIRCLE
 <Multi_key> <Multi_key> <x> <c> <i> <r> <c> <l> <e>         : "⚫" U26AB # MEDIUM BLACK CIRCLE
 <Multi_key> <Multi_key> <w> <c> <i> <r> <c> <l> <e>         : "⚪" U26AA # MEDIUM WHITE CIRCLE
 <Multi_key> <Multi_key> <r> <b> <u> <t> <t> <o> <n>         : "🔘" U1F518 # RADIO BUTTON
@@ -2884,7 +3299,7 @@ include "%L"
 <Multi_key> <Multi_key> <g> <s> <q> <u> <a> <r> <e>         : "🟩" U1F7E9 # LARGE GREEN SQUARE
 <Multi_key> <Multi_key> <b> <s> <q> <u> <a> <r> <e>         : "🟦" U1F7E6 # LARGE BLUE SQUARE
 <Multi_key> <Multi_key> <p> <s> <q> <u> <a> <r> <e>         : "🟪" U1F7EA # LARGE PURPLE SQUARE
-<Multi_key> <Multi_key> <m> <s> <q> <u> <a> <r> <e>         : "🟫" U1F7EB # LARGE BROWN SQUARE
+<Multi_key> <Multi_key> <n> <s> <q> <u> <a> <r> <e>         : "🟫" U1F7EB # LARGE BROWN SQUARE
 <Multi_key> <Multi_key> <x> <s> <q> <u> <a> <r> <e>         : "⬛" U2B1B # BLACK LARGE SQUARE
 <Multi_key> <Multi_key> <w> <s> <q> <u> <a> <r> <e>         : "⬜" U2B1C # WHITE LARGE SQUARE
 <Multi_key> <Multi_key> <a> <s> <q> <u> <a> <r> <e>         : "🟥🟧🟨🟩🟦🟪🟫⬛⬜" U1F7E5 U1F7E7 U1F7E8 U1F7E9 U1F7E6 U1F7EA U1F7EB U2B1B U2B1C # All squares
@@ -3150,6 +3565,7 @@ include "%L"
 <Multi_key> <Multi_key> <f> <e> <n> <c> <e> <r>         : "🤺" U1F93A # FENCER
 <Multi_key> <Multi_key> <w> <a> <l> <k>                 : "🚶" U1F6B6 # PEDESTRIAN
 <Multi_key> <Multi_key> <r> <u> <n> <n> <e> <r>         : "🏃" U1F3C3 # RUNNER
+<Multi_key> <Multi_key> <c> <y> <c> <l> <e>             : "🚴" U1F6B4 # BICYCLIST
 <Multi_key> <Multi_key> <r> <o> <a> <d>                 : "🚴" U1F6B4 # BICYCLIST
 <Multi_key> <Multi_key> <M> <T> <B>                     : "🚵" U1F6B5 # MOUNTAIN BICYCLIST
 <Multi_key> <Multi_key> <m> <t> <b>                     : "🚵" U1F6B5 # MOUNTAIN BICYCLIST
@@ -3206,6 +3622,7 @@ include "%L"
 <Multi_key> <Multi_key> <m> <o> <c> <k>                 : "🤡" U1F921 # CLOWN FACE
 <Multi_key> <Multi_key> <p> <r> <i> <n> <c> <e>         : "🤴" U1F934 # PRINCE
 <Multi_key> <Multi_key> <p> <r> <i> <n> <c> <s>         : "👸" U1F478 # PRINCESS
+<Multi_key> <Multi_key> <k> <i> <n> <g>                 : "🫅" U1FAC5 # PERSON WITH CROWN
 <Multi_key> <Multi_key> <p> <c> <r> <o> <w> <n>         : "🫅" U1FAC5 # PERSON WITH CROWN
 <Multi_key> <Multi_key> <m> <a> <g> <e>                 : "🧙" U1F9D9 # MAGE
 <Multi_key> <Multi_key> <f> <a> <i> <r> <y>             : "🧚" U1F9DA # FAIRY
@@ -4698,7 +5115,8 @@ include "%L"
 <Multi_key> <Multi_key> <t> <o> <k> <u>                         : "🉐" U1F250 # JAPANESE “BARGAIN” BUTTON
 <Multi_key> <Multi_key> <w> <a> <r> <i>                         : "🈹" U1F239 # JAPANESE “DISCOUNT” BUTTON
 <Multi_key> <Multi_key> <m> <u> <r> <y> <o>                     : "🈚" U1F21A # JAPANESE “FREE OF CHARGE” BUTTON
-<Multi_key> <Multi_key> <k> <i> <n>                             : "🈲" U1F232 # JAPANESE “PROHIBITED” BUTTON
+<Multi_key> <Multi_key> <k> <i> <n> <s> <h> <i>                 : "🈲" U1F232 # JAPANESE “PROHIBITED” BUTTON
+<Multi_key> <Multi_key> <p> <r> <o> <h> <i>                     : "🈲" U1F232 # JAPANESE “PROHIBITED” BUTTON
 <Multi_key> <Multi_key> <a> <c> <c> <e> <p> <t> <a> <b> <l> <e> : "🉑" U1F251 # JAPANESE “ACCEPTABLE” BUTTON
 <Multi_key> <Multi_key> <s> <h> <i> <n> <s> <e> <i>             : "🈸" U1F238 # JAPANESE “APPLICATION” BUTTON
 <Multi_key> <Multi_key> <a> <p> <p> <l> <y>                     : "🈸" U1F238 # JAPANESE “APPLICATION” BUTTON
@@ -4919,10 +5337,10 @@ include "%L"
 <Multi_key> <Multi_key> <bar> <n> <i> <i> <g> <a> <t> <a>         : "🏴󠁪󠁰󠀱󠀵󠁿" U1F3F4 UE006A UE0070 UE0031 UE0035 UE007F # Flag: Niigata (JP-15)
 <Multi_key> <Multi_key> <bar> <t> <o> <y> <a> <m> <a>             : "🏴󠁪󠁰󠀱󠀶󠁿" U1F3F4 UE006A UE0070 UE0031 UE0036 UE007F # Flag: Toyama (JP-16)
 <Multi_key> <Multi_key> <bar> <i> <s> <h> <i> <k> <a> <w> <a>     : "🏴󠁪󠁰󠀱󠀷󠁿" U1F3F4 UE006A UE0070 UE0031 UE0037 UE007F # Flag: Ishikawa (JP-17)
-<Multi_key> <Multi_key> <bar> <h> <u> <k> <u> <i>                 : "🏴󠁪󠁰󠀱󠀸󠁿" U1F3F4 UE006A UE0070 UE0031 UE0038 UE007F # Flag: Hukui (JP-18)
+<Multi_key> <Multi_key> <bar> <f> <u> <k> <u> <i>                 : "🏴󠁪󠁰󠀱󠀸󠁿" U1F3F4 UE006A UE0070 UE0031 UE0038 UE007F # Flag: Fukui (JP-18)
 <Multi_key> <Multi_key> <bar> <y> <a> <m> <a> <n> <a> <s> <h> <i> : "🏴󠁪󠁰󠀱󠀹󠁿" U1F3F4 UE006A UE0070 UE0031 UE0039 UE007F # Flag: Yamanashi (JP-19)
 <Multi_key> <Multi_key> <bar> <n> <a> <g> <a> <n> <o>             : "🏴󠁪󠁰󠀲󠀰󠁿" U1F3F4 UE006A UE0070 UE0032 UE0030 UE007F # Flag: Nagano (JP-20)
-<Multi_key> <Multi_key> <bar> <g> <i> <h> <u>                     : "🏴󠁪󠁰󠀲󠀱󠁿" U1F3F4 UE006A UE0070 UE0032 UE0031 UE007F # Flag: Gihu (JP-21)
+<Multi_key> <Multi_key> <bar> <g> <i> <f> <u>                     : "🏴󠁪󠁰󠀲󠀱󠁿" U1F3F4 UE006A UE0070 UE0032 UE0031 UE007F # Flag: Gifu (JP-21)
 <Multi_key> <Multi_key> <bar> <s> <h> <i> <z> <u> <o> <k> <a>     : "🏴󠁪󠁰󠀲󠀲󠁿" U1F3F4 UE006A UE0070 UE0032 UE0032 UE007F # Flag: Shizuoka (JP-22)
 <Multi_key> <Multi_key> <bar> <a> <i> <c> <h> <i>                 : "🏴󠁪󠁰󠀲󠀳󠁿" U1F3F4 UE006A UE0070 UE0032 UE0033 UE007F # Flag: Aichi (JP-23)
 <Multi_key> <Multi_key> <bar> <m> <i> <e>                         : "🏴󠁪󠁰󠀲󠀴󠁿" U1F3F4 UE006A UE0070 UE0032 UE0034 UE007F # Flag: Mie (JP-24)
