@@ -146,7 +146,7 @@ if (eq E:INFOPATH '') {
 {{-   end }}
 
 # gcloud components
-var gcloud_bin_path = $E:HOMEBREW_PREFIX'/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin'
+var gcloud_bin_path = $E:HOMEBREW_PREFIX'/share/google-cloud-sdk/bin'
 if (path:is-dir $gcloud_bin_path) {
   set paths = [$@paths $gcloud_bin_path]
 }

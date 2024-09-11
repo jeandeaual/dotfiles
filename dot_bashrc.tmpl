@@ -41,19 +41,13 @@ if [[ -r "${bash_completion_path}" ]]; then
 fi
 
 # Google Cloud SDK tools and completions
-readonly gcloud_cask_path="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-readonly gcloud_inc_path="${gloud_cask_path}/path.zsh.inc"
-readonly gcloud_completion_path="${gloud_cask_path}/completion.zsh.inc"
+readonly gcloud_inc_path="${HOMEBREW_PREFIX}/share/google-cloud-sdk/path.bash.inc"
 
 if [[ -r "${gcloud_inc_path}" ]]; then
     # shellcheck disable=SC1090
     source "${gcloud_inc_path}"
 fi
 
-if [[ -r "${gcloud_completion_path}" ]]; then
-    # shellcheck disable=SC1090
-    source "${gcloud_completion_path}"
-fi
 {{- end }}
 
 if command -v rbenv >/dev/null; then

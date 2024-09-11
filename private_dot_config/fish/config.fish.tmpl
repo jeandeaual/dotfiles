@@ -83,7 +83,7 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 {{- end }}
 
 # Google Cloud SDK tools and completions
-set -l gcloud_inc_path {$HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+set -l gcloud_inc_path {$HOMEBREW_PREFIX}/share/google-cloud-sdk/path.fish.inc
 
 if test -r $gcloud_inc_path
     source $gcloud_inc_path
