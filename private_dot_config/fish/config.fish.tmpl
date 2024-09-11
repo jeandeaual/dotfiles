@@ -486,6 +486,38 @@ if type -q flac
     end
 end
 
+{{ range $i, $cmd := list "mkvmerge" "ffmpeg" }}
+{{ if ne $i 0 -}} else {{ end -}}
+if type -q {{ $cmd }}
+    function mpeg2mkv --argument-names 'clean' --description "Remux MTS and M2TS files to MKV"
+        if test (count $argv) -lt 1
+            set clean false
+        end
+
+        for f in **.ts **.m2t **.m2ts
+            # Could be replaced with `path change-extension` with Fish 3.5+
+            # https://fishshell.com/docs/current/cmds/path.html#change-extension-subcommand
+            set -l mkv (string split -m1 -r '.' "$f")[1]".mkv"
+{{ if eq $cmd "mkvmerge" }}
+            mkvmerge -o $mkv $f
+{{- else if eq $cmd "ffmpeg" }}
+            ffmpeg -i $f -scodec copy -acodec copy -vcodec copy -f matroska $mkv
+{{- end }}
+
+            if test $clean = true
+                rm -f $f
+            end
+
+            if type -q mkclean
+                set -l clean_mkv (string split -m1 -r '.' "$f")[1]".clean.mkv"
+
+                mkclean $mkv $clean_mkv && rm -f $mkv && mv $clean_mkv $mkv
+            end
+        end
+    end
+{{- end }}
+end
+
 if type -q pwsh
     function pwsh --description "Start PowerShell without displaying the copyright banner"
         command pwsh -NoLogo $argv

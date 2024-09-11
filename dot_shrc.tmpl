@@ -359,6 +359,44 @@ if command -v flac >/dev/null; then
         alias flacreencode='find . -type f -name '\''*.flac'\'' -exec sh -c '\''vendor="$(metaflac --show-vendor-tag $1)"; current_vendor="libFLAC $(flac --version | cut -d" " -f 2)"; [ "${vendor#*$current_vendor}" != "$vendor" ] || flac --verify --best --decode-through-errors --preserve-modtime -e -p -f $1'\'' _ {} \;'
     fi
 fi
+{{ range $i, $cmd := list "mkvmerge" "ffmpeg" }}
+{{ if eq $i 0 }}if{{ else }}elif{{ end }} command -v {{ $cmd }} >/dev/null; then
+    # Remux MTS and M2TS files to MKV
+    mpeg2mkv() {
+        clean=false
+        if [ $# -ge 1 ]; then
+            clean=$1
+            shift
+        fi
+
+        # shellcheck disable=SC2016
+        script='file=$1
+            shift
+            clean=$2
+            shift
+
+            mkv="${1%.*}.mkv"
+
+{{ if eq $cmd "mkvmerge" }}
+            mkvmerge -o "${mkv}" "$file"
+{{- else if eq $cmd "ffmpeg" }}
+            ffmpeg -i "$file" -scodec copy -acodec copy -vcodec copy -f matroska "${mkv}"
+{{- end }}
+
+            if [ "${clean}" = "true" ]; then
+                rm -f "$file"
+            fi
+
+            if command -v mkclean >/dev/null; then
+                clean_mkv="${1%.*}.clean.mkv"
+
+                mkclean "${mkv}" "${clean_mkv}" && rm -f "${mkv}" && mv "${clean_mkv}" "${mkv}"
+            fi'
+
+        find . -type f \( -name '*.ts' -o -name '*.m2t' -o -name '*.m2ts' \) -exec sh -c "${script}" "${clean}" - {} \;
+    }
+{{- end }}
+fi
 if command -v pwsh >/dev/null; then
     # Start PowerShell without displaying the copyright banner
     alias pwsh='pwsh -NoLogo'

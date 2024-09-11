@@ -454,6 +454,30 @@ if (has-external flac) {
     edit:add-var flacreencode~ $flacreencode~
   }
 }
+{{ range $i, $cmd := list "mkvmerge" "ffmpeg" }}
+{{ if eq $i 0 }}if{{ else }}elif{{ end }} (has-external {{ $cmd }}) {
+  # Remux MTS and M2TS files to MKV"
+  fn mpeg2mkv {|&clean=$false|
+    for file [**[type:regular].ts **[type:regular].m2t **[type:regular].m2ts] {
+      var mkv = re:replace (path:ext $file)'$' .mkv $file
+{{ if eq $cmd "mkvmerge" }}
+      mkvmerge -o $mkv $f
+{{- else if eq $cmd "ffmpeg" }}
+      ffmpeg -i $f -scodec copy -acodec copy -vcodec copy -f matroska $mkv
+{{- end }}
+
+      if ($clean) {
+        rm -f $f
+      }
+
+      if (has-external mkclean) {
+        var clean_mkv = re:replace (path:ext $file)'$' .clean.mkv $file
+
+        mkclean $mkv $clean_mkv; rm -f $mkv; mv $clean_mkv $mkv
+      }
+  }
+{{- end }}
+}
 if (has-external pwsh) {
   # Start PowerShell without displaying the copyright banner
   fn pwsh {|@a| e:pwsh -NoLogo $@a }
