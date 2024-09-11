@@ -3821,6 +3821,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <a> <p> <i> <n>             : "🌲" U1F332 # EVERGREEN TREE
 <Multi_key> <Multi_key> <t> <r> <e> <e>                 : "🌳" U1F333 # DECIDUOUS TREE
 <Multi_key> <Multi_key> <p> <a> <l> <m> <i> <e> <r>     : "🌴" U1F334 # PALM TREE
+<Multi_key> <Multi_key> <d> <t> <r> <e> <e>             : "🪾" U1FABE # LEAFLESS TREE
 <Multi_key> <Multi_key> <c> <a> <c> <t> <u> <s>         : "🌵" U1F335 # CACTUS
 <Multi_key> <Multi_key> <p> <l> <a> <n> <t>             : "🪴" U1FAB4 # POTTED PLANT
 <Multi_key> <Multi_key> <i> <n> <a> <h> <o>             : "🌾" U1F33E # EAR OF RICE
@@ -3985,11 +3986,13 @@ include "%L"
 <Multi_key> <Multi_key> <a> <c> <c> <o> <r>                 : "🪗" U1FA97 # ACCORDION
 <Multi_key> <Multi_key> <m> <a> <r> <a> <c> <a> <s>         : "🪇" U1FA87 # MARACAS
 <Multi_key> <Multi_key> <f> <l> <u> <t> <e>                 : "🪈" U1FA88 # FLUTE
+<Multi_key> <Multi_key> <h> <a> <r> <p>                     : "🪉" U1FA89 # HARP
 
 # Tools {{{2
 
 <Multi_key> <Multi_key> <p> <i> <c> <k>         : "⛏️" U26CF UFE0F # PICK (emoji version of ⛏)
 <Multi_key> <Multi_key> <m> <i> <n> <e>         : "⛏️" U26CF UFE0F # PICK (emoji version of ⛏)
+<Multi_key> <Multi_key> <s> <h> <o> <v> <e> <l> : "🪏" U1FA8F # SHOVEL
 <Multi_key> <Multi_key> <w> <r> <e> <n> <c> <h> : "🔧" U1F527 # WRENCH
 <Multi_key> <Multi_key> <c> <o> <t> <f> <i> <g> : "🔧" U1F527 # WRENCH
 <Multi_key> <Multi_key> <h> <a> <m> <m> <e> <r> : "🔨" U1F528 # HAMMER
@@ -4131,12 +4134,6 @@ include "%L"
 <Multi_key> <Multi_key> <a> <n> <x> <i> <o> <u> <s>              : "😰" U1F630 # FACE WITH OPEN MOUTH AND COLD SWEAT
 <Multi_key> <Multi_key> <apostrophe> <asciicircum> <asciicircum> : "😅" U1F605 # SMILING FACE WITH OPEN MOUTH AND COLD SWEAT
 <Multi_key> <Multi_key> <apostrophe> <6> <6>                     : "😅" U1F605 # SMILING FACE WITH OPEN MOUTH AND COLD SWEAT
-<Multi_key> <Multi_key> <colon> <bracketleft>                    : "😩" U1F629 # WEARY FACE
-<Multi_key> <Multi_key> <colon> <minus> <bracketleft>            : "😩" U1F629 # WEARY FACE
-<Multi_key> <Multi_key> <w> <e> <a> <r> <y>                      : "😩" U1F629 # WEARY FACE
-<Multi_key> <Multi_key> <s> <l> <e> <e> <p> <y>                  : "😪" U1F62A # SLEEPY FACE
-<Multi_key> <Multi_key> <z> <z> <z>                              : "😴" U1F634 # SLEEPING FACE
-<Multi_key> <Multi_key> <Z> <Z> <Z>                              : "💤" U1F4A4 # SLEEPING SYMBOL
 <Multi_key> <Multi_key> <f> <h> <u> <g>                          : "🤗" U1F917 # HUGGING FACE
 <Multi_key> <Multi_key> <c> <a> <l> <i> <n>                      : "🫂" U1FAC2 # PEOPLE HUGGING
 <Multi_key> <Multi_key> <h> <u> <g>                              : "🫂" U1FAC2 # PEOPLE HUGGING
@@ -4185,6 +4182,14 @@ include "%L"
 <Multi_key> <Multi_key> <minus> <colon> <O>                      : "😯" U1F62F # HUSHED FACE
 <Multi_key> <Multi_key> <minus> <colon> <o>                      : "😯" U1F62F # HUSHED FACE
 <Multi_key> <Multi_key> <colon> <less> <D>                       : "😦" U1F626 # FROWNING FACE WITH OPEN MOUTH
+<Multi_key> <Multi_key> <colon> <bracketleft>                    : "😩" U1F629 # WEARY FACE
+<Multi_key> <Multi_key> <colon> <minus> <bracketleft>            : "😩" U1F629 # WEARY FACE
+<Multi_key> <Multi_key> <w> <e> <a> <r> <y>                      : "😩" U1F629 # WEARY FACE
+<Multi_key> <Multi_key> <n> <o> <s> <l> <e> <e> <p>              : "🫩" U1FAE9 # FACE WITH BAGS UNDER EYES
+<Multi_key> <Multi_key> <b> <e> <y> <e> <s>                      : "🫩" U1FAE9 # FACE WITH BAGS UNDER EYES
+<Multi_key> <Multi_key> <s> <l> <e> <e> <p> <y>                  : "😪" U1F62A # SLEEPY FACE
+<Multi_key> <Multi_key> <z> <z> <z>                              : "😴" U1F634 # SLEEPING FACE
+<Multi_key> <Multi_key> <Z> <Z> <Z>                              : "💤" U1F4A4 # SLEEPING SYMBOL
 <Multi_key> <Multi_key> <t> <i> <r> <e> <d>                      : "😫" U1F62B # TIRED FACE
 <Multi_key> <Multi_key> <m> <e> <n> <t> <e> <u> <r>              : "🤥" U1F925 # LYING FACE
 <Multi_key> <Multi_key> <p> <i> <n> <o> <c> <c> <h> <i> <o>      : "🤥" U1F925 # LYING FACE
@@ -4242,7 +4247,10 @@ include "%L"
 <Multi_key> <Multi_key> <n> <a> <g> <a> <r> <e> <b>         : "🌠" U1F320 # SHOOTING STAR
 <Multi_key> <Multi_key> <d> <i> <z> <z> <y>                 : "💫" U1F4AB # DIZZY SYMBOL
 <Multi_key> <Multi_key> <I> <D>                             : "🪪" U1FAAA # IDENTIFICATION CARD
+<Multi_key> <Multi_key> <f> <i> <n> <g> <e> <r> <p>         : "🫆" U1FAC6 # FINGERPRINT
+<Multi_key> <Multi_key> <b> <i> <o> <m>                     : "🫆" U1FAC6 # FINGERPRINT
 <Multi_key> <Multi_key> <a> <n> <g> <e> <r>                 : "💢" U1F4A2 # ANGER SYMBOL
+<Multi_key> <Multi_key> <s> <p> <l> <a> <t> <t> <e> <r>     : "🫟" U1FADF # SPLATTER
 <Multi_key> <Multi_key> <w> <a> <k> <u> <w> <a> <k> <u>     : "💓" U1F493 # BEATING HEART
 <Multi_key> <Multi_key> <backslash> <less> <3>              : "💔" U1F494 # BROKEN HEART
 <Multi_key> <Multi_key> <backslash> <h> <e> <a> <r> <t>     : "💔" U1F494 # BROKEN HEART
@@ -4864,6 +4872,9 @@ include "%L"
 <Multi_key> <Multi_key> <p> <o> <t> <a> <t> <o>             : "🥔" U1F954 # POTATO
 <Multi_key> <Multi_key> <s> <a> <t> <s> <u> <m> <a>         : "🍠" U1F360 # ROASTED SWEET POTATO
 <Multi_key> <Multi_key> <y> <a> <k> <i> <i> <m> <o>         : "🍠" U1F360 # ROASTED SWEET POTATO
+<Multi_key> <Multi_key> <r> <o> <o> <t>                     : "🫜" U1FADC # ROOT VEGETABLE
+<Multi_key> <Multi_key> <t> <u> <r> <n> <i> <p>             : "🫜" U1FADC # ROOT VEGETABLE
+<Multi_key> <Multi_key> <k> <a> <b> <u>                     : "🫜" U1FADC # ROOT VEGETABLE
 <Multi_key> <Multi_key> <a> <u> <b> <e> <r> <g>             : "🍆" U1F346 # AUBERGINE
 <Multi_key> <Multi_key> <t> <o> <m> <a> <t> <o>             : "🍅" U1F345 # TOMATO
 <Multi_key> <Multi_key> <l> <e> <l> <t> <u> <c> <e>         : "🥬" U1F96C # LEAFY GREEN
