@@ -8,10 +8,10 @@
 
 # Download all the variants of the Fira Code Nerd Font
 {{-   range $_, $face := list "Regular" "Light" "Medium" "Bold" "Retina" "SemiBold" -}}
-{{-     range $_, $variant := list "" " Mono" }}
-{{ $fontFolder }}/Fira Code {{ $face }} Nerd Font Complete{{ $variant }}.ttf:
+{{-     range $_, $variant := list "" "Mono" }}
+{{ $fontFolder }}/FiraCodeNerdFont{{ $variant }}-{{ $face }}.ttf:
   type: file
-  url: https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/{{ $face }}/complete/Fira%20Code%20{{ $face }}%20Nerd%20Font%20Complete{{ $variant | replace " " "%20" }}{{ $suffix | replace " " "%20" }}.ttf
+  url: https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/{{ $face }}/FiraCodeNerdFont{{ $variant }}-{{ $face }}.ttf
 {{-     end -}}
 {{-   end -}}
 {{- end }}
