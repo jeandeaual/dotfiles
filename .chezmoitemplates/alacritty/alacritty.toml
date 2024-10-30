@@ -7,7 +7,7 @@
 {{-   $tmux = "/opt/homebrew/bin/tmux" -}}
 {{- end }}
 
-[shell]
+[terminal.shell]
 program = {{ $shell | quote }}
 # Start tmux when launching Alacritty
 {{- if regexMatch "elvish$" $shell }}
