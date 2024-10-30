@@ -3,7 +3,7 @@
 
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from collections import defaultdict
-from collections.abc import Generator, Sequence
+from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
@@ -171,9 +171,7 @@ def parse_xcompose_line(line: str, line_number: int) -> Optional[Entry]:
     return Entry(symbol, comment, line_number, keys)
 
 
-def get_entries(
-    entries: Union[EntryDict, Entry]
-) -> Generator[Entry, None, None]:
+def get_entries(entries: Union[EntryDict, Entry]) -> Iterator[Entry]:
     """Iterate over all ``Entry`` in an ``EntryDict``."""
     if isinstance(entries, Entry):
         yield entries
