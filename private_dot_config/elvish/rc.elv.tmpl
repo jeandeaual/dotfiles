@@ -46,6 +46,8 @@ try {
   edit:add-var step~ $work:step~
   edit:add-var airis-create-superuser~ $work:airis-create-superuser~
   edit:add-var airis-token~ $work:airis-token~
+  edit:add-var gcp-argocd~ $work:gcp-argocd~
+  edit:add-var gcp-argowf~ $work:gcp-argowf~
 } catch _ {
   # The work module might not be available on some machines
 }
@@ -226,6 +228,14 @@ if (has-external kubectl) {
   }
   edit:add-var kdeleteevicted~ $kdeleteevicted~
 }
+
+{{- if eq .chezmoi.os "linux" }}
+if (has-external systemctl) {
+  fn userctl {|@a| systemctl --user $@a }
+  edit:add-var userctl~ $userctl~
+}
+{{- end }}
+
 if (has-external helm) {
   fn h {|@a| helm $@a }
   edit:add-var h~ $h~
@@ -241,8 +251,20 @@ if (has-external podman) {
 fn cp {|@a| e:cp -v $@a }
 fn mv {|@a| e:mv -v $@a }
 fn rm {|@a| e:rm -v $@a }
-if (has-external exa) {
-  fn ls {|@a| exa --group-directories-first $@a }
+# cat replacement
+if (has-external bat) {
+  fn bathelp {|@a| bat --plain --language=help $@a }
+  edit:add-var bathelp~ $bathelp~
+
+  # Syntax highlight --help messages
+  fn help {|@a|
+    $@a --help 2>&1 | bathelp
+  }
+  edit:add-var help~ $help~
+}
+# ls replacement
+if (has-external eza) {
+  fn ls {|@a| eza --group-directories-first $@a }
   edit:add-var ls~ $ls~
   fn la {|@a| ls -a $@a }
   edit:add-var la~ $la~
@@ -456,19 +478,19 @@ if (has-external flac) {
   }
 }
 {{ range $i, $cmd := list "mkvmerge" "ffmpeg" }}
-{{ if eq $i 0 }}if{{ else }}elif{{ end }} (has-external {{ $cmd }}) {
+{{ if eq $i 0 }}if{{ else }}} elif{{ end }} (has-external {{ $cmd }}) {
   # Remux MTS and M2TS files to MKV"
   fn mpeg2mkv {|&clean=$false|
     for file [**[type:regular].ts **[type:regular].m2t **[type:regular].m2ts] {
       var mkv = re:replace (path:ext $file)'$' .mkv $file
 {{ if eq $cmd "mkvmerge" }}
-      mkvmerge -o $mkv $f
+      mkvmerge -o $mkv $file
 {{- else if eq $cmd "ffmpeg" }}
-      ffmpeg -i $f -scodec copy -acodec copy -vcodec copy -f matroska $mkv
+      ffmpeg -i $file -scodec copy -acodec copy -vcodec copy -f matroska $mkv
 {{- end }}
 
       if ($clean) {
-        rm -f $f
+        rm -f $file
       }
 
       if (has-external mkclean) {
@@ -476,6 +498,7 @@ if (has-external flac) {
 
         mkclean $mkv $clean_mkv; rm -f $mkv; mv $clean_mkv $mkv
       }
+    }
   }
 {{- end }}
 }

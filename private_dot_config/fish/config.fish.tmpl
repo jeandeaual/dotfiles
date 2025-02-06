@@ -168,6 +168,14 @@ if type -q kubectl
     status --is-interactive; and kubectl completion fish | source
 end
 
+{{- if eq .chezmoi.os "linux" }}
+if type -q systemctl
+    function userctl
+        systemctl --user $argv
+    end
+end
+{{- end }}
+
 if type -q helm
     function h
         helm $argv
@@ -198,9 +206,21 @@ function rm
     command rm -v $argv
 end
 
-if type -q exa
+# cat replacement
+if type -q bat
+    function bathelp
+        bat --plain --language=help $argv
+    end
+
+    function help --description "Syntax highlight --help messages"
+        $argv --help 2>&1 | bathelp
+    end
+end
+
+# ls replacement
+if type -q eza
     function ls
-        exa --group-directories-first $argv
+        eza --group-directories-first $argv
     end
 
     function la

@@ -79,6 +79,12 @@ if (($+commands[gh])); then
     eval "$(gh copilot alias -- zsh)"
 fi
 
+if (($+commands[bat])); then
+    # Syntax highlight --help messages
+    # https://github.com/sharkdp/bat?tab=readme-ov-file#highlighting---help-messages
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+fi
+
 # Prompt
 # shellcheck disable=SC2154
 if (($+commands[starship])); then

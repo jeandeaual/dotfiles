@@ -87,6 +87,14 @@ if (Get-Command kubectl -ErrorAction SilentlyContinue) {
     Set-Alias k kubectl
 }
 
+{{- if eq .chezmoi.os "linux" }}
+if (Get-Command systemctl -ErrorAction SilentlyContinue) {
+    function userctl {
+        systemctl --user $args
+    }
+}
+{{- end }}
+
 if (Get-Command helm -ErrorAction SilentlyContinue) {
     Set-Alias h helm
 }

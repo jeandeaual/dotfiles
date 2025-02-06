@@ -189,6 +189,10 @@ openport() {
     UPPER_BOUND=$2
     comm -23 <(seq ${LOW_BOUND} ${UPPER_BOUND} | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf | head -n 1
 }
+
+if command -v systemctl >/dev/null; then
+    alias userctl='systemctl --user'
+fi
 {{- end }}
 if command -v helm >/dev/null; then
     alias h=helm
@@ -202,8 +206,18 @@ fi
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
-if command -v exa >/dev/null; then
-    alias ls='exa --group-directories-first'
+# cat replacement
+if command -v bat >/dev/null; then
+    alias bathelp='bat --plain --language=help'
+
+    # Syntax highlight --help messages
+    help() {
+        "$@" --help 2>&1 | bathelp
+    }
+fi
+# ls replacement
+if command -v eza >/dev/null; then
+    alias ls='eza --group-directories-first'
     alias la='ls -a'
     alias ll='ls --git -al'
 

@@ -303,6 +303,7 @@ include "%L"
 <Multi_key> <Right> <h> <o> <o> <k>       : "↪" U21AA # RIGHTWARDS ARROW WITH HOOK
 <Multi_key> <Right> <Up>                  : "⤴" U2934 # ARROW POINTING RIGHTWARDS THEN CURVING UPWARDS
 <Multi_key> <Right> <Down>                : "⤵" U2935 # ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
+<Multi_key> <Right> <Left>                : "⇄" U21C4 # RIGHTWARDS ARROW OVER LEFTWARDS ARROW
 
 # Double arrows {{{2
 
@@ -3794,7 +3795,7 @@ include "%L"
 <Multi_key> <Multi_key> <s> <k> <u> <n> <k>                   : "🦨" U1F9A8 # SKUNK
 <Multi_key> <Multi_key> <f> <m> <o> <n> <k> <e> <y>           : "🐵" U1F435 # MONKEY FACE
 <Multi_key> <Multi_key> <g> <o> <r> <i> <l> <l> <a>           : "🦍" U1F98D # GORILLA
-<Multi_key> <Multi_key> <o> <a> <n> <g> <u> <t> <a> <n>       : "🦧" U1F9A7 # ORANGUTAN
+<Multi_key> <Multi_key> <o> <r> <a> <n> <g> <u> <t> <a> <n>   : "🦧" U1F9A7 # ORANGUTAN
 <Multi_key> <Multi_key> <m> <o> <s> <q> <u> <i> <t> <o>       : "🦟" U1F99F # MOSQUITO
 <Multi_key> <Multi_key> <s> <a> <u> <r> <o> <p> <o> <d>       : "🦕" U1F995 # SAUROPOD
 <Multi_key> <Multi_key> <d> <i> <n> <o>                       : "🦕" U1F995 # SAUROPOD
@@ -4750,6 +4751,7 @@ include "%L"
 <Multi_key> <Multi_key> <b> <r> <i> <g> <h> <t>             : "🔆" U1F506 # BRIGHT BUTTON
 <Multi_key> <Multi_key> <e> <l> <e> <v> <a> <t> <o> <r>     : "🛗" U1F6D7 # ELEVATOR
 <Multi_key> <Multi_key> <l> <i> <t> <t> <e> <r>             : "🚮" U1F6AE # LITTER IN BIN SIGN
+<Multi_key> <Multi_key> <p> <o> <i>                         : "🚮" U1F6AE # LITTER IN BIN SIGN
 <Multi_key> <Multi_key> <p> <o> <t> <a> <b> <l> <e>         : "🚰" U1F6B0 # POTABLE WATER
 <Multi_key> <Multi_key> <m> <W> <C>                         : "🚹" U1F6B9 # MEN’S ROOM
 <Multi_key> <Multi_key> <w> <W> <C>                         : "🚺" U1F6BA # WOMEN’S ROOM
@@ -5121,11 +5123,13 @@ include "%L"
 <Multi_key> <Multi_key> <s> <e> <r> <v> <i> <c> <e>             : "🈂️" U1F202 UFE0F # JAPANESE “SERVICE CHARGE” BUTTON (emoji version of 🈂)
 <Multi_key> <Multi_key> <m> <o> <n> <t> <h>                     : "🈷️" U1F237 UFE0F # JAPANESE “MONTHLY AMOUNT” BUTTON (emoji version of 🈷)
 <Multi_key> <Multi_key> <p> <a> <y> <a> <n> <t>                 : "🈶" U1F236 # JAPANESE “NOT FREE OF CHARGE” BUTTON
+<Multi_key> <Multi_key> <y> <u> <u> <r> <y> <o> <u>             : "🈶" U1F236 # JAPANESE “NOT FREE OF CHARGE” BUTTON
+<Multi_key> <Multi_key> <m> <u> <r> <y> <o> <u>                 : "🈚" U1F21A # JAPANESE “FREE OF CHARGE” BUTTON
 <Multi_key> <Multi_key> <s> <h> <i> <t> <e> <i>                 : "🈯" U1F22F # JAPANESE “RESERVED” BUTTON
 <Multi_key> <Multi_key> <r> <e> <s> <e> <r> <v> <e> <d>         : "🈯" U1F22F # JAPANESE “RESERVED” BUTTON
 <Multi_key> <Multi_key> <t> <o> <k> <u>                         : "🉐" U1F250 # JAPANESE “BARGAIN” BUTTON
+<Multi_key> <Multi_key> <o> <t> <o> <k> <u>                     : "🉐" U1F250 # JAPANESE “BARGAIN” BUTTON
 <Multi_key> <Multi_key> <w> <a> <r> <i>                         : "🈹" U1F239 # JAPANESE “DISCOUNT” BUTTON
-<Multi_key> <Multi_key> <m> <u> <r> <y> <o>                     : "🈚" U1F21A # JAPANESE “FREE OF CHARGE” BUTTON
 <Multi_key> <Multi_key> <k> <i> <n> <s> <h> <i>                 : "🈲" U1F232 # JAPANESE “PROHIBITED” BUTTON
 <Multi_key> <Multi_key> <p> <r> <o> <h> <i>                     : "🈲" U1F232 # JAPANESE “PROHIBITED” BUTTON
 <Multi_key> <Multi_key> <a> <c> <c> <e> <p> <t> <a> <b> <l> <e> : "🉑" U1F251 # JAPANESE “ACCEPTABLE” BUTTON
@@ -5134,11 +5138,11 @@ include "%L"
 <Multi_key> <Multi_key> <g> <o> <u>                             : "🈴" U1F234 # JAPANESE “PASSING GRADE” BUTTON
 <Multi_key> <Multi_key> <a> <k> <i>                             : "🈳" U1F233 # JAPANESE “VACANCY” BUTTON
 <Multi_key> <Multi_key> <v> <a> <c> <a> <n> <t>                 : "🈳" U1F233 # JAPANESE “VACANCY” BUTTON
+<Multi_key> <Multi_key> <f> <u> <l> <l>                         : "🈵" U1F235 # JAPANESE “NO VACANCY” BUTTON
 <Multi_key> <Multi_key> <i> <w> <a> <i>                         : "㊗️" U3297 UFE0F # CIRCLED IDEOGRAPH CONGRATULATION (emoji version of ㊗)
 <Multi_key> <Multi_key> <h> <i> <m> <i> <t> <s> <u>             : "㊙️" U3299 UFE0F # JAPANESE “SECRET” BUTTON (emoji version of ㊙)
 <Multi_key> <Multi_key> <e> <i> <g> <y> <o>                     : "🈺" U1F23A # JAPANESE “OPEN FOR BUSINESS” BUTTON
 <Multi_key> <Multi_key> <o> <p> <e> <n>                         : "🈺" U1F23A # JAPANESE “OPEN FOR BUSINESS” BUTTON
-<Multi_key> <Multi_key> <f> <u> <l> <l>                         : "🈵" U1F235 # JAPANESE “NO VACANCY” BUTTON
 
 # Flags {{{2
 
